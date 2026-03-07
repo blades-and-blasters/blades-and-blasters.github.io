@@ -1744,9 +1744,81 @@ export const classes: CharacterClass[] = [
         id: "juggernaut",
         name: "Juggernaut",
         parentClass: "sith-warrior",
-        description: "TODO",
-        classResource: undefined,
-        features: [],
+        description: "Juggernauts transform themselves into unstoppable forces of destruction, channeling hatred into defensive power and retaliatory strikes that punish those who dare challenge them.",
+        features: [
+          {
+            level: 3,
+            name: "Channel Hatred",
+            description: "Channel your hatred into your body, strengthening your sinews and bone. Gain Resistance to all damage.",
+            type: "passive",
+          },
+          {
+            level: 3,
+            name: "Pain upon Pain",
+            description: "After taking more than 1/10th of your maximum HP in a single turn, deal 1d8 damage in a 10ft radius. Costs 40 Rage.",
+            type: "active",
+          },
+          {
+            level: 3,
+            name: "Master of Terror",
+            description: "As a reaction, when you take damage, force three enemies within 10ft to pass a Wisdom save or have disadvantage when attacking you. Costs 40 Rage.",
+            type: "active",
+          },
+          {
+            level: 3,
+            name: "Contemptuous Taunt",
+            description: "Force an enemy within 30ft to make a Wisdom save. If they fail, they must spend their full movement moving towards you, and must attack you when they reach you. Costs 40 Rage.",
+            type: "active",
+          },
+          {
+            level: 3,
+            name: "Implacable Advance",
+            description: "For one turn, your advance cannot be stopped. Your movement speed cannot be reduced, you ignore difficult terrain, and you cannot be knocked prone. Make a lightsaber attack against every single enemy you pass within 5ft of. Costs 60 Rage.",
+            type: "active",
+          },
+          {
+            level: 3,
+            name: "Spiteful Rebuke",
+            description: "When you take damage, immediately lash out in return. As a reaction, make an attack at advantage. Costs 60 Rage.",
+            type: "active",
+          },
+          {
+            level: 3,
+            name: "Crushing Blow",
+            description: "After landing a lightsaber attack, overpower your enemy. Deal an additional 2d8 damage and force them to make a Constitution save. If they fail, they become stunned for two turns. Costs 80 Rage.",
+            type: "active",
+          },
+          {
+            level: 3,
+            name: "Executioner's Grip",
+            description: "After hitting an enemy, brutally grip them. They must make a Strength save. If they fail, they become Grappled, Restrained, and lose 2d6 HP per turn. They may attempt to break out with an Athletics check each turn. Until they do, or a minute passes, you may drag them freely without impeding your movement. If an enemy makes an attack against you, you may use a reaction to drag your gripped target in the way of the attack. The enemy gains advantage, and all damage taken is directed towards your gripped target. Costs 100 Rage.",
+            type: "active",
+          },
+          {
+            level: 3,
+            name: "Overwhelming Hatred",
+            description: "For the next two turns, your attacks deal an additional 1d8 damage. Upon hitting, the target will be pushed back 15ft. If they collide with a solid object, they will take an additional 2d6 damage. Costs 100 Rage.",
+            type: "active",
+          },
+          {
+            level: 7,
+            name: "Pain is Fuel",
+            description: "Gain an additional 5 Rage per instance of damage taken.",
+            type: "passive",
+          },
+          {
+            level: 10,
+            name: "Inescapable Doom",
+            description: "Enemies cannot disengage from you.",
+            type: "passive",
+          },
+          {
+            level: 13,
+            name: "Pain is Power",
+            description: "Upon dropping to 0 HP while Channeling Hatred, instead drop to 1hp. Channel Hatred immediately ends.",
+            type: "passive",
+          },
+        ]
       },
     ],
   },
@@ -3078,6 +3150,16 @@ export interface ChangelogEntry {
 }
 
 export const changelog: ChangelogEntry[] = [
+  {
+    version: "0.2.2",
+    date: "2026-03-07",
+    summary: "Completed Juggernaut subclass with all 12 abilities and level-based bonuses.",
+    changes: [
+      { category: "Subclass", description: "Juggernaut: Added Channel Hatred passive with damage resistance." },
+      { category: "Subclass", description: "Juggernaut: Added 9 Channel Hatred abilities (Pain upon Pain, Master of Terror, Contemptuous Taunt, Implacable Advance, Spiteful Rebuke, Crushing Blow, Executioner's Grip, Overwhelming Hatred)." },
+      { category: "Subclass", description: "Juggernaut: Added level-based bonuses (Pain is Fuel at 7, Inescapable Doom at 10, Pain is Power at 13)." },
+    ],
+  },
   {
     version: "0.2.1",
     date: "2026-03-05",
