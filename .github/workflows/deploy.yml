@@ -52,7 +52,7 @@ jobs:
 
       - name: Build
         env:
-          GITHUB_PAGES_BASE: /rules/
+          GITHUB_PAGES_BASE: /ruleset/
         run: pnpm build
 
       - name: Setup Pages
