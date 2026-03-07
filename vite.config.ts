@@ -166,16 +166,14 @@ export default defineConfig({
   },
   envDir: path.resolve(import.meta.dirname),
   root: path.resolve(import.meta.dirname, "client"),
-  base: githubPagesBase,
+  base: '/home/',
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
   },
   // GitHub Pages: Set GITHUB_PAGES_BASE env var if deploying to a subdirectory
   // Example: GITHUB_PAGES_BASE=/blades_and_blasters/ for github.com/username/blades_and_blasters
-  export default defineConfig({
-  base: '/home/',
-})
+
   server: {
     port: 3000,
     strictPort: false, // Will find next available port if 3000 is busy
