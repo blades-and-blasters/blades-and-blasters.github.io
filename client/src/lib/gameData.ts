@@ -214,6 +214,13 @@ export const classes: CharacterClass[] = [
         maxValue: "1 per level",
         recharge: "Long rest",
       },
+	  {
+		name: "Force Abilities Known",
+        description:
+          "Used to power Force abilities. Gain 1 per level.",
+        maxValue: "1 per level",
+        recharge: "Long rest",
+	  },
     ],
     features: [
       {
@@ -441,6 +448,13 @@ export const classes: CharacterClass[] = [
         maxValue: "2 per level",
         recharge: "Long rest",
       },
+	  {
+		name: "Force Abilities Known",
+        description:
+          "Used to power Force abilities. Gain 1 per level.",
+        maxValue: "1 per level",
+        recharge: "Long rest",
+	  },
     ],
     features: [
       {
