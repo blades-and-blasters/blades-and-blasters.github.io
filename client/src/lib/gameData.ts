@@ -3165,6 +3165,15 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
   {
+    version: "0.2.3",
+    date: "2026-03-09",
+    summary: "Gave Force Ability knowledge to Consular and Knight.",
+    changes: [
+      { category: "Subclass", description: "Knight: Gave 1 Force Ability known per level." },
+      { category: "Subclass", description: "Consular: Gave 1 Force Ability known per level." },
+    ],
+  },
+  {
     version: "0.2.2",
     date: "2026-03-07",
     summary: "Completed Juggernaut subclass with all 12 abilities and level-based bonuses.",
