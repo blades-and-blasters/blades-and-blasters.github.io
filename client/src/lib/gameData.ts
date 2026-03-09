@@ -493,14 +493,14 @@ export const classes: CharacterClass[] = [
       },
       {
         level: 5,
-        name: "Extra Attack",
-        description: "You can attack twice whenever you take the Attack action.",
+        name: "Synergy",
+        description: "When you attack, you may use a Force Ability for no action cost.",
         type: "passive",
       },
       {
         level: 6,
         name: "There is no Emotion, There is Peace",
-        description: "Gain Advantage on Wisdom saving throws against fear and charm effects.",
+        description: "By Concentrating for one round, gain the ability to double the effect, capacity, and damage of any Force Ability. For abilities that require saving throws, gain Advantage on them if beneficial, or force Disadvantage if forcing it upon an enemy.",
         type: "passive",
       },
       {
@@ -1089,7 +1089,7 @@ export const classes: CharacterClass[] = [
             level: 10,
             name: "A Little Extra for Everyone",
             description:
-              "Presents can have their damage doubled by doubling the energy cost. Increase Energy total to 150.",
+              "Presents can have their damage doubled by doubling the energy cost. Alternatively, combine the effects of two different Presents(but not the damage) by adding both Presents' Energy costs together. Increase Energy total to 150.",
             type: "passive",
           },
           {
@@ -3165,12 +3165,22 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
   {
+    version: "0.2.3.1",
+    date: "2026-03-09",
+    summary: "Adjusted subclasses based off of beta testing. ",
+    changes: [
+      { category: "Subclass", description: "Scoundrel: Gave the ability to combine Present effects at level 13." },
+      { category: "Class", description: "Consular: Now have attack + force ability at level 5, not extra attack." },
+	  { category: "Class", description: "Consular: Gave the ability to enhance abilities via Concentration."},
+    ],
+  },
+  {
     version: "0.2.3",
     date: "2026-03-09",
     summary: "Gave Force Ability knowledge to Consular and Knight.",
     changes: [
-      { category: "Subclass", description: "Knight: Gave 1 Force Ability known per level." },
-      { category: "Subclass", description: "Consular: Gave 1 Force Ability known per level." },
+      { category: "Class", description: "Knight: Gave 1 Force Ability known per level." },
+      { category: "Class", description: "Consular: Gave 1 Force Ability known per level." },
     ],
   },
   {
