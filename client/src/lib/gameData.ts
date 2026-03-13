@@ -203,7 +203,7 @@ export const classes: CharacterClass[] = [
       {
         name: "Focus",
         description:
-          "Starts at 0, increases up to 100. Gain 10 Focus upon landing a hit, lose 5 Focus upon being damaged. May exchange 20 Focus for one Force Point.",
+          "Starts at 0, increases up to 100. Gain 20 Focus upon landing a hit while below 50 Focus, and 10 Focus upon landing a hit while at or above 50 focus. May exchange 20 Focus for one Force Point.",
         maxValue: 100,
         recharge: "Gained in combat",
       },
@@ -572,6 +572,20 @@ export const classes: CharacterClass[] = [
             name: "Balance Thresholds",
             description:
               "85–100: Downgrade Lightsaber damage by two die sizes. Double targets and range of all Force abilities, gain +3 to Spellcasting Modifier.\n\n70–85: Downgrade Lightsaber damage by one die size. Gain +2 to Spellcasting Modifier.\n\n55–70: Increase Force ability damage by 1d6.\n\n45–55: Gain 1 Force Point per round while in combat.\n\n30–45: Deal an additional 1d4 damage on Lightsaber hits.\n\n15–30: Double the Force Point cost of all abilities. Gain +2 to hit with Lightsabers.\n\n0–15: Lose the ability to use Force abilities. Gain +2 to Dexterity saves and the ability to reflect blaster bolts. Gain +3 to hit and to damage for Lightsabers.",
+            type: "passive",
+          },
+		  {
+            level: 3,
+            name: "One with the Force",
+            description:
+              "During a Short Rest, gain the ability to recover 1 Force Point per hit dice spent. You may use hit dice even when at full health for this.",
+            type: "passive",
+          },
+		  {
+            level: 5,
+            name: "Restorative Balance",
+            description:
+              "When starting your turn below 40 Focus, gain Extra Attack, but lose the ability to cast Force Abilities for no action cost after attacking.",
             type: "passive",
           },
           {
@@ -1922,7 +1936,7 @@ export const forceAbilities: ForceAbility[] = [
     actionType: "Attack",
     range: "30ft",
     description:
-      "Throw your lightsaber, making a normal attack within 30ft range. If this misses your first target, you may redirect it onto a second target, making another attack. If this misses, your saber returns to your hand.",
+      "Throw your lightsaber, making a normal attack within 30ft range. If this misses your first target, you may redirect it onto a second target, making another attack. If this misses, your saber returns to your hand. For the purposes of class resources, counts as a lightsaber attack. If wielding a Versatile weapon, use the one-handed damage numbers.",
     tags: ["Attack", "Lightsaber"],
   },
   {
@@ -1942,7 +1956,7 @@ export const forceAbilities: ForceAbility[] = [
     actionType: "Action",
     range: "Close",
     description:
-      "Grab and crush an enemy, dealing 8d6 damage. On a successful Strength save, take half damage.",
+      "Concentrate for one turn. At the beginning of your next turn, grab and crush an enemy, dealing 8d6 damage. On a successful Strength save, deal half damage.",
     tags: ["Telekinesis", "Damage"],
   },
   {
@@ -1962,7 +1976,7 @@ export const forceAbilities: ForceAbility[] = [
     actionType: "Bonus Action",
     range: "Battlefield",
     description:
-      "Determine what every single enemy on the battlefield is going to do in the next round.",
+      "Determine what three enemies on the battlefield are going to do in the next round.",
     tags: ["Divination", "Tactical"],
   },
   {
@@ -3164,6 +3178,19 @@ export interface ChangelogEntry {
 }
 
 export const changelog: ChangelogEntry[] = [
+{
+    version: "0.2.4",
+    date: "2026-03-13",
+    summary: "Adjusted subclasses based off of beta testing, times two.",
+    changes: [
+      { category: "Class", description: "Adjusted Knight early focus gain and removed Focus loss on damage to make opening fights feel better." },
+      { category: "Subclass", description: "Sage: Adjusted low balance to give extra attack and lose Force free action usage to prioritize rubber-banding." },
+      { category: "Subclass", description: "Sage: Gave limited ability to regenerate Force Points off of short rests based off of hit dice usage to allow for more freedom while forcing costs." },
+	  { category: "Force Ability", description: "Nerfed Force Crush to require one turn of channeling to compensate for the ridiculous damage."},
+	  { category: "Force Ability", description: "Nerfed Battle Precognition from all enemies to three enemies to save DM sanity."},
+	  { category: "Force Ability", description: "Clarified Saber Throw."},
+    ],
+  },
   {
     version: "0.2.3.1",
     date: "2026-03-09",
@@ -3177,7 +3204,7 @@ export const changelog: ChangelogEntry[] = [
   {
     version: "0.2.3",
     date: "2026-03-09",
-    summary: "Gave Force Ability knowledge to Consular and Knight.",
+    summary: "Gave Force Ability knowledge to Consular and nsul.",
     changes: [
       { category: "Class", description: "Knight: Gave 1 Force Ability known per level." },
       { category: "Class", description: "Consular: Gave 1 Force Ability known per level." },
