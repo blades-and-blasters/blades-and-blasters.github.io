@@ -1173,7 +1173,7 @@ export const classes: CharacterClass[] = [
         type: "subclass",
       },
 	  {
-        level: 8,
+        level: 4,
         name: "Ability Score Improvement",
         description:
           "Increase one ability score by 2, or two ability scores by 1 each.",
