@@ -1172,6 +1172,13 @@ export const classes: CharacterClass[] = [
         description: "Choose a Subclass: Operative or Sniper.",
         type: "subclass",
       },
+	  {
+        level: 8,
+        name: "Ability Score Improvement",
+        description:
+          "Increase one ability score by 2, or two ability scores by 1 each.",
+        type: "asi",
+      },
       {
         level: 5,
         name: "Tactical Infiltrator",
@@ -3178,6 +3185,14 @@ export interface ChangelogEntry {
 }
 
 export const changelog: ChangelogEntry[] = [
+{
+    version: "0.2.4.1",
+    date: "2026-03-16",
+    summary: "Gave Agent their proper ASIs.",
+    changes: [
+      { category: "Class", description: "Gave Agent a level 4 ASI." },
+    ],
+  },
 {
     version: "0.2.4",
     date: "2026-03-13",
