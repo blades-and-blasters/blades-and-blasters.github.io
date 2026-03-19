@@ -3322,6 +3322,16 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
 {
+    version: "0.2.5",
+    date: "2026-03-19",
+    summary: "Added Inquisitor, added Feats skeleton, adjusted formatting",
+    changes: [
+      { category: "Class", description: "Added Inquisitor." },
+      { category: "General", description: "Added Feats skeleton for further fleshing out." },
+      { category: "General", description: "Adjusted colors to avoid repeats" },
+    ],
+  },
+{
     version: "0.2.4.1",
     date: "2026-03-16",
     summary: "Gave Agent their proper ASIs.",
