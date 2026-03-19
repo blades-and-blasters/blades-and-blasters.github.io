@@ -10,7 +10,10 @@ export type ClassAccent =
   | "red"
   | "amber"
   | "green"
-  | "orange";
+  | "orange"
+  | "cyan"
+  | "yellow"
+  | "purple";
 
 export interface ClassResource {
   name: string;
@@ -691,7 +694,7 @@ export const classes: CharacterClass[] = [
   {
     id: "trooper",
     name: "Trooper",
-    accent: "red",
+    accent: "cyan",
     tagline: "Soldier, survivor, weapon of war.",
     description:
       "The Trooper is a heavily-armored combatant proficient with all weapons and armor. They rely on Energy Cells to power special shots and gadgets, and their Action Surge ability lets them push beyond normal limits in critical moments.",
@@ -1353,7 +1356,7 @@ export const classes: CharacterClass[] = [
   {
     id: "bounty-hunter",
     name: "Bounty Hunter",
-    accent: "orange",
+    accent: "yellow",
     tagline: "The galaxy's most dangerous profession.",
     description:
       "The Bounty Hunter is a gadget-focused warrior who combines fighting styles with an ever-growing arsenal of technology. Their Companion Droid or Heat-based arsenal makes them uniquely adaptable to any situation.",
@@ -1860,20 +1863,129 @@ export const classes: CharacterClass[] = [
   {
     id: "sith-inquisitor",
     name: "Sith Inquisitor",
-    accent: "red",
-    tagline: "TODO",
-    description: "TODO",
+    accent: "purple",
+    tagline: "Power through passion, victory through pain.",
+    description:
+      "The Sith Inquisitor is a Force-wielding predator who weaponizes aggression itself. By embracing Recklessness — sacrificing defense for raw offensive power — they chain abilities together in a cascade of dark side destruction. The Sith Code is not merely a philosophy for the Inquisitor: it is a combat engine, each tenet unlocking a new tier of lethal capability.",
     hitDie: "1d8",
-    armorProficiencies: ["TODO"],
-    weaponProficiencies: ["TODO"],
-    savingThrows: ["TODO"],
+    armorProficiencies: ["Light", "Medium"],
+    weaponProficiencies: ["Lightsabers"],
+    savingThrows: ["Strength", "Dexterity"],
     skills: {
       choose: 2,
-      from: ["TODO"],
+      from: [
+        "Athletics",
+        "Deception",
+        "Insight",
+        "Intimidation",
+        "Lore",
+        "Perception",
+        "Persuasion",
+        "Piloting",
+      ],
     },
-    spellcastingAbility: "TODO",
-    resources: [],
-    features: [],
+    spellcastingAbility: "Charisma",
+    resources: [
+      {
+        name: "Force Points",
+        description:
+          "Gain 2 Force Points per level. Used to power Force abilities.",
+        maxValue: "2 per level",
+        recharge: "Long rest",
+      },
+    ],
+    features: [
+      {
+        level: 1,
+        name: "Lightsaber Stance",
+        description:
+          "Select a Lightsaber Stance to specialize in. Each stance provides a unique combat bonus.",
+        type: "passive",
+      },
+      {
+        level: 2,
+        name: "Recklessness",
+        description:
+          "Sacrifice 2 AC until the end of your next turn. Gain +2 to spell save DC and spell attack rolls. If Recklessness is used again on the following turn, increase all costs and gains by 2 (−4 AC, +4 to DC and rolls), stacking with each consecutive use.",
+        type: "active",
+      },
+      {
+        level: 3,
+        name: "Subclass",
+        description: "Pick a subclass: Alchemist or Sorcerer.",
+        type: "subclass",
+      },
+      {
+        level: 4,
+        name: "Ability Score Improvement",
+        description:
+          "Increase one ability score by 2, or two ability scores by 1 each.",
+        type: "asi",
+      },
+      {
+        level: 5,
+        name: "Peace is a Lie, There is only Passion",
+        description:
+          "Upon entering combat, gain Force Points equal to half your level (rounded down).",
+        type: "passive",
+      },
+      {
+        level: 6,
+        name: "Through Passion, I Gain Strength",
+        description:
+          "Upon dealing ability damage, deal half that damage (rounded down) to a target you damaged with an ability on your next turn. If you dealt ability damage to multiple targets, use the highest damage instance.",
+        type: "passive",
+      },
+      {
+        level: 8,
+        name: "Ability Score Improvement",
+        description:
+          "Increase one ability score by 2, or two ability scores by 1 each.",
+        type: "asi",
+      },
+      {
+        level: 9,
+        name: "Through Strength, I Gain Power",
+        description:
+          "Upon killing a target, gain AC equal to 1/6th of their AC (rounded down) for two turns. May be triggered twice per short rest.",
+        type: "active",
+      },
+      {
+        level: 11,
+        name: "Through Power, I Gain Victory",
+        description:
+          "Upon killing a target, gain the ability to cast one Force ability without consuming an action or any Force Points. May only trigger once per turn.",
+        type: "passive",
+      },
+      {
+        level: 12,
+        name: "Ability Score Improvement",
+        description:
+          "Increase one ability score by 2, or two ability scores by 1 each.",
+        type: "asi",
+      },
+      {
+        level: 14,
+        name: "Through Victory, my Chains are Broken",
+        description:
+          "You no longer trigger attacks of opportunity. You may no longer be moved against your will by any means.",
+        type: "passive",
+      },
+      {
+        level: 16,
+        name: "Ability Score Improvement",
+        description:
+          "Increase one ability score by 2, or two ability scores by 1 each.",
+        type: "asi",
+      },
+      {
+        level: 18,
+        name: "The Force shall Free Me",
+        description:
+          "Upon dying, transfer your soul into the nearest compatible body within one mile, forcing them to make a Wisdom saving throw. On a failure, possess them — overwriting their soul and body with your own and gaining all of their current hit points. On a success, become a bodiless Force Ghost that may attempt to possess any compatible body within one mile of your corpse or place of death. Your current Recklessness bonuses apply to your initial possession attempt.",
+        type: "active",
+      },
+    ],
     subclasses: [
       {
         id: "alchemist",
@@ -1889,7 +2001,7 @@ export const classes: CharacterClass[] = [
         description: "TODO",
         features: [],
       },
-    ]
+    ],
   },
 ];
 
@@ -2534,6 +2646,30 @@ export const accentColorMap: Record<ClassAccent, {
     bgMuted: "bg-orange-400/10",
     glow: "glow-orange",
     badge: "text-orange-400 border-orange-400/50 bg-orange-400/10",
+  },
+  cyan: {
+    text: "text-cyan-400",
+    border: "border-cyan-400",
+    bg: "bg-cyan-400",
+    bgMuted: "bg-cyan-400/10",
+    glow: "glow-cyan",
+    badge: "text-cyan-400 border-cyan-400/50 bg-cyan-400/10",
+  },
+  yellow: {
+    text: "text-yellow-400",
+    border: "border-yellow-400",
+    bg: "bg-yellow-400",
+    bgMuted: "bg-yellow-400/10",
+    glow: "glow-yellow",
+    badge: "text-yellow-400 border-yellow-400/50 bg-yellow-400/10",
+  },
+  purple: {
+    text: "text-purple-400",
+    border: "border-purple-400",
+    bg: "bg-purple-400",
+    bgMuted: "bg-purple-400/10",
+    glow: "glow-purple",
+    badge: "text-purple-400 border-purple-400/50 bg-purple-400/10",
   },
 };
 
@@ -3267,4 +3403,32 @@ export const changelog: ChangelogEntry[] = [
       { category: "Stance", description: "Published 7 Lightsaber Stances and 6 Fighting Styles." },
     ],
   },
+];
+
+// ─────────────────────────────────────────────────────────────────────────────
+// FEATS
+// ─────────────────────────────────────────────────────────────────────────────
+export type FeatCategory =
+  | "Combat"
+  | "Force"
+  | "Utility"
+  | "Social"
+  | "Technical";
+
+export interface FeatPrerequisite {
+  description: string;
+}
+
+export interface Feat {
+  id: string;
+  name: string;
+  category: FeatCategory;
+  description: string;
+  prerequisites?: FeatPrerequisite[];
+  /** Optional mechanical benefit summary (e.g. "+1 to Strength, max 20") */
+  benefit?: string;
+}
+
+export const feats: Feat[] = [
+  // TODO: add feats here
 ];

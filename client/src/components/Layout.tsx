@@ -38,6 +38,7 @@ const navItems: NavItem[] = [
   { label: "Items", href: "/items", icon: <Package size={18} /> },
   { label: "Gadgets", href: "/gadgets", icon: <Wrench size={18} /> },
   { label: "Skills", href: "/skills", icon: <Star size={18} /> },
+  { label: "Feats", href: "/feats", icon: <Shield size={18} /> },
   { label: "Rules", href: "/rules", icon: <BookOpen size={18} /> },
   { label: "Changelog", href: "/changelog", icon: <ScrollText size={18} /> },
 ];

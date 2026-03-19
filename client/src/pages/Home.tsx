@@ -14,7 +14,7 @@ import {
   Shield as ShieldIcon,
   Star,
 } from "lucide-react";
-import { classes, forceAbilities, gadgets, skills } from "@/lib/gameData";
+import { classes, forceAbilities, gadgets, skills, feats } from "@/lib/gameData";
 import { accentColorMap } from "@/lib/gameData";
 import { cn } from "@/lib/utils";
 
@@ -98,6 +98,16 @@ const sections = [
     accent: "text-green-400",
     border: "border-green-400/30",
     bg: "bg-green-400/5",
+  },
+  {
+    label: "Feats",
+    href: "/feats",
+    icon: <ShieldIcon size={22} />,
+    count: feats.length,
+    description: "Optional enhancements taken in place of an Ability Score Improvement.",
+    accent: "text-amber-400",
+    border: "border-amber-400/30",
+    bg: "bg-amber-400/5",
   },
   {
     label: "Rules",

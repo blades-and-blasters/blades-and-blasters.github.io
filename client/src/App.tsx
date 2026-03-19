@@ -23,6 +23,7 @@ import WeaponsPage from "./pages/WeaponsPage";
 import ItemsPage from "./pages/ItemsPage";
 import ArmorPage from "./pages/ArmorPage";
 import ChangelogPage from "./pages/ChangelogPage";
+import FeatsPage from "./pages/FeatsPage";
 
 function Router() {
   return (
@@ -41,6 +42,7 @@ function Router() {
         <Route path="/armor" component={ArmorPage} />
         <Route path="/rules" component={RulesPage} />
         <Route path="/changelog" component={ChangelogPage} />
+        <Route path="/feats" component={FeatsPage} />
         <Route path="/404" component={NotFound} />
         <Route component={NotFound} />
       </Switch>
