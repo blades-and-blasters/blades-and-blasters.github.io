@@ -1903,6 +1903,13 @@ export const classes: CharacterClass[] = [
         maxValue: "2 per level",
         recharge: "Long rest",
       },
+	  {
+		name: "Force Abilities Known",
+        description:
+          "Used to power Force abilities. Gain 1 per level.",
+        maxValue: "1 per level",
+        recharge: "Long rest",
+	  },
     ],
     features: [
       {
@@ -3481,6 +3488,14 @@ export interface ChangelogEntry {
 }
 
 export const changelog: ChangelogEntry[] = [
+  {
+    version: "0.2.5.2",
+    date: "2026-03-23",
+    summary: "Fixed Sorcerer force abilities known.",
+    changes: [
+      { category: "Class", description: "Gave Inquisitor force abilities" },
+    ],
+  },
   {
     version: "0.2.5.1",
     date: "2026-03-23",
