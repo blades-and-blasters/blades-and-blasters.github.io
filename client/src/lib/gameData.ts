@@ -30,6 +30,13 @@ export interface LevelFeature {
   type?: "passive" | "active" | "asi" | "subclass" | "resource";
 }
 
+export interface MutagenicAbility {
+  id: string;
+  name: string;
+  description: string;
+  overload: string;
+}
+
 export interface Subclass {
   id: string;
   name: string;
@@ -37,6 +44,8 @@ export interface Subclass {
   description: string;
   classResource?: ClassResource;
   features: LevelFeature[];
+  /** Optional pool of selectable abilities (e.g. Alchemist mutagenic abilities) */
+  mutagenicAbilities?: MutagenicAbility[];
 }
 
 export interface CharacterClass {
@@ -1999,18 +2008,7 @@ export const classes: CharacterClass[] = [
             level: 3,
             name: "Alchemical Horror",
             description:
-              "Using the dark side of the Force, create an Alchemical Horror completely under your control that may be commanded as a bonus action. It has the following base stats: HP 1d12 per level, AC 12, STR 16, DEX 14, CON 16, WIS 6, INT 8, CHA 10. Upon creation, choose two Mutagenic Abilities from the list below.\n\n" +
-              "**Rending Claws:** Gain a 1d10 5ft melee attack. *Mutagenic Overload:* Increase to 2d8.\n" +
-              "**Grasping Tendrils:** Gain a 1d8 20ft ranged attack; on a hit the target must pass Athletics or Acrobatics or become Grappled. *Mutagenic Overload:* Increase to 2d6, range 30ft, saving throw at disadvantage.\n" +
-              "**Acid Spines:** Gain a 1d8 60ft ranged attack. *Mutagenic Overload:* Increase to 2d8, range 75ft.\n" +
-              "**Weirdling:** Channel your abilities through the Horror, using it as the origin point. *Mutagenic Overload:* Gain Advantage on all spell attack rolls cast this way.\n" +
-              "**Flesh-bond:** Transfer health between yourself and the Horror at a ratio of 4 HP lost for 1 HP transferred. *Mutagenic Overload:* Change ratio to 2:1.\n" +
-              "**Warped Presence:** Enemies have Disadvantage on saving throws while within 5ft of the Horror. *Mutagenic Overload:* Expand range to 10ft.\n" +
-              "**Regenerative Tissue:** Heal 1d6 HP per turn. *Mutagenic Overload:* Increase to 2d6.\n" +
-              "**Barbed Limbs:** Gain 30ft climb speed and the ability to move on walls or ceilings without checks; Advantage on Athletics checks to grapple. *Mutagenic Overload:* Increase all movement and climb speed by 30ft.\n" +
-              "**Petrifying Gaze:** Enemies who begin their turn facing the Horror must make a Wisdom save or have movement halved, AC reduced by 2, and Disadvantage on Dexterity saves. *Mutagenic Overload:* Save made at disadvantage.\n" +
-              "**Tainted Slime:** Enemies who begin their turn within 5ft have movement halved. *Mutagenic Overload:* Expand radius to 10ft.\n" +
-              "**Amorphous Form:** The Horror may pass through any opening 1 inch in diameter and has Advantage on Athletics checks to break grapples. *Mutagenic Overload:* Can pass through openings 0.1 inches in diameter and freely resize to Small or Large.",
+              "Using the dark side of the Force, create an Alchemical Horror completely under your control that may be commanded as a bonus action. It has the following base stats: HP 1d12 per level, AC 12, STR 16, DEX 14, CON 16, WIS 6, INT 8, CHA 10. Upon creation, choose two Mutagenic Abilities from the pool below.",
             type: "active",
           },
           {
@@ -2033,6 +2031,74 @@ export const classes: CharacterClass[] = [
             description:
               "Gain four additional Mutagenic Abilities for your Horror. For any new ability option, you may instead choose a Mutagenic Overload for an existing ability.",
             type: "passive",
+          },
+        ],
+        mutagenicAbilities: [
+          {
+            id: "rending-claws",
+            name: "Rending Claws",
+            description: "Grow claws capable of rending flesh and steel. Gain a 1d10 5ft melee attack.",
+            overload: "Increase damage to 2d8.",
+          },
+          {
+            id: "grasping-tendrils",
+            name: "Grasping Tendrils",
+            description: "Grow tendrils capable of lancing out. Gain a 1d8 20ft ranged attack. On a hit, the target must pass an Athletics or Acrobatics check or become Grappled.",
+            overload: "Increase damage to 2d6 and range to 30ft. The saving throw must be made at disadvantage.",
+          },
+          {
+            id: "acid-spines",
+            name: "Acid Spines",
+            description: "Grow acidic spines capable of being launched through armor. Gain a 1d8 60ft ranged attack.",
+            overload: "Increase damage to 2d8 and range to 75ft.",
+          },
+          {
+            id: "weirdling",
+            name: "Weirdling",
+            description: "Gain the ability to channel your Force abilities through the Horror, enabling it to serve as the origin point for all abilities.",
+            overload: "Gain Advantage on all spell attack rolls cast through the Horror.",
+          },
+          {
+            id: "flesh-bond",
+            name: "Flesh-bond",
+            description: "Gain the ability to transfer health between yourself and the Horror at a ratio of 4 HP lost for 1 HP transferred.",
+            overload: "Change the ratio to 2 HP lost for 1 HP transferred.",
+          },
+          {
+            id: "warped-presence",
+            name: "Warped Presence",
+            description: "Enemies have Disadvantage on all saving throws while within 5ft of the Horror.",
+            overload: "Expand the range to 10ft.",
+          },
+          {
+            id: "regenerative-tissue",
+            name: "Regenerative Tissue",
+            description: "The Horror heals 1d6 HP at the start of each of its turns.",
+            overload: "Increase healing to 2d6.",
+          },
+          {
+            id: "barbed-limbs",
+            name: "Barbed Limbs",
+            description: "Gain 30ft of climb speed and the ability to move on walls or ceilings without requiring any checks. Gain Advantage on Athletics checks to grapple.",
+            overload: "Increase all movement and climb speed by an additional 30ft.",
+          },
+          {
+            id: "petrifying-gaze",
+            name: "Petrifying Gaze",
+            description: "Enemies who begin their turn directly facing the Horror must make a Wisdom save or have their movement speed halved, their AC reduced by 2, and have Disadvantage on Dexterity saves.",
+            overload: "The Wisdom save must be made at disadvantage.",
+          },
+          {
+            id: "tainted-slime",
+            name: "Tainted Slime",
+            description: "Enemies who begin their turn within 5ft of the Horror have their movement speed halved.",
+            overload: "Expand the radius to 10ft.",
+          },
+          {
+            id: "amorphous-form",
+            name: "Amorphous Form",
+            description: "The Horror may pass through any opening 1 inch in diameter and has Advantage on Athletics checks to break grapples.",
+            overload: "The Horror may pass through openings 0.1 inches in diameter and can freely resize to Small or Large at will.",
           },
         ],
       },
@@ -3415,6 +3481,15 @@ export interface ChangelogEntry {
 }
 
 export const changelog: ChangelogEntry[] = [
+  {
+    version: "0.2.5.1",
+    date: "2026-03-23",
+    summary: "Restructured Alchemist Mutagenic Abilities into a dedicated data array.",
+    changes: [
+      { category: "Subclass", description: "Alchemist: Added MutagenicAbility interface (id, name, description, overload) and moved all 11 Mutagenic Abilities out of the Alchemical Horror description string into a structured mutagenicAbilities array on the subclass." },
+      { category: "Subclass", description: "Alchemist: Extended the Subclass interface with an optional mutagenicAbilities field for future subclasses that use selectable ability pools." },
+    ],
+  },
   {
     version: "0.2.5",
     date: "2026-03-23",
