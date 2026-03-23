@@ -1903,13 +1903,6 @@ export const classes: CharacterClass[] = [
         maxValue: "2 per level",
         recharge: "Long rest",
       },
-	  {
-		name: "Force Abilities Known",
-        description:
-          "Used to power Force abilities. Gain 1 per level.",
-        maxValue: "1 per level",
-        recharge: "Long rest",
-	  },
     ],
     features: [
       {
@@ -2186,7 +2179,7 @@ export const forceAbilities: ForceAbility[] = [
     range: "30ft",
     description:
       "Push or pull an object 20lbs or less up to 30ft. If this impacts an enemy, they must make a Strength save or take 1d6 damage.",
-    tags: ["Telekinesis", "Utility", "Damage"],
+    tags: ["Telekinesis", "Utility", "Damage", "Universal"],
   },
   {
     id: "force-leap",
@@ -2195,7 +2188,7 @@ export const forceAbilities: ForceAbility[] = [
     actionType: "Bonus Action",
     range: "Self",
     description: "Gain an additional 30ft of jump distance.",
-    tags: ["Movement", "Utility"],
+    tags: ["Movement", "Utility", "Universal"],
   },
   {
     id: "force-shove",
@@ -2215,7 +2208,7 @@ export const forceAbilities: ForceAbility[] = [
     range: "30ft",
     description:
       "Throw your lightsaber, making a normal attack within 30ft range. If this misses your first target, you may redirect it onto a second target, making another attack. If this misses, your saber returns to your hand. For the purposes of class resources, counts as a lightsaber attack. If wielding a Versatile weapon, use the one-handed damage numbers.",
-    tags: ["Attack", "Lightsaber"],
+    tags: ["Attack", "Lightsaber", "Universal"],
   },
   {
     id: "force-healing",
@@ -2285,7 +2278,7 @@ export const forceAbilities: ForceAbility[] = [
     range: "10ft radius",
     description:
       "Create a zone within 10ft of you for two turns where all projectiles are stopped. After the duration ends or concentration breaks, all projectiles resume their paths.",
-    tags: ["Defense", "Concentration"],
+    tags: ["Defense", "Concentration", "Universal"],
   },
   {
     id: "battle-meditation",
@@ -2355,7 +2348,7 @@ export const forceAbilities: ForceAbility[] = [
     range: "Self",
     description:
       "Hold out your hand and attempt to absorb incoming energy. For each instance of energy, make a Wisdom saving throw, increased by +1 for each previous instance.",
-    tags: ["Defense", "Reaction"],
+    tags: ["Defense", "Reaction", "Universal"],
   },
   {
     id: "guided-navigation",
@@ -2365,7 +2358,138 @@ export const forceAbilities: ForceAbility[] = [
     range: "Self",
     description:
       "Attempt to divine the path forwards. Make a Wisdom check, and on a success, gain knowledge of the path towards your objective. When used for astrogation, gain the ability to identify and plot new hyperspace paths.",
-    tags: ["Divination", "Utility"],
+    tags: ["Divination", "Utility", "Universal"],
+  },
+  // ── Dark Side ──────────────────────────────────────────────────────────────
+  {
+    id: "force-lightning",
+    name: "Force Lightning",
+    cost: "2 Force Points",
+    actionType: "Action",
+    range: "60ft",
+    description:
+      "Strike a target within 60ft with lightning, dealing 3d10 lightning damage. The target may make a Dexterity save; on a failed save they cannot take reactions until the start of their next turn.",
+    tags: ["Damage", "Lightning", "Dark Side"],
+  },
+  {
+    id: "dominate-will",
+    name: "Dominate Will",
+    cost: "5 Force Points",
+    actionType: "Action",
+    range: "30ft",
+    description:
+      "Attempt to control a creature within 30ft. The target must make a Wisdom save or become controlled for up to one minute (concentration). The target may repeat the save at the end of each of its turns. If they critically fail their save, they become Mindbroken, allowing you to puppet them freely until they die but becoming completely incapable of any action outside of your control.",
+    tags: ["Mental", "Control", "Concentration", "Dark Side"],
+  },
+  {
+    id: "force-scream",
+    name: "Force Scream",
+    cost: "3 Force Points",
+    actionType: "Action",
+    range: "15ft cone",
+    description:
+      "Emit a terrifying scream in a 15ft cone. Creatures in the area take 3d8 psychic damage and must make a Constitution save or become frightened until the end of their next turn.",
+    tags: ["Damage", "Fear", "AOE", "Dark Side"],
+  },
+  {
+    id: "burn-memory",
+    name: "Burn Memory",
+    cost: "3 Force Points",
+    actionType: "Action",
+    range: "30ft",
+    description:
+      "Assault a creature's mind within 30ft. The target takes 2d6 psychic damage and must make an Intelligence save or have a single memory removed from their mind.",
+    tags: ["Mental", "Damage", "Dark Side"],
+  },
+  {
+    id: "thought-bomb",
+    name: "Thought Bomb",
+    cost: "6 Force Points",
+    actionType: "Action",
+    range: "30ft",
+    description:
+      "Plant a thought bomb in a target. When they think the specified thought, this bomb detonates, dealing 6d6 damage in a 30ft radius.",
+    tags: ["Mental", "Damage", "AOE", "Dark Side"],
+  },
+  {
+    id: "dread-mark",
+    name: "Dread Mark",
+    cost: "2 Force Points",
+    actionType: "Bonus Action",
+    range: "60ft",
+    description:
+      "Mark a creature within 60ft for one minute. You deal an additional 1d6 damage to the target, and it has disadvantage on saving throws against your abilities. If the target dies while marked, all enemies within 10ft must pass a Wisdom save or become Frightened for 1 turn.",
+    tags: ["Debuff", "Fear", "Dark Side"],
+  },
+  {
+    id: "warp-flesh",
+    name: "Warp Flesh",
+    cost: "4 Force Points",
+    actionType: "Action",
+    range: "30ft",
+    description:
+      "Mutate a creature within 30ft. The target must make a Constitution save or suffer one of the following effects of your choice for up to one minute (concentration): its speed becomes 0, it takes 2d6 damage at the start of each turn, or it has disadvantage on attack rolls. The target may repeat the save at the end of each turn.",
+    tags: ["Control", "Debuff", "Concentration", "Dark Side"],
+  },
+  {
+    id: "dark-infusion",
+    name: "Dark Infusion",
+    cost: "3 Force Points",
+    actionType: "Bonus Action",
+    range: "30ft",
+    description:
+      "Empower a creature within 30ft for one minute. The target gains +2 to attack rolls and damage rolls, but takes 1d6 damage at the end of each of its turns.",
+    tags: ["Buff", "Support", "Dark Side"],
+  },
+  {
+    id: "viral-madness",
+    name: "Viral Madness",
+    cost: "5 Force Points",
+    actionType: "Action",
+    range: "30ft",
+    description:
+      "Infect a creature within 30ft with madness for up to one minute (concentration). The target must make a Wisdom save or become confused. At the end of each of its turns, creatures within 10ft of it must also make a Wisdom save or become affected.",
+    tags: ["Mental", "Control", "Concentration", "AOE", "Dark Side"],
+  },
+  {
+    id: "static-cage",
+    name: "Static Cage",
+    cost: "4 Force Points",
+    actionType: "Action",
+    range: "60ft",
+    description:
+      "Create a 10ft cube of crackling lightning within 60ft for up to one minute (concentration). Creatures in the area take 2d8 damage when the cage appears, and again if they attempt to leave the area. The area is difficult terrain.",
+    tags: ["Lightning", "Control", "Concentration", "AOE", "Dark Side"],
+  },
+  {
+    id: "force-choke",
+    name: "Force Choke",
+    cost: "4 Force Points",
+    actionType: "Action",
+    range: "60ft",
+    description:
+      "Target a creature within 60ft. The target must make a Constitution save or become restrained for up to one minute (concentration), taking 3d8 force damage at the start of each of its turns and being unable to speak. As a bonus action, you may deal an additional 1d8 force damage. The target may repeat the save at the end of each turn.",
+    tags: ["Telekinesis", "Control", "Damage", "Concentration", "Dark Side"],
+  },
+  {
+    id: "deceive-senses",
+    name: "Deceive Senses",
+    cost: "3 Force Points",
+    actionType: "Action",
+    range: "30ft",
+    description:
+      "Distort the perception of a creature within 30ft for up to one minute (concentration). The target must make a Wisdom save or suffer one of the following effects of your choice: disadvantage on attack rolls and no reactions, is frightened of a creature of your choice, or is effectively blinded. The target may repeat the save at the end of each turn.",
+    tags: ["Mental", "Debuff", "Concentration", "Dark Side"],
+  },
+  {
+    id: "drain-life",
+    name: "Drain Life",
+    cost: "3 Force Points",
+    actionType: "Action",
+    range: "30ft",
+    description:
+      "Drain vitality from a creature within 30ft. The target takes 4d8 necrotic damage and you regain hit points equal to a quarter of the damage dealt. The target may make a Constitution save for half damage; on a failed save it has disadvantage on its next attack roll.",
+    tags: ["Damage", "Healing", "Necrotic", "Dark Side"],
   },
 ];
 
@@ -3489,11 +3613,21 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
   {
+    version: "0.2.6",
+    date: "2026-03-23",
+    summary: "Added 13 dark side Force abilities and marked 6 abilities as Universal.",
+    changes: [
+      { category: "Force Ability", description: "Added 13 dark side abilities: Force Lightning, Dominate Will, Force Scream, Burn Memory, Thought Bomb, Dread Mark, Warp Flesh, Dark Infusion, Viral Madness, Static Cage, Force Choke, Deceive Senses, and Drain Life. All tagged Dark Side." },
+      { category: "Force Ability", description: "Marked Push / Pull, Force Leap, Saber Throw, Projectile Freezing, Energy Absorption, and Guided Navigation as Universal (accessible to all alignments)." },
+    ],
+  },
+  {
     version: "0.2.5.2",
     date: "2026-03-23",
-    summary: "Fixed Sorcerer force abilities known.",
+    summary: "Fixed page refresh white-screen on GitHub Pages for all non-root routes.",
     changes: [
-      { category: "Class", description: "Gave Inquisitor force abilities" },
+      { category: "Infrastructure", description: "Added 404.html with GitHub Pages SPA redirect trick: deep-route refreshes now encode the path and redirect to index.html instead of showing a blank page." },
+      { category: "Infrastructure", description: "Added path-restoration script to index.html so React Router receives the correct route before mounting." },
     ],
   },
   {
