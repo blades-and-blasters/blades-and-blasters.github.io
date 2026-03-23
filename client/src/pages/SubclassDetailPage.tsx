@@ -4,7 +4,7 @@
 
 import { Link, useParams } from "wouter";
 import { ChevronLeft, Zap } from "lucide-react";
-import { classes, accentColorMap, LevelFeature } from "@/lib/gameData";
+import { classes, accentColorMap, LevelFeature, MutagenicAbility } from "@/lib/gameData";
 import { cn } from "@/lib/utils";
 
 const featureTypeColors: Record<string, string> = {
@@ -148,6 +148,43 @@ export default function SubclassDetailPage() {
           ))}
         </div>
       </div>
+
+      {/* Mutagenic Abilities (Alchemist-style selectable pools) */}
+      {sub.mutagenicAbilities && sub.mutagenicAbilities.length > 0 && (
+        <div className="mt-8">
+          <h2 className="text-xl font-bold text-foreground mb-1" style={{ fontFamily: "Rajdhani, sans-serif" }}>
+            Mutagenic Abilities
+          </h2>
+          <p className="text-sm text-muted-foreground mb-4">
+            Select from this pool when the Alchemical Horror feature or a Mutagenic Evolution feature grants new abilities or Overloads.
+          </p>
+          <div className="space-y-3">
+            {sub.mutagenicAbilities.map((ability: MutagenicAbility) => (
+              <div key={ability.id} className="glass-card rounded-lg p-4 border border-border/50">
+                <div className="flex items-start gap-3">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap mb-1">
+                      <span className="font-bold text-foreground text-sm" style={{ fontFamily: "Rajdhani, sans-serif" }}>
+                        {ability.name}
+                      </span>
+                      <span className={cn("ability-tag", "text-purple-400 border-purple-400/40 bg-purple-400/10")}>
+                        mutagenic
+                      </span>
+                    </div>
+                    <p className="text-sm text-muted-foreground leading-relaxed mb-2">
+                      {ability.description}
+                    </p>
+                    <div className="text-xs border-t border-border/30 pt-2 mt-2">
+                      <span className={cn("font-semibold", colors.text)}>Mutagenic Overload: </span>
+                      <span className="text-muted-foreground">{ability.overload}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
