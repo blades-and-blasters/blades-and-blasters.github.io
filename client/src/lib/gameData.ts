@@ -120,9 +120,12 @@ export const fightingStyles: FightingStyle[] = [
   },
 ];
 
+export type ForceAlignment = "light" | "dark" | "universal";
+
 export interface ForceAbility {
   id: string;
   name: string;
+  alignment: ForceAlignment;
   cost: string;
   actionType: string;
   range?: string;
@@ -2164,6 +2167,7 @@ export const forceAbilities: ForceAbility[] = [
   {
     id: "mind-trick",
     name: "Mind Trick",
+    alignment: "light",
     cost: "1 Force Point",
     actionType: "Action",
     range: "Touch/Close",
@@ -2174,6 +2178,7 @@ export const forceAbilities: ForceAbility[] = [
   {
     id: "push-pull",
     name: "Push / Pull",
+    alignment: "universal",
     cost: "1 Force Point",
     actionType: "Action",
     range: "30ft",
@@ -2184,6 +2189,7 @@ export const forceAbilities: ForceAbility[] = [
   {
     id: "force-leap",
     name: "Force Leap",
+    alignment: "universal",
     cost: "1 Force Point",
     actionType: "Bonus Action",
     range: "Self",
@@ -2193,6 +2199,7 @@ export const forceAbilities: ForceAbility[] = [
   {
     id: "force-shove",
     name: "Force Shove",
+    alignment: "light",
     cost: "2 Force Points",
     actionType: "Action",
     range: "15ft",
@@ -2203,6 +2210,7 @@ export const forceAbilities: ForceAbility[] = [
   {
     id: "saber-throw",
     name: "Saber Throw",
+    alignment: "universal",
     cost: "1 Force Point",
     actionType: "Attack",
     range: "30ft",
@@ -2213,6 +2221,7 @@ export const forceAbilities: ForceAbility[] = [
   {
     id: "force-healing",
     name: "Force Healing",
+    alignment: "light",
     cost: "Variable Force Points",
     actionType: "Action",
     range: "Touch",
@@ -2223,6 +2232,7 @@ export const forceAbilities: ForceAbility[] = [
   {
     id: "force-crush",
     name: "Force Crush",
+    alignment: "light",
     cost: "4 Force Points",
     actionType: "Action",
     range: "Close",
@@ -2233,6 +2243,7 @@ export const forceAbilities: ForceAbility[] = [
   {
     id: "precognition",
     name: "Precognition",
+    alignment: "light",
     cost: "2 Force Points",
     actionType: "Action",
     range: "Self",
@@ -2243,6 +2254,7 @@ export const forceAbilities: ForceAbility[] = [
   {
     id: "battle-precognition",
     name: "Battle Precognition",
+    alignment: "light",
     cost: "1 Force Point",
     actionType: "Bonus Action",
     range: "Battlefield",
@@ -2253,6 +2265,7 @@ export const forceAbilities: ForceAbility[] = [
   {
     id: "detect-emotion",
     name: "Detect Emotion",
+    alignment: "light",
     cost: "1 Force Point",
     actionType: "Bonus Action",
     range: "30ft",
@@ -2263,6 +2276,7 @@ export const forceAbilities: ForceAbility[] = [
   {
     id: "force-projection",
     name: "Force Projection",
+    alignment: "light",
     cost: "Variable",
     actionType: "Action",
     range: "Variable",
@@ -2273,6 +2287,7 @@ export const forceAbilities: ForceAbility[] = [
   {
     id: "projectile-freezing",
     name: "Projectile Freezing",
+    alignment: "universal",
     cost: "3 Force Points",
     actionType: "Action",
     range: "10ft radius",
@@ -2283,6 +2298,7 @@ export const forceAbilities: ForceAbility[] = [
   {
     id: "battle-meditation",
     name: "Battle Meditation",
+    alignment: "light",
     cost: "4 Force Points",
     actionType: "Action",
     range: "Allies",
@@ -2293,6 +2309,7 @@ export const forceAbilities: ForceAbility[] = [
   {
     id: "force-stasis",
     name: "Force Stasis",
+    alignment: "light",
     cost: "3 Force Points",
     actionType: "Action",
     range: "Close",
@@ -2303,6 +2320,7 @@ export const forceAbilities: ForceAbility[] = [
   {
     id: "force-suspend",
     name: "Force Suspend",
+    alignment: "light",
     cost: "5 Force Points",
     actionType: "Action",
     range: "Close",
@@ -2313,6 +2331,7 @@ export const forceAbilities: ForceAbility[] = [
   {
     id: "force-barrier",
     name: "Force Barrier",
+    alignment: "light",
     cost: "4 Force Points",
     actionType: "Action",
     range: "Self",
@@ -2323,6 +2342,7 @@ export const forceAbilities: ForceAbility[] = [
   {
     id: "induce-sleep",
     name: "Induce Sleep",
+    alignment: "light",
     cost: "2 Force Points",
     actionType: "Action",
     range: "Close",
@@ -2333,6 +2353,7 @@ export const forceAbilities: ForceAbility[] = [
   {
     id: "mind-probe",
     name: "Mind Probe",
+    alignment: "light",
     cost: "2 Force Points",
     actionType: "Action",
     range: "Touch",
@@ -2343,6 +2364,7 @@ export const forceAbilities: ForceAbility[] = [
   {
     id: "energy-absorption",
     name: "Energy Absorption",
+    alignment: "universal",
     cost: "1 Force Point",
     actionType: "Bonus Action",
     range: "Self",
@@ -2353,6 +2375,7 @@ export const forceAbilities: ForceAbility[] = [
   {
     id: "guided-navigation",
     name: "Guided Navigation",
+    alignment: "universal",
     cost: "3 Force Points",
     actionType: "Action",
     range: "Self",
@@ -2364,6 +2387,7 @@ export const forceAbilities: ForceAbility[] = [
   {
     id: "force-lightning",
     name: "Force Lightning",
+    alignment: "dark",
     cost: "2 Force Points",
     actionType: "Action",
     range: "60ft",
@@ -2374,6 +2398,7 @@ export const forceAbilities: ForceAbility[] = [
   {
     id: "dominate-will",
     name: "Dominate Will",
+    alignment: "dark",
     cost: "5 Force Points",
     actionType: "Action",
     range: "30ft",
@@ -2384,6 +2409,7 @@ export const forceAbilities: ForceAbility[] = [
   {
     id: "force-scream",
     name: "Force Scream",
+    alignment: "dark",
     cost: "3 Force Points",
     actionType: "Action",
     range: "15ft cone",
@@ -2394,6 +2420,7 @@ export const forceAbilities: ForceAbility[] = [
   {
     id: "burn-memory",
     name: "Burn Memory",
+    alignment: "dark",
     cost: "3 Force Points",
     actionType: "Action",
     range: "30ft",
@@ -2404,6 +2431,7 @@ export const forceAbilities: ForceAbility[] = [
   {
     id: "thought-bomb",
     name: "Thought Bomb",
+    alignment: "dark",
     cost: "6 Force Points",
     actionType: "Action",
     range: "30ft",
@@ -2414,6 +2442,7 @@ export const forceAbilities: ForceAbility[] = [
   {
     id: "dread-mark",
     name: "Dread Mark",
+    alignment: "dark",
     cost: "2 Force Points",
     actionType: "Bonus Action",
     range: "60ft",
@@ -2424,6 +2453,7 @@ export const forceAbilities: ForceAbility[] = [
   {
     id: "warp-flesh",
     name: "Warp Flesh",
+    alignment: "dark",
     cost: "4 Force Points",
     actionType: "Action",
     range: "30ft",
@@ -2434,6 +2464,7 @@ export const forceAbilities: ForceAbility[] = [
   {
     id: "dark-infusion",
     name: "Dark Infusion",
+    alignment: "dark",
     cost: "3 Force Points",
     actionType: "Bonus Action",
     range: "30ft",
@@ -2444,6 +2475,7 @@ export const forceAbilities: ForceAbility[] = [
   {
     id: "viral-madness",
     name: "Viral Madness",
+    alignment: "dark",
     cost: "5 Force Points",
     actionType: "Action",
     range: "30ft",
@@ -2454,6 +2486,7 @@ export const forceAbilities: ForceAbility[] = [
   {
     id: "static-cage",
     name: "Static Cage",
+    alignment: "dark",
     cost: "4 Force Points",
     actionType: "Action",
     range: "60ft",
@@ -2464,6 +2497,7 @@ export const forceAbilities: ForceAbility[] = [
   {
     id: "force-choke",
     name: "Force Choke",
+    alignment: "dark",
     cost: "4 Force Points",
     actionType: "Action",
     range: "60ft",
@@ -2474,6 +2508,7 @@ export const forceAbilities: ForceAbility[] = [
   {
     id: "deceive-senses",
     name: "Deceive Senses",
+    alignment: "dark",
     cost: "3 Force Points",
     actionType: "Action",
     range: "30ft",
@@ -2484,6 +2519,7 @@ export const forceAbilities: ForceAbility[] = [
   {
     id: "drain-life",
     name: "Drain Life",
+    alignment: "dark",
     cost: "3 Force Points",
     actionType: "Action",
     range: "30ft",
@@ -3612,6 +3648,16 @@ export interface ChangelogEntry {
 }
 
 export const changelog: ChangelogEntry[] = [
+  {
+    version: "0.2.6.1",
+    date: "2026-03-23",
+    summary: "Added alignment badges (Light Side / Dark Side / Universal) to all Force abilities.",
+    changes: [
+      { category: "Force Ability", description: "Added ForceAlignment type (light | dark | universal) and alignment field to the ForceAbility interface." },
+      { category: "Force Ability", description: "Populated alignment on all 32 Force abilities: 14 Light Side, 13 Dark Side, 6 Universal." },
+      { category: "UI", description: "Force Abilities page now displays a colored alignment badge (sky blue = Light Side, red = Dark Side, slate = Universal) alongside the action type and cost on each ability card." },
+    ],
+  },
   {
     version: "0.2.6",
     date: "2026-03-23",

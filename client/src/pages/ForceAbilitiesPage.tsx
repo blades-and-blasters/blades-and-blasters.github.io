@@ -4,7 +4,7 @@
 
 import { useState } from "react";
 import { Zap, Search } from "lucide-react";
-import { forceAbilities } from "@/lib/gameData";
+import { forceAbilities, ForceAlignment } from "@/lib/gameData";
 import { cn } from "@/lib/utils";
 
 const allTags = Array.from(
@@ -16,6 +16,21 @@ const actionTypeColors: Record<string, string> = {
   "Bonus Action": "text-green-400 border-green-400/40 bg-green-400/10",
   Attack: "text-red-400 border-red-400/40 bg-red-400/10",
   Reaction: "text-amber-400 border-amber-400/40 bg-amber-400/10",
+};
+
+const alignmentStyles: Record<ForceAlignment, { label: string; className: string }> = {
+  light: {
+    label: "Light Side",
+    className: "text-sky-300 border-sky-300/40 bg-sky-300/10",
+  },
+  dark: {
+    label: "Dark Side",
+    className: "text-red-400 border-red-400/40 bg-red-400/10",
+  },
+  universal: {
+    label: "Universal",
+    className: "text-slate-300 border-slate-300/40 bg-slate-300/10",
+  },
 };
 
 export default function ForceAbilitiesPage() {
@@ -114,6 +129,9 @@ export default function ForceAbilitiesPage() {
                   </h3>
                 </div>
                 <div className="flex items-center gap-2 flex-wrap">
+                  <span className={cn("ability-tag", alignmentStyles[ability.alignment].className)}>
+                    {alignmentStyles[ability.alignment].label}
+                  </span>
                   <span className={cn("ability-tag", actionColor)}>
                     {ability.actionType}
                   </span>
