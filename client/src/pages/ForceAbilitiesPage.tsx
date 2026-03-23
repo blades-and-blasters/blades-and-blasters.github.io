@@ -33,9 +33,17 @@ const alignmentStyles: Record<ForceAlignment, { label: string; className: string
   },
 };
 
+const alignmentFilters: { value: ForceAlignment | null; label: string }[] = [
+  { value: null, label: "All" },
+  { value: "light", label: "Light Side" },
+  { value: "dark", label: "Dark Side" },
+  { value: "universal", label: "Universal" },
+];
+
 export default function ForceAbilitiesPage() {
   const [search, setSearch] = useState("");
   const [activeTag, setActiveTag] = useState<string | null>(null);
+  const [activeAlignment, setActiveAlignment] = useState<ForceAlignment | null>(null);
 
   const filtered = forceAbilities.filter((a) => {
     const matchSearch =
@@ -43,7 +51,8 @@ export default function ForceAbilitiesPage() {
       a.name.toLowerCase().includes(search.toLowerCase()) ||
       a.description.toLowerCase().includes(search.toLowerCase());
     const matchTag = !activeTag || a.tags.includes(activeTag);
-    return matchSearch && matchTag;
+    const matchAlignment = !activeAlignment || a.alignment === activeAlignment;
+    return matchSearch && matchTag && matchAlignment;
   });
 
   return (
@@ -64,7 +73,31 @@ export default function ForceAbilitiesPage() {
         <div className="section-divider mt-5" />
       </div>
 
-      {/* Filters */}
+      {/* Alignment filter */}
+      <div className="flex flex-wrap gap-2 mb-4">
+        {alignmentFilters.map(({ value, label }) => {
+          const isActive = activeAlignment === value;
+          const style = value ? alignmentStyles[value] : null;
+          return (
+            <button
+              key={label}
+              onClick={() => setActiveAlignment(isActive ? null : value)}
+              className={cn(
+                "ability-tag cursor-pointer transition-colors",
+                isActive && style
+                  ? style.className.replace("/10", "/20").replace("/40", "/60")
+                  : isActive
+                  ? "text-violet-400 border-violet-400/60 bg-violet-400/20"
+                  : "text-muted-foreground border-border hover:text-foreground"
+              )}
+            >
+              {label}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Search + tag filters */}
       <div className="flex flex-col sm:flex-row gap-3 mb-6">
         <div className="relative flex-1">
           <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
