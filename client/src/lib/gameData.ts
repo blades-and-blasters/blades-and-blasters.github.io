@@ -13,7 +13,8 @@ export type ClassAccent =
   | "orange"
   | "cyan"
   | "yellow"
-  | "purple";
+  | "purple"
+  | "pink";
 
 export interface ClassResource {
   name: string;
@@ -919,7 +920,7 @@ export const classes: CharacterClass[] = [
   {
     id: "smuggler",
     name: "Smuggler",
-    accent: "amber",
+    accent: "pink",
     tagline: "Fast hands, faster ship, fastest draw.",
     description:
       "The Smuggler is a charismatic rogue who relies on speed, cunning, and a constant flow of Energy. They shoot first, ask questions later, and always have an ace up their sleeve.",
@@ -1579,7 +1580,7 @@ export const classes: CharacterClass[] = [
   {
     id: "sith-warrior",
     name: "Sith Warrior",
-    accent: "orange",
+    accent: "red",
     tagline: "Master of rage and dark power.",
     description: "The Sith Warrior channels raw hatred and dark side energy into devastating combat power. Through Rage and Channel Hatred, they become engines of destruction.",
     hitDie: "1d10",
@@ -1863,7 +1864,7 @@ export const classes: CharacterClass[] = [
   {
     id: "sith-inquisitor",
     name: "Sith Inquisitor",
-    accent: "purple",
+    accent: "orange",
     tagline: "Power through passion, victory through pain.",
     description:
       "The Sith Inquisitor is a Force-wielding predator who weaponizes aggression itself. By embracing Recklessness — sacrificing defense for raw offensive power — they chain abilities together in a cascade of dark side destruction. The Sith Code is not merely a philosophy for the Inquisitor: it is a combat engine, each tenet unlocking a new tier of lethal capability.",
@@ -1991,15 +1992,100 @@ export const classes: CharacterClass[] = [
         id: "alchemist",
         name: "Alchemist",
         parentClass: "sith-inquisitor",
-        description: "TODO",
-        features: [],
+        description:
+          "The Alchemist bends the dark side of the Force into flesh itself, creating an Alchemical Horror — a monstrous familiar that grows more terrifying with each level. By selecting and overloading mutagenic abilities, the Alchemist shapes their Horror into a unique instrument of destruction.",
+        features: [
+          {
+            level: 3,
+            name: "Alchemical Horror",
+            description:
+              "Using the dark side of the Force, create an Alchemical Horror completely under your control that may be commanded as a bonus action. It has the following base stats: HP 1d12 per level, AC 12, STR 16, DEX 14, CON 16, WIS 6, INT 8, CHA 10. Upon creation, choose two Mutagenic Abilities from the list below.\n\n" +
+              "**Rending Claws:** Gain a 1d10 5ft melee attack. *Mutagenic Overload:* Increase to 2d8.\n" +
+              "**Grasping Tendrils:** Gain a 1d8 20ft ranged attack; on a hit the target must pass Athletics or Acrobatics or become Grappled. *Mutagenic Overload:* Increase to 2d6, range 30ft, saving throw at disadvantage.\n" +
+              "**Acid Spines:** Gain a 1d8 60ft ranged attack. *Mutagenic Overload:* Increase to 2d8, range 75ft.\n" +
+              "**Weirdling:** Channel your abilities through the Horror, using it as the origin point. *Mutagenic Overload:* Gain Advantage on all spell attack rolls cast this way.\n" +
+              "**Flesh-bond:** Transfer health between yourself and the Horror at a ratio of 4 HP lost for 1 HP transferred. *Mutagenic Overload:* Change ratio to 2:1.\n" +
+              "**Warped Presence:** Enemies have Disadvantage on saving throws while within 5ft of the Horror. *Mutagenic Overload:* Expand range to 10ft.\n" +
+              "**Regenerative Tissue:** Heal 1d6 HP per turn. *Mutagenic Overload:* Increase to 2d6.\n" +
+              "**Barbed Limbs:** Gain 30ft climb speed and the ability to move on walls or ceilings without checks; Advantage on Athletics checks to grapple. *Mutagenic Overload:* Increase all movement and climb speed by 30ft.\n" +
+              "**Petrifying Gaze:** Enemies who begin their turn facing the Horror must make a Wisdom save or have movement halved, AC reduced by 2, and Disadvantage on Dexterity saves. *Mutagenic Overload:* Save made at disadvantage.\n" +
+              "**Tainted Slime:** Enemies who begin their turn within 5ft have movement halved. *Mutagenic Overload:* Expand radius to 10ft.\n" +
+              "**Amorphous Form:** The Horror may pass through any opening 1 inch in diameter and has Advantage on Athletics checks to break grapples. *Mutagenic Overload:* Can pass through openings 0.1 inches in diameter and freely resize to Small or Large.",
+            type: "active",
+          },
+          {
+            level: 7,
+            name: "Mutagenic Evolution I",
+            description:
+              "Gain two additional Mutagenic Abilities for your Horror. For either new ability option, you may instead choose a Mutagenic Overload for an existing ability.",
+            type: "passive",
+          },
+          {
+            level: 10,
+            name: "Mutagenic Evolution II",
+            description:
+              "Gain three additional Mutagenic Abilities for your Horror. For any new ability option, you may instead choose a Mutagenic Overload for an existing ability.",
+            type: "passive",
+          },
+          {
+            level: 13,
+            name: "Mutagenic Evolution III",
+            description:
+              "Gain four additional Mutagenic Abilities for your Horror. For any new ability option, you may instead choose a Mutagenic Overload for an existing ability.",
+            type: "passive",
+          },
+        ],
       },
       {
         id: "sorcerer",
         name: "Sorcerer",
         parentClass: "sith-inquisitor",
-        description: "TODO",
-        features: [],
+        description:
+          "The Sorcerer amplifies the destructive potential of Force Lightning into a cascading storm of electricity. Through Recklessness, they push their spells beyond their limits — overcharging abilities, chaining lightning between targets, and ultimately unleashing a tempest that fills the battlefield.",
+        features: [
+          {
+            level: 3,
+            name: "Ionizing Potential",
+            description:
+              "Force Lightning gains an additional +2 damage. Critical Hits cause Force Lightning to bounce to another target within 60ft of the original target, making a new attack roll against them. This chain may continue indefinitely.",
+            type: "passive",
+          },
+          {
+            level: 3,
+            name: "Unlimited Power",
+            description:
+              "While Recklessness is active, increase the critical hit range of all spells by 1 (e.g. crits on 19–20 instead of 20).",
+            type: "passive",
+          },
+          {
+            level: 3,
+            name: "Power Overcharge",
+            description:
+              "Gain the ability to overcharge Force abilities. For each additional Force Point spent beyond the base cost, increase the ability's damage by 4.",
+            type: "active",
+          },
+          {
+            level: 7,
+            name: "Power Overwhelming",
+            description:
+              "Once per turn, after dealing spell damage to a target, force them to make a Constitution saving throw or become Stunned until the end of their next turn.",
+            type: "active",
+          },
+          {
+            level: 10,
+            name: "Overload",
+            description:
+              "Once per Long Rest, cast Force Lightning against every target within 10ft simultaneously.",
+            type: "active",
+          },
+          {
+            level: 13,
+            name: "Lightning Storm",
+            description:
+              "Force Lightning now chains to two nearby targets on a Critical Hit instead of one. Increase the critical hit range of all spells by an additional 1.",
+            type: "passive",
+          },
+        ],
       },
     ],
   },
@@ -2671,6 +2757,14 @@ export const accentColorMap: Record<ClassAccent, {
     glow: "glow-purple",
     badge: "text-purple-400 border-purple-400/50 bg-purple-400/10",
   },
+  pink: {
+    text: "text-pink-400",
+    border: "border-pink-400",
+    bg: "bg-pink-400",
+    bgMuted: "bg-pink-400/10",
+    glow: "glow-pink",
+    badge: "text-pink-400 border-pink-400/50 bg-pink-400/10",
+  },
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -3321,14 +3415,15 @@ export interface ChangelogEntry {
 }
 
 export const changelog: ChangelogEntry[] = [
-{
+  {
     version: "0.2.5",
-    date: "2026-03-19",
-    summary: "Added Inquisitor, added Feats skeleton, adjusted formatting",
+    date: "2026-03-23",
+    summary: "Completed Sith Inquisitor with full class features and both subclasses.",
     changes: [
-      { category: "Class", description: "Added Inquisitor." },
-      { category: "General", description: "Added Feats skeleton for further fleshing out." },
-      { category: "General", description: "Adjusted colors to avoid repeats" },
+      { category: "Class", description: "Sith Inquisitor: Filled in all proficiencies, saving throws, skill choices, spellcasting ability, and Force Points resource." },
+      { category: "Class", description: "Sith Inquisitor: Added all 12 class features across levels 1\u201318 (Lightsaber Stance, Recklessness, Subclass, 4\u00d7 ASI, Peace is a Lie, Through Passion I Gain Strength, Through Strength I Gain Power, Through Power I Gain Victory, Through Victory my Chains are Broken, The Force shall Free Me)." },
+      { category: "Subclass", description: "Alchemist: Added Alchemical Horror with all 11 Mutagenic Abilities and Overloads, plus Mutagenic Evolution features at levels 7, 10, and 13." },
+      { category: "Subclass", description: "Sorcerer: Added Ionizing Potential, Unlimited Power, and Power Overcharge at level 3; Power Overwhelming at level 7; Overload at level 10; Lightning Storm at level 13." },
     ],
   },
 {
