@@ -449,6 +449,8 @@ export const classes: CharacterClass[] = [
         "Athletics",
         "Deception",
         "Insight",
+		"Stealth",
+		"Sleight of Hand",
         "Intimidation",
         "Lore",
         "Perception",
@@ -665,7 +667,7 @@ export const classes: CharacterClass[] = [
             level: 3,
             name: "Impulse Abilities",
             description:
-              "Driven Strike (1 Impulse): Add 1d8 to your next attack.\n\nExplosive Movement (1 Impulse): As a bonus action, gain an additional 30ft of movement.\n\nForceful Breach (1 Impulse): Add 1d6 to your next damage instance.\n\nBurst of Force (1 Impulse): Use your next Force Power as a Bonus Action.\n\nOverwhelming Assault (3 Impulse): As an attack, attack twice.",
+              "Driven Strike (1 Impulse): Add 1d8 to your next attack.\n\nExplosive Movement (1 Impulse): As a bonus action, gain an additional 30ft of movement.\n\nForceful Breach (1 Impulse): Add 1d6 to your next attack roll.\n\nBurst of Force (1 Impulse): Use your next Force Power as a Bonus Action.\n\nOverwhelming Assault (3 Impulse): As an attack, attack twice.",
             type: "active",
           },
           {
@@ -1172,7 +1174,7 @@ export const classes: CharacterClass[] = [
         level: 1,
         name: "Sneak Attack",
         description:
-          "When attacking an enemy who you have Advantage against, deal an additional 1d8 damage. Scales with level: 2d8 at level 3, 3d8 at level 5, 4d8 at level 7, 5d8 at level 9, 6d8 at level 11, 7d8 at level 13, 8d8 at level 15, 9d8 at level 17, 10d8 at level 19.",
+          "When attacking an enemy who you have Advantage against, deal an additional 1d8 damage. Scales with level: 2d8 at level 3, 3d8 at level 5, 4d8 at level 7, 5d8 at level 9, 6d8 at level 11, 7d8 at level 13, 8d8 at level 15, 9d8 at level 17, 10d8 at level 19. Applies to all instances of damage in an attack.",
         type: "passive",
       },
       {
@@ -1277,8 +1279,7 @@ export const classes: CharacterClass[] = [
             level: 3,
             name: "Deep Pockets, Deeper Stores",
             description:
-              "Double your number of Gadget Slots and inventoried gadgets. Gain access to the following Gadgets:\n\nPersonal Cloak (3 Slots, 2 uses): Become Invisible for up to one minute. Breaks upon attacking. Additional batteries cost 1/Gadget Slot.\n\nPseudolarynx (1 Slot, unlimited): Perfectly mimic someone's voice after collecting a five-minute sample. Can only record one voice at a time.\n\nWhisper-Range Laser Mic (1 Slot, unlimited): Detect surface vibrations on distant glass or walls and convert them into clear audio.\n\nSmart Dust Trackers (1 Slot, 3 uses): Release microscopic adhesive particles that cling to a chosen target and transmit a weak tracking signal for 1d4 hours.\n\nBioanalyzer (1 Slot, unlimited): Analyze small amounts of a substance for chemical traces, composition, and age.\n\nPortable Background Noise Generator (1 Slot, unlimited): Emit adjustable ambient noise patterns to mask suspicious activity.",
-            type: "passive",
+"Double your number of Gadget Slots and inventoried gadgets. Gain access to the following Gadgets:\n\nPersonal Cloak (3 Slots, 2 uses): As an action, become Invisible for up to one minute. Breaks upon attacking. Additional batteries cost 1/Gadget Slot.\n\nPseudolarynx (1 Slot, unlimited): As a free action, perfectly mimic someone's voice after collecting a five-minute sample. Can only record one voice at a time.\n\nWhisper-Range Laser Mic (1 Slot, unlimited): As an action, detect surface vibrations on distant glass or walls and convert them into clear audio within 30ft.\n\nSmart Dust Trackers (1 Slot, 3 uses): As an action, release microscopic adhesive particles that cling to a chosen target within 15ft and transmit a weak tracking signal for 1d4 hours.\n\Arc Projector (3 Slots, 2 uses): As an bonus action, force a target within 15ft to make a Constitution save. If they fail, they become Stunned for two turns. Additional batteries may be taken at 1/slot .\n\nStun Drone(3 Slots, 1 use): As an action, send out a stun drone to a location within 300ft. Any target who passes within 10ft of it must make a Constitution save or be stunned for one turn. It has 10 AC and 5 HP. ",            type: "passive",
           },
           {
             level: 7,
@@ -1507,21 +1508,21 @@ export const classes: CharacterClass[] = [
             level: 3,
             name: "Companion Droid",
             description:
-              "Gain a Companion Droid. Movement: 30ft. Gadget Slots: One per level (in addition to personal gadget slots). Double your Gadget Inventory. Can carry a Simple weapon in 2 Gadget Slots, a Martial Weapon in 3. Gain Proficiency in 2 of: Technology, Piloting, Stealth, History, Medicine, Perception. Gains Ability Score Increases at the same rate as you. May be uparmored at 1 Gadget Slot per AC. May be commanded once per Bonus Action.\n\nChoose a Chassis:\n\nLight Chassis: 1d6 HP/level, AC 12, Proficiency in Stealth, 30ft fly speed or 15ft movement. Tiny creature. STR 8 / DEX 16 / CON 10 / INT 16 / WIS 12 / CHA 10.\n\nMedium Chassis: 1d8 HP/level, AC 13, Proficiency in Technology, 15ft fly speed or 5ft movement. Small creature. STR 12 / DEX 12 / CON 14 / INT 12 / WIS 12 / CHA 10.\n\nHeavy Chassis: 1d10 HP/level, AC 14, Proficiency in Piloting. Medium creature. STR 16 / DEX 8 / CON 16 / INT 12 / WIS 10 / CHA 10.",
+              "Gain a Companion Droid. Movement: 30ft. May be commanded on a Bonus Action. Gadget Slots: One per level (in addition to personal gadget slots). Double your Gadget Inventory. Can carry a weapon in 3 Gadget Slots. After destruction, may be repaired or replaced with one week of effort. Gain Proficiency in 2 of: Technology, Piloting, Stealth, History, Medicine, Perception. Gains Ability Score Increases at the same rate as you. May be uparmored at 1 Gadget Slot per AC. May be commanded once per Bonus Action.\n\nChoose a Chassis:\n\nLight Chassis: 1d6 HP/level, AC 12, Proficiency in Stealth, 30ft fly speed or 15ft movement. Tiny creature. STR 8 / DEX 16 / CON 10 / INT 16 / WIS 12 / CHA 10.\n\nMedium Chassis: 1d8 HP/level, AC 13, Proficiency in Technology, 15ft fly speed or 5ft movement. Small creature. STR 12 / DEX 12 / CON 14 / INT 12 / WIS 12 / CHA 10.\n\nHeavy Chassis: 1d10 HP/level, AC 14, Proficiency in Piloting. Medium creature. STR 16 / DEX 8 / CON 16 / INT 12 / WIS 10 / CHA 10.",
             type: "passive",
           },
           {
             level: 7,
-            name: "Datalink Channel",
+            name: "Shielded Chassis",
             description:
-              "Gain the ability to directly see what your droid sees.",
+              "Droids gain temporary health equal to two of the droid's hit die.",
             type: "passive",
           },
           {
             level: 9,
             name: "Droid Upgrades",
             description:
-              "Light Droids gain the ability to go Invisible for one minute per Long Rest.\n\nMedium Droids gain Expertise on Technology checks.\n\nHeavy Droids can carry an additional 100lbs.",
+              "Light Droids gain the ability to go Invisible for one minute per Long Rest.\n\nMedium Droids gain Expertise on Technology checks.\n\nHeavy Droids gain +2 AC and may carry a weapon for free.",
             type: "passive",
           },
           {
@@ -2336,7 +2337,7 @@ export const forceAbilities: ForceAbility[] = [
     actionType: "Action",
     range: "Self",
     description:
-      "Project a shield that blocks all incoming enemy damage and movement, while permitting allies to fire back. Lasts one minute or until concentration break. This shield has HP equal to your Jedi level × 10.",
+      "Project a shield in a 15ft arc around you that blocks all incoming enemy damage and movement, while permitting allies to fire back. Lasts one minute or until concentration break. This shield has HP equal to your Jedi level × 10.",
     tags: ["Defense", "Concentration"],
   },
   {
@@ -2539,7 +2540,16 @@ export const gadgets: Gadget[] = [
     slots: 1,
     uses: "2 uses",
     description:
-      "As an attack, force all enemies in a 15ft cone to take 2d6 damage, or half on a successful Dexterity save.",
+      "As an action, create a 10ft diameter patch of fire on the ground, or a 20x5ft wall within 60ft of you. Any enemy who starts their turn in this fire or passes through it takes 3d6 damage",
+    tags: ["Damage", "Area"],
+  },
+  {
+    id: "remote-bomb",
+    name: "Remote Bomb",
+    slots: 3,
+    uses: "1 use",
+    description:
+      "As an action, plant a bomb that becomes armed after twenty seconds. After it becomes armed, you may detonate it at any time, so long as you are within comms range of it, or you may set a timer to detonate it. Any target within 30ft takes 8d6 damage.",
     tags: ["Damage", "Area"],
   },
   {
@@ -2789,6 +2799,15 @@ export const gadgets: Gadget[] = [
     uses: "Unlimited (requires grenades)",
     description:
       "Gain the ability to shoot grenades and mines up to 120ft.",
+    tags: ["Weapon", "Area"],
+  },
+  {
+    id: "welding-kit",
+    name: "Welding Kit",
+    slots: 1,
+    uses: "Three uses",
+    description:
+      "Gain the ability to weld man-sized doors and other similarly-sized things.",
     tags: ["Weapon", "Area"],
   },
 ];
@@ -3648,6 +3667,24 @@ export interface ChangelogEntry {
 }
 
 export const changelog: ChangelogEntry[] = [
+  {
+    version: "0.2.7",
+    date: "2026-03-26",
+    summary: "Added suggestions based off of playtesting.",
+    changes: [
+      { category: "Class", description: "Consular: Gave Consular Stealth and Sleight of Hand proficiency." },
+      { category: "Class", description: "Agent: Clarified interaction between Sneak Attack and AoE attacks." },
+      { category: "Subclass", description: "Powertech: Clarified droid action economy and droid destruction." },
+      { category: "Subclass", description: "Powertech: Changed level 7 ability from shared optics to a droid shield." },
+      { category: "Subclass", description: "Shadow: Made Forceful Breach affect attacks, not damage, to differentiate from Driven Strike." },
+      { category: "Subclass", description: "Operative: Clarified gadget action economy, removed Bioanalyzer and Portable Background Noise Generator for Arc Projector and Stun Drone." },
+      { category: "Gadget", description: "Added Welding Kit to gadgets." },
+      { category: "Gadget", description: "Changed Flamethrower to create a patch of fire, rather than a single attack." },
+      { category: "Gadget", description: "Added Remote Bomb." },
+      { category: "Force Ability", description: "Clarified Force Barrier size." },
+      
+    ],
+  },
   {
     version: "0.2.6.1",
     date: "2026-03-23",
