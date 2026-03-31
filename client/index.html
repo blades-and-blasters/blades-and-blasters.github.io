@@ -7,6 +7,22 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1" />
     <title>Blades &amp; Blasters</title>
+    <script>
+      // GitHub Pages SPA redirect restoration.
+      // If 404.html redirected here with ?p=..., restore the real URL
+      // before React mounts so the router sees the correct path.
+      (function() {
+        var params = new URLSearchParams(window.location.search);
+        var p = params.get('p');
+        if (p) {
+          var hash = params.get('h') || '';
+          window.history.replaceState(
+            null, null,
+            '/' + decodeURIComponent(p) + decodeURIComponent(hash)
+          );
+        }
+      })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Nunito+Sans:ital,opsz,wght@0,6..12,300;0,6..12,400;0,6..12,600;0,6..12,700;1,6..12,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />

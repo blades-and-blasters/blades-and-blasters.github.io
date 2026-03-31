@@ -4,15 +4,17 @@
     <meta charset="utf-8">
     <title>Blades & Blasters</title>
     <script>
-      // Preserve the requested path and redirect to index.html
-      const path = window.location.pathname;
-      const basePath = '/home/';
-      
-      // Only redirect if we're in the ruleset subdirectory
-      if (path.startsWith(basePath)) {
-        sessionStorage.redirect = window.location.href;
-        window.location.href = basePath + 'index.html';
-      }
+      // GitHub Pages SPA redirect trick.
+      // When GitHub Pages returns a 404 for a deep route (e.g. /classes/jedi-knight),
+      // it serves this file instead. We encode the full path into a query string
+      // and redirect to the root so React Router can handle it.
+      var l = window.location;
+      l.replace(
+        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+        '/?p=' + l.pathname.slice(1).replace(/&/g, '~and~') +
+        (l.search ? '&q=' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+        l.hash
+      );
     </script>
   </head>
   <body>
