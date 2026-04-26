@@ -126,6 +126,9 @@ export default function WeaponsPage() {
                       Range
                     </th>
                   )}
+                  <th className="text-left px-4 py-3 text-xs font-bold text-muted-foreground uppercase tracking-wider hidden md:table-cell">
+                    Price
+                  </th>
                   <th className="text-left px-4 py-3 text-xs font-bold text-muted-foreground uppercase tracking-wider hidden lg:table-cell">
                     Properties
                   </th>
@@ -183,6 +186,11 @@ export default function WeaponsPage() {
                         </span>
                       </td>
                     )}
+                    <td className="px-4 py-3 hidden md:table-cell">
+                      <span className="mono text-foreground/80 text-xs">
+                        {weapon.price !== undefined ? `₢${weapon.price.toLocaleString()}` : "—"}
+                      </span>
+                    </td>
                     <td className="px-4 py-3 hidden lg:table-cell">
                       <div className="flex flex-wrap gap-1">
                         {weapon.properties.length > 0 ? (
@@ -247,6 +255,11 @@ export default function WeaponsPage() {
                   <p className="text-[11px] text-muted-foreground mt-2 italic">
                     {weapon.notes}
                   </p>
+                )}
+                {weapon.price !== undefined && (
+                  <div className="text-xs text-muted-foreground mt-2 mono">
+                    Price: <span className="text-foreground/80">₢{weapon.price.toLocaleString()}</span>
+                  </div>
                 )}
               </div>
             ))}

@@ -3128,6 +3128,7 @@ export interface Weapon {
   range?: string;
   properties: string[];
   notes?: string;
+  price?: number;
 }
 
 export const weapons: Weapon[] = [
@@ -3138,35 +3139,50 @@ export const weapons: Weapon[] = [
     category: "lightsaber",
     damage: "1d8 (1d10 Versatile)",
     properties: ["Versatile", "Melting", "Finesse", "Luminous"],
+    price: 9000,
+
   },
+
   {
     id: "saberstaff",
     name: "Saberstaff",
     category: "lightsaber",
     damage: "1d6",
     properties: ["Melting", "Finesse", "Luminous", "Double Strike"],
+    price: 11000,
+
   },
+
   {
     id: "lightpike",
     name: "Lightpike",
     category: "lightsaber",
     damage: "1d10",
     properties: ["Melting", "Finesse", "Luminous", "Heavy", "Reach", "Two-Handed"],
+    price: 10000,
+
   },
+
   {
     id: "shoto",
     name: "Shoto",
     category: "lightsaber",
     damage: "1d6",
     properties: ["Melting", "Finesse", "Luminous", "Light"],
+    price: 7500,
+
   },
+
   {
     id: "crossguard-saber",
     name: "Crossguard Saber",
     category: "lightsaber",
     damage: "1d12",
     properties: ["Melting", "Luminous", "Heavy", "Two-Handed"],
+    price: 12000,
+
   },
+
   // ── Blasters ─────────────────────────────────────────────────────────────
   {
     id: "blaster-pistol",
@@ -3176,7 +3192,10 @@ export const weapons: Weapon[] = [
     damage: "1d4",
     range: "30/60 ft",
     properties: ["Light"],
+    price: 3500,
+
   },
+
   {
     id: "blaster-rifle",
     name: "Blaster Rifle",
@@ -3185,7 +3204,10 @@ export const weapons: Weapon[] = [
     damage: "1d8",
     range: "150/600 ft",
     properties: [],
+    price: 6000,
+
   },
+
   {
     id: "disruptor-rifle",
     name: "Disruptor Rifle",
@@ -3194,7 +3216,10 @@ export const weapons: Weapon[] = [
     range: "100/900 ft",
     properties: ["Clumsy", "Disintegrator"],
     notes: "Big sniper — may be merged with Sniper Blaster in a future update.",
+    price: 11000,
+
   },
+
   {
     id: "sniper-blaster",
     name: "Sniper Blaster",
@@ -3202,7 +3227,10 @@ export const weapons: Weapon[] = [
     damage: "—",
     properties: [],
     notes: "Stats to be filled in.",
+    price: 9000,
+
   },
+
   {
     id: "shard-cannon",
     name: "Shard Cannon",
@@ -3211,7 +3239,10 @@ export const weapons: Weapon[] = [
     range: "20/50 ft",
     properties: [],
     notes: "Shotgun-style weapon.",
+    price: 5500,
+
   },
+
   {
     id: "blaster-cannon",
     name: "Blaster Cannon",
@@ -3220,7 +3251,10 @@ export const weapons: Weapon[] = [
     range: "150/600 ft",
     properties: ["High Recoil"],
     notes: "Medium machine gun equivalent.",
+    price: 13000,
+
   },
+
   {
     id: "auto-grenade-launcher",
     name: "Automatic Grenade Launcher",
@@ -3228,7 +3262,10 @@ export const weapons: Weapon[] = [
     damage: "1d8",
     range: "60/100 ft",
     properties: ["Blast (5 ft)", "High Recoil"],
+    price: 12000,
+
   },
+
   {
     id: "micro-grenade-launcher",
     name: "Micro-Grenade Launcher",
@@ -3236,7 +3273,10 @@ export const weapons: Weapon[] = [
     damage: "1d6",
     range: "50/80 ft",
     properties: ["Blast (5 ft)"],
+    price: 7500,
+
   },
+
   {
     id: "sonic-cannon",
     name: "Sonic Cannon",
@@ -3245,7 +3285,10 @@ export const weapons: Weapon[] = [
     range: "20 ft",
     properties: ["High Recoil", "Spread Shot (10 ft)"],
     notes: "Giga-shotgun. Forces a saving throw rather than an attack roll.",
+    price: 15000,
+
   },
+
   // ── Vibroweapons ─────────────────────────────────────────────────────────
   {
     id: "vibroknife",
@@ -3254,7 +3297,10 @@ export const weapons: Weapon[] = [
     classification: "Simple",
     damage: "1d4",
     properties: ["Finesse", "Light", "Vibrocutter"],
+    price: 800,
+
   },
+
   {
     id: "vibroaxe",
     name: "Vibroaxe",
@@ -3262,7 +3308,10 @@ export const weapons: Weapon[] = [
     classification: "Martial",
     damage: "1d12",
     properties: ["Heavy", "Two-Handed", "Vibrocutter"],
+    price: 1800,
+
   },
+
   {
     id: "vibrosword",
     name: "Vibrosword",
@@ -3270,7 +3319,10 @@ export const weapons: Weapon[] = [
     classification: "Martial",
     damage: "1d8 (1d10 Versatile)",
     properties: ["Versatile", "Vibrocutter"],
+    price: 2200,
+
   },
+
   {
     id: "vibropike",
     name: "Vibropike",
@@ -3278,7 +3330,10 @@ export const weapons: Weapon[] = [
     classification: "Martial",
     damage: "1d10",
     properties: ["Heavy", "Reach", "Two-Handed", "Vibrocutter"],
+    price: 2500,
+
   },
+
   {
     id: "electrostaff",
     name: "Electrostaff",
@@ -3286,7 +3341,10 @@ export const weapons: Weapon[] = [
     classification: "Martial",
     damage: "1d8",
     properties: ["Reach", "Electrified"],
+    price: 3000,
+
   },
+
   {
     id: "electrohammer",
     name: "Electrohammer",
@@ -3294,14 +3352,20 @@ export const weapons: Weapon[] = [
     classification: "Martial",
     damage: "1d10",
     properties: ["Electrowave (5 ft)"],
+    price: 3800,
+
   },
+
   {
     id: "electrodagger",
     name: "Electrodagger",
     category: "vibroweapon",
     damage: "1d4",
     properties: ["Finesse", "Light", "Electrified"],
+    price: 1200,
+
   },
+
   {
     id: "electrobaton",
     name: "Electrobaton",
@@ -3309,7 +3373,10 @@ export const weapons: Weapon[] = [
     classification: "Martial",
     damage: "1d6",
     properties: ["Finesse", "Light", "Electrified"],
+    price: 1500,
+
   },
+
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -3320,6 +3387,7 @@ export interface Item {
   name: string;
   description: string;
   category: string;
+  price?: number;
 }
 
 export const items: Item[] = [
@@ -3329,27 +3397,39 @@ export const items: Item[] = [
     name: "Bacta Patch",
     category: "Medical",
     description: "Heals 2d4+2 HP.",
+    price: 500,
+
   },
+
   {
     id: "bacta-autoinjector",
     name: "Bacta Autoinjector",
     category: "Medical",
     description: "Heals 4d4+4 HP.",
+    price: 1500,
+
   },
+
   {
     id: "stim-injector",
     name: "Stim Injector",
     category: "Medical",
     description:
       "Heal 1d6 HP and gain an additional 10ft of movement and an additional bonus action for five turns. Each turn after the first, take 1d6 damage.",
+    price: 2000,
+
   },
+
   {
     id: "medical-kit",
     name: "Medical Kit",
     category: "Medical",
     description:
       "A medical kit containing basic first aid supplies. Grants Advantage on Medicine checks.",
+    price: 500,
+
   },
+
   // ── Grenades ─────────────────────────────────────────────────────────────
   {
     id: "thermal-detonator",
@@ -3357,35 +3437,50 @@ export const items: Item[] = [
     category: "Grenade",
     description:
       "Deals 2d6+2 damage in a 10ft area. Can be thrown 30ft.",
+    price: 2500,
+
   },
+
   {
     id: "concussion-grenade",
     name: "Concussion Grenade",
     category: "Grenade",
     description:
       "Deals 2d4 damage in a 10ft area. Propels all hit targets 5ft away from the grenade. Can be thrown 30ft.",
+    price: 800,
+
   },
+
   {
     id: "ion-grenade",
     name: "Ion Grenade",
     category: "Grenade",
     description:
       "Deals 1d6 damage in a 10ft area. Deals double damage to temporary HP and droids. Can be thrown 30ft.",
+    price: 1000,
+
   },
+
   {
     id: "incendiary-grenade",
     name: "Incendiary Grenade",
     category: "Grenade",
     description:
       "Creates a 10ft patch of fire that lasts for 3 turns. Deals 1d6 damage to every target in the fire. Can be thrown 30ft.",
+    price: 1000,
+
   },
+
   {
     id: "smoke-grenade",
     name: "Smoke Grenade",
     category: "Grenade",
     description:
       "Creates a 10ft smoke cloud that lasts for 1 turn, completely obscuring vision, but not more advanced sensors. Can be thrown 30ft.",
+    price: 500,
+
   },
+
   // ── Gear & Tools ─────────────────────────────────────────────────────────
   {
     id: "mechanic-kit",
@@ -3393,96 +3488,138 @@ export const items: Item[] = [
     category: "Tool",
     description:
       "A kit full of tools. Grants Advantage on Technology rolls to repair mechanical devices.",
+    price: 2500,
+
   },
+
   {
     id: "thiefs-kit",
     name: "Thief's Kit",
     category: "Tool",
     description:
       "A kit full of lockpicks, shims, and all other devices needed to break into places. Grants Advantage on Sleight of Hand rolls to break into physically locked places.",
+    price: 2500,
+
   },
+
   {
     id: "forgery-kit",
     name: "Forgery Kit",
     category: "Tool",
     description:
       "A kit full of makeup, wigs, and all other necessities for disguises. Grants Advantage on Deception checks to maintain a disguise.",
+    price: 2500,
+
   },
+
   {
     id: "motion-sensor",
     name: "Motion Sensor",
     category: "Tool",
     description:
       "A motion sensor capable of detecting any motion within 30ft. Does not see through walls, and lasts for 8 hours once placed. May be configured for remote or direct warning.",
+    price: 1500,
+
   },
+
   {
     id: "compact-comms-array",
     name: "Compact Comms Array",
     category: "Tool",
     description:
       "A backpack-sized comms array capable of reaching from surface to orbit on most planets and cutting through most jamming. May not work under heavy jamming or electromagnetic interference.",
+    price: 7500,
+
   },
+
   {
     id: "portable-holoprojector",
     name: "Portable Holoprojector",
     category: "Tool",
     description:
       "A small, hand-sized holoprojector capable of configuration to display data or images in a 1ft cube.",
+    price: 3000,
+
   },
+
   {
     id: "personal-locator-beacon",
     name: "Personal Locator Beacon",
     category: "Tool",
     description:
       "A locator beacon visible on all emergency comm systems, capable of broadcasting your location for 50 miles in all directions, including up.",
+    price: 1200,
+
   },
+
   {
     id: "commlink",
     name: "Commlink",
     category: "Tool",
     description:
       "An earpiece capable of communication with other tuned-in comms systems. It may only transmit up to 25mi away, but more powerful transmitters may be received by it further, depending on the transmitter.",
+    price: 1000,
+
   },
+
   {
     id: "firestarter",
     name: "Firestarter",
     category: "Tool",
     description:
       "A small tinderbox capable of lighting small fires on appropriate material.",
+    price: 100,
+
   },
+
   {
     id: "binoculars",
     name: "Binoculars",
     category: "Tool",
     description: "Binoculars capable of 5x zoom.",
+    price: 500,
+
   },
+
   {
     id: "flashlight",
     name: "Flashlight",
     category: "Tool",
     description: "Capable of creating a 30ft cone of light.",
+    price: 300,
+
   },
+
   {
     id: "fibercord",
     name: "Fibercord (50ft)",
     category: "Tool",
     description:
       "50ft of fibercord rope. May be ripped with a DC 17 Strength check.",
+    price: 300,
+
   },
+
   {
     id: "handcuffs",
     name: "Handcuffs",
     category: "Tool",
     description:
       "Metal handcuffs capable of holding two limbs together. May be broken with a DC 19 Strength check.",
+    price: 500,
+
   },
+
   {
     id: "signal-flare",
     name: "Signal Flare",
     category: "Tool",
     description:
       "A flare that shoots up 50ft, creating a flare visible for up to five miles away.",
+    price: 250,
+
   },
+
   // ── Survival & Misc ───────────────────────────────────────────────────────
   {
     id: "thermal-cloak",
@@ -3490,54 +3627,78 @@ export const items: Item[] = [
     category: "Survival",
     description:
       "An insulated, heated cloak capable of keeping warm in extreme cold.",
+    price: 800,
+
   },
+
   {
     id: "emergency-raft",
     name: "Emergency Raft",
     category: "Survival",
     description:
       "An inflatable raft capable of holding four people. This raft has 5 HP, but autoinflates.",
+    price: 1200,
+
   },
+
   {
     id: "anti-grav-chute",
     name: "Anti-Grav Chute",
     category: "Survival",
     description:
       "A backpack-sized safety device allowing for the complete elimination of falling damage, no matter the height. May only be used once.",
+    price: 2500,
+
   },
+
   {
     id: "null-g-maneuver-pack",
     name: "Null-G Maneuver Pack",
     category: "Survival",
     description:
       "A pack that grants 30ft of fly speed, but only in zero-G environments.",
+    price: 4000,
+
   },
+
   {
     id: "goggles",
     name: "Goggles",
     category: "Survival",
     description:
       "Basic plastic goggles capable of keeping most things out of your eyes.",
+    price: 200,
+
   },
+
   // ── Clothing ─────────────────────────────────────────────────────────────
   {
     id: "clothes-fine",
     name: "Clothes (Fine)",
     category: "Clothing",
     description: "Fine clothes, suitable for a formal event.",
+    price: 1500,
+
   },
+
   {
     id: "clothes-normal",
     name: "Clothes (Normal)",
     category: "Clothing",
     description: "Normal clothes, suitable for daily use.",
+    price: 500,
+
   },
+
   {
     id: "clothes-ragged",
     name: "Clothes (Ragged)",
     category: "Clothing",
     description: "Ragged clothes, suitable for those down on their luck.",
+    price: 100,
+
   },
+
   // ── Illicit ───────────────────────────────────────────────────────────────
   {
     id: "spice",
@@ -3545,7 +3706,10 @@ export const items: Item[] = [
     category: "Illicit",
     description:
       "Illicit stimulants, highly prized on the black market.",
+    price: 1000,
+
   },
+
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -3560,6 +3724,7 @@ export interface Armor {
   ac: string;
   stealthDisadvantage: boolean;
   notes?: string;
+  price?: number;
 }
 
 export const armors: Armor[] = [
@@ -3570,21 +3735,30 @@ export const armors: Armor[] = [
     weight: "Light",
     ac: "11 + Dex",
     stealthDisadvantage: true,
+    price: 1000,
+
   },
+
   {
     id: "advanced-combat-suit",
     name: "Advanced Combat Suit",
     weight: "Light",
     ac: "11 + Dex",
     stealthDisadvantage: false,
+    price: 1800,
+
   },
+
   {
     id: "fiber-armor",
     name: "Fiber Armor",
     weight: "Light",
     ac: "12 + Dex",
     stealthDisadvantage: false,
+    price: 3000,
+
   },
+
   // ── Medium ────────────────────────────────────────────────────────────────
   {
     id: "mesh-armor",
@@ -3592,21 +3766,30 @@ export const armors: Armor[] = [
     weight: "Medium",
     ac: "13 + Dex (max 2)",
     stealthDisadvantage: false,
+    price: 4000,
+
   },
+
   {
     id: "weave-armor",
     name: "Weave Armor",
     weight: "Medium",
     ac: "14 + Dex (max 2)",
     stealthDisadvantage: false,
+    price: 6000,
+
   },
+
   {
     id: "light-beskar-armor",
     name: "Light Beskar Armor",
     weight: "Medium",
     ac: "15 + Dex (max 2)",
     stealthDisadvantage: false,
+    price: 9000,
+
   },
+
   // ── Heavy ─────────────────────────────────────────────────────────────────
   {
     id: "plastoid-armor",
@@ -3614,28 +3797,40 @@ export const armors: Armor[] = [
     weight: "Heavy",
     ac: "15",
     stealthDisadvantage: true,
+    price: 5500,
+
   },
+
   {
     id: "durasteel-armor",
     name: "Durasteel Armor",
     weight: "Heavy",
     ac: "17",
     stealthDisadvantage: true,
+    price: 9000,
+
   },
+
   {
     id: "composite-durasteel-armor",
     name: "Composite Durasteel Armor",
     weight: "Heavy",
     ac: "18",
     stealthDisadvantage: true,
+    price: 13000,
+
   },
+
   {
     id: "heavy-beskar-armor",
     name: "Heavy Beskar Armor",
     weight: "Heavy",
     ac: "19",
     stealthDisadvantage: true,
+    price: 18000,
+
   },
+
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -3667,6 +3862,40 @@ export interface ChangelogEntry {
 }
 
 export const changelog: ChangelogEntry[] = [
+  {
+    version: "0.2.9",
+    date: "2026-04-26",
+    changes: [
+      { category: "Weapon", description: "Added credit prices to all 22 weapons (lightsabers, blasters, vibroweapons, electroweapons). Prices now display in the table and mobile cards." },
+      { category: "Item", description: "Added credit prices to all items. Prices now display on each item card." },
+      { category: "Armor", description: "Added credit prices to all 10 armor entries. Prices now display in the table and armor cards." },
+    ],
+  },
+  {
+    version: "0.2.8.1",
+    date: "2026-03-30",
+    summary: "Fixed GitHub Pages SPA routing — page refresh on non-home routes now works.",
+    changes: [
+      { category: "Infrastructure", description: "Fixed client/public/404.html: the redirect script had a hardcoded /home/ path check (a sandbox artifact) that prevented it from ever firing on the real domain. Replaced with a universal ?p= redirect that works on any host." },
+      { category: "Infrastructure", description: "Fixed index.html path restoration script to prepend a leading / when restoring the route from the ?p= query param." },
+    ],
+  },
+  {
+    version: "0.2.8",
+    date: "2026-03-27",
+    summary: "Integrated updated gameData base (v0.2.7 playtesting pass).",
+    changes: [
+      { category: "Data", description: "Merged latest gameData base including Consular stealth proficiency, Agent AoE clarification, Powertech droid updates, Shadow Forceful Breach fix, Operative gadget updates, Welding Kit, Remote Bomb, Flamethrower rework, and Force Barrier clarification." },
+    ],
+  },
+  {
+    version: "0.2.6.2",
+    date: "2026-03-23",
+    summary: "Added alignment filter to Force Abilities page.",
+    changes: [
+      { category: "UI", description: "Force Abilities page: added All / Light Side / Dark Side / Universal filter row above the search bar. Filters stack with the existing tag and search filters." },
+    ],
+  },
   {
     version: "0.2.7",
     date: "2026-03-26",

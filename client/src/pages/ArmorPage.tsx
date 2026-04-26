@@ -79,6 +79,9 @@ export default function ArmorPage() {
                 <th className="text-left px-4 py-3 text-xs font-bold text-muted-foreground uppercase tracking-wider hidden sm:table-cell">
                   Stealth
                 </th>
+                <th className="text-left px-4 py-3 text-xs font-bold text-muted-foreground uppercase tracking-wider hidden md:table-cell">
+                  Price
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -117,6 +120,11 @@ export default function ArmorPage() {
                       ) : (
                         <span className="text-xs text-muted-foreground">—</span>
                       )}
+                    </td>
+                    <td className="px-4 py-3 hidden md:table-cell">
+                      <span className="mono text-foreground/80 text-xs">
+                        {armor.price !== undefined ? `₢${armor.price.toLocaleString()}` : "—"}
+                      </span>
                     </td>
                   </tr>
                 );
@@ -178,6 +186,11 @@ export default function ArmorPage() {
                         </span>
                       )}
                     </div>
+                    {armor.price !== undefined && (
+                      <div className="text-xs text-muted-foreground mt-2 mono">
+                        Price: <span className="text-foreground/80">₢{armor.price.toLocaleString()}</span>
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>

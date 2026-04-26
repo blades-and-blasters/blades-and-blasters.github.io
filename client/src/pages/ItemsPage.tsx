@@ -174,6 +174,11 @@ export default function ItemsPage() {
                   <p className="text-sm text-muted-foreground leading-relaxed pl-5">
                     {item.description}
                   </p>
+                  {item.price !== undefined && (
+                    <div className="text-xs text-muted-foreground mt-2 pl-5 mono">
+                      Price: <span className="text-foreground/80">₢{item.price.toLocaleString()}</span>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
