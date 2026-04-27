@@ -1004,7 +1004,7 @@ export const classes: CharacterClass[] = [
           {
             level: 11,
             name: "Extra Attack",
-            description: "You can attack three times whenever you take the Attack action.",
+            description: "You can attack two times whenever you take the Attack action.",
             type: "passive",
           },
           {
@@ -4126,14 +4126,14 @@ export const changelog: ChangelogEntry[] = [
     version: "0.3.1",
     date: "2026-04-27",
     changes: [
-      "Extracted Operative Gadgets into structured operativeGadgets sub-array on Operative subclass",
-      "Extracted Trooper Commando Specialized Shots into commandoShots sub-array",
-      "Extracted Trooper Vanguard Abilities into vanguardAbilities sub-array",
-      "Extracted Scoundrel Presents into scoundrelPresents sub-array",
-      "Extracted Mercenary Arsenal into mercenaryAbilities sub-array",
-      "Extracted Powertech Companion Droid chassis into droidChassis sub-array",
-      "Added actionType badge display to Gadgets page",
-      "SubclassDetailPage now renders all 7 sub-array types with appropriate card styles",
+      category: "Rules", description: "Extracted Operative Gadgets into structured operativeGadgets sub-array on Operative subclass",
+      category: "Rules", description: "Extracted Trooper Commando Specialized Shots into commandoShots sub-array",
+      category: "Rules", description: "Extracted Trooper Vanguard Abilities into vanguardAbilities sub-array",
+      category: "Rules", description: "Extracted Scoundrel Presents into scoundrelPresents sub-array",
+      category: "Rules", description: "Extracted Mercenary Arsenal into mercenaryAbilities sub-array",
+      category: "Rules", description: "Extracted Powertech Companion Droid chassis into droidChassis sub-array",
+      category: "Rules", description: "Added actionType badge display to Gadgets page",
+      category: "Rules", description: "SubclassDetailPage now renders all 7 sub-array types with appropriate card styles",
     ],
   },
   {
