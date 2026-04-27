@@ -2725,7 +2725,7 @@ export const gadgets: Gadget[] = [
     description:
       "As an action, create a 10ft diameter patch of fire on the ground, or a 20x5ft wall within 60ft of you. Any enemy who starts their turn in this fire or passes through it takes 3d6 damage",
     tags: ["Damage", "Area"],
-    actionType: Action",
+    actionType: "Action",
   },
   {
     id: "remote-bomb",
@@ -2735,7 +2735,7 @@ export const gadgets: Gadget[] = [
     description:
       "As an action, plant a bomb that becomes armed after twenty seconds. After it becomes armed, you may detonate it at any time, so long as you are within comms range of it, or you may set a timer to detonate it. Any target within 30ft takes 8d6 damage.",
     tags: ["Damage", "Area"],
-    actionType: Action",
+    actionType: "Action",
   },
   {
     id: "auto-hacking-device",
