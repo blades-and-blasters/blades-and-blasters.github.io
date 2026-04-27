@@ -119,8 +119,13 @@ export default function GadgetsPage() {
               </span>
             </div>
 
-            <div className="text-xs text-muted-foreground mb-2">
-              <span className="text-foreground/50">Uses:</span> {gadget.uses}
+            <div className="flex items-center gap-2 flex-wrap text-xs text-muted-foreground mb-2">
+              <span><span className="text-foreground/50">Uses:</span> {gadget.uses}</span>
+              {gadget.actionType && (
+                <span className="ability-tag text-green-400 border-green-400/40 bg-green-400/10">
+                  {gadget.actionType}
+                </span>
+              )}
             </div>
 
             <p className="text-sm text-muted-foreground leading-relaxed flex-1 mb-3">

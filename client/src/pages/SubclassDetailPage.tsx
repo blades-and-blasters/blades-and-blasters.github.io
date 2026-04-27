@@ -4,7 +4,11 @@
 
 import { Link, useParams } from "wouter";
 import { ChevronLeft, Zap } from "lucide-react";
-import { classes, accentColorMap, LevelFeature, MutagenicAbility } from "@/lib/gameData";
+import {
+  classes, accentColorMap,
+  LevelFeature, MutagenicAbility, SniperGadget, OperativeGadget,
+  CommandoShot, VanguardAbility, ScoundrelPresent, MercenaryAbility, DroidChassis,
+} from "@/lib/gameData";
 import { cn } from "@/lib/utils";
 
 const featureTypeColors: Record<string, string> = {
@@ -39,6 +43,17 @@ function FeatureCard({ feature, accent }: { feature: LevelFeature; accent: strin
           </p>
         </div>
       </div>
+    </div>
+  );
+}
+
+function SectionHeader({ title, subtitle }: { title: string; subtitle?: string }) {
+  return (
+    <div className="mt-8 mb-4">
+      <h2 className="text-xl font-bold text-foreground" style={{ fontFamily: "Rajdhani, sans-serif" }}>
+        {title}
+      </h2>
+      {subtitle && <p className="text-sm text-muted-foreground mt-1">{subtitle}</p>}
     </div>
   );
 }
@@ -149,41 +164,228 @@ export default function SubclassDetailPage() {
         </div>
       </div>
 
-      {/* Mutagenic Abilities (Alchemist-style selectable pools) */}
+      {/* ── Mutagenic Abilities (Alchemist) ── */}
       {sub.mutagenicAbilities && sub.mutagenicAbilities.length > 0 && (
-        <div className="mt-8">
-          <h2 className="text-xl font-bold text-foreground mb-1" style={{ fontFamily: "Rajdhani, sans-serif" }}>
-            Mutagenic Abilities
-          </h2>
-          <p className="text-sm text-muted-foreground mb-4">
-            Select from this pool when the Alchemical Horror feature or a Mutagenic Evolution feature grants new abilities or Overloads.
-          </p>
+        <>
+          <SectionHeader
+            title="Mutagenic Abilities"
+            subtitle="Select from this pool when the Alchemical Horror feature or a Mutagenic Evolution feature grants new abilities or Overloads."
+          />
           <div className="space-y-3">
             {sub.mutagenicAbilities.map((ability: MutagenicAbility) => (
               <div key={ability.id} className="glass-card rounded-lg p-4 border border-border/50">
-                <div className="flex items-start gap-3">
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 flex-wrap mb-1">
-                      <span className="font-bold text-foreground text-sm" style={{ fontFamily: "Rajdhani, sans-serif" }}>
-                        {ability.name}
-                      </span>
-                      <span className={cn("ability-tag", "text-purple-400 border-purple-400/40 bg-purple-400/10")}>
-                        mutagenic
-                      </span>
-                    </div>
-                    <p className="text-sm text-muted-foreground leading-relaxed mb-2">
-                      {ability.description}
-                    </p>
-                    <div className="text-xs border-t border-border/30 pt-2 mt-2">
-                      <span className={cn("font-semibold", colors.text)}>Mutagenic Overload: </span>
-                      <span className="text-muted-foreground">{ability.overload}</span>
-                    </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap mb-1">
+                    <span className="font-bold text-foreground text-sm" style={{ fontFamily: "Rajdhani, sans-serif" }}>
+                      {ability.name}
+                    </span>
+                    <span className="ability-tag text-purple-400 border-purple-400/40 bg-purple-400/10">mutagenic</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-2">{ability.description}</p>
+                  <div className="text-xs border-t border-border/30 pt-2 mt-2">
+                    <span className={cn("font-semibold", colors.text)}>Mutagenic Overload: </span>
+                    <span className="text-muted-foreground">{ability.overload}</span>
                   </div>
                 </div>
               </div>
             ))}
           </div>
-        </div>
+        </>
+      )}
+
+      {/* ── Sniper Gadgets ── */}
+      {sub.sniperGadgets && sub.sniperGadgets.length > 0 && (
+        <>
+          <SectionHeader
+            title="Sniper Gadgets"
+            subtitle="Exclusive to the Sniper subclass. Gained via the Sniper Gadgets feature at level 3."
+          />
+          <div className="space-y-3">
+            {sub.sniperGadgets.map((g: SniperGadget) => (
+              <div key={g.id} className="glass-card rounded-lg p-4 border border-border/50">
+                <div className="flex items-center gap-2 flex-wrap mb-1">
+                  <span className="font-bold text-foreground text-sm" style={{ fontFamily: "Rajdhani, sans-serif" }}>{g.name}</span>
+                  <span className="ability-tag text-teal-400 border-teal-400/40 bg-teal-400/10">{g.slots} {g.slots === 1 ? "slot" : "slots"}</span>
+                  <span className="ability-tag text-green-400 border-green-400/40 bg-green-400/10">{g.actionType}</span>
+                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed">{g.description}</p>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+
+      {/* ── Operative Gadgets ── */}
+      {sub.operativeGadgets && sub.operativeGadgets.length > 0 && (
+        <>
+          <SectionHeader
+            title="Operative Gadgets"
+            subtitle="Exclusive to the Operative subclass. Gained via Deep Pockets, Deeper Stores at level 3."
+          />
+          <div className="space-y-3">
+            {sub.operativeGadgets.map((g: OperativeGadget) => (
+              <div key={g.id} className="glass-card rounded-lg p-4 border border-border/50">
+                <div className="flex items-center gap-2 flex-wrap mb-1">
+                  <span className="font-bold text-foreground text-sm" style={{ fontFamily: "Rajdhani, sans-serif" }}>{g.name}</span>
+                  <span className="ability-tag text-teal-400 border-teal-400/40 bg-teal-400/10">{g.slots} {g.slots === 1 ? "slot" : "slots"}</span>
+                  <span className="ability-tag text-green-400 border-green-400/40 bg-green-400/10">{g.actionType}</span>
+                  {"uses" in g && (g as any).uses && (
+                    <span className="ability-tag text-amber-400 border-amber-400/40 bg-amber-400/10">{(g as any).uses} use{(g as any).uses !== "1" && (g as any).uses !== "Unlimited" ? "s" : ""}</span>
+                  )}
+                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed">{g.description}</p>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+
+      {/* ── Commando Shots ── */}
+      {sub.commandoShots && sub.commandoShots.length > 0 && (
+        <>
+          <SectionHeader
+            title="Specialized Shots"
+            subtitle="Select from this pool when the Specialized Shots feature grants new shots."
+          />
+          <div className="space-y-3">
+            {sub.commandoShots.map((s: CommandoShot) => (
+              <div key={s.id} className="glass-card rounded-lg p-4 border border-border/50">
+                <div className="flex items-center gap-2 flex-wrap mb-1">
+                  <span className="font-bold text-foreground text-sm" style={{ fontFamily: "Rajdhani, sans-serif" }}>{s.name}</span>
+                  <span className="ability-tag text-cyan-400 border-cyan-400/40 bg-cyan-400/10">{s.cost}</span>
+                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-2">{s.description}</p>
+                {s.overcharge && (
+                  <div className="text-xs border-t border-border/30 pt-2 mt-2">
+                    <span className={cn("font-semibold", colors.text)}>Overcharge: </span>
+                    <span className="text-muted-foreground">{s.overcharge}</span>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+
+      {/* ── Vanguard Abilities ── */}
+      {sub.vanguardAbilities && sub.vanguardAbilities.length > 0 && (
+        <>
+          <SectionHeader
+            title="Vanguard Abilities"
+            subtitle="Select from this pool when the Vanguard Abilities feature grants new abilities."
+          />
+          <div className="space-y-3">
+            {sub.vanguardAbilities.map((a: VanguardAbility) => (
+              <div key={a.id} className="glass-card rounded-lg p-4 border border-border/50">
+                <div className="flex items-center gap-2 flex-wrap mb-1">
+                  <span className="font-bold text-foreground text-sm" style={{ fontFamily: "Rajdhani, sans-serif" }}>{a.name}</span>
+                  <span className="ability-tag text-cyan-400 border-cyan-400/40 bg-cyan-400/10">{a.cost}</span>
+                  <span className="ability-tag text-green-400 border-green-400/40 bg-green-400/10">{a.actionType}</span>
+                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-2">{a.description}</p>
+                {a.overcharge && (
+                  <div className="text-xs border-t border-border/30 pt-2 mt-2">
+                    <span className={cn("font-semibold", colors.text)}>Overcharge: </span>
+                    <span className="text-muted-foreground">{a.overcharge}</span>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+
+      {/* ── Scoundrel Presents ── */}
+      {sub.scoundrelPresents && sub.scoundrelPresents.length > 0 && (
+        <>
+          <SectionHeader
+            title="Presents"
+            subtitle="Plant these on enemies as a melee attack. Detonated by dealing any weapon damage."
+          />
+          <div className="space-y-3">
+            {sub.scoundrelPresents.map((p: ScoundrelPresent) => (
+              <div key={p.id} className="glass-card rounded-lg p-4 border border-border/50">
+                <div className="flex items-center gap-2 flex-wrap mb-1">
+                  <span className="font-bold text-foreground text-sm" style={{ fontFamily: "Rajdhani, sans-serif" }}>{p.name}</span>
+                  <span className="ability-tag text-pink-400 border-pink-400/40 bg-pink-400/10">{p.cost}</span>
+                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed">{p.description}</p>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+
+      {/* ── Mercenary Arsenal ── */}
+      {sub.mercenaryAbilities && sub.mercenaryAbilities.length > 0 && (
+        <>
+          <SectionHeader
+            title="Mercenary Arsenal"
+            subtitle="Heat-based abilities that scale with current Heat level. Each tier unlocks at 50 and 70 Heat respectively."
+          />
+          <div className="space-y-3">
+            {sub.mercenaryAbilities.map((a: MercenaryAbility) => (
+              <div key={a.id} className="glass-card rounded-lg p-4 border border-border/50">
+                <div className="flex items-center gap-2 flex-wrap mb-1">
+                  <span className="font-bold text-foreground text-sm" style={{ fontFamily: "Rajdhani, sans-serif" }}>{a.name}</span>
+                  <span className="ability-tag text-orange-400 border-orange-400/40 bg-orange-400/10">{a.heatCost} Heat</span>
+                  {a.noAction && <span className="ability-tag text-slate-400 border-slate-400/40 bg-slate-400/10">No Action</span>}
+                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-2">{a.description}</p>
+                {(a.tier50 || a.tier70) && (
+                  <div className="text-xs border-t border-border/30 pt-2 mt-2 space-y-1">
+                    {a.tier50 && (
+                      <div>
+                        <span className="font-semibold text-amber-400">50+ Heat: </span>
+                        <span className="text-muted-foreground">{a.tier50}</span>
+                      </div>
+                    )}
+                    {a.tier70 && (
+                      <div>
+                        <span className="font-semibold text-red-400">70+ Heat: </span>
+                        <span className="text-muted-foreground">{a.tier70}</span>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+
+      {/* ── Droid Chassis (Powertech) ── */}
+      {sub.droidChassis && sub.droidChassis.length > 0 && (
+        <>
+          <SectionHeader
+            title="Droid Chassis"
+            subtitle="Choose one chassis for your Companion Droid. The droid gains Ability Score Increases at the same rate as you."
+          />
+          <div className="grid gap-4 sm:grid-cols-3">
+            {sub.droidChassis.map((d: DroidChassis) => (
+              <div key={d.id} className={cn("glass-card rounded-lg p-4 border", colors.border + "/40")}>
+                <div className="flex items-center gap-2 mb-3 flex-wrap">
+                  <span className="font-bold text-foreground text-sm" style={{ fontFamily: "Rajdhani, sans-serif" }}>{d.name}</span>
+                  <span className={cn("ability-tag", colors.badge)}>{d.size}</span>
+                </div>
+                <div className="space-y-1 text-xs text-muted-foreground mb-3">
+                  <div><span className="text-foreground/60">Hit Die:</span> {d.hitDie}/level</div>
+                  <div><span className="text-foreground/60">AC:</span> {d.ac}</div>
+                  <div><span className="text-foreground/60">Movement:</span> {d.movement}</div>
+                  <div><span className="text-foreground/60">Proficiency:</span> {d.proficiency}</div>
+                </div>
+                <div className="grid grid-cols-3 gap-1 text-xs mono">
+                  {(["str","dex","con","int","wis","cha"] as const).map((stat) => (
+                    <div key={stat} className="text-center">
+                      <div className="text-foreground/40 uppercase">{stat}</div>
+                      <div className={cn("font-bold", colors.text)}>{d.stats[stat]}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
       )}
     </div>
   );

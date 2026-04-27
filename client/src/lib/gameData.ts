@@ -28,6 +28,11 @@ export interface LevelFeature {
   name: string;
   description: string;
   type?: "passive" | "active" | "asi" | "subclass" | "resource";
+  actionType?: "Action" | "Bonus Action" | "Reaction" | "Free Action";
+  saveType?: string;
+  duration?: string;
+  trigger?: string;
+  target?: string;
 }
 
 export interface MutagenicAbility {
@@ -37,6 +42,62 @@ export interface MutagenicAbility {
   overload: string;
 }
 
+export interface SniperGadget {
+  id: string;
+  name: string;
+  slots: number;
+  actionType: "Action" | "Bonus Action" | "Reaction" | "Free Action";
+  description: string;
+}
+
+export interface OperativeGadget {
+  id: string;
+  name: string;
+  slots: number;
+  actionType: "Action" | "Bonus Action" | "Reaction" | "Free Action";
+  description: string;
+}
+
+export interface CommandoShot {
+  id: string;
+  name: string;
+  cost: string;
+  description: string;
+  overcharge?: string;
+}
+export interface VanguardAbility {
+  id: string;
+  name: string;
+  cost: string;
+  actionType: "Action" | "Bonus Action" | "Reaction" | "Free Action";
+  description: string;
+  overcharge?: string;
+}
+export interface ScoundrelPresent {
+  id: string;
+  name: string;
+  cost: string;
+  description: string;
+}
+export interface MercenaryAbility {
+  id: string;
+  name: string;
+  heatCost: number;
+  description: string;
+  tier50?: string;
+  tier70?: string;
+  noAction?: boolean;
+}
+export interface DroidChassis {
+  id: string;
+  name: string;
+  hitDie: string;
+  ac: number;
+  size: string;
+  movement: string;
+  proficiency: string;
+  stats: { str: number; dex: number; con: number; int: number; wis: number; cha: number };
+}
 export interface Subclass {
   id: string;
   name: string;
@@ -46,6 +107,20 @@ export interface Subclass {
   features: LevelFeature[];
   /** Optional pool of selectable abilities (e.g. Alchemist mutagenic abilities) */
   mutagenicAbilities?: MutagenicAbility[];
+  /** Sniper-exclusive gadgets with action economy */
+  sniperGadgets?: SniperGadget[];
+  /** Operative-exclusive gadgets with action economy */
+  operativeGadgets?: OperativeGadget[];
+  /** Commando selectable shots */
+  commandoShots?: CommandoShot[];
+  /** Vanguard selectable abilities */
+  vanguardAbilities?: VanguardAbility[];
+  /** Scoundrel selectable presents */
+  scoundrelPresents?: ScoundrelPresent[];
+  /** Mercenary selectable arsenal abilities */
+  mercenaryAbilities?: MercenaryAbility[];
+  /** Powertech droid chassis options */
+  droidChassis?: DroidChassis[];
 }
 
 export interface CharacterClass {
@@ -131,6 +206,10 @@ export interface ForceAbility {
   range?: string;
   description: string;
   tags: string[];
+  saveType?: string;
+  duration?: string;
+  target?: string;
+  scaling?: string;
 }
 
 export interface Gadget {
@@ -140,6 +219,10 @@ export interface Gadget {
   uses: string;
   description: string;
   tags: string[];
+  actionType?: "Action" | "Bonus Action" | "Reaction" | "Free Action";
+  saveType?: string;
+  area?: string;
+  duration?: string;
 }
 
 export interface Skill {
@@ -296,7 +379,7 @@ export const classes: CharacterClass[] = [
         level: 11,
         name: "Passion, yet Serenity",
         description:
-          "Gain Resistance to all forms of mental contamination, be it physical or mystical.",
+          "Gain Advantage on all Wisdom Saving Throws.",
         type: "passive",
       },
       {
@@ -323,7 +406,7 @@ export const classes: CharacterClass[] = [
         level: 18,
         name: "Death, yet the Force",
         description:
-          "Once per long rest, upon receiving fatal damage, restore half your HP and regain 100 Focus.",
+          "Once per Long Rest, upon reaching 0 HP (fatal damage), restore half your HP and regain 100 Focus.",
         type: "active",
       },
     ],
@@ -552,7 +635,7 @@ export const classes: CharacterClass[] = [
         level: 14,
         name: "There is no Chaos, There is Harmony",
         description:
-          "Twice per long rest, quench any area of effect ability or gadget.",
+          "Twice per Long Rest, quench a single Gadget or Ability within 60 ft of you.",
         type: "active",
       },
       {
@@ -715,7 +798,7 @@ export const classes: CharacterClass[] = [
       "The Trooper is a heavily-armored combatant proficient with all weapons and armor. They rely on Energy Cells to power special shots and gadgets, and their Action Surge ability lets them push beyond normal limits in critical moments.",
     hitDie: "1d10",
     armorProficiencies: ["All"],
-    weaponProficiencies: ["All but Lightsabers"],
+    weaponProficiencies: ["Non-Lightsabers"],
     savingThrows: ["Strength", "Constitution"],
     skills: {
       choose: 2,
@@ -825,8 +908,7 @@ export const classes: CharacterClass[] = [
           {
             level: 3,
             name: "Specialized Shots",
-            description:
-              "Select two of the following shots. Gain additional shots at levels 10 and 15.\n\nExplosive Shot (2 EC): Deal an additional 1d6 damage in a 10ft radius. Overcharge (3 EC): Increase radius to 15ft, force primary target to pass Strength save or be knocked prone.\n\nFull Auto (2 EC): Make an attack on an additional enemy within range, dealing half damage. Overcharge (4 EC): Deal full damage.\n\nEMP Shot (2 EC): Force enemy to pass an Intelligence Save or have their weapon jammed for one turn. Vibroweapons deal half damage; droids take +1d6. Overcharge (5 EC): Double jam duration, droids take 2d6.\n\nSensor Shot (1 EC): Fire a shot attaching a sensor to any spot within range. Gain line of sight from this point; if targeted at an enemy, track their location.\n\nPiercing Shot (2 EC): Pierce through 5ft of cover or a single enemy, destroying cover. Overcharge (3 EC): Pierce through 10ft.\n\nShredding Shot (3 EC): Strip 2 AC from the target for 2 turns. Overcharge (5 EC): Strip 3 AC.\n\nBarrage (6 EC): Attack every enemy in a 30ft cone. Overcharge (12 EC): Add an additional attack to each enemy.\n\nSonic Shot (4 EC): Force every target in a 15ft cone to make a Strength save or be thrown back 10ft.",
+            description: "Select two of the following shots. Gain additional shots at levels 7, 10, and 15.",
             type: "active",
           },
 		  {
@@ -860,6 +942,16 @@ export const classes: CharacterClass[] = [
             type: "passive",
           },
         ],
+        commandoShots: [
+          { id: "explosive-shot", name: "Explosive Shot", cost: "2 EC", description: "Deal an additional 1d6 damage in a 10ft radius.", overcharge: "3 EC: Increase radius to 15ft; force primary target to pass Strength save or be knocked prone." },
+          { id: "full-auto", name: "Full Auto", cost: "2 EC", description: "Make an attack on an additional enemy within range, dealing half damage.", overcharge: "4 EC: Deal full damage." },
+          { id: "emp-shot", name: "EMP Shot", cost: "2 EC", description: "Force enemy to pass an Intelligence Save or have their weapon jammed for one turn. Vibroweapons deal half damage; droids take +1d6.", overcharge: "5 EC: Double jam duration; droids take 2d6." },
+          { id: "sensor-shot", name: "Sensor Shot", cost: "1 EC", description: "Fire a shot attaching a sensor to any spot within range. Gain line of sight from this point; if targeted at an enemy, track their location." },
+          { id: "piercing-shot", name: "Piercing Shot", cost: "2 EC", description: "Pierce through 5ft of cover or a single enemy, destroying cover.", overcharge: "3 EC: Pierce through 10ft." },
+          { id: "shredding-shot", name: "Shredding Shot", cost: "3 EC", description: "Strip 2 AC from the target for 2 turns.", overcharge: "5 EC: Strip 3 AC." },
+          { id: "barrage", name: "Barrage", cost: "6 EC", description: "Attack every enemy in a 30ft cone.", overcharge: "12 EC: Add an additional attack to each enemy." },
+          { id: "sonic-shot", name: "Sonic Shot", cost: "4 EC", description: "Force every target in a 15ft cone to make a Strength save or be thrown back 10ft." },
+        ],
       },
       {
         id: "vanguard",
@@ -885,8 +977,7 @@ export const classes: CharacterClass[] = [
           {
             level: 3,
             name: "Vanguard Abilities",
-            description:
-              "Select 2 of the following abilities. Gain additional abilities at levels 7, 9, and 13.\n\nRiot Strike (Reaction): If an enemy casts an ability within 5ft of you, make an attack. If it hits, deal no damage but negate the ability and gain 10 Temporary HP.\n\nHarpoon (2 EC): Attempt to harpoon an enemy within 30ft, forcing a Strength save or being dragged to your position. Overcharge (3 EC): Pull yourself to them, gaining 10 temporary HP.\n\nExplosive Pulse (2 EC): Detonate all temporary HP, forcing all creatures within 5ft to take that much damage. Dexterity save for half. Overcharge (3 EC): Increase radius to 10ft.\n\nLeeching Blast (5 EC): Force all enemies in a 30ft cone to pass a Strength save or have up to 20 of their temporary HP stripped; you gain half. Overcharge (8 EC): Gain the full amount stripped.\n\nDivert Energy (2 EC): Leech 5 temporary HP from yourself and deal twice that on your next attack. Overcharge (4 EC): Leech 10 temporary HP.\n\nNeural Jolt (3 EC): Your next attack forces a Wisdom save or the enemy must attack you next turn. If they miss, gain 10 Temporary HP. Overcharge (6 EC): Grant a 5ft radius to the effect.\n\nIon Pulse (2 EC): Overcharge your shields, stripping 10 Temporary HP from you and causing all targets in 5ft to make an Intelligence save or have all weapons jammed for 1 turn. Vibroweapons deal half damage; droids take 1d6. Overcharge (6 EC): Increase radius to 10ft.\n\nShield Pulse (3 EC): Strip yourself of all Temporary HP and give all allies within 30ft the benefits of half cover for two turns. Overcharge (5 EC): Grant 3/4ths cover.",
+            description: "Select 2 of the following abilities. Gain additional abilities at levels 7, 9, and 13.",
             type: "active",
           },
           {
@@ -913,7 +1004,7 @@ export const classes: CharacterClass[] = [
           {
             level: 11,
             name: "Extra Attack",
-            description: "You can attack twice whenever you take the Attack action.",
+            description: "You can attack three times whenever you take the Attack action.",
             type: "passive",
           },
           {
@@ -924,12 +1015,21 @@ export const classes: CharacterClass[] = [
             type: "passive",
           },
         ],
+        vanguardAbilities: [
+          { id: "riot-strike", name: "Riot Strike", cost: "Reaction", actionType: "Reaction", description: "If an enemy casts an ability within 5ft of you, make an attack. If it hits, deal no damage but negate the ability and gain 10 Temporary HP." },
+          { id: "harpoon", name: "Harpoon", cost: "2 EC", actionType: "Action", description: "Attempt to harpoon an enemy within 30ft, forcing a Strength save or being dragged to your position.", overcharge: "3 EC: Pull yourself to them, gaining 10 temporary HP." },
+          { id: "explosive-pulse", name: "Explosive Pulse", cost: "2 EC", actionType: "Action", description: "Detonate all temporary HP, forcing all creatures within 5ft to take that much damage. Dexterity save for half.", overcharge: "3 EC: Increase radius to 10ft." },
+          { id: "leeching-blast", name: "Leeching Blast", cost: "5 EC", actionType: "Action", description: "Force all enemies in a 30ft cone to pass a Strength save or have up to 20 of their temporary HP stripped; you gain half.", overcharge: "8 EC: Gain the full amount stripped." },
+          { id: "divert-energy", name: "Divert Energy", cost: "2 EC", actionType: "Bonus Action", description: "Leech 5 temporary HP from yourself and deal twice that on your next attack.", overcharge: "4 EC: Leech 10 temporary HP." },
+          { id: "neural-jolt", name: "Neural Jolt", cost: "3 EC", actionType: "Action", description: "Your next attack forces a Wisdom save or the enemy must attack you next turn. If they miss, gain 10 Temporary HP.", overcharge: "6 EC: Grant a 5ft radius to the effect." },
+          { id: "ion-pulse", name: "Ion Pulse", cost: "2 EC", actionType: "Action", description: "Overcharge your shields, stripping 10 Temporary HP from you and causing all targets in 5ft to make an Intelligence save or have all weapons jammed for 1 turn. Vibroweapons deal half damage; droids take 1d6.", overcharge: "6 EC: Increase radius to 10ft." },
+          { id: "shield-pulse", name: "Shield Pulse", cost: "3 EC", actionType: "Action", description: "Strip yourself of all Temporary HP and give all allies within 30ft the benefits of half cover for two turns.", overcharge: "5 EC: Grant 3/4ths cover." },
+        ],
       },
     ],
   },
-
   // ───────────────────────────────────────────────────────────────────────────
-  // SMUGGLER
+  // SMUGGLERR
   // ───────────────────────────────────────────────────────────────────────────
   {
     id: "smuggler",
@@ -940,7 +1040,7 @@ export const classes: CharacterClass[] = [
       "The Smuggler is a charismatic rogue who relies on speed, cunning, and a constant flow of Energy. They shoot first, ask questions later, and always have an ace up their sleeve.",
     hitDie: "1d8",
     armorProficiencies: ["Light", "Medium"],
-    weaponProficiencies: ["Simple Weapons"],
+    weaponProficiencies: ["Non-Lightsabers"],
     savingThrows: ["Dexterity", "Constitution"],
     skills: {
       choose: 3,
@@ -1106,8 +1206,7 @@ export const classes: CharacterClass[] = [
           {
             level: 3,
             name: "Present in Your Pocket",
-            description:
-              "As a melee attack, plant a 'present' on your target. Presents may be detonated by dealing any weapon damage.\n\nHot Potato (20 Energy): Plant an incendiary bomb. Deals 2d6 damage and lights them on fire when detonated, dealing 1d4 damage per turn for two turns.\n\nTicklestick (20 Energy): Plant an ion charge. Deals 2d6 damage and forces an Intelligence save or weapons are jammed for one turn. Vibroweapons deal half damage; droids take double damage.\n\nIcecube (30 Energy): Plant a cryobomb. Deals 2d6 damage and forces a Constitution save or the target is frozen in place (movement 0, all enemies gain Advantage on attacks against them).\n\nKick up the Ass (20 Energy): Plant a concussion bomb. Deals 2d6 damage and propels them 5ft in a direction of your choosing.\n\nLight of my Life (20 Energy): Plant a flashbang. Deals 1d8 damage and forces every creature except you within 10ft to pass a Constitution save or be blinded for one turn.",
+            description: "As a melee attack, plant a 'present' on your target. Presents may be detonated by dealing any weapon damage. Choose from the available presents below.",
             type: "active",
           },
           {
@@ -1131,12 +1230,18 @@ export const classes: CharacterClass[] = [
             type: "passive",
           },
         ],
+        scoundrelPresents: [
+          { id: "hot-potato", name: "Hot Potato", cost: "20 Energy", description: "Plant an incendiary bomb. Deals 2d6 damage and lights them on fire when detonated, dealing 1d4 damage per turn for two turns." },
+          { id: "ticklestick", name: "Ticklestick", cost: "20 Energy", description: "Plant an ion charge. Deals 2d6 damage and forces an Intelligence save or weapons are jammed for one turn. Vibroweapons deal half damage; droids take double damage." },
+          { id: "icecube", name: "Icecube", cost: "30 Energy", description: "Plant a cryobomb. Deals 2d6 damage and forces a Constitution save or the target is frozen in place (movement 0, all enemies gain Advantage on attacks against them)." },
+          { id: "kick-up-the-ass", name: "Kick up the Ass", cost: "20 Energy", description: "Plant a concussion bomb. Deals 2d6 damage and propels them 5ft in a direction of your choosing." },
+          { id: "light-of-my-life", name: "Light of my Life", cost: "20 Energy", description: "Plant a flashbang. Deals 1d8 damage and forces every creature except you within 10ft to pass a Constitution save or be blinded for one turn." },
+        ],
       },
     ],
   },
-
   // ───────────────────────────────────────────────────────────────────────────
-  // AGENT
+  // AGENTT
   // ───────────────────────────────────────────────────────────────────────────
   {
     id: "agent",
@@ -1147,7 +1252,7 @@ export const classes: CharacterClass[] = [
       "The Agent is a master of stealth and gadgetry. Their Sneak Attack scales throughout their career, and their growing Gadget arsenal makes them the most versatile non-Force class in the game.",
     hitDie: "1d8",
     armorProficiencies: ["Light"],
-    weaponProficiencies: ["All but Lightsabers"],
+    weaponProficiencies: ["Non-Lightsabers"],
     savingThrows: ["Dexterity", "Intelligence"],
     skills: {
       choose: 3,
@@ -1222,7 +1327,7 @@ export const classes: CharacterClass[] = [
         level: 10,
         name: "Alpha Strike",
         description:
-          "Once per Long Rest, when attacking an enemy who is unaware of your presence, automatically deal a Critical Strike.",
+          "Once per Long Rest, when attacking an enemy who is unaware of your presence, automatically hit and critically hit.",
         type: "active",
       },
       {
@@ -1278,8 +1383,8 @@ export const classes: CharacterClass[] = [
           {
             level: 3,
             name: "Deep Pockets, Deeper Stores",
-            description:
-"Double your number of Gadget Slots and inventoried gadgets. Gain access to the following Gadgets:\n\nPersonal Cloak (3 Slots, 2 uses): As an action, become Invisible for up to one minute. Breaks upon attacking. Additional batteries cost 1/Gadget Slot.\n\nPseudolarynx (1 Slot, unlimited): As a free action, perfectly mimic someone's voice after collecting a five-minute sample. Can only record one voice at a time.\n\nWhisper-Range Laser Mic (1 Slot, unlimited): As an action, detect surface vibrations on distant glass or walls and convert them into clear audio within 30ft.\n\nSmart Dust Trackers (1 Slot, 3 uses): As an action, release microscopic adhesive particles that cling to a chosen target within 15ft and transmit a weak tracking signal for 1d4 hours.\n\Arc Projector (3 Slots, 2 uses): As an bonus action, force a target within 15ft to make a Constitution save. If they fail, they become Stunned for two turns. Additional batteries may be taken at 1/slot .\n\nStun Drone(3 Slots, 1 use): As an action, send out a stun drone to a location within 300ft. Any target who passes within 10ft of it must make a Constitution save or be stunned for one turn. It has 10 AC and 5 HP. ",            type: "passive",
+            description: "Double your number of Gadget Slots and inventoried gadgets. Gain access to the Operative-exclusive gadgets listed below.",
+            type: "passive",
           },
           {
             level: 7,
@@ -1301,6 +1406,14 @@ export const classes: CharacterClass[] = [
               "When activating a gadget, remove all telltale concealable traces of its presence.",
             type: "passive",
           },
+        ],
+        operativeGadgets: [
+          { id: "personal-cloak", name: "Personal Cloak", slots: 3, actionType: "Action", description: "Become Invisible for up to one minute. Breaks upon attacking. Additional batteries cost 1 Gadget Slot each.", uses: "2" },
+          { id: "pseudolarynx", name: "Pseudolarynx", slots: 1, actionType: "Free Action", description: "Perfectly mimic someone's voice after collecting a five-minute sample. Can only record one voice at a time.", uses: "Unlimited" },
+          { id: "whisper-range-laser-mic", name: "Whisper-Range Laser Mic", slots: 1, actionType: "Action", description: "Detect surface vibrations on distant glass or walls and convert them into clear audio within 30ft.", uses: "Unlimited" },
+          { id: "smart-dust-trackers", name: "Smart Dust Trackers", slots: 1, actionType: "Action", description: "Release microscopic adhesive particles that cling to a chosen target within 15ft and transmit a weak tracking signal for 1d4 hours.", uses: "3" },
+          { id: "arc-projector", name: "Arc Projector", slots: 3, actionType: "Bonus Action", description: "Force a target within 15ft to make a Constitution save. If they fail, they become Stunned for two turns. Additional batteries may be taken at 1 slot each.", uses: "2" },
+          { id: "stun-drone", name: "Stun Drone", slots: 3, actionType: "Action", description: "Send out a stun drone to a location within 300ft. Any target who passes within 10ft of it must make a Constitution save or be stunned for one turn. It has 10 AC and 5 HP.", uses: "1" },
         ],
       },
       {
@@ -1328,7 +1441,7 @@ export const classes: CharacterClass[] = [
             level: 3,
             name: "Sniper Gadgets",
             description:
-              "Gain access to the following gadgets:\n\nAdaptive Camouflage Cloak (2 Slots): Cloak a 5x5 static position, making anyone inside invisible and permitting the user to shoot out. After every shot, roll a D20 — on 10 and below, the cloak fails. Can be used for four hours. Additional memory chips are 1 position/slot.\n\nTargeting Visor (1 Slot): Analyze one target for weaknesses. Identify all resistances, major skills, and gain +2 to hit against them. Additional memory chips are 2 targets/slot.\n\nSpotter Droid: Launch a small spotter droid that can travel up to one mile from you (must remain in line of sight). Sends a live feed of its viewpoint directly to you.\n\nWall-Penetrating Scanners (3 Slots): See through up to 15ft of combined obstacles. Lasts one minute. Additional batteries are 1 minute/slot.",
+              "Gain access to the following Sniper-exclusive gadgets: Targeting Visor, Adaptive Camouflage Cloak, Spotter Droid, and Wall-Penetrating Scanners.",
             type: "passive",
           },
           {
@@ -1352,18 +1465,47 @@ export const classes: CharacterClass[] = [
               "Gain the ability to bounce blaster bolts around cover, letting you take attacks against covered targets at Disadvantage.",
             type: "active",
           },
-          {
+           {
             level: 13,
             name: "Overwatch",
             description:
-              "As an action, specify a cone the size of your weapon range. Make an attack against every enemy who moves in it on their turn.",
+              "As an Action, specify a cone the size of your weapon range. Make an attack roll against each target who moves within it on their turn.",
             type: "active",
+          },
+        ],
+        sniperGadgets: [
+          {
+            id: "targeting-visor",
+            name: "Targeting Visor",
+            slots: 1,
+            actionType: "Bonus Action",
+            description: "Analyze one target for weaknesses. Identify all resistances, major skills, and gain +2 to hit against them. Additional memory chips are 2 targets/slot.",
+          },
+          {
+            id: "adaptive-camouflage-cloak",
+            name: "Adaptive Camouflage Cloak",
+            slots: 2,
+            actionType: "Action",
+            description: "Cloak a 5×5 ft static position, making anyone inside invisible and permitting the user to shoot out. After every shot, roll a d20 — on 10 and below, the cloak fails. Can be used for four hours. Additional memory chips are 1 position/slot.",
+          },
+          {
+            id: "spotter-droid",
+            name: "Spotter Droid",
+            slots: 2,
+            actionType: "Action",
+            description: "Launch a small spotter droid that can travel up to one mile from you (must remain in line of sight). Sends a live feed of its viewpoint directly to you.",
+          },
+          {
+            id: "wall-penetrating-scanners",
+            name: "Wall-Penetrating Scanners",
+            slots: 3,
+            actionType: "Action",
+            description: "See through up to 15 ft of combined obstacles. Lasts one minute. Additional batteries are 1 minute/slot.",
           },
         ],
       },
     ],
   },
-
   // ───────────────────────────────────────────────────────────────────────────
   // BOUNTY HUNTER
   // ───────────────────────────────────────────────────────────────────────────
@@ -1376,7 +1518,7 @@ export const classes: CharacterClass[] = [
       "The Bounty Hunter is a gadget-focused warrior who combines fighting styles with an ever-growing arsenal of technology. Their Companion Droid or Heat-based arsenal makes them uniquely adaptable to any situation.",
     hitDie: "1d8",
     armorProficiencies: ["Light", "Medium"],
-    weaponProficiencies: ["All but Lightsabers"],
+    weaponProficiencies: ["Non-Lightsabers"],
     savingThrows: ["Dexterity", "Intelligence"],
     skills: {
       choose: 3,
@@ -1507,15 +1649,14 @@ export const classes: CharacterClass[] = [
           {
             level: 3,
             name: "Companion Droid",
-            description:
-              "Gain a Companion Droid. Movement: 30ft. May be commanded on a Bonus Action. Gadget Slots: One per level (in addition to personal gadget slots). Double your Gadget Inventory. Can carry a weapon in 3 Gadget Slots. After destruction, may be repaired or replaced with one week of effort. Gain Proficiency in 2 of: Technology, Piloting, Stealth, History, Medicine, Perception. Gains Ability Score Increases at the same rate as you. May be uparmored at 1 Gadget Slot per AC. May be commanded once per Bonus Action.\n\nChoose a Chassis:\n\nLight Chassis: 1d6 HP/level, AC 12, Proficiency in Stealth, 30ft fly speed or 15ft movement. Tiny creature. STR 8 / DEX 16 / CON 10 / INT 16 / WIS 12 / CHA 10.\n\nMedium Chassis: 1d8 HP/level, AC 13, Proficiency in Technology, 15ft fly speed or 5ft movement. Small creature. STR 12 / DEX 12 / CON 14 / INT 12 / WIS 12 / CHA 10.\n\nHeavy Chassis: 1d10 HP/level, AC 14, Proficiency in Piloting. Medium creature. STR 16 / DEX 8 / CON 16 / INT 12 / WIS 10 / CHA 10.",
+            description: "Gain a Companion Droid. May be commanded once per Bonus Action. Gadget Slots: One per level (in addition to personal gadget slots). Double your Gadget Inventory. Can carry a weapon in 3 Gadget Slots. After destruction, may be repaired or replaced with one week of effort. Gain Proficiency in 2 of: Technology, Piloting, Stealth, History, Medicine, Perception. Gains Ability Score Increases at the same rate as you. May be uparmored at 1 Gadget Slot per AC. Choose a chassis below.",
             type: "passive",
           },
           {
             level: 7,
             name: "Shielded Chassis",
             description:
-              "Droids gain temporary health equal to two of the droid's hit die.",
+              "Droids gain Temporary HP equal to 2 × the droid's hit die at the start of each combat.",
             type: "passive",
           },
           {
@@ -1531,6 +1672,38 @@ export const classes: CharacterClass[] = [
             description:
               "Gain the ability to control two droids. Gadget Slots are split between the droids according to your preference.",
             type: "passive",
+          },
+        ],
+        droidChassis: [
+          {
+            id: "light-chassis",
+            name: "Light Chassis",
+            hitDie: "1d6",
+            ac: 12,
+            size: "Tiny",
+            proficiency: "Stealth",
+            movement: "30ft fly speed or 15ft movement",
+            stats: { str: 8, dex: 16, con: 10, int: 16, wis: 12, cha: 10 },
+          },
+          {
+            id: "medium-chassis",
+            name: "Medium Chassis",
+            hitDie: "1d8",
+            ac: 13,
+            size: "Small",
+            proficiency: "Technology",
+            movement: "15ft fly speed or 5ft movement",
+            stats: { str: 12, dex: 12, con: 14, int: 12, wis: 12, cha: 10 },
+          },
+          {
+            id: "heavy-chassis",
+            name: "Heavy Chassis",
+            hitDie: "1d10",
+            ac: 14,
+            size: "Medium",
+            proficiency: "Piloting",
+            movement: "Standard",
+            stats: { str: 16, dex: 8, con: 16, int: 12, wis: 10, cha: 10 },
           },
         ],
       },
@@ -1558,8 +1731,7 @@ export const classes: CharacterClass[] = [
           {
             level: 3,
             name: "Mercenary Arsenal",
-            description:
-              "Gain access to the following Heat-based abilities. Each scales with current Heat level:\n\nExplosive Dart (15 Heat): Launch an Explosive Dart at a target within 30ft. Wisdom save or Frightened for one turn. After one turn, detonates for 1d12 damage in 5ft radius. Above 50 Heat: 2d8. Above 70 Heat: 2d12.\n\nRocket Punch (15 Heat): Launch yourself at an enemy within 30ft. Contested Dexterity check — success: 1d8 damage; fail: no damage. Above 50 Heat: +1d4 in 5ft area along path. Above 70 Heat: +1d8 in 5ft area.\n\nSpare Tibanna Canister (10 Heat): Throw a canister up to 45ft, creating a 10ft cloud. Next blaster bolt through the cloud detonates it for 1d6 damage to all in area. Above 50 Heat: 2d6. Above 70 Heat: 15ft diameter.\n\nIonic Tether (15 Heat): Launch a charged cable at an enemy within 30ft. Hit: 1d8 damage, -15ft movement. Above 50 Heat: movement reduced to 0. Above 70 Heat: 2d8 damage, remove reactions.\n\nMagnetic Imploder (25 Heat): Launch within 30ft. Enemies in range pass Strength save or be sucked to center. 2d6 damage (halved on save). Above 50 Heat: 2d10. Above 70 Heat: 15ft radius.\n\nRailgun (20 Heat): Attack every enemy in a 5ft wide, 30ft long line until it fails to penetrate. 1d10 damage. Above 50 Heat: 2d8. Above 70 Heat: 10ft wide.\n\nFragmentation Flechette (15 Heat): Ranged attack at a target within 60ft. 1d8 damage, then 1d6 to all in 15ft cone behind them. Above 50 Heat: 1d12 primary, 1d10 secondary. Above 70 Heat: 30ft cone.\n\nMagnetic Exploder (25 Heat): Launch within 30ft, 10ft radius. Enemies pass Strength save or be pushed away. 2d6 damage (halved on save). Above 50 Heat: 2d10. Above 70 Heat: 15ft radius.\n\nOverdrive (requires 50+ Heat, generates 10 Heat): Increase all ability damage by 1d8. All abilities generate +5 Heat. Lasts 2 turns. Enables ability usage at 100 Heat but allows Heat to build past 100. Emergency Vent ends this immediately. No action required.",
+            description: "Gain access to the following Heat-based abilities. Each scales with current Heat level.",
             type: "active",
           },
           {
@@ -1586,6 +1758,17 @@ export const classes: CharacterClass[] = [
             description: "Increase your maximum Heat to 120.",
             type: "passive",
           },
+        ],
+        mercenaryAbilities: [
+          { id: "explosive-dart", name: "Explosive Dart", heatCost: 15, description: "Launch an Explosive Dart at a target within 30ft. Wisdom save or Frightened for one turn. After one turn, detonates for 1d12 damage in 5ft radius.", tier50: "2d8.", tier70: "2d12." },
+          { id: "rocket-punch", name: "Rocket Punch", heatCost: 15, description: "Launch yourself at an enemy within 30ft. Contested Dexterity check — success: 1d8 damage; fail: no damage.", tier50: "+1d4 in 5ft area along path.", tier70: "+1d8 in 5ft area." },
+          { id: "spare-tibanna-canister", name: "Spare Tibanna Canister", heatCost: 10, description: "Throw a canister up to 45ft, creating a 10ft cloud. Next blaster bolt through the cloud detonates it for 1d6 damage to all in area.", tier50: "2d6.", tier70: "15ft diameter." },
+          { id: "ionic-tether", name: "Ionic Tether", heatCost: 15, description: "Make a ranged attack roll against a target within 30ft. On a hit: 1d8 damage, −15ft movement.", tier50: "Movement reduced to 0.", tier70: "2d8 damage, remove reactions." },
+          { id: "magnetic-imploder", name: "Magnetic Imploder", heatCost: 25, description: "Launch within 30ft. Enemies in range pass Strength save or be sucked to center. 2d6 damage (halved on save).", tier50: "2d10.", tier70: "15ft radius." },
+          { id: "railgun", name: "Railgun", heatCost: 20, description: "Fire a bolt in a 5ft wide, 30ft long line, making a separate attack roll against each target in the line. Deals 1d10 damage per hit. The bolt stops when it misses or the target has full cover.", tier50: "2d8.", tier70: "10ft wide." },
+          { id: "fragmentation-flechette", name: "Fragmentation Flechette", heatCost: 15, description: "Make a ranged attack roll against a target within 60ft. On a hit: 1d8 damage to the primary target, then 1d6 to all creatures in a 15ft cone extending behind the primary target (Dexterity save for half).", tier50: "1d12 primary, 1d10 secondary.", tier70: "30ft cone." },
+          { id: "magnetic-exploder", name: "Magnetic Exploder", heatCost: 25, description: "Launch within 30ft, 10ft radius. Enemies pass Strength save or be pushed away. 2d6 damage (halved on save).", tier50: "2d10.", tier70: "15ft radius." },
+          { id: "overdrive", name: "Overdrive", heatCost: 10, description: "Requires 50+ Heat. Generates 10 Heat. Increase all ability damage by 1d8. All abilities generate +5 Heat. Lasts 2 turns. Overrides the Heat lockout at 100, allowing ability usage and allowing Heat to exceed 100 while active. Emergency Vent ends this immediately.", noAction: true },
         ],
       },
     ],
@@ -1614,8 +1797,8 @@ export const classes: CharacterClass[] = [
       },
       {
         name: "Rage",
-        description: "Begins at zero. Lose 10 per turn, gain 20 per Lightsaber hit, or 10 per hit taken. Maximum capacity is 8 * your Constitution.",
-        maxValue: "8 * Constitution modifier",
+        description: "Begins at zero. Lose 10 per turn at the end of your turn, gain 20 per Lightsaber hit, or 10 per hit taken. Maximum capacity is 8 × your Constitution score.",
+        maxValue: "8 × Constitution score",
         recharge: "Combat",
       },
       {
@@ -1825,7 +2008,7 @@ export const classes: CharacterClass[] = [
           {
             level: 3,
             name: "Implacable Advance",
-            description: "For one turn, your advance cannot be stopped. Your movement speed cannot be reduced, you ignore difficult terrain, and you cannot be knocked prone. Make a lightsaber attack against every single enemy you pass within 5ft of. Costs 60 Rage.",
+            description: "For one turn, your advance cannot be stopped. Your movement speed cannot be reduced, you ignore difficult terrain, and you cannot be knocked prone. Make a lightsaber attack against every single enemy you pass within 5 ft of. Costs 60 Rage.",
             type: "active",
           },
           {
@@ -2481,7 +2664,7 @@ export const forceAbilities: ForceAbility[] = [
     actionType: "Action",
     range: "30ft",
     description:
-      "Infect a creature within 30ft with madness for up to one minute (concentration). The target must make a Wisdom save or become confused. At the end of each of its turns, creatures within 10ft of it must also make a Wisdom save or become affected.",
+      "Infect a creature within 30 ft with madness for up to one minute (concentration). The target must make a Wisdom Saving Throw or become Confused. At the end of each of its turns, the affected target makes a Wisdom Saving Throw — on a failure, the madness spreads to all creatures within 10 ft who must also make a Wisdom Saving Throw or become affected.",
     tags: ["Mental", "Control", "Concentration", "AOE", "Dark Side"],
   },
   {
@@ -2542,6 +2725,7 @@ export const gadgets: Gadget[] = [
     description:
       "As an action, create a 10ft diameter patch of fire on the ground, or a 20x5ft wall within 60ft of you. Any enemy who starts their turn in this fire or passes through it takes 3d6 damage",
     tags: ["Damage", "Area"],
+    actionType: Action",
   },
   {
     id: "remote-bomb",
@@ -2551,6 +2735,7 @@ export const gadgets: Gadget[] = [
     description:
       "As an action, plant a bomb that becomes armed after twenty seconds. After it becomes armed, you may detonate it at any time, so long as you are within comms range of it, or you may set a timer to detonate it. Any target within 30ft takes 8d6 damage.",
     tags: ["Damage", "Area"],
+    actionType: Action",
   },
   {
     id: "auto-hacking-device",
@@ -2560,6 +2745,7 @@ export const gadgets: Gadget[] = [
     description:
       "Gain Advantage on all Technology rolls to hack devices. Does not require your physical presence to hack.",
     tags: ["Utility", "Technology"],
+    actionType: "Bonus Action",
   },
   {
     id: "jetpack",
@@ -2568,6 +2754,7 @@ export const gadgets: Gadget[] = [
     uses: "3 uses",
     description: "Gain 45ft of flying speed.",
     tags: ["Movement", "Utility"],
+    actionType: "Bonus Action",
   },
   {
     id: "micro-missile-launcher",
@@ -2577,6 +2764,7 @@ export const gadgets: Gadget[] = [
     description:
       "Launch a micro-missile up to 60ft, dealing 2d6 damage in a 10ft radius.",
     tags: ["Damage", "Area"],
+    actionType: "Bonus Action",
   },
   {
     id: "macro-missile-launcher",
@@ -2586,6 +2774,7 @@ export const gadgets: Gadget[] = [
     description:
       "Launch a macro-missile up to 60ft, dealing 4d6 damage in a 15ft radius.",
     tags: ["Damage", "Area"],
+    actionType: "Bonus Action",
   },
   {
     id: "quick-seal-paste",
@@ -2595,6 +2784,7 @@ export const gadgets: Gadget[] = [
     description:
       "Fill a 5x5ft cube with quick-seal paste of similar strength to duracrete. Falls apart after one day.",
     tags: ["Utility", "Construction"],
+    actionType: "Bonus Action",
   },
   {
     id: "grappling-hook",
@@ -2604,6 +2794,7 @@ export const gadgets: Gadget[] = [
     description:
       "Launch a grappling hook up to 30ft, creating a rope for creatures to climb. If used on an enemy, they must pass a Strength saving throw or be pulled to you.",
     tags: ["Movement", "Utility"],
+    actionType: "Bonus Action",
   },
   {
     id: "holo-decoy",
@@ -2613,6 +2804,7 @@ export const gadgets: Gadget[] = [
     description:
       "Create a holographic clone of a person capable of limited action and noise generation (but not movement). Lasts 5 minutes.",
     tags: ["Illusion", "Utility"],
+    actionType: "Bonus Action",
   },
   {
     id: "web-launcher",
@@ -2622,6 +2814,7 @@ export const gadgets: Gadget[] = [
     description:
       "Launch a web, entangling all targets in a 10ft radius. All targets may make a Strength save to break free, or free an entangled ally with the Help action.",
     tags: ["Control", "Area"],
+    actionType: "Bonus Action",
   },
   {
     id: "rebreather",
@@ -2631,6 +2824,7 @@ export const gadgets: Gadget[] = [
     description:
       "Gain the ability to breathe in low or no-oxygen environments, including underwater and in space.",
     tags: ["Survival", "Utility"],
+    actionType: "Bonus Action",
   },
   {
     id: "holdout-blaster",
@@ -2640,6 +2834,7 @@ export const gadgets: Gadget[] = [
     description:
       "Gain a hidden blaster compartment and one Blaster Pistol that cannot be detected by standard scans.",
     tags: ["Weapon", "Concealment"],
+    actionType: "Bonus Action",
   },
   {
     id: "tracking-beacon",
@@ -2649,6 +2844,7 @@ export const gadgets: Gadget[] = [
     description:
       "Attach a tracking beacon to a target or vehicle. Can track them anywhere within a hundred parsecs.",
     tags: ["Utility", "Surveillance"],
+    actionType: "Bonus Action",
   },
   {
     id: "nvgs",
@@ -2657,6 +2853,7 @@ export const gadgets: Gadget[] = [
     uses: "Unlimited",
     description: "Gain 60ft of Darkvision.",
     tags: ["Utility", "Vision"],
+    actionType: "Bonus Action",
   },
   {
     id: "enhanced-sensor-suite",
@@ -2666,6 +2863,7 @@ export const gadgets: Gadget[] = [
     description:
       "Gain 60ft of Darkvision, the ability to see through walls for 20ft, and Advantage on Perception checks. Lasts 30 minutes.",
     tags: ["Utility", "Vision", "Surveillance"],
+    actionType: "Bonus Action",
   },
   {
     id: "ionic-pulsar",
@@ -2675,6 +2873,7 @@ export const gadgets: Gadget[] = [
     description:
       "Throw a beacon up to 30ft. In a 15ft radius, deal 3d6 damage to all Droids unless they pass a Constitution save. Destroy all non-hardened electronics in the area.",
     tags: ["Damage", "Anti-Droid", "Area"],
+    actionType: "Bonus Action",
   },
   {
     id: "smoke-projector",
@@ -2684,6 +2883,7 @@ export const gadgets: Gadget[] = [
     description:
       "Create a 10x10ft cloud of multispectral smoke that cannot be seen through except by an Enhanced Sensor Suite.",
     tags: ["Utility", "Concealment"],
+    actionType: "Bonus Action",
   },
   {
     id: "breaching-charge",
@@ -2693,6 +2893,7 @@ export const gadgets: Gadget[] = [
     description:
       "Explosively destroy up to 5ft of wall or door, dealing 2d6 damage to all enemies in a 10ft cone behind the charge.",
     tags: ["Damage", "Utility"],
+    actionType: "Bonus Action",
   },
   {
     id: "bio-signature-masker",
@@ -2702,6 +2903,7 @@ export const gadgets: Gadget[] = [
     description:
       "Gain the ability to mask your bio-signature, becoming invisible to bio-scans.",
     tags: ["Stealth", "Utility"],
+    actionType: "Bonus Action",
   },
   {
     id: "repulsor-disc",
@@ -2711,6 +2913,7 @@ export const gadgets: Gadget[] = [
     description:
       "Gain the ability to lift a 1000lb object 5ft off the ground for one hour.",
     tags: ["Utility", "Telekinesis"],
+    actionType: "Bonus Action",
   },
   {
     id: "miniature-cutting-torch",
@@ -2720,6 +2923,7 @@ export const gadgets: Gadget[] = [
     description:
       "Gain the ability to cut through fences, locks, and similarly-durable items over the course of thirty seconds.",
     tags: ["Utility", "Tool"],
+    actionType: "Bonus Action",
   },
   {
     id: "signal-falsifier",
@@ -2729,6 +2933,7 @@ export const gadgets: Gadget[] = [
     description:
       "Gain the ability to spoof a known signal with an already-known message. In cases of substantial power mismatch, may require a signal booster.",
     tags: ["Utility", "Technology"],
+    actionType: "Bonus Action",
   },
   {
     id: "jamming-beacon",
@@ -2738,6 +2943,7 @@ export const gadgets: Gadget[] = [
     description:
       "Jam all comms and sensors within a 30ft radius.",
     tags: ["Utility", "Technology"],
+    actionType: "Bonus Action",
   },
   {
     id: "phase-shift-lockpick",
@@ -2747,6 +2953,7 @@ export const gadgets: Gadget[] = [
     description:
       "Gain Advantage on Sleight of Hand rolls against physical locks. Does not require your presence to pick the lock.",
     tags: ["Utility", "Infiltration"],
+    actionType: "Bonus Action",
   },
   {
     id: "slicer-spike",
@@ -2756,6 +2963,7 @@ export const gadgets: Gadget[] = [
     description:
       "Place on a computer or data-carrying wire to give Advantage on Technology rolls to hack it, and allows for continued surveillance of the computer or wire for one week unless it is removed.",
     tags: ["Technology", "Surveillance"],
+    actionType: "Bonus Action",
   },
   {
     id: "aural-dampener",
@@ -2764,6 +2972,7 @@ export const gadgets: Gadget[] = [
     uses: "2 uses",
     description: "Silence all sound in a 30ft area for five minutes.",
     tags: ["Utility", "Stealth"],
+    actionType: "Bonus Action",
   },
   {
     id: "micro-tractor-beam",
@@ -2773,6 +2982,7 @@ export const gadgets: Gadget[] = [
     description:
       "Pull all objects in a 15ft line towards you with 20lbs of force.",
     tags: ["Utility", "Telekinesis"],
+    actionType: "Bonus Action",
   },
   {
     id: "carbonite-capsule",
@@ -2782,6 +2992,7 @@ export const gadgets: Gadget[] = [
     description:
       "Throw a capsule 45ft, where it explodes into a 10ft radius cloud of freezing carbonite gas. Enemies take 1d8 damage and must pass a Strength save or be frozen solid for two turns. Breaking the ice with kinetic damage deals an additional 1d8 damage.",
     tags: ["Damage", "Control", "Area"],
+    actionType: "Bonus Action",
   },
   {
     id: "mag-boots",
@@ -2791,6 +3002,7 @@ export const gadgets: Gadget[] = [
     description:
       "Gain the ability to stick to any metal surface, no matter its angle.",
     tags: ["Movement", "Utility"],
+    actionType: "Bonus Action",
   },
   {
     id: "grenade-launcher",
@@ -2800,6 +3012,7 @@ export const gadgets: Gadget[] = [
     description:
       "Gain the ability to shoot grenades and mines up to 120ft.",
     tags: ["Weapon", "Area"],
+    actionType: "Bonus Action",
   },
   {
     id: "welding-kit",
@@ -2809,6 +3022,7 @@ export const gadgets: Gadget[] = [
     description:
       "Gain the ability to weld man-sized doors and other similarly-sized things.",
     tags: ["Weapon", "Area"],
+    actionType: "Bonus Action",
   },
 ];
 
@@ -2912,6 +3126,63 @@ export const skills: Skill[] = [
     ability: "Wisdom",
     description:
       "Calming down a domesticated animal, keeping a mount from getting spooked, or intuiting an animal's intentions.",
+  },
+];
+
+// ─────────────────────────────────────────────────────────────────────────────
+// CONDITIONS & KEYWORDS
+// ─────────────────────────────────────────────────────────────────────────────
+export interface Condition {
+  name: string;
+  description: string;
+}
+
+export const conditions: Condition[] = [
+  {
+    name: "Confused",
+    description: "Same as the 5e Confusion condition. On each of its turns, the target rolls a d10 to determine behavior: 1 — moves in a random direction; 2–6 — takes no action and uses all movement to move in a random direction; 7–8 — makes a melee attack against a randomly determined creature within reach, or does nothing if no creature is in reach; 9–10 — acts normally.",
+  },
+  {
+    name: "Mindbroken",
+    description: "The target's mind is destroyed for 1d4 days. They are effectively dead until that time is up, unable to take any actions, move, or respond to stimuli.",
+  },
+  {
+    name: "Frozen",
+    description: "The target cannot move for 1 turn.",
+  },
+  {
+    name: "Slowed",
+    description: "The target has -2 AC and cannot take Bonus Actions.",
+  },
+  {
+    name: "Stunned",
+    description: "The target skips their turn. All attacks against a Stunned target automatically hit.",
+  },
+  {
+    name: "Frightened",
+    description: "Same as the 5e Frightened condition. A frightened creature has Disadvantage on ability checks and attack rolls while the source of its fear is within line of sight. The creature can't willingly move closer to the source of its fear.",
+  },
+  {
+    name: "Jammed",
+    description: "The affected weapon cannot be used to attack. Blasters and Lightsabers cannot fire or strike. Vibroweapons and Electroweapons deal half damage.",
+  },
+];
+
+// ─────────────────────────────────────────────────────────────────────────────
+// CORE RULES
+// ─────────────────────────────────────────────────────────────────────────────
+export const coreRules = [
+  {
+    title: "Resource Regeneration Timing",
+    description: "All resource regeneration, venting, and passive gains occur at the end of a creature's turn.",
+  },
+  {
+    title: "Rage Maximum",
+    description: "The Sith Warrior's Rage maximum is 8 × Constitution score (not modifier).",
+  },
+  {
+    title: "Saving Throw Bonuses",
+    description: "Saving throw bonuses (e.g. +2 to Dexterity Saving Throws) are added to the roll, not to the DC.",
   },
 ];
 
@@ -3220,18 +3491,7 @@ export const weapons: Weapon[] = [
 
   },
 
-  {
-    id: "sniper-blaster",
-    name: "Sniper Blaster",
-    category: "blaster",
-    damage: "—",
-    properties: [],
-    notes: "Stats to be filled in.",
-    price: 9000,
-
-  },
-
-  {
+    {
     id: "shard-cannon",
     name: "Shard Cannon",
     category: "blaster",
@@ -3862,6 +4122,35 @@ export interface ChangelogEntry {
 }
 
 export const changelog: ChangelogEntry[] = [
+  {
+    version: "0.3.1",
+    date: "2026-04-27",
+    changes: [
+      "Extracted Operative Gadgets into structured operativeGadgets sub-array on Operative subclass",
+      "Extracted Trooper Commando Specialized Shots into commandoShots sub-array",
+      "Extracted Trooper Vanguard Abilities into vanguardAbilities sub-array",
+      "Extracted Scoundrel Presents into scoundrelPresents sub-array",
+      "Extracted Mercenary Arsenal into mercenaryAbilities sub-array",
+      "Extracted Powertech Companion Droid chassis into droidChassis sub-array",
+      "Added actionType badge display to Gadgets page",
+      "SubclassDetailPage now renders all 7 sub-array types with appropriate card styles",
+    ],
+  },
+  {
+    version: "0.3.0",
+    date: "2026-04-27",
+    summary: "Major rules update: conditions, core clarifications, schema expansions, and multiple class fixes.",
+    changes: [
+      { category: "Rules", description: "Added Conditions section to Rules page: Confused, Mindbroken, Frozen, Slowed, Stunned, Frightened, Jammed — each with full definitions." },
+      { category: "Rules", description: "Added Core Rules Clarifications section: resource regeneration timing, Rage maximum formula (8 × CON score), and saving throw bonus clarification." },
+      { category: "Agent", description: "Sniper subclass gadgets (Targeting Visor, Adaptive Camouflage Cloak, Spotter Droid, Wall-Penetrating Scanners) extracted from inline text into a structured sniperGadgets array, now displayed as individual cards on the Sniper subclass page." },
+      { category: "Gadgets", description: "All standard gadgets now carry actionType: Bonus Action in the data schema." },
+      { category: "Weapons", description: "Removed Sniper Blaster (merged into Sniper Rifle). Renamed weapon proficiency groups from Simple/Martial/All but Lightsabers to Non-Lightsabers." },
+      { category: "Trooper", description: "Vanguard level 11 Extra Attack corrected to three attacks." },
+      { category: "Bounty Hunter", description: "Powertech Companion Droid: removed redundant base movement line, deduplicated command text. Mercenary Arsenal: clarified Ionic Tether (attack roll), Fragmentation Flechette (cone extends behind primary target), Railgun (stops on miss or full cover), Overdrive (overrides 100 Heat lockout)." },
+      { category: "Schema", description: "Expanded LevelFeature, ForceAbility, and Gadget interfaces with new optional fields for richer data entry." },
+    ],
+  },
   {
     version: "0.2.9",
     date: "2026-04-26",
