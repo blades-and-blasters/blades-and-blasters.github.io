@@ -4125,15 +4125,15 @@ export const changelog: ChangelogEntry[] = [
   {
     version: "0.3.1",
     date: "2026-04-27",
+    summary: "Extracted inline feature blobs into structured sub-arrays; gadget action economy now displayed.",
     changes: [
-      category: "Rules", description: "Extracted Operative Gadgets into structured operativeGadgets sub-array on Operative subclass",
-      category: "Rules", description: "Extracted Trooper Commando Specialized Shots into commandoShots sub-array",
-      category: "Rules", description: "Extracted Trooper Vanguard Abilities into vanguardAbilities sub-array",
-      category: "Rules", description: "Extracted Scoundrel Presents into scoundrelPresents sub-array",
-      category: "Rules", description: "Extracted Mercenary Arsenal into mercenaryAbilities sub-array",
-      category: "Rules", description: "Extracted Powertech Companion Droid chassis into droidChassis sub-array",
-      category: "Rules", description: "Added actionType badge display to Gadgets page",
-      category: "Rules", description: "SubclassDetailPage now renders all 7 sub-array types with appropriate card styles",
+      { category: "Agent", description: "Operative subclass gadgets extracted into structured operativeGadgets array, displayed as individual cards on the subclass page." },
+      { category: "Trooper", description: "Commando Specialized Shots extracted into commandoShots array with cost and overcharge fields." },
+      { category: "Trooper", description: "Vanguard Abilities extracted into vanguardAbilities array with cost and action type fields." },
+      { category: "Smuggler", description: "Scoundrel Presents extracted into scoundrelPresents array with cost fields." },
+      { category: "Bounty Hunter", description: "Mercenary Arsenal extracted into mercenaryAbilities array with Heat cost and tier threshold fields." },
+      { category: "Bounty Hunter", description: "Powertech Companion Droid chassis extracted into droidChassis array with full stat blocks." },
+      { category: "UI", description: "Gadgets page now displays actionType badge (e.g. Bonus Action) on each gadget card." },
     ],
   },
   {
