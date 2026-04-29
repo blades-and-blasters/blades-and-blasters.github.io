@@ -663,7 +663,7 @@ export const classes: CharacterClass[] = [
         classResource: {
           name: "Balance",
           description:
-            "Gain +10 Balance from lightsaber strikes. Gain -5 Balance per Force Point spent. Balance ranges from 0 to 100 and determines your combat style.",
+            "Gain +10 Balance from lightsaber strikes. Gain -5 Balance per Force Point spent. Balance ranges from 0 to 100 and begins at 50.",
           maxValue: 100,
           recharge: "Gained in combat",
         },
@@ -672,7 +672,7 @@ export const classes: CharacterClass[] = [
             level: 3,
             name: "Balance Thresholds",
             description:
-              "85–100: Downgrade Lightsaber damage by two die sizes. Double targets and range of all Force abilities, gain +3 to Spellcasting Modifier.\n\n70–85: Downgrade Lightsaber damage by one die size. Gain +2 to Spellcasting Modifier.\n\n55–70: Increase Force ability damage by 1d6.\n\n45–55: Gain 1 Force Point per round while in combat.\n\n30–45: Deal an additional 1d4 damage on Lightsaber hits.\n\n15–30: Double the Force Point cost of all abilities. Gain +2 to hit with Lightsabers.\n\n0–15: Lose the ability to use Force abilities. Gain +2 to Dexterity saves and the ability to reflect blaster bolts. Gain +3 to hit and to damage for Lightsabers.",
+              "86–100: Downgrade Lightsaber damage by two die sizes. Double targets and range of all Force abilities, gain +3 to Spellcasting Modifier.\n\n71–85: Downgrade Lightsaber damage by one die size. Gain +2 to Spellcasting Modifier.\n\n56–70: Increase Force ability damage by 1d6.\n\n45–55: Become Centered, gaining 1 Force Point per round while in combat.\n\n30–44: Deal an additional 1d4 damage on Lightsaber hits.\n\n15–29: Double the Force Point cost of all abilities. Gain +2 to hit with Lightsabers.\n\n0–14: Lose the ability to use Force abilities. Gain +2 to Dexterity saves and Saber Ward for free. Gain +3 to hit and to damage for Lightsabers.",
             type: "passive",
           },
 		  {
@@ -686,7 +686,7 @@ export const classes: CharacterClass[] = [
             level: 5,
             name: "Restorative Balance",
             description:
-              "When starting your turn below 40 Focus, gain Extra Attack, but lose the ability to cast Force Abilities for no action cost after attacking.",
+              "When starting your turn below 40 Balance, gain Extra Attack, but lose the ability to cast Force Abilities for no action cost after attacking.",
             type: "passive",
           },
           {
@@ -4122,6 +4122,13 @@ export interface ChangelogEntry {
 }
 
 export const changelog: ChangelogEntry[] = [
+{
+    version: "0.3.2",
+    date: "2026-04-26",
+    changes: [
+      { category: "Consular", description: "Fixed wording, balance increments" },
+      ],
+  },
   {
     version: "0.3.1",
     date: "2026-04-27",
