@@ -890,11 +890,24 @@ export const classes: CharacterClass[] = [
         type: "asi",
       },
       {
+        level: 14,
+        name: "Holo-Targeting",
+        description:
+          "Each attack you land grants all allies +2 to hit against that target for one turn. Applies to yourself as well, but does not stack.",
+        type: "passive",
+      },
+      {
         level: 16,
         name: "Ability Score Improvement",
         description:
           "Increase one ability score by 2, or two ability scores by 1 each.",
         type: "asi",
+      },
+      {
+        level: 18,
+        name: "Relentless Assault",
+        description: "Gain an additional Action on each of your turns.",
+        type: "passive",
       },
     ],
     subclasses: [
@@ -4123,11 +4136,34 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
 {
-    version: "0.3.2",
-    date: "2026-04-26",
+    version: "0.3.3",
+    date: "2026-05-17",
+    summary: "Added 10 talent trees covering all subclasses. Added Trooper level 14 (Holo-Targeting) and level 18 (Relentless Assault) class features.",
     changes: [
-      { category: "Consular", description: "Fixed wording, balance increments" },
-      ],
+      { category: "Talent Trees", description: "Added Sage tree (4 tiers): Balance-spectrum mastery, Centered bonuses, and extreme-state amplification." },
+      { category: "Talent Trees", description: "Added Shadow tree (4 tiers): Focus vs Impulse duality — stealth/social/initiative vs lightsaber/intimidation/ability bonuses." },
+      { category: "Talent Trees", description: "Added Commando tree (4 tiers): Energy Cell economy, Overcharge cover penetration, resistance shredding, and damage stacking." },
+      { category: "Talent Trees", description: "Added Vanguard tree (4 tiers): Temporary HP-gated AC/resistance, movement suppression, cover aura, and ranged opportunity attacks." },
+      { category: "Talent Trees", description: "Added Gunslinger tree (4 tiers): Reaction lock, first-blood damage, additional reaction, and multi-hit bonuses." },
+      { category: "Talent Trees", description: "Added Scoundrel tree (4 tiers): Single-target present focus, smoke screens, knockback, and Disadvantage exploitation." },
+      { category: "Talent Trees", description: "Added Operative tree (4 tiers): Gadget uses, dice upgrades, Stealth expertise, bonus action Hide, and Ghost Protocol." },
+      { category: "Talent Trees", description: "Added Sniper tree (4 tiers): Squad Optics, Target Lock tracking, Coordinated Fire, and Steady Aim Mastery." },
+      { category: "Talent Trees", description: "Added Powertech tree (4 tiers): Droid AC/Help/Point Defense/Autonomous Unit, gadget vulnerability and suppression." },
+      { category: "Talent Trees", description: "Added Mercenary tree (4 tiers): Emergency Vent reserves, Heat tolerance, Rapid Venting, and Meltdown Protocol." },
+      { category: "Trooper", description: "Added level 14 class feature: Holo-Targeting — each attack grants all allies +2 to hit against that target for one turn." },
+      { category: "Trooper", description: "Added level 18 class feature: Relentless Assault — gain an additional Action each turn." },
+    ],
+  },
+  {
+    version: "0.3.2",
+    date: "2026-05-17",
+    summary: "Replaced Feats system with Talent Trees. Added Sentinel and Guardian trees with 4 tiers and 2 talents per tier. Consular Balance wording and increment fixes applied.",
+    changes: [
+      { category: "Talent Trees", description: "Replaced Feats with Talent Trees system. Added Sentinel tree (4 tiers, 8 talents): mobility and lightsaber-pressure focused." },
+      { category: "Talent Trees", description: "Added Guardian tree (4 tiers, 8 talents): defensive and ally-support focused." },
+      { category: "Consular", description: "Fixed Balance description: starts at 50 (not undefined). Updated tier thresholds to use non-overlapping ranges (86–100, 71–85, 56–70, 45–55, 30–44, 15–29, 0–14). Centered state now explicitly named. Saber Ward granted at 0–14 instead of bolt-reflect wording." },
+      { category: "Consular", description: "Fixed Shadow feature wording: 'below 40 Balance' (was 'below 40 Focus')." },
+    ],
   },
   {
     version: "0.3.1",
@@ -4343,29 +4379,845 @@ export const changelog: ChangelogEntry[] = [
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
-// FEATS
+// TALENT TREES
 // ─────────────────────────────────────────────────────────────────────────────
-export type FeatCategory =
-  | "Combat"
-  | "Force"
-  | "Utility"
-  | "Social"
-  | "Technical";
-
-export interface FeatPrerequisite {
-  description: string;
-}
-
-export interface Feat {
+export interface Talent {
   id: string;
   name: string;
-  category: FeatCategory;
   description: string;
-  prerequisites?: FeatPrerequisite[];
-  /** Optional mechanical benefit summary (e.g. "+1 to Strength, max 20") */
-  benefit?: string;
 }
 
-export const feats: Feat[] = [
-  // TODO: add feats here
+export interface TalentTier {
+  tier: number;
+  /** Two talents to choose from at this tier */
+  options: [Talent, Talent];
+}
+
+export interface TalentTree {
+  id: string;
+  name: string;
+  /** Short flavour description of the tree's playstyle */
+  description: string;
+  /** Accent color key matching ClassAccent for styling */
+  accent: string;
+  tiers: TalentTier[];
+}
+
+export const talentTrees: TalentTree[] = [
+  {
+    id: "sentinel",
+    name: "Sentinel",
+    description: "A mobile duelist who harries enemies with relentless lightsaber pressure, controlling space through superior footwork and Force-enhanced speed.",
+    accent: "blue",
+    tiers: [
+      {
+        tier: 1,
+        options: [
+          {
+            id: "sentinel-t1-a",
+            name: "",
+            description: "Gain an additional 10ft of movement speed.",
+          },
+          {
+            id: "sentinel-t1-b",
+            name: "",
+            description: "After landing a lightsaber attack, your target may not take reactions until the start of your next turn.",
+          },
+        ],
+      },
+      {
+        tier: 2,
+        options: [
+          {
+            id: "sentinel-t2-a",
+            name: "",
+            description: "Gain the ability to both Disengage and Dash at once as a bonus action.",
+          },
+          {
+            id: "sentinel-t2-b",
+            name: "",
+            description: "After moving 30ft or more in a single turn, gain +2 to Dexterity Saving Throws until the start of your next turn.",
+          },
+        ],
+      },
+      {
+        tier: 3,
+        options: [
+          {
+            id: "sentinel-t3-a",
+            name: "",
+            description: "Landing a lightsaber attack grants you an additional 5ft of movement, which may be used immediately.",
+          },
+          {
+            id: "sentinel-t3-b",
+            name: "",
+            description: "After landing two lightsaber attacks in the same turn, gain +2 to Dexterity Saving Throws until the start of your next turn.",
+          },
+        ],
+      },
+      {
+        tier: 4,
+        options: [
+          {
+            id: "sentinel-t4-a",
+            name: "",
+            description: "If you do not already know Force Leap, you learn it. Force Leap no longer costs any Force Points, becomes a Free Action, and can be used once per turn.",
+          },
+          {
+            id: "sentinel-t4-b",
+            name: "",
+            description: "Gain +1 AC for every 20ft moved this turn, applied until the end of your next turn.",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "guardian",
+    name: "Guardian",
+    description: "A stalwart defender who anchors the battlefield, protecting allies through deflection mastery, auras of resolve, and the indomitable presence of a true Jedi shield.",
+    accent: "indigo",
+    tiers: [
+      {
+        tier: 1,
+        options: [
+          {
+            id: "guardian-t1-a",
+            name: "",
+            description: "After not moving for an entire turn, gain Defensive Ward for free at the start of your next turn.",
+          },
+          {
+            id: "guardian-t1-b",
+            name: "",
+            description: "After deflecting a blaster bolt, roll a DC 18 Wisdom check. On a success, all allies within 15ft gain +2 to attack rolls until the start of your next turn.",
+          },
+        ],
+      },
+      {
+        tier: 2,
+        options: [
+          {
+            id: "guardian-t2-a",
+            name: "",
+            description: "Gain the ability to use Saber Throw as a reaction when triggering Perfect Riposte.",
+          },
+          {
+            id: "guardian-t2-b",
+            name: "",
+            description: "After landing a lightsaber attack, your target gains Disadvantage on all attack rolls against targets other than you until the start of your next turn.",
+          },
+        ],
+      },
+      {
+        tier: 3,
+        options: [
+          {
+            id: "guardian-t3-a",
+            name: "",
+            description: "Perfect Riposte no longer requires a reaction. It can be used freely whenever its trigger condition is met.",
+          },
+          {
+            id: "guardian-t3-b",
+            name: "",
+            description: "After casting a Force Power, all allies within 15ft gain +2 to saving throw DCs for abilities they use until the start of your next turn.",
+          },
+        ],
+      },
+      {
+        tier: 4,
+        options: [
+          {
+            id: "guardian-t4-a",
+            name: "",
+            description: "Gain the ability to deflect gadgets and targeted abilities in addition to blaster bolts. All normal deflection rules apply, including the ability to reflect the attack back at the attacker.",
+          },
+          {
+            id: "guardian-t4-b",
+            name: "",
+            description: "If you do not already know Battle Meditation, you learn it. Battle Meditation may now be cast as a Bonus Action.",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "sage",
+    name: "Sage",
+    description: "A Force philosopher who masters the Balance spectrum, drawing power from both extremes while seeking the clarity of the Centered state.",
+    accent: "teal",
+    tiers: [
+      {
+        tier: 1,
+        options: [
+          {
+            id: "sage-t1-a",
+            name: "",
+            description: "Gain an additional Force Point per turn while Centered.",
+          },
+          {
+            id: "sage-t1-b",
+            name: "",
+            description: "During the first turn in which you move to a less Centered state, treat all penalties as if you were still at the prior Balance tier.",
+          },
+        ],
+      },
+      {
+        tier: 2,
+        options: [
+          {
+            id: "sage-t2-a",
+            name: "",
+            description: "While Centered, gain the ability to reroll your damage dice and keep the highest result.",
+          },
+          {
+            id: "sage-t2-b",
+            name: "",
+            description: "While between 56 and 70 Balance, increase Force ability damage by 1d8 instead of 1d6. While between 30 and 44 Balance, increase lightsaber damage by 1d6 instead of 1d4.",
+          },
+        ],
+      },
+      {
+        tier: 3,
+        options: [
+          {
+            id: "sage-t3-a",
+            name: "",
+            description: "Gain +2 AC while Centered.",
+          },
+          {
+            id: "sage-t3-b",
+            name: "",
+            description: "While above 70 Balance, gain double range for all Force Abilities. While below 30 Balance, gain an additional 5ft to melee attack range.",
+          },
+        ],
+      },
+      {
+        tier: 4,
+        options: [
+          {
+            id: "sage-t4-a",
+            name: "",
+            description: "While Centered, gain the ability to cast Force Powers as Bonus Actions.",
+          },
+          {
+            id: "sage-t4-b",
+            name: "",
+            description: "Double all bonuses gained from being in an uncentered Balance state.",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "shadow",
+    name: "Shadow",
+    description: "A dual-natured Force user who draws power from the tension between Focus and Impulse, excelling in either disciplined calm or aggressive momentum.",
+    accent: "purple",
+    tiers: [
+      {
+        tier: 1,
+        options: [
+          {
+            id: "shadow-t1-a",
+            name: "",
+            description: "While Focus is greater than or equal to Impulse, gain +2 to Stealth checks.",
+          },
+          {
+            id: "shadow-t1-b",
+            name: "",
+            description: "While Impulse is greater than Focus, gain +2 to lightsaber attack rolls.",
+          },
+        ],
+      },
+      {
+        tier: 2,
+        options: [
+          {
+            id: "shadow-t2-a",
+            name: "",
+            description: "While Focus is greater than or equal to Impulse, gain Advantage on Persuasion checks.",
+          },
+          {
+            id: "shadow-t2-b",
+            name: "",
+            description: "While Impulse is greater than Focus, gain Advantage on Intimidation checks.",
+          },
+        ],
+      },
+      {
+        tier: 3,
+        options: [
+          {
+            id: "shadow-t3-a",
+            name: "",
+            description: "While Focus is greater than or equal to Impulse, gain Advantage on Initiative rolls.",
+          },
+          {
+            id: "shadow-t3-b",
+            name: "",
+            description: "While Impulse is greater than Focus, Driven Strike and Forceful Breach increase their damage die to 1d12 and 1d10, respectively.",
+          },
+        ],
+      },
+      {
+        tier: 4,
+        options: [
+          {
+            id: "shadow-t4-a",
+            name: "",
+            description: "While Focus is greater than or equal to Impulse, Cloak of Shadows costs 1 Focus instead of 3 and may be used as a Bonus Action.",
+          },
+          {
+            id: "shadow-t4-b",
+            name: "",
+            description: "While Impulse is greater than Focus, gain the ability to use two Impulse abilities per turn.",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "commando",
+    name: "Commando",
+    description: "An Energy Cell specialist who optimises their shot economy, punishes enemies through cover, and chains Overcharge effects into devastating barrages.",
+    accent: "cyan",
+    tiers: [
+      {
+        tier: 1,
+        options: [
+          {
+            id: "commando-t1-a",
+            name: "",
+            description: "For the first Energy Cell ability you use per turn, decrease its cost by 1 (minimum 1). Does not apply to Overcharges.",
+          },
+          {
+            id: "commando-t1-b",
+            name: "",
+            description: "Overcharged shots ignore half cover, and treat three-quarters cover as half cover.",
+          },
+        ],
+      },
+      {
+        tier: 2,
+        options: [
+          {
+            id: "commando-t2-a",
+            name: "",
+            description: "On a Critical Hit with any attack, gain 1 Energy Cell.",
+          },
+          {
+            id: "commando-t2-b",
+            name: "",
+            description: "Overcharged shots ignore all damage resistances.",
+          },
+        ],
+      },
+      {
+        tier: 3,
+        options: [
+          {
+            id: "commando-t3-a",
+            name: "",
+            description: "For the first Overcharged shot used per turn, decrease its cost by 2 (minimum 2).",
+          },
+          {
+            id: "commando-t3-b",
+            name: "",
+            description: "For each Overcharged shot made, grant future Overcharges +2 damage against all targets. Lasts until the end of your next turn, stacking up to 5 times. Using further Overcharged shots on the next turn extends the duration.",
+          },
+        ],
+      },
+      {
+        tier: 4,
+        options: [
+          {
+            id: "commando-t4-a",
+            name: "",
+            description: "For each hit with a non-Energy Cell attack, gain 1 Energy Cell.",
+          },
+          {
+            id: "commando-t4-b",
+            name: "",
+            description: "Add an additional 1d8 damage to each target of each Overcharged shot.",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "vanguard",
+    name: "Vanguard",
+    description: "A living fortress who weaponises their Temporary HP pool, turning punishment absorbed into offensive pressure and battlefield control.",
+    accent: "sky",
+    tiers: [
+      {
+        tier: 1,
+        options: [
+          {
+            id: "vanguard-t1-a",
+            name: "",
+            description: "While you have any Temporary HP, gain +2 AC.",
+          },
+          {
+            id: "vanguard-t1-b",
+            name: "",
+            description: "Upon dealing damage or targeting an enemy with any Energy Cell ability, reduce their movement speed by 10ft until the start of your next turn.",
+          },
+        ],
+      },
+      {
+        tier: 2,
+        options: [
+          {
+            id: "vanguard-t2-a",
+            name: "",
+            description: "When you lose all Temporary HP due to enemy damage, halve all overflow damage and halve all further incoming damage for the rest of that turn.",
+          },
+          {
+            id: "vanguard-t2-b",
+            name: "",
+            description: "Upon landing a hit, gain the ability to push the target back 5ft, provided they are no more than 2 size categories larger than you.",
+          },
+        ],
+      },
+      {
+        tier: 3,
+        options: [
+          {
+            id: "vanguard-t3-a",
+            name: "",
+            description: "While you have any Temporary HP, all allies within 10ft automatically gain the benefits of half cover. If Shield Pulse is active, they instead gain three-quarters cover.",
+          },
+          {
+            id: "vanguard-t3-b",
+            name: "",
+            description: "All enemies that attack you must pass a Constitution saving throw or lose half of their movement speed until the start of their next turn.",
+          },
+        ],
+      },
+      {
+        tier: 4,
+        options: [
+          {
+            id: "vanguard-t4-a",
+            name: "",
+            description: "While you have any Temporary HP, gain Resistance to all incoming damage.",
+          },
+          {
+            id: "vanguard-t4-b",
+            name: "",
+            description: "Gain the ability to make Opportunity Attacks with ranged weapons against enemies that move more than 10ft away from you.",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "gunslinger",
+    name: "Gunslinger",
+    description: "A reactive duelist who punishes enemies for acting out of turn, chains reaction attacks into mobility, and rewards initiative with bonus damage.",
+    accent: "pink",
+    tiers: [
+      {
+        tier: 1,
+        options: [
+          {
+            id: "gunslinger-t1-a",
+            name: "",
+            description: "When you hit with a Reaction attack, the target cannot use Reactions or Bonus Actions for the rest of their turn.",
+          },
+          {
+            id: "gunslinger-t1-b",
+            name: "",
+            description: "Against any target who has not yet acted this round of combat, deal an additional 1d6 damage with all weapon attacks. Does not apply to Reaction attacks.",
+          },
+        ],
+      },
+      {
+        tier: 2,
+        options: [
+          {
+            id: "gunslinger-t2-a",
+            name: "",
+            description: "After attacking on your Reaction, gain the ability to move 5ft.",
+          },
+          {
+            id: "gunslinger-t2-b",
+            name: "",
+            description: "All additional attacks against the same target past the first in a turn gain +2 damage.",
+          },
+        ],
+      },
+      {
+        tier: 3,
+        options: [
+          {
+            id: "gunslinger-t3-a",
+            name: "",
+            description: "Gain an additional Reaction each round.",
+          },
+          {
+            id: "gunslinger-t3-b",
+            name: "",
+            description: "Your first hit each round deals an additional 1d8 damage.",
+          },
+        ],
+      },
+      {
+        tier: 4,
+        options: [
+          {
+            id: "gunslinger-t4-a",
+            name: "",
+            description: "Gain +2 to all Reaction attack rolls and Reaction damage rolls.",
+          },
+          {
+            id: "gunslinger-t4-b",
+            name: "",
+            description: "All additional attacks against the same target past the first in a turn gain +2 to hit.",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "scoundrel",
+    name: "Scoundrel",
+    description: "A trap-setter who specialises in single-target present detonations, controlling the battlefield with smoke, debuffs, and precision explosive placement.",
+    accent: "rose",
+    tiers: [
+      {
+        tier: 1,
+        options: [
+          {
+            id: "scoundrel-t1-a",
+            name: "",
+            description: "Gain the ability to completely remove all splash radius from your presents, making them single-target. In exchange, add one additional damage die to the detonation.",
+          },
+          {
+            id: "scoundrel-t1-b",
+            name: "",
+            description: "Targets damaged by your gadgets lose 10ft of movement speed until the start of your next turn.",
+          },
+        ],
+      },
+      {
+        tier: 2,
+        options: [
+          {
+            id: "scoundrel-t2-a",
+            name: "",
+            description: "If you damage only one target with a present detonation, force Disadvantage on all saving throws that target makes for one turn.",
+          },
+          {
+            id: "scoundrel-t2-b",
+            name: "",
+            description: "Targets hit by your presents suffer -2 to their next attack roll.",
+          },
+        ],
+      },
+      {
+        tier: 3,
+        options: [
+          {
+            id: "scoundrel-t3-a",
+            name: "",
+            description: "If you damage only one target with a present, gain the ability to push them back 10ft.",
+          },
+          {
+            id: "scoundrel-t3-b",
+            name: "",
+            description: "After detonating a present, your threat range for forcing Disadvantage on ranged attackers extends to 15ft until the start of your next turn.",
+          },
+        ],
+      },
+      {
+        tier: 4,
+        options: [
+          {
+            id: "scoundrel-t4-a",
+            name: "",
+            description: "If you have detonated a present that affected only a single target this turn, gain Advantage on all attack and damage rolls against that target for one turn.",
+          },
+          {
+            id: "scoundrel-t4-b",
+            name: "",
+            description: "Gain the ability to make present detonations create a 10ft radius smoke cloud that lasts for 2 turns.",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "operative",
+    name: "Operative",
+    description: "A gadget-focused infiltrator who amplifies every piece of technology they carry, strikes from the shadows, and maintains concealment through superior technique.",
+    accent: "green",
+    tiers: [
+      {
+        tier: 1,
+        options: [
+          {
+            id: "operative-t1-a",
+            name: "",
+            description: "All Operative-specific gadgets gain +1 use per rest.",
+          },
+          {
+            id: "operative-t1-b",
+            name: "",
+            description: "Gain Expertise in Stealth (double your proficiency bonus on Stealth checks).",
+          },
+        ],
+      },
+      {
+        tier: 2,
+        options: [
+          {
+            id: "operative-t2-a",
+            name: "",
+            description: "Increase the size of all gadget-related damage dice by one step (d6 to d8, d8 to d10, etc.).",
+          },
+          {
+            id: "operative-t2-b",
+            name: "",
+            description: "Gain the ability to Hide as a Bonus Action. If you are behind three-quarters or full cover, gain Advantage on this check.",
+          },
+        ],
+      },
+      {
+        tier: 3,
+        options: [
+          {
+            id: "operative-t3-a",
+            name: "",
+            description: "After damaging a target with a gadget, force that target to make a Constitution saving throw. On a failure, you gain Advantage on all attacks against them until the start of your next turn.",
+          },
+          {
+            id: "operative-t3-b",
+            name: "",
+            description: "Gain the ability to use Intelligence as the governing ability score for Deception checks.",
+          },
+        ],
+      },
+      {
+        tier: 4,
+        options: [
+          {
+            id: "operative-t4-a",
+            name: "",
+            description: "Gain an additional Bonus Action on each of your turns.",
+          },
+          {
+            id: "operative-t4-b",
+            name: "",
+            description: "After attacking while hidden, gain the ability to make a Stealth check. On a success, increase the DC of all checks to detect you by 2 and remain hidden. On a failure, reset the DC.",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "sniper",
+    name: "Sniper",
+    description: "A long-range specialist who turns Targeting Visor into a force-multiplier for the whole squad, punishes impaired targets, and maximises the power of Steady Aim.",
+    accent: "lime",
+    tiers: [
+      {
+        tier: 1,
+        options: [
+          {
+            id: "sniper-t1-a",
+            name: "",
+            description: "Gain Targeting Visor for free without requiring a Gadget Slot, along with one spare memory chip. Additional memory chips still require Gadget Slots. Grant the benefits of Targeting Visor to up to two allies within 200ft.",
+          },
+          {
+            id: "sniper-t1-b",
+            name: "",
+            description: "Steady Aim grants the ability to ignore half cover on all attacks made while active.",
+          },
+        ],
+      },
+      {
+        tier: 2,
+        options: [
+          {
+            id: "sniper-t2-a",
+            name: "",
+            description: "Against targets studied by Targeting Visor, gain the ability to track them, granting perfect knowledge of their position so long as they remain within 900ft or until ten minutes have passed.",
+          },
+          {
+            id: "sniper-t2-b",
+            name: "",
+            description: "Gain the ability to reduce a target's movement speed by 10ft upon landing a hit.",
+          },
+        ],
+      },
+      {
+        tier: 3,
+        options: [
+          {
+            id: "sniper-t3-a",
+            name: "",
+            description: "Gain the ability to grant Advantage to all allies within 50ft against all targets marked by Targeting Visor. This takes an Action.",
+          },
+          {
+            id: "sniper-t3-b",
+            name: "",
+            description: "Gain Advantage on all attack rolls against targets with impaired movement speed.",
+          },
+        ],
+      },
+      {
+        tier: 4,
+        options: [
+          {
+            id: "sniper-t4-a",
+            name: "",
+            description: "Targeting Visor now grants perfect knowledge of the target's abilities, current HP, armor, weapons, and ability scores. Double all combat bonuses granted by Targeting Visor.",
+          },
+          {
+            id: "sniper-t4-b",
+            name: "",
+            description: "Double the benefit of Steady Aim and gain the ability to shoot through 5ft of cover while Steady Aim is active.",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "powertech",
+    name: "Powertech",
+    description: "A droid commander who enhances their Companion Droid into a combat asset, amplifies gadget effectiveness, and punishes enemies who show fear.",
+    accent: "yellow",
+    tiers: [
+      {
+        tier: 1,
+        options: [
+          {
+            id: "powertech-t1-a",
+            name: "",
+            description: "Your Companion Droid gains +2 AC.",
+          },
+          {
+            id: "powertech-t1-b",
+            name: "",
+            description: "After personally using a gadget, gain the ability to reduce the next source of incoming damage by your proficiency bonus.",
+          },
+        ],
+      },
+      {
+        tier: 2,
+        options: [
+          {
+            id: "powertech-t2-a",
+            name: "",
+            description: "Your Companion Droid gains the Help action, which it can use on its turn to grant Advantage to an ally's next attack or ability check.",
+          },
+          {
+            id: "powertech-t2-b",
+            name: "",
+            description: "Against enemies currently affected by a gadget, gain +2 to attack rolls and damage rolls.",
+          },
+        ],
+      },
+      {
+        tier: 3,
+        options: [
+          {
+            id: "powertech-t3-a",
+            name: "",
+            description: "Your Companion Droid gains a one-handed weapon of your choice. As a Reaction, your droid can attempt to shoot an incoming projectile within weapon range, negating it entirely (treat incoming projectiles as AC 12).",
+          },
+          {
+            id: "powertech-t3-b",
+            name: "",
+            description: "Force all enemies to have Disadvantage on saving throws against your gadgets.",
+          },
+        ],
+      },
+      {
+        tier: 4,
+        options: [
+          {
+            id: "powertech-t4-a",
+            name: "",
+            description: "Your Companion Droid gains its own initiative and no longer requires your Bonus Action to act each turn.",
+          },
+          {
+            id: "powertech-t4-b",
+            name: "",
+            description: "Against Frightened targets, your attacks automatically score a critical hit.",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "mercenary",
+    name: "Mercenary",
+    description: "A Heat-management specialist who pushes their arsenal to the limit, thriving in the danger zone above 80 Heat and turning Overheat from a liability into a weapon.",
+    accent: "orange",
+    tiers: [
+      {
+        tier: 1,
+        options: [
+          {
+            id: "mercenary-t1-a",
+            name: "",
+            description: "Gain one additional use of Emergency Vent per day.",
+          },
+          {
+            id: "mercenary-t1-b",
+            name: "",
+            description: "While above 80 Heat, gain +2 to all Arsenal Ability attack rolls.",
+          },
+        ],
+      },
+      {
+        tier: 2,
+        options: [
+          {
+            id: "mercenary-t2-a",
+            name: "",
+            description: "Delay the self-damage thresholds by 10 Heat (self-damage now begins at 90 Heat instead of 80, and the increased tier begins at 100 instead of 90).",
+          },
+          {
+            id: "mercenary-t2-b",
+            name: "",
+            description: "While above 80 Heat, roll with Advantage on all Arsenal Ability damage rolls.",
+          },
+        ],
+      },
+      {
+        tier: 3,
+        options: [
+          {
+            id: "mercenary-t3-a",
+            name: "",
+            description: "While above 80 Heat, double your passive Heat venting rate.",
+          },
+          {
+            id: "mercenary-t3-b",
+            name: "",
+            description: "While Overheated (at or above 100 Heat), gain one additional attack on each of your turns.",
+          },
+        ],
+      },
+      {
+        tier: 4,
+        options: [
+          {
+            id: "mercenary-t4-a",
+            name: "",
+            description: "Emergency Vent now refreshes on a Short Rest rather than a Long Rest.",
+          },
+          {
+            id: "mercenary-t4-b",
+            name: "",
+            description: "Overheating no longer disables your abilities. Instead, while Overheated, take 4d8 damage per turn and add one additional damage die to all Arsenal Abilities. Heat may continue to increase indefinitely until vented or otherwise cooled.",
+          },
+        ],
+      },
+    ],
+  },
 ];

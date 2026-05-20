@@ -1,9 +1,10 @@
 // =============================================================================
-// RulesPage.tsx — Special rules, core mechanics, and errata
+// RulesPage.tsx — Special rules, core mechanics, conditions, and errata
 // =============================================================================
 
-import { BookOpen, AlertCircle, Info } from "lucide-react";
+import { BookOpen, AlertCircle, Info, Zap } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { conditions, coreRules } from "@/lib/gameData";
 
 interface RuleSection {
   title: string;
@@ -184,9 +185,65 @@ export default function RulesPage() {
           Rules Reference
         </h1>
         <p className="text-muted-foreground max-w-2xl">
-          Core mechanics, special rules, and design notes for the system. This page covers universal rules that apply across all classes.
+          Core mechanics, special rules, conditions, and design notes for the system. This page covers universal rules that apply across all classes.
         </p>
         <div className="section-divider mt-5" />
+      </div>
+
+      {/* Core Rules Clarifications */}
+      <div className="mb-8">
+        <h2 className="text-xl font-bold text-foreground mb-4" style={{ fontFamily: "Rajdhani, sans-serif" }}>
+          Core Rules Clarifications
+        </h2>
+        <div className="space-y-3">
+          {coreRules.map((rule) => (
+            <div key={rule.title} className="glass-card rounded-lg p-5 border border-border/50">
+              <div className="flex items-start gap-3">
+                <div className="shrink-0 mt-0.5">
+                  <Zap size={14} className="text-purple-400" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap mb-2">
+                    <h3 className="font-bold text-foreground text-sm" style={{ fontFamily: "Rajdhani, sans-serif" }}>
+                      {rule.title}
+                    </h3>
+                    <span className="ability-tag text-purple-400 border-purple-400/40 bg-purple-400/10">
+                      clarification
+                    </span>
+                  </div>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {rule.description}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Conditions */}
+      <div className="mb-8">
+        <h2 className="text-xl font-bold text-foreground mb-4" style={{ fontFamily: "Rajdhani, sans-serif" }}>
+          Conditions
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          {conditions.map((condition) => (
+            <div key={condition.name} className="glass-card rounded-lg p-5 border border-border/50">
+              <div className="flex items-center gap-2 mb-2">
+                <AlertCircle size={14} className="text-red-400 shrink-0" />
+                <h3 className="font-bold text-foreground text-sm" style={{ fontFamily: "Rajdhani, sans-serif" }}>
+                  {condition.name}
+                </h3>
+                <span className="ability-tag text-red-400 border-red-400/40 bg-red-400/10 ml-auto">
+                  condition
+                </span>
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                {condition.description}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Special Rules */}

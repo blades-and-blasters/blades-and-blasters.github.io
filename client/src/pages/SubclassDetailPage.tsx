@@ -2,8 +2,8 @@
 // SubclassDetailPage.tsx — Full subclass detail
 // =============================================================================
 
-import { Link, useParams } from "wouter";
-import { ChevronLeft, Zap } from "lucide-react";
+import { Link, useParams, useLocation } from "wouter";
+import { ChevronLeft, Zap, GitBranch } from "lucide-react";
 import {
   classes, accentColorMap,
   LevelFeature, MutagenicAbility, SniperGadget, OperativeGadget,
@@ -74,6 +74,29 @@ export default function SubclassDetailPage() {
     );
   }
 
+  const [, navigate] = useLocation();
+
+  // Map each subclass to its parent class tab label (mirrors TalentTreesPage CLASS_GROUPS)
+  const SUBCLASS_TO_CLASS_TAB: Record<string, string> = {
+    sentinel: "Jedi Knight",
+    guardian: "Jedi Knight",
+    sage: "Jedi Consular",
+    shadow: "Jedi Consular",
+    commando: "Trooper",
+    vanguard: "Trooper",
+    gunslinger: "Smuggler",
+    scoundrel: "Smuggler",
+    operative: "Agent",
+    sniper: "Agent",
+    powertech: "Bounty Hunter",
+    mercenary: "Bounty Hunter",
+    marauder: "Sith Warrior",
+    juggernaut: "Sith Warrior",
+    alchemist: "Sith Inquisitor",
+    sorcerer: "Sith Inquisitor",
+  };
+  const talentTab = SUBCLASS_TO_CLASS_TAB[sub.id];
+
   const colors = accentColorMap[cls.accent];
 
   return (
@@ -115,6 +138,20 @@ export default function SubclassDetailPage() {
               {sub.description}
             </p>
           </div>
+          {talentTab && (
+            <button
+              onClick={() => navigate(`/talent-trees?tab=${encodeURIComponent(sub.id)}`)}
+              className={cn(
+                "flex items-center gap-2 px-4 py-2 rounded-lg border text-sm font-semibold transition-all duration-150 shrink-0 mt-2",
+                colors.badge,
+                "hover:opacity-80"
+              )}
+              style={{ fontFamily: "Rajdhani, sans-serif" }}
+            >
+              <GitBranch size={14} />
+              Talent Tree
+            </button>
+          )}
         </div>
       </div>
 

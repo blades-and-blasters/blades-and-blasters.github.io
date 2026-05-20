@@ -13,8 +13,9 @@ import {
   Package,
   Shield as ShieldIcon,
   Star,
+  GitBranch,
 } from "lucide-react";
-import { classes, forceAbilities, gadgets, skills, feats } from "@/lib/gameData";
+import { classes, forceAbilities, gadgets, skills, talentTrees } from "@/lib/gameData";
 import { accentColorMap } from "@/lib/gameData";
 import { cn } from "@/lib/utils";
 
@@ -100,14 +101,14 @@ const sections = [
     bg: "bg-green-400/5",
   },
   {
-    label: "Feats",
-    href: "/feats",
-    icon: <ShieldIcon size={22} />,
-    count: feats.length,
-    description: "Optional enhancements taken in place of an Ability Score Improvement.",
-    accent: "text-amber-400",
-    border: "border-amber-400/30",
-    bg: "bg-amber-400/5",
+    label: "Talent Trees",
+    href: "/talent-trees",
+    icon: <GitBranch size={22} />,
+    count: talentTrees.length,
+    description: "Tiered specialisation paths — choose one talent per tier in place of an ASI.",
+    accent: "text-purple-400",
+    border: "border-purple-400/30",
+    bg: "bg-purple-400/5",
   },
   {
     label: "Rules",
