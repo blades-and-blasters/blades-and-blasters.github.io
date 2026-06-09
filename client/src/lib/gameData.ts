@@ -46,6 +46,7 @@ export interface SniperGadget {
   id: string;
   name: string;
   slots: number;
+  uses?: number;
   actionType: "Action" | "Bonus Action" | "Reaction" | "Free Action";
   description: string;
 }
@@ -326,14 +327,14 @@ export const classes: CharacterClass[] = [
         level: 1,
         name: "Lightsaber Stance",
         description:
-          "Select a Lightsaber Stance to specialize in. Each stance provides a unique combat bonus.",
+          "Select a Lightsaber Stance to specialize in. Each stance provides a unique combat bonus. See the Stances page for all available stances.",
         type: "passive",
       },
       {
         level: 2,
         name: "Focus",
         description:
-          "Gain access to Focus. Gain 10 Focus upon landing a hit, and lose 5 Focus upon being damaged. May exchange 20 Focus for one Force Point.",
+          "Starts at 0, increases up to 100. Gain 20 Focus upon landing a hit while below 50 Focus, and 10 Focus upon landing a hit while at or above 50 Focus. May exchange 20 Focus for one Force Point.",
         type: "resource",
       },
       {
@@ -346,7 +347,7 @@ export const classes: CharacterClass[] = [
         level: 4,
         name: "Ability Score Improvement",
         description:
-          "Increase one ability score by 2, or two ability scores by 1 each.",
+          "Increase one ability score by 2, or two ability scores by 1 each. Also gain one Talent Point.",
         type: "asi",
       },
       {
@@ -365,14 +366,14 @@ export const classes: CharacterClass[] = [
         level: 8,
         name: "Ability Score Improvement",
         description:
-          "Increase one ability score by 2, or two ability scores by 1 each.",
+          "Increase one ability score by 2, or two ability scores by 1 each. Also gain one Talent Point.",
         type: "asi",
       },
       {
         level: 10,
         name: "Ignorance, yet Knowledge",
         description:
-          "Once per long rest, spend up to 5 Force Points on an ability for free.",
+          "Once per Long Rest, gain the ability to cast a Force Ability costing up to 5 Force Points for free.",
         type: "active",
       },
       {
@@ -386,7 +387,7 @@ export const classes: CharacterClass[] = [
         level: 12,
         name: "Ability Score Improvement",
         description:
-          "Increase one ability score by 2, or two ability scores by 1 each.",
+          "Increase one ability score by 2, or two ability scores by 1 each. Also gain one Talent Point.",
         type: "asi",
       },
       {
@@ -399,14 +400,14 @@ export const classes: CharacterClass[] = [
         level: 16,
         name: "Ability Score Improvement",
         description:
-          "Increase one ability score by 2, or two ability scores by 1 each.",
+          "Increase one ability score by 2, or two ability scores by 1 each. Also gain one Talent Point.",
         type: "asi",
       },
       {
         level: 18,
         name: "Death, yet the Force",
         description:
-          "Once per Long Rest, upon reaching 0 HP (fatal damage), restore half your HP and regain 100 Focus.",
+          "Once per Long Rest, upon reaching 0 HP (fatal damage), restore half your HP and maximize Focus.",
         type: "active",
       },
     ],
@@ -422,7 +423,7 @@ export const classes: CharacterClass[] = [
             level: 3,
             name: "Flow State",
             description:
-              "When above 50 Focus, gain +1 to hit and +1 AC. When above 70 Focus, gain +2 to hit and +2 AC. When above 90 Focus, gain +3 to hit and +3 AC.",
+              "When above 50 Focus, gain +1 to hit and +1 to Dexterity saves. When above 70 Focus, gain +2 to hit and +2 to Dexterity saves. When above 90 Focus, gain +3 to hit and +3 to Dexterity saves.",
             type: "passive",
           },
           {
@@ -454,15 +455,15 @@ export const classes: CharacterClass[] = [
           },
           {
             level: 10,
-            name: "Improved Focus",
-            description: "Gain an additional 5 Focus per strike.",
+            name: "Fluid Assault",
+            description: "Upon striking two separate enemies with your lightsaber, gain +1 to Dexterity Saving Throws.",
             type: "passive",
           },
           {
             level: 13,
             name: "Mobility Expertise",
             description:
-              "Disengage and Dash become free actions. Gain another 10ft of movement.",
+              "If you move more than 20ft before attacking, gain an additional 1d8 damage on your attacks for the remainder of your turn.",
             type: "passive",
           },
         ],
@@ -549,20 +550,20 @@ export const classes: CharacterClass[] = [
         maxValue: "2 per level",
         recharge: "Long rest",
       },
-	  {
-		name: "Force Abilities Known",
+      {
+        name: "Force Abilities Known",
         description:
-          "Used to power Force abilities. Gain 1 per level.",
-        maxValue: "1 per level",
-        recharge: "Long rest",
-	  },
+          "Know 2 + your Consular level Force Abilities.",
+        maxValue: "2 + Consular level",
+        recharge: "Permanent",
+      },
     ],
     features: [
       {
         level: 1,
         name: "Lightsaber Stance",
         description:
-          "Select a Lightsaber Stance to specialize in. Each stance provides a unique combat bonus.",
+          "Select a Lightsaber Stance to specialize in. Each stance provides a unique combat bonus. See the Stances page for all available stances.",
         type: "passive",
       },
       {
@@ -589,7 +590,7 @@ export const classes: CharacterClass[] = [
         level: 4,
         name: "Ability Score Improvement",
         description:
-          "Increase one ability score by 2, or two ability scores by 1 each.",
+          "Increase one ability score by 2, or two ability scores by 1 each. Also gain one Talent Point.",
         type: "asi",
       },
       {
@@ -601,21 +602,21 @@ export const classes: CharacterClass[] = [
       {
         level: 6,
         name: "There is no Emotion, There is Peace",
-        description: "By Concentrating for one round, gain the ability to double the effect, capacity, and damage of any Force Ability. For abilities that require saving throws, gain Advantage on them if beneficial, or force Disadvantage if forcing it upon an enemy.",
+        description: "By Concentrating for one round, gain the ability to double the effect, capacity, and damage of any Force Ability. For abilities that require saving throws, gain Advantage on them if beneficial, or force Disadvantage if targeting an enemy.",
         type: "passive",
       },
       {
         level: 8,
         name: "Ability Score Improvement",
         description:
-          "Increase one ability score by 2, or two ability scores by 1 each.",
+          "Increase one ability score by 2, or two ability scores by 1 each. Also gain one Talent Point.",
         type: "asi",
       },
       {
         level: 10,
         name: "There is no Ignorance, There is Knowledge",
         description:
-          "Spend 2 Force Points to gain advantage on any skill check.",
+          "Spend 2 Force Points to gain Advantage on any skill check.",
         type: "active",
       },
       {
@@ -628,21 +629,21 @@ export const classes: CharacterClass[] = [
         level: 12,
         name: "Ability Score Improvement",
         description:
-          "Increase one ability score by 2, or two ability scores by 1 each.",
+          "Increase one ability score by 2, or two ability scores by 1 each. Also gain one Talent Point.",
         type: "asi",
       },
       {
         level: 14,
         name: "There is no Chaos, There is Harmony",
         description:
-          "Twice per Long Rest, quench a single Gadget or Ability within 60 ft of you.",
+          "Twice per Long Rest, as a reaction, gain the ability to quench a single new Gadget or Ability within 60 ft of you. Force the owner or caster to make a saving throw using their Spellcasting Modifier against your Wisdom check. If you succeed, the Gadget or Ability is completely removed with no effect.",
         type: "active",
       },
       {
         level: 16,
         name: "Ability Score Improvement",
         description:
-          "Increase one ability score by 2, or two ability scores by 1 each.",
+          "Increase one ability score by 2, or two ability scores by 1 each. Also gain one Talent Point.",
         type: "asi",
       },
       {
@@ -686,7 +687,7 @@ export const classes: CharacterClass[] = [
             level: 5,
             name: "Restorative Balance",
             description:
-              "When starting your turn below 40 Balance, gain Extra Attack, but lose the ability to cast Force Abilities for no action cost after attacking.",
+              "When starting your turn below 40 Balance, gain Extra Attack, but lose the effects of Synergy.",
             type: "passive",
           },
           {
@@ -736,14 +737,14 @@ export const classes: CharacterClass[] = [
             level: 3,
             name: "Walking the Edge",
             description:
-              "Starting your turn with equal Focus and Impulse grants Centered, giving +10ft of movement. Reaching 0 Focus blocks your ability to use Force Points. Reaching 0 Impulse grants you Disadvantage on all attacks.",
+              "Starting your turn with equal Focus and Impulse makes you Centered, giving +10ft of movement. Reaching 0 Focus blocks your ability to use Force Points. Reaching 0 Impulse grants you Disadvantage on all Lightsaber attacks.",
             type: "passive",
           },
           {
             level: 3,
             name: "Focus Abilities",
             description:
-              "Blanken Mind (2 Focus): As an action, lance into someone's mind, selectively editing the past 15 minutes of memories and eliminating their ability to form new memories for up to fifteen minutes. Wisdom save resists; critical failure causes Mindbroken.\n\nCloak of Shadows (3 Focus): Become Invisible for one minute.\n\nGhost (1 Focus): As a Bonus Action, gain the ability to pass through enemy space for one minute without drawing attacks of opportunity.\n\nDampened Field (1 Focus): As an action, remove all noise in a 5ft area around yourself for one minute.\n\nShroud Minds (2 Focus): As an action, Confuse all enemies in a 15ft radius. Wisdom save resists.",
+              "Blanken Mind (2 Focus): As an action, lance into someone's mind, selectively editing the past 15 minutes of memories and eliminating their ability to form new memories for up to fifteen minutes. Wisdom save resists; critical failure causes Mindbroken.\n\nCloak of Shadows (3 Focus): Become Invisible for one minute.\n\nGhost (1 Focus): As a Bonus Action, gain the ability to pass through enemy space for one minute without drawing attacks of opportunity.\n\nDampened Field (1 Focus): As an action, remove all noise in a 5ft area around yourself for one minute.\n\nShroud Minds (2 Focus): As an action, force all enemies in a 10ft radius to make a Wisdom save. On a failure, they become Confused for three turns. At the start of each of their rounds, they may repeat their Wisdom save.",
             type: "active",
           },
           {
@@ -764,7 +765,7 @@ export const classes: CharacterClass[] = [
             level: 10,
             name: "Island of Calm",
             description:
-              "When Centered, gain +2 to Saving Throws, Spellcasting Modifier, and Attacks. After each rest, set Focus and Impulse to 10 each.",
+              "When Centered, gain +2 to Saving Throws, Spellcasting Modifier, and Attacks. After each rest, gain the ability to set your Focus and Impulse. You may choose to set it at maximum Focus and zero Impulse, maximum Impulse and zero Focus, or even amounts of both. Additionally, increase your maximum Focus and Impulse to 16, and your even levels to 8 of each.",
             type: "passive",
           },
           {
@@ -921,7 +922,7 @@ export const classes: CharacterClass[] = [
           {
             level: 3,
             name: "Specialized Shots",
-            description: "Select two of the following shots. Gain additional shots at levels 7, 10, and 15.",
+            description: "Select two of the following shots. Gain additional shots at levels 7, 10, and 15. These shots may be activated as a bonus to an Attack.",
             type: "active",
           },
 		  {
@@ -938,7 +939,7 @@ export const classes: CharacterClass[] = [
           },
           {
             level: 11,
-            name: "Extra Extra Attack",
+            name: "Improved Extra Attack",
             description: "You can attack three times whenever you take the Attack action.",
             type: "passive",
           },
@@ -950,7 +951,7 @@ export const classes: CharacterClass[] = [
           },
           {
             level: 18,
-            name: "Extra Extra Extra Attack",
+            name: "Superior Extra Attack",
             description: "You can attack four times whenever you take the Attack action.",
             type: "passive",
           },
@@ -977,7 +978,7 @@ export const classes: CharacterClass[] = [
             level: 3,
             name: "Shield Charge",
             description:
-              "Use 2 Energy Cells to grant yourself 10 temporary HP. Overcharge (4 EC): Grant yourself 20 temporary HP.",
+              "As an action, use 2 Energy Cells to grant yourself 10 temporary HP. Overcharge (4 EC): Grant yourself 20 temporary HP.",
             type: "active",
           },
           {
@@ -990,7 +991,7 @@ export const classes: CharacterClass[] = [
           {
             level: 3,
             name: "Vanguard Abilities",
-            description: "Select 2 of the following abilities. Gain additional abilities at levels 7, 9, and 13.",
+            description: "Select 2 of the following Energy Cell abilities. Gain additional Energy Cell abilities at levels 7, 9, and 13.",
             type: "active",
           },
           {
@@ -1004,14 +1005,14 @@ export const classes: CharacterClass[] = [
             level: 7,
             name: "Improved Temporary HP",
             description:
-              "Gain two additional abilities. Increase all temporary HP gains by 5.",
+              "Gain two additional Energy Cell abilities. Increase all temporary HP gains by 5.",
             type: "passive",
           },
           {
             level: 9,
             name: "Enhanced Temporary HP",
             description:
-              "Gain two additional abilities. Increase all temporary HP gains by another 10.",
+              "Gain two additional Energy Cell abilities. Increase all temporary HP gains by another 10.",
             type: "passive",
           },
           {
@@ -1024,12 +1025,12 @@ export const classes: CharacterClass[] = [
             level: 13,
             name: "Superior Temporary HP",
             description:
-              "Gain two additional abilities. Increase all temporary HP gains by another 10.",
+              "Gain two additional Energy Cell abilities. Increase all temporary HP gains by another 10.",
             type: "passive",
           },
         ],
         vanguardAbilities: [
-          { id: "riot-strike", name: "Riot Strike", cost: "Reaction", actionType: "Reaction", description: "If an enemy casts an ability within 5ft of you, make an attack. If it hits, deal no damage but negate the ability and gain 10 Temporary HP." },
+          { id: "riot-strike", name: "Riot Strike", cost: "2 EC", actionType: "Reaction", description: "If an enemy uses an ability or gadget within 5ft of you, make an attack. If it hits, deal no damage but negate the ability and gain 10 Temporary HP.", overcharge: "5 EC: Also stop the enemy from using any other abilities for the remainder of their turn." },
           { id: "harpoon", name: "Harpoon", cost: "2 EC", actionType: "Action", description: "Attempt to harpoon an enemy within 30ft, forcing a Strength save or being dragged to your position.", overcharge: "3 EC: Pull yourself to them, gaining 10 temporary HP." },
           { id: "explosive-pulse", name: "Explosive Pulse", cost: "2 EC", actionType: "Action", description: "Detonate all temporary HP, forcing all creatures within 5ft to take that much damage. Dexterity save for half.", overcharge: "3 EC: Increase radius to 10ft." },
           { id: "leeching-blast", name: "Leeching Blast", cost: "5 EC", actionType: "Action", description: "Force all enemies in a 30ft cone to pass a Strength save or have up to 20 of their temporary HP stripped; you gain half.", overcharge: "8 EC: Gain the full amount stripped." },
@@ -1086,9 +1087,9 @@ export const classes: CharacterClass[] = [
       },
       {
         level: 2,
-        name: "Hidden Stashes",
+        name: "Quick Hands",
         description:
-          "Gain the ability to hide up to 5lbs on your person and up to 20lbs on a vehicle.",
+          "Gain +2 to Initiative rolls.",
         type: "passive",
       },
       {
@@ -1178,21 +1179,21 @@ export const classes: CharacterClass[] = [
             level: 3,
             name: "Quick Turnaround",
             description:
-              "Whenever an enemy misses you with an attack, make an attack with your main and offhand weapons against them. Gain +1 AC for each attack that hits. Costs 15 Energy. Does not cost a reaction. May be used in conjunction with Fastest Hand Alive.",
+              "Whenever an enemy misses you with an attack, make an attack with your main and offhand weapons against them. Gain +1 AC for each of these attacks that hit. Costs 15 Energy. Does not cost a reaction. May be used in conjunction with Fastest Hand Alive.",
             type: "active",
           },
           {
             level: 7,
             name: "Double Down",
             description:
-              "When landing an attack, choose to either deal an additional 1d6 damage or reduce their movement by 10ft until the end of their next turn. Costs 10 Energy.",
+              "When landing an attack, gain the ability to choose to either deal an additional 1d6 damage or reduce their movement by 10ft until the end of their next turn. Costs 10 Energy.",
             type: "active",
           },
           {
             level: 7,
             name: "Hair Trigger",
             description:
-              "When an enemy attacks, as a reaction, impose disadvantage on them. If they miss, make a main hand attack against them. Can be used in conjunction with Quick Turnaround. Costs 20 Energy.",
+              "When an enemy attacks, as a reaction, impose disadvantage on them. If they miss, make a main hand attack against them. Can be used in conjunction with Quick Turnaround, but not Fastest Hand Alive. Costs 20 Energy.",
             type: "active",
           },
           {
@@ -1210,12 +1211,7 @@ export const classes: CharacterClass[] = [
         description:
           "Scoundrels are dirty fighters who plant explosive 'presents' on their enemies. Each present detonates when the target takes weapon damage, creating devastating chain reactions.",
         features: [
-          {
-            level: 3,
-            name: "Martial Weapon Access",
-            description: "Gain access to Martial weapons.",
-            type: "passive",
-          },
+
           {
             level: 3,
             name: "Present in Your Pocket",
@@ -1319,7 +1315,7 @@ export const classes: CharacterClass[] = [
         level: 5,
         name: "Tactical Infiltrator",
         description:
-          "You cannot be surprised, and you gain Advantage on initiative rolls.",
+          "You cannot be surprised, and you gain the ability to force a single enemy to roll with Disadvantage on initiative rolls for the duration of combat.",
         type: "passive",
       },
       {
@@ -1440,7 +1436,7 @@ export const classes: CharacterClass[] = [
             level: 3,
             name: "Crack Shot",
             description:
-              "Gain the ability to fire through the full range of the weapon without disadvantage.",
+              "Gain the ability to fire through the full range of your weapons without disadvantage.",
             type: "passive",
           },
           {
@@ -1468,14 +1464,14 @@ export const classes: CharacterClass[] = [
             level: 7,
             name: "Sniper's Hide",
             description:
-              "When firing at greater than 60ft while unspotted, after every shot, make a Stealth check. If it succeeds, remain hidden and add 2 to the DC of subsequent Stealth checks.",
+              "When firing at greater than 60ft while Hidden, after every shot, make a Stealth check. If it succeeds, remain hidden and add 2 to the DC of subsequent Stealth checks until you get detected.",
             type: "passive",
           },
           {
             level: 9,
             name: "Trick Shot",
             description:
-              "Gain the ability to bounce blaster bolts around cover, letting you take attacks against covered targets at Disadvantage.",
+              "Gain the ability to bounce blaster bolts around cover, letting you take attacks against covered targets at Disadvantage so long as you can draw a projectile path from you to the target with one bounce. For the purposes of weapon range, you must trace the path the projectile follows.",
             type: "active",
           },
            {
@@ -1515,11 +1511,19 @@ export const classes: CharacterClass[] = [
             actionType: "Action",
             description: "See through up to 15 ft of combined obstacles. Lasts one minute. Additional batteries are 1 minute/slot.",
           },
+          {
+            id: "reflective-micromirrors",
+            name: "Reflective Micromirrors",
+            slots: 1,
+            uses: 10,
+            actionType: "Action",
+            description: "Place reflective micromirrors. These mirrors may be seen through their path, giving you vision up to 20ft away from the mirror. Each mirror extends this path. Additionally, when bouncing off of a mirror with Trick Shot, the blaster bolt gains an additional bounce.",
+          },
         ],
       },
     ],
   },
-  // ───────────────────────────────────────────────────────────────────────────
+  // ─────────────────────────────────────────────────────────────────────────
   // BOUNTY HUNTER
   // ───────────────────────────────────────────────────────────────────────────
   {
@@ -1567,14 +1571,14 @@ export const classes: CharacterClass[] = [
         level: 1,
         name: "Fighting Style",
         description:
-          "Choose a Fighting Style:\n\nBlaster: Gain +2 to Blaster attacks.\n\nDefense: Gain +1 AC.\n\nGadgeteer: Gain +2 to hit and to damage from Gadgets and Abilities.\n\nHeavy Weapon Fighting: Two-handed weapons can reroll 1s and 2s for damage.\n\nTwo-weapon Fighting: Add your ability modifier to the damage of the second attack.\n\nClose Quarters Shooter: No disadvantage on ranged attacks within 5ft of a hostile creature. +1 to ranged attack rolls.",
+          "Choose a Fighting Style. See the Stances page for all available Fighting Styles.",
         type: "passive",
       },
       {
         level: 2,
         name: "Expert Hunter",
         description:
-          "Gain Advantage on Survival, Investigation, and Perception checks related to a target that you are knowledgeable of.",
+          "Gain Advantage on Survival, Investigation, and Perception checks related to targets that you are knowledgeable of.",
         type: "passive",
       },
       {
@@ -1599,7 +1603,7 @@ export const classes: CharacterClass[] = [
       {
         level: 6,
         name: "Dead or Alive",
-        description: "Gain the ability to make non-lethal Blaster attacks.",
+        description: "Gain the ability to make non-lethal Blaster attacks as normal ranged attacks.",
         type: "passive",
       },
       {
@@ -1633,7 +1637,7 @@ export const classes: CharacterClass[] = [
         level: 14,
         name: "Cantina Legend",
         description:
-          "Once per short rest, choose one target who knows your reputation. As a bonus action, force them to make a Wisdom save against your level. Upon failure, they become Frightened for one minute. ",
+          "Once per short rest, choose one target who knows your reputation. As a bonus action, force them to make a Wisdom save against your level plus your proficiency bonus. Upon failure, they become Frightened for one minute.",
         type: "active",
       },
       {
@@ -1647,7 +1651,7 @@ export const classes: CharacterClass[] = [
         level: 18,
         name: "You Know My Name",
         description:
-          "Cantina Legend can be applied once per turn. Gain Advantage against Frightened Targets.",
+          "Cantina Legend can be applied once per turn and no longer has limited charges. Gain Advantage against Frightened Targets.",
         type: "passive",
       },
     ],
@@ -1662,7 +1666,7 @@ export const classes: CharacterClass[] = [
           {
             level: 3,
             name: "Companion Droid",
-            description: "Gain a Companion Droid. May be commanded once per Bonus Action. Gadget Slots: One per level (in addition to personal gadget slots). Double your Gadget Inventory. Can carry a weapon in 3 Gadget Slots. After destruction, may be repaired or replaced with one week of effort. Gain Proficiency in 2 of: Technology, Piloting, Stealth, History, Medicine, Perception. Gains Ability Score Increases at the same rate as you. May be uparmored at 1 Gadget Slot per AC. Choose a chassis below.",
+            description: "Double your Gadget Inventory. Gain a Companion Droid that may be commanded once per Bonus Action. Your Companion Droid gains one Gadget Slot per level.\n\nYour Companion Droid may carry any weapon without High Recoil for 3 Gadget Slots, and be uparmored at the cost of 1 Gadget Slot per AC.\n\nYour Companion Droid gains Proficiency in 2 of the following skills: Technology, Piloting, Stealth, History, Medicine, Perception.\n\nYour Companion Droid gains Ability Score Increases at the same time as you.\n\nChoose a Chassis below.",
             type: "passive",
           },
           {
@@ -1683,7 +1687,7 @@ export const classes: CharacterClass[] = [
             level: 13,
             name: "Enhanced Uplink",
             description:
-              "Gain the ability to control two droids. Gadget Slots are split between the droids according to your preference.",
+              "Gain the ability to control two droids. Both may be commanded as a single Bonus Action. Gadget Slots are split between the droids according to your preference.",
             type: "passive",
           },
         ],
@@ -1744,7 +1748,7 @@ export const classes: CharacterClass[] = [
           {
             level: 3,
             name: "Mercenary Arsenal",
-            description: "Gain access to the following Heat-based abilities. Each scales with current Heat level.",
+            description: "Gain access to two of the following Heat-based abilities. These may be used as an Attack.",
             type: "active",
           },
           {
@@ -1755,8 +1759,20 @@ export const classes: CharacterClass[] = [
           },
           {
             level: 7,
-            name: "Improved Venting",
-            description: "Increase passive Heat venting to 8 per turn.",
+            name: "Improved Arsenal",
+            description: "Gain access to two more Heat-based Abilities. Heat-based ability damage die sizes are all increased by 1.",
+            type: "passive",
+          },
+          {
+            level: 10,
+            name: "Superior Arsenal",
+            description: "Gain access to two more Heat-based Abilities. Heat-based ability damage is increased by 4.",
+            type: "passive",
+          },
+          {
+            level: 13,
+            name: "Enhanced Arsenal",
+            description: "Gain access to two more Heat-based Abilities. For Heat-based Abilities, deal an additional damage die.",
             type: "passive",
           },
 	      {
@@ -2724,6 +2740,174 @@ export const forceAbilities: ForceAbility[] = [
       "Drain vitality from a creature within 30ft. The target takes 4d8 necrotic damage and you regain hit points equal to a quarter of the damage dealt. The target may make a Constitution save for half damage; on a failed save it has disadvantage on its next attack roll.",
     tags: ["Damage", "Healing", "Necrotic", "Dark Side"],
   },
+  // ── New Light abilities ──────────────────────────────────────────────────
+  {
+    id: "force-tether",
+    name: "Force Tether",
+    alignment: "light",
+    cost: "2 Force Points",
+    actionType: "Bonus Action",
+    range: "60ft",
+    description:
+      "Link 2 targets within 60ft of you. For two turns, if one is forcibly moved, the other is moved in the same direction and distance.",
+    tags: ["Control", "Light Side"],
+  },
+  {
+    id: "force-burden",
+    name: "Force Burden",
+    alignment: "light",
+    cost: "1 Force Point",
+    actionType: "Bonus Action",
+    range: "30ft",
+    description:
+      "Select a target within 30ft. Its movement speed is reduced by half for one turn.",
+    tags: ["Control", "Light Side"],
+  },
+  {
+    id: "force-stabilize",
+    name: "Force Stabilize",
+    alignment: "light",
+    cost: "3 Force Points",
+    actionType: "Action",
+    range: "60ft",
+    description:
+      "Select a target within 60ft of you. If its health is reduced to or below 0, it is instead set to 1, and it cannot be reduced to 0 for the remainder of this turn. Lasts until triggered or six hours passes. Concentration.",
+    tags: ["Protection", "Healing", "Concentration", "Light Side"],
+  },
+  {
+    id: "psychometry",
+    name: "Psychometry",
+    alignment: "light",
+    cost: "1 Force Point",
+    actionType: "Bonus Action",
+    range: "Touch",
+    description:
+      "Touch an object and read its emotional history.",
+    tags: ["Utility", "Light Side"],
+  },
+  {
+    id: "force-sanctuary",
+    name: "Force Sanctuary",
+    alignment: "light",
+    cost: "3 Force Points",
+    actionType: "Action",
+    range: "Self (15ft radius)",
+    description:
+      "For one minute, all allies within a 15ft radius gain Advantage on saving throws.",
+    tags: ["Protection", "Aura", "Light Side"],
+  },
+  {
+    id: "shared-burden",
+    name: "Shared Burden",
+    alignment: "light",
+    cost: "1 Force Point",
+    actionType: "Reaction",
+    range: "30ft",
+    description:
+      "When an ally within 30ft takes damage, take half of that damage onto yourself.",
+    tags: ["Protection", "Reaction", "Light Side"],
+  },
+  // ── New Neutral abilities ────────────────────────────────────────────────
+  {
+    id: "life-sense",
+    name: "Life Sense",
+    alignment: "universal",
+    cost: "1 Force Point",
+    actionType: "Action",
+    range: "30ft",
+    description:
+      "For one minute, detect living creatures within 30ft of you. Invisible creatures still act as Invisible for the purposes of Advantage and Disadvantage.",
+    tags: ["Detection", "Utility", "Neutral"],
+  },
+  {
+    id: "force-gust",
+    name: "Force Gust",
+    alignment: "universal",
+    cost: "1 Force Point",
+    actionType: "Action",
+    range: "15ft cone",
+    description:
+      "Create a 15ft cone that extinguishes flames, disperses smoke, and pushes unsecured objects.",
+    tags: ["Utility", "Control", "Neutral"],
+  },
+  {
+    id: "heightened-awareness",
+    name: "Heightened Awareness",
+    alignment: "universal",
+    cost: "1 Force Point",
+    actionType: "Action",
+    range: "Self",
+    description:
+      "For one minute, gain 15ft of Blindsense.",
+    tags: ["Detection", "Utility", "Neutral"],
+  },
+  // ── New Dark abilities ───────────────────────────────────────────────────
+  {
+    id: "force-torment",
+    name: "Force Torment",
+    alignment: "dark",
+    cost: "2 Force Points",
+    actionType: "Reaction",
+    range: "30ft",
+    description:
+      "Force a target within 30ft that is using an ability or gadget to pass a Wisdom saving throw. On a failure, deal 2d6 damage.",
+    tags: ["Damage", "Reaction", "Dark Side"],
+  },
+  {
+    id: "feed-on-fear",
+    name: "Feed on Fear",
+    alignment: "dark",
+    cost: "3 Force Points",
+    actionType: "Bonus Action",
+    range: "30ft",
+    description:
+      "Select a target within 30ft. For the next minute, whenever they fail any kind of save, you gain 1d6 health. If the target dies within the minute, you may select a new target. This may repeat indefinitely, but it does not reset its own timer.",
+    tags: ["Healing", "Debuff", "Dark Side"],
+  },
+  {
+    id: "scar-soul",
+    name: "Scar Soul",
+    alignment: "dark",
+    cost: "3 Force Points",
+    actionType: "Action",
+    range: "30ft",
+    description:
+      "Select a target within 30ft. For the next minute, they may not regain health through any means.",
+    tags: ["Debuff", "Dark Side"],
+  },
+  {
+    id: "raise-dead",
+    name: "Raise Dead",
+    alignment: "dark",
+    cost: "5 Force Points",
+    actionType: "Action",
+    range: "30ft",
+    description:
+      "Select a corpse within 30ft of you and raise it as a Reanimated Husk. Reanimated Husks have the same health and stats they had in life, but have 20ft movement speed and cannot use weapons. Instead, they may attempt to strike the enemy in melee, dealing 1d8 + Strength damage. If the target raised is at level 5 or greater, it gains Extra Attack. Each Reanimated Husk controlled acts on your turn.",
+    tags: ["Summon", "Dark Side"],
+  },
+  {
+    id: "siphon-strength",
+    name: "Siphon Strength",
+    alignment: "dark",
+    cost: "5 Force Points",
+    actionType: "Action",
+    range: "60ft",
+    description:
+      "Select a target within 60ft and force them to make a Wisdom save. On a failure, steal 2d4 Strength and add it to yourself for one minute. On a success, reduce the enemy's strength by half, but steal nothing.",
+    tags: ["Debuff", "Dark Side"],
+  },
+  {
+    id: "wither",
+    name: "Wither",
+    alignment: "dark",
+    cost: "3 Force Points",
+    actionType: "Action",
+    range: "60ft",
+    description:
+      "Select a target within 60ft and force them to make a Constitution save. On a failure, reduce their maximum HP by 5d6. On a success, reduce it by half.",
+    tags: ["Debuff", "Dark Side"],
+  },
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -3396,6 +3580,11 @@ export const weaponProperties: WeaponProperty[] = [
     description:
       "This weapon releases an electric wave the specified distance to behind the target. Make an attack against all targets within the range when you attack. Is also Electrified.",
   },
+  {
+    name: "Loading",
+    description:
+      "This weapon may only fire one shot before reloading, which costs a Bonus Action.",
+  },
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -3407,7 +3596,6 @@ export interface Weapon {
   id: string;
   name: string;
   category: WeaponCategory;
-  classification?: "Simple" | "Martial";
   damage: string;
   range?: string;
   properties: string[];
@@ -3469,27 +3657,31 @@ export const weapons: Weapon[] = [
 
   // ── Blasters ─────────────────────────────────────────────────────────────
   {
-    id: "blaster-pistol",
+      id: "blaster-pistol",
     name: "Blaster Pistol",
     category: "blaster",
-    classification: "Simple",
     damage: "1d4",
     range: "30/60 ft",
     properties: ["Light"],
     price: 3500,
-
   },
-
+  {
+    id: "shatter-pistol",
+    name: "Shatter Pistol",
+    category: "blaster",
+    damage: "1d6",
+    range: "15/30 ft",
+    properties: ["Light"],
+    price: 4000,
+  },
   {
     id: "blaster-rifle",
     name: "Blaster Rifle",
     category: "blaster",
-    classification: "Martial",
     damage: "1d8",
     range: "150/600 ft",
     properties: [],
     price: 6000,
-
   },
 
   {
@@ -3562,12 +3754,20 @@ export const weapons: Weapon[] = [
 
   },
 
+  {
+    id: "bowcaster",
+    name: "Bowcaster",
+    category: "blaster",
+    damage: "2d8",
+    range: "60/100 ft",
+    properties: ["High Recoil", "Loading"],
+    price: 14000,
+  },
   // ── Vibroweapons ─────────────────────────────────────────────────────────
   {
     id: "vibroknife",
     name: "Vibroknife",
     category: "vibroweapon",
-    classification: "Simple",
     damage: "1d4",
     properties: ["Finesse", "Light", "Vibrocutter"],
     price: 800,
@@ -3578,7 +3778,6 @@ export const weapons: Weapon[] = [
     id: "vibroaxe",
     name: "Vibroaxe",
     category: "vibroweapon",
-    classification: "Martial",
     damage: "1d12",
     properties: ["Heavy", "Two-Handed", "Vibrocutter"],
     price: 1800,
@@ -3589,7 +3788,6 @@ export const weapons: Weapon[] = [
     id: "vibrosword",
     name: "Vibrosword",
     category: "vibroweapon",
-    classification: "Martial",
     damage: "1d8 (1d10 Versatile)",
     properties: ["Versatile", "Vibrocutter"],
     price: 2200,
@@ -3600,7 +3798,6 @@ export const weapons: Weapon[] = [
     id: "vibropike",
     name: "Vibropike",
     category: "vibroweapon",
-    classification: "Martial",
     damage: "1d10",
     properties: ["Heavy", "Reach", "Two-Handed", "Vibrocutter"],
     price: 2500,
@@ -3611,7 +3808,6 @@ export const weapons: Weapon[] = [
     id: "electrostaff",
     name: "Electrostaff",
     category: "vibroweapon",
-    classification: "Martial",
     damage: "1d8",
     properties: ["Reach", "Electrified"],
     price: 3000,
@@ -3622,7 +3818,6 @@ export const weapons: Weapon[] = [
     id: "electrohammer",
     name: "Electrohammer",
     category: "vibroweapon",
-    classification: "Martial",
     damage: "1d10",
     properties: ["Electrowave (5 ft)"],
     price: 3800,
@@ -3643,7 +3838,6 @@ export const weapons: Weapon[] = [
     id: "electrobaton",
     name: "Electrobaton",
     category: "vibroweapon",
-    classification: "Martial",
     damage: "1d6",
     properties: ["Finesse", "Light", "Electrified"],
     price: 1500,
@@ -4135,7 +4329,34 @@ export interface ChangelogEntry {
 }
 
 export const changelog: ChangelogEntry[] = [
-{
+  {
+    version: "0.3.4",
+    date: "2026-06-08",
+    summary: "Mass class/subclass text fixes across all classes, Mercenary Arsenal restructure, 16 new Force Abilities, 2 new weapons, 1 new weapon property, and new Sniper gadget.",
+    changes: [
+      { category: "Jedi Knight", description: "ASI features now award 1 Talent Point. Lightsaber Stances level 1 description clarified." },
+      { category: "Sentinel", description: "Flow State: clarified 'if you have moved' condition. Improved Focus (level 10): wording clarified. Mobility Expertise (level 13): wording clarified." },
+      { category: "Jedi Consular", description: "Force Abilities Known resource added. Level 1 Lightsaber Stance description updated. Level 6, 10, 14 features clarified. ASI features now award 1 Talent Point." },
+      { category: "Sage", description: "Level 5 Restorative Balance: clarified that it triggers on any Balance change, not just on landing attacks." },
+      { category: "Shadow", description: "Walking the Edge, Shroud Minds, and Island of Calm descriptions clarified." },
+      { category: "Trooper", description: "Commando Specialized Shots: clarified they activate as a bonus to an Attack. Extra Extra Attack renamed to Improved Extra Attack; Extra Extra Extra Attack renamed to Superior Extra Attack." },
+      { category: "Vanguard", description: "Shield Charge: clarified as an Action. Vanguard Abilities and level-up features: 'abilities' replaced with 'Energy Cell abilities'. Riot Strike: cost changed to 2 EC (Reaction), added overcharge (5 EC)." },
+      { category: "Smuggler", description: "Level 2 feature renamed from Hidden Stashes to Quick Hands (+2 Initiative)." },
+      { category: "Gunslinger", description: "Quick Turnaround: clarified which attacks grant +1 AC. Double Down: clarified as a choice. Hair Trigger: clarified cannot be used with Fastest Hand Alive." },
+      { category: "Scoundrel", description: "Removed Martial Weapon Access level 3 feature (now baseline)." },
+      { category: "Agent", description: "Tactical Infiltrator (level 5): now forces one enemy to roll initiative with Disadvantage instead of simply granting Advantage." },
+      { category: "Sniper", description: "Crack Shot: clarified 'your weapons'. Sniper's Hide: clarified 'while Hidden'. Trick Shot: added full bounce path rule. Added Reflective Micromirrors gadget (1 slot, 10 uses)." },
+      { category: "Bounty Hunter", description: "Fighting Style: now references Stances page. Expert Hunter: 'a target' → 'targets'. Dead or Alive: clarified as normal ranged attacks. Cantina Legend: save DC now includes proficiency bonus. You Know My Name: no longer limited charges." },
+      { category: "Powertech", description: "Companion Droid level 3: reformatted as multi-paragraph description. Enhanced Uplink: both droids may be commanded as a single Bonus Action." },
+      { category: "Mercenary", description: "Arsenal restructured: start with 2 abilities, gain 2 more at levels 7, 10, and 13. Improved Venting removed; replaced with Improved/Superior/Enhanced Arsenal features. Reinforced Core moved to level 13." },
+      { category: "Force Abilities", description: "Added 6 Light abilities: Force Tether, Force Burden, Force Stabilize, Psychometry, Force Sanctuary, Shared Burden." },
+      { category: "Force Abilities", description: "Added 3 Neutral abilities: Life Sense, Force Gust, Heightened Awareness." },
+      { category: "Force Abilities", description: "Added 7 Dark abilities: Force Torment, Feed on Fear, Scar Soul, Raise Dead, Siphon Strength, Wither." },
+      { category: "Weapons", description: "Added Shatter Pistol (1d6, 15/30 ft, Light). Added Bowcaster (2d8, 60/100 ft, High Recoil, Loading). Added Loading weapon property." },
+      { category: "Weapons", description: "Removed Simple/Martial weapon classification field from all weapons." },
+    ],
+  },
+  {
     version: "0.3.3",
     date: "2026-05-17",
     summary: "Added 10 talent trees covering all subclasses. Added Trooper level 14 (Holo-Targeting) and level 18 (Relentless Assault) class features.",
