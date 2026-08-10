@@ -35,11 +35,9 @@ jobs:
           version: 10
 
       - name: Install dependencies
-        working-directory: SWRPG
         run: pnpm install --frozen-lockfile
 
       - name: Build
-        working-directory: SWRPG
         run: pnpm build
 
       - name: Setup Pages
@@ -48,7 +46,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: SWRPG/dist/public
+          path: dist/public
 
       - name: Deploy to GitHub Pages
         id: deployment
