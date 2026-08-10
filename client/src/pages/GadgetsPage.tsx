@@ -36,9 +36,15 @@ export default function GadgetsPage() {
         <h1 className="text-4xl font-bold text-foreground mb-2" style={{ fontFamily: "Rajdhani, sans-serif" }}>
           Gadgets
         </h1>
-        <p className="text-muted-foreground max-w-2xl">
-          Technology items available to Agents, Bounty Hunters, and Troopers. Gadgets occupy Gadget Slots and refresh on a Long Rest. Attack modifier for gadgets is Dexterity + Proficiency. You may equip a number of gadgets equal to your Gadget Slots; equipping or unequipping a gadget takes one Short Rest.
-        </p>
+        <div className="max-w-2xl space-y-2">
+          <p className="font-semibold text-foreground">
+            Gadget attack modifier: Intelligence modifier + proficiency bonus.<br />
+            Gadget save DC: 8 + Intelligence modifier + proficiency bonus.
+          </p>
+          <p className="text-muted-foreground">
+            Choose your equipped gadgets at the end of a Long Rest. Equipped gadgets occupy Gadget Slots until your next Long Rest or until changed during one hour of downtime with access to your stored inventory. A gadget that has expended its uses remains equipped. You may equip only one copy of a gadget unless its description states otherwise.
+          </p>
+        </div>
         <div className="section-divider mt-5" />
       </div>
 
