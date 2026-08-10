@@ -20,6 +20,9 @@ import {
   Sword,
   ScrollText,
   GitBranch,
+  Rocket,
+  Crosshair,
+  FileDown,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -40,6 +43,8 @@ const navItems: NavItem[] = [
   { label: "Gadgets", href: "/gadgets", icon: <Wrench size={18} /> },
   { label: "Skills", href: "/skills", icon: <Star size={18} /> },
   { label: "Talent Trees", href: "/talent-trees", icon: <GitBranch size={18} /> },
+  { label: "Ships", href: "/ships", icon: <Rocket size={18} /> },
+  { label: "Templates", href: "/templates", icon: <FileDown size={18} /> },
   { label: "Rules", href: "/rules", icon: <BookOpen size={18} /> },
   { label: "Changelog", href: "/changelog", icon: <ScrollText size={18} /> },
 ];

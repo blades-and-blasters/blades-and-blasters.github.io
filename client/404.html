@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Blades &amp; Blasters</title>
+    <script>
+      // GitHub Pages SPA redirect trick.
+      // When GitHub Pages serves a 404 for a deep route, this page encodes
+      // the full path+query+hash into a query string and redirects to the
+      // root, where index.html picks it up and restores the real URL.
+      var l = window.location;
+      l.replace(
+        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+        l.pathname.split('/').slice(0, 1).join('/') +
+        '/?p=' + encodeURIComponent(l.pathname + l.search) +
+        (l.hash ? '&h=' + encodeURIComponent(l.hash) : '')
+      );
+    </script>
+  </head>
+  <body></body>
+</html>

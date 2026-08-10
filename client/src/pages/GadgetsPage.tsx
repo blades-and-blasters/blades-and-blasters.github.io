@@ -37,7 +37,7 @@ export default function GadgetsPage() {
           Gadgets
         </h1>
         <p className="text-muted-foreground max-w-2xl">
-          Technology items available to Agents, Bounty Hunters, and Troopers. Gadgets occupy Gadget Slots and refresh on long rest.
+          Technology items available to Agents, Bounty Hunters, and Troopers. Gadgets occupy Gadget Slots and refresh on a Long Rest. Attack modifier for gadgets is Dexterity + Proficiency. You may equip a number of gadgets equal to your Gadget Slots; equipping or unequipping a gadget takes one Short Rest.
         </p>
         <div className="section-divider mt-5" />
       </div>

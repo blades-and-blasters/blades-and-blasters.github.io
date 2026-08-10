@@ -846,7 +846,7 @@ export const classes: CharacterClass[] = [
         level: 4,
         name: "Ability Score Improvement",
         description:
-          "Increase one ability score by 2, or two ability scores by 1 each.",
+          "Increase one ability score by 2, or two ability scores by 1 each. Also gain one Talent Point.",
         type: "asi",
       },
       {
@@ -859,7 +859,7 @@ export const classes: CharacterClass[] = [
         level: 6,
         name: "Ability Score Improvement",
         description:
-          "Increase one ability score by 2, or two ability scores by 1 each.",
+          "Increase one ability score by 2, or two ability scores by 1 each. Also gain one Talent Point.",
         type: "asi",
       },
       {
@@ -873,7 +873,7 @@ export const classes: CharacterClass[] = [
         level: 8,
         name: "Ability Score Improvement",
         description:
-          "Increase one ability score by 2, or two ability scores by 1 each.",
+          "Increase one ability score by 2, or two ability scores by 1 each. Also gain one Talent Point.",
         type: "asi",
       },
       {
@@ -887,7 +887,7 @@ export const classes: CharacterClass[] = [
         level: 12,
         name: "Ability Score Improvement",
         description:
-          "Increase one ability score by 2, or two ability scores by 1 each.",
+          "Increase one ability score by 2, or two ability scores by 1 each. Also gain one Talent Point.",
         type: "asi",
       },
       {
@@ -901,7 +901,7 @@ export const classes: CharacterClass[] = [
         level: 16,
         name: "Ability Score Improvement",
         description:
-          "Increase one ability score by 2, or two ability scores by 1 each.",
+          "Increase one ability score by 2, or two ability scores by 1 each. Also gain one Talent Point.",
         type: "asi",
       },
       {
@@ -1102,7 +1102,7 @@ export const classes: CharacterClass[] = [
         level: 4,
         name: "Ability Score Improvement",
         description:
-          "Increase one ability score by 2, or two ability scores by 1 each.",
+          "Increase one ability score by 2, or two ability scores by 1 each. Also gain one Talent Point.",
         type: "asi",
       },
       {
@@ -1122,7 +1122,7 @@ export const classes: CharacterClass[] = [
         level: 8,
         name: "Ability Score Improvement",
         description:
-          "Increase one ability score by 2, or two ability scores by 1 each.",
+          "Increase one ability score by 2, or two ability scores by 1 each. Also gain one Talent Point.",
         type: "asi",
       },
       {
@@ -1136,7 +1136,7 @@ export const classes: CharacterClass[] = [
         level: 12,
         name: "Ability Score Improvement",
         description:
-          "Increase one ability score by 2, or two ability scores by 1 each.",
+          "Increase one ability score by 2, or two ability scores by 1 each. Also gain one Talent Point.",
         type: "asi",
       },
       {
@@ -1308,7 +1308,7 @@ export const classes: CharacterClass[] = [
         level: 4,
         name: "Ability Score Improvement",
         description:
-          "Increase one ability score by 2, or two ability scores by 1 each.",
+          "Increase one ability score by 2, or two ability scores by 1 each. Also gain one Talent Point.",
         type: "asi",
       },
       {
@@ -1329,7 +1329,7 @@ export const classes: CharacterClass[] = [
         level: 8,
         name: "Ability Score Improvement",
         description:
-          "Increase one ability score by 2, or two ability scores by 1 each.",
+          "Increase one ability score by 2, or two ability scores by 1 each. Also gain one Talent Point.",
         type: "asi",
       },
       {
@@ -1350,7 +1350,7 @@ export const classes: CharacterClass[] = [
         level: 12,
         name: "Ability Score Improvement",
         description:
-          "Increase one ability score by 2, or two ability scores by 1 each.",
+          "Increase one ability score by 2, or two ability scores by 1 each. Also gain one Talent Point.",
         type: "asi",
       },
       {
@@ -1364,7 +1364,7 @@ export const classes: CharacterClass[] = [
         level: 16,
         name: "Ability Score Improvement",
         description:
-          "Increase one ability score by 2, or two ability scores by 1 each.",
+          "Increase one ability score by 2, or two ability scores by 1 each. Also gain one Talent Point.",
         type: "asi",
       },
       {
@@ -1591,7 +1591,7 @@ export const classes: CharacterClass[] = [
         level: 4,
         name: "Ability Score Improvement",
         description:
-          "Increase one ability score by 2, or two ability scores by 1 each.",
+          "Increase one ability score by 2, or two ability scores by 1 each. Also gain one Talent Point.",
         type: "asi",
       },
       {
@@ -1610,7 +1610,7 @@ export const classes: CharacterClass[] = [
         level: 8,
         name: "Ability Score Improvement",
         description:
-          "Increase one ability score by 2, or two ability scores by 1 each.",
+          "Increase one ability score by 2, or two ability scores by 1 each. Also gain one Talent Point.",
         type: "asi",
       },
 	  {
@@ -1630,7 +1630,7 @@ export const classes: CharacterClass[] = [
         level: 12,
         name: "Ability Score Improvement",
         description:
-          "Increase one ability score by 2, or two ability scores by 1 each.",
+          "Increase one ability score by 2, or two ability scores by 1 each. Also gain one Talent Point.",
         type: "asi",
       },
 	    {
@@ -1644,7 +1644,7 @@ export const classes: CharacterClass[] = [
         level: 16,
         name: "Ability Score Improvement",
         description:
-          "Increase one ability score by 2, or two ability scores by 1 each.",
+          "Increase one ability score by 2, or two ability scores by 1 each. Also gain one Talent Point.",
         type: "asi",
       },
       {
@@ -1865,7 +1865,7 @@ export const classes: CharacterClass[] = [
       {
         level: 4,
         name: "Ability Score Improvement",
-        description: "Increase one ability score by 2, or two ability scores by 1 each.",
+        description: "Increase one ability score by 2, or two ability scores by 1 each. Also gain one Talent Point.",
         type: "asi",
       },
       {
@@ -1883,7 +1883,7 @@ export const classes: CharacterClass[] = [
       {
         level: 8,
         name: "Ability Score Improvement",
-        description: "Increase one ability score by 2, or two ability scores by 1 each.",
+        description: "Increase one ability score by 2, or two ability scores by 1 each. Also gain one Talent Point.",
         type: "asi",
       },
       {
@@ -1901,7 +1901,7 @@ export const classes: CharacterClass[] = [
       {
         level: 12,
         name: "Ability Score Improvement",
-        description: "Increase one ability score by 2, or two ability scores by 1 each.",
+        description: "Increase one ability score by 2, or two ability scores by 1 each. Also gain one Talent Point.",
         type: "asi",
       },
       {
@@ -1913,7 +1913,7 @@ export const classes: CharacterClass[] = [
       {
         level: 16,
         name: "Ability Score Improvement",
-        description: "Increase one ability score by 2, or two ability scores by 1 each.",
+        description: "Increase one ability score by 2, or two ability scores by 1 each. Also gain one Talent Point.",
         type: "asi",
       },
       {
@@ -2145,7 +2145,7 @@ export const classes: CharacterClass[] = [
         level: 4,
         name: "Ability Score Improvement",
         description:
-          "Increase one ability score by 2, or two ability scores by 1 each.",
+          "Increase one ability score by 2, or two ability scores by 1 each. Also gain one Talent Point.",
         type: "asi",
       },
       {
@@ -2166,7 +2166,7 @@ export const classes: CharacterClass[] = [
         level: 8,
         name: "Ability Score Improvement",
         description:
-          "Increase one ability score by 2, or two ability scores by 1 each.",
+          "Increase one ability score by 2, or two ability scores by 1 each. Also gain one Talent Point.",
         type: "asi",
       },
       {
@@ -2187,7 +2187,7 @@ export const classes: CharacterClass[] = [
         level: 12,
         name: "Ability Score Improvement",
         description:
-          "Increase one ability score by 2, or two ability scores by 1 each.",
+          "Increase one ability score by 2, or two ability scores by 1 each. Also gain one Talent Point.",
         type: "asi",
       },
       {
@@ -2201,7 +2201,7 @@ export const classes: CharacterClass[] = [
         level: 16,
         name: "Ability Score Improvement",
         description:
-          "Increase one ability score by 2, or two ability scores by 1 each.",
+          "Increase one ability score by 2, or two ability scores by 1 each. Also gain one Talent Point.",
         type: "asi",
       },
       {
@@ -3337,11 +3337,11 @@ export interface Condition {
 export const conditions: Condition[] = [
   {
     name: "Confused",
-    description: "Same as the 5e Confusion condition. On each of its turns, the target rolls a d10 to determine behavior: 1 — moves in a random direction; 2–6 — takes no action and uses all movement to move in a random direction; 7–8 — makes a melee attack against a randomly determined creature within reach, or does nothing if no creature is in reach; 9–10 — acts normally.",
+    description: "On each of its turns, the target rolls a d10 to determine behavior: 1 — moves in a random direction; 2–6 — takes no action and uses all movement to move in a random direction; 7–8 — makes a melee attack against a randomly determined creature within reach, or does nothing if no creature is in reach; 9–10 — acts normally.",
   },
   {
     name: "Mindbroken",
-    description: "The target's mind is destroyed for 1d4 days. They are effectively dead until that time is up, unable to take any actions, move, or respond to stimuli.",
+    description: "The target's mind is damaged for 1d4 days. They have Disadvantage on Wisdom saving throws, but cannot have their mind read.",
   },
   {
     name: "Frozen",
@@ -3357,7 +3357,7 @@ export const conditions: Condition[] = [
   },
   {
     name: "Frightened",
-    description: "Same as the 5e Frightened condition. A frightened creature has Disadvantage on ability checks and attack rolls while the source of its fear is within line of sight. The creature can't willingly move closer to the source of its fear.",
+    description: "A frightened creature has Disadvantage on ability checks and attack rolls while the source of its fear is within line of sight. The creature cannot willingly move closer to the source of its fear.",
   },
   {
     name: "Jammed",
@@ -3372,14 +3372,6 @@ export const coreRules = [
   {
     title: "Resource Regeneration Timing",
     description: "All resource regeneration, venting, and passive gains occur at the end of a creature's turn.",
-  },
-  {
-    title: "Rage Maximum",
-    description: "The Sith Warrior's Rage maximum is 8 × Constitution score (not modifier).",
-  },
-  {
-    title: "Saving Throw Bonuses",
-    description: "Saving throw bonuses (e.g. +2 to Dexterity Saving Throws) are added to the roll, not to the DC.",
   },
 ];
 
@@ -4316,6 +4308,108 @@ export type ChangelogCategory =
   | "Stance"
   | "General";
 
+// ─────────────────────────────────────────────────────────────────────────────
+// SUPPLIES
+// ─────────────────────────────────────────────────────────────────────────────
+export interface SuppliesSystem {
+  description: string;
+  maxCarried: number;
+  shipStorage: number;
+  resupplyNote: string;
+}
+export const suppliesSystem: SuppliesSystem = {
+  description: "Supplies are consumed during Long Rests to gain the benefits of the full rest.",
+  maxCarried: 5,
+  shipStorage: 50,
+  resupplyNote: "Supplies are automatically refilled upon entering a port, city, or other major market.",
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+// SHIPS
+// ─────────────────────────────────────────────────────────────────────────────
+export interface ShipStats {
+  str: number;
+  dex: number;
+  con: number;
+  int?: number;
+}
+export interface Ship {
+  id: string;
+  name: string;
+  crew: string;
+  moduleSlots: number;
+  cost: number;
+  stats: ShipStats;
+  hp: number;
+  ac: number;
+  movement: number;
+  maxWeapons: number;
+  criticalThreshold: number;
+  description: string;
+  freeWeapon: string;
+  includedModules?: string[];
+}
+export const ships: Ship[] = [
+  { id: "fighter", name: "Fighter", crew: "1–2", moduleSlots: 2, cost: 125000, stats: { str: 8, dex: 16, con: 6, int: 10 }, hp: 40, ac: 16, movement: 100, maxWeapons: 2, criticalThreshold: 15, description: "A small, 1-2 person starship equipped with a basic hyperspace drive. Agile, fast, and very very squishy.", freeWeapon: "DEX-based 1d4, 25nmi" },
+  { id: "light-freighter", name: "Light Freighter", crew: "3–4", moduleSlots: 8, cost: 350000, stats: { str: 14, dex: 10, con: 12, int: 10 }, hp: 60, ac: 14, movement: 60, maxWeapons: 3, criticalThreshold: 20, description: "A 3-4 person starship equipped with a hyperspace drive and quite a bit more room to customize, but requires substantially more work to retrofit into a true combat ship.", freeWeapon: "DEX-based 1d4, 25nmi" },
+  { id: "corvette", name: "Corvette", crew: "3–4", moduleSlots: 5, cost: 600000, stats: { str: 12, dex: 14, con: 10, int: 10 }, hp: 70, ac: 15, movement: 60, maxWeapons: 4, criticalThreshold: 25, description: "A 3-4 person light military ship, meant for low-intensity fighting.", freeWeapon: "DEX-based 1d4, 25nmi", includedModules: ["Turbolaser Battery or Ion Cannon", "Deflector Shields"] },
+  { id: "heavy-freighter", name: "Heavy Freighter", crew: "5–6", moduleSlots: 16, cost: 900000, stats: { str: 16, dex: 8, con: 14, int: 8 }, hp: 100, ac: 12, movement: 40, maxWeapons: 5, criticalThreshold: 30, description: "A 5-6 person starship capable of hauling heavy cargo and capable of a high degree of customization.", freeWeapon: "DEX-based 1d4, 25nmi" },
+  { id: "frigate", name: "Frigate", crew: "5–6", moduleSlots: 12, cost: 1500000, stats: { str: 14, dex: 12, con: 12, int: 10 }, hp: 120, ac: 13, movement: 40, maxWeapons: 6, criticalThreshold: 35, description: "A 5-6 person starship capable of long-range patrols and escort duty in contested space.", freeWeapon: "DEX-based 1d4, 25nmi", includedModules: ["Two of: Turbolaser Battery, Ion Cannon, Concussion Missile Battery, Fighter Bay, or Sensor Suite", "Deflector Shields or ECM Suite"] },
+];
+
+export interface ShipModule {
+  id: string;
+  name: string;
+  slots: number;
+  cost: number;
+  description: string;
+}
+export const shipModules: ShipModule[] = [
+  { id: "turbolaser-battery", name: "Turbolaser Battery", slots: 1, cost: 45000, description: "1d8 damage, 100nmi range, STR-based." },
+  { id: "ion-cannon", name: "Ion Cannon", slots: 1, cost: 50000, description: "1d4 damage, 50nmi range, STR-based. Deals 3x damage to temporary HP, and on a critical, cause a Systems Critical. After one day, this System Critical is automatically repaired." },
+  { id: "concussion-missile-battery", name: "Concussion Missile Battery", slots: 1, cost: 60000, description: "1d12+4 damage, 30nmi range, DEX-based. Takes one turn to reload after firing." },
+  { id: "fighter-bay", name: "Fighter Bay", slots: 1, cost: 60000, description: "Allows the ship to carry one fighter with it and deploy it as needed. May not be used on Fighters." },
+  { id: "defensive-ecm", name: "Defensive ECM", slots: 1, cost: 100000, description: "Add +2 AC. May only install 2." },
+  { id: "offensive-ecm", name: "Offensive ECM", slots: 2, cost: 100000, description: "Designate one enemy target. Its weapon range is reduced by 20nmi." },
+  { id: "reinforced-hull", name: "Reinforced Hull", slots: 1, cost: 45000, description: "Adds 15 HP." },
+  { id: "deflector-shields", name: "Deflector Shields", slots: 1, cost: 90000, description: "Adds 20 Temporary HP. This regenerates after 6hrs." },
+  { id: "extra-engines", name: "Extra Engines", slots: 2, cost: 80000, description: "Adds +10nmi movement." },
+  { id: "smuggler-compartment", name: "Smuggler Compartment", slots: 1, cost: 30000, description: "Allows carrying of 5 tons of cargo or 5 people in a hidden compartment, shielded from scanners." },
+  { id: "cargo-bay", name: "Cargo Bay", slots: 1, cost: 20000, description: "Allows carrying of 10 tons of cargo or 10 people." },
+  { id: "tractor-beam", name: "Tractor Beam", slots: 4, cost: 220000, description: "Target a ship of your size or smaller within 10nmi and make a contested Strength check. On a success, the target's movement becomes 0, and you may pull it adjacent to your ship." },
+  { id: "sensor-suite", name: "Sensor Suite", slots: 2, cost: 55000, description: "Add +2 to Perception checks." },
+  { id: "interdictor-field", name: "Interdictor Field", slots: 12, cost: 3000000, description: "Blocks all hyperspace jump attempts in a 1000nmi radius." },
+  { id: "repair-systems", name: "Repair Systems", slots: 3, cost: 160000, description: "Repairs your ship at a rate of 5hp/day, up to 3/4ths of your ship HP. May be used to repair one Systems Critical between port stops." },
+  { id: "escape-pods", name: "Escape Pods", slots: 1, cost: 15000, description: "Upon ship destruction, allows all crew members to escape safely." },
+  { id: "fire-control-system", name: "Fire Control System", slots: 1, cost: 100000, description: "Add +2 to weapon attacks." },
+  { id: "brig", name: "Brig", slots: 1, cost: 18000, description: "Allows for the secure holding of 2 prisoners." },
+  { id: "eva-locker", name: "EVA Locker", slots: 1, cost: 12000, description: "Allows for EVA excursions of all crewmembers." },
+  { id: "meditation-chambers", name: "Meditation Chambers", slots: 2, cost: 120000, description: "Gives Advantage on Force Ability rolls while inside the Meditation Chambers." },
+  { id: "security-systems", name: "Security Systems", slots: 2, cost: 60000, description: "Gain perfect knowledge of all enemy locations within the ship, and gain advantage on all rolls on the first round of combat within your ship." },
+  { id: "cloaking-module", name: "Cloaking Module", slots: 5, cost: 900000, description: "Gain the ability to become Invisible in space for 6 hours. All actions except for movement break this cloak. Cannot be used on anything larger than a Light Freighter or Corvette." },
+  { id: "comms-jammer", name: "Comms Jammer", slots: 2, cost: 180000, description: "Block enemy communications within a 1000nmi radius. Active jamming reveals your own position." },
+  { id: "hydroponics-bay", name: "Hydroponics Bay", slots: 2, cost: 35000, description: "Increase onboard Supplies by 30." },
+  { id: "decoy-launcher", name: "Decoy Launcher", slots: 1, cost: 45000, description: "Launch a decoy to mimic your ship. Roll Dexterity vs. target's Perception. On success, may divert fire and all Concussion Missiles unless launched within 10nmi." },
+  { id: "light-missile-pod", name: "Light Missile Pod", slots: 1, cost: 60000, description: "Fires three missiles, each dealing 1d4+1 damage at 25nmi range. Each may be individually targeted. Takes one turn to reload." },
+  { id: "point-defense-battery", name: "Point-Defense Battery", slots: 1, cost: 65000, description: "Once per turn, target a single enemy missile attack and roll a Dexterity save. If higher than the attack roll, negate the attack." },
+];
+
+export interface SystemsCritical {
+  roll: number;
+  name: string;
+  description: string;
+}
+export const systemsCriticals: SystemsCritical[] = [
+  { roll: 1, name: "Disabled Engines", description: "You may no longer move at all. After one day, this automatically upgrades to Damaged Engines." },
+  { roll: 2, name: "Disabled Weapons", description: "Roll among all your weapons, and disable the one selected." },
+  { roll: 3, name: "Disabled Generators", description: "You can no longer gain Temporary HP, and gain Disadvantage on Perception checks." },
+  { roll: 4, name: "Disabled Comms", description: "You may no longer communicate externally." },
+  { roll: 5, name: "Damaged Engines", description: "You now move at half speed." },
+  { roll: 6, name: "Damaged Generators", description: "You now recharge Temporary HP at half speed, and may only regenerate up to half of your normal maximum. Gain Disadvantage on Perception Checks." },
+  { roll: 7, name: "Damaged Module", description: "Roll among all your modules, and disable the one selected. Anything stored in said module is destroyed." },
+  { roll: 8, name: "Fire", description: "Take 1d6 damage per turn. Each turn, roll a Constitution Save. On a success, the fire is extinguished." },
+];
+
 export interface ChangelogChange {
   category: ChangelogCategory;
   description: string;
@@ -4329,6 +4423,35 @@ export interface ChangelogEntry {
 }
 
 export const changelog: ChangelogEntry[] = [
+  {
+    version: "0.3.5",
+    date: "2026-08-10",
+    summary: "Mass text fixes, 4 new Sith talent trees, Marauder/Juggernaut subtable extraction, 2 new Scoundrel Presents, new gadget, Ships & Modules system, Combat Rules page, Supplies rules, Concentration filter on Force Abilities, Gadgets page header update.",
+    changes: [
+      { category: "Jedi Knight", description: "Force Abilities Known resource added. Sith Warrior and Sith Inquisitor also gain Force Abilities Known resource." },
+      { category: "Sentinel", description: "Fluid Assault: clarified 'Lasts for one turn'. Mobility Expertise: 'first attack' clarified." },
+      { category: "Guardian", description: "Heightened Guard: corrected to 'Defensive Ward' (was 'Saber Ward')." },
+      { category: "Jedi Consular", description: "There is no Emotion, There is Peace: replaced vague doubling with specific menu of effects." },
+      { category: "Shadow", description: "Cloak of Shadows: attacking or using an ability ends it. Shroud Minds: now targets up to 3 enemies (not all). Shadow T3 right-hand talent: 'damage die' → 'die size'." },
+      { category: "Trooper", description: "Vanguard Free Energy Cell Ability renamed Power Redistribution; clarified it does not apply Overcharges." },
+      { category: "Smuggler", description: "Charming Rogue: rewritten as standard unarmored AC formula." },
+      { category: "Gunslinger", description: "Quick Turnaround: now only main-hand attack, not both weapons." },
+      { category: "Agent", description: "Overwatch: rewritten as 60ft cone Reaction attack." },
+      { category: "Bounty Hunter", description: "Dead or Alive: killing blow grants half movement. Cantina Legend: target becomes immune for 24 hours after effect ends. Gadgeteer: now only applies to Gadgets, not Abilities." },
+      { category: "Powertech", description: "Companion Droid: command Bonus Action now allows either you or the droid to activate a gadget; uparmoring capped at 3 times. Powertech T4 right-hand talent: first hit per turn only." },
+      { category: "Mercenary", description: "Emergency Vent: now explicitly an Action. Reinforced Core: also increases Overheat threshold and self-damage thresholds. Overdrive: removed erroneous 'Generates 10 Heat'. Ionic Tether: movement reduction lasts until start of your next turn. Magnetic Imploder: clarified 10ft radius. Magnetic Exploder: clarified 10ft push. Explosive Dart: clarified Wisdom save. Mercenary T1/T2/T3 talent wording improved." },
+      { category: "Sith Warrior", description: "Extra Attack (level 5) removed. Marauder and Juggernaut Channel Hatred abilities extracted into sub-arrays (pick 2 at level 3, +2 at levels 7/10/15). Marauder and Juggernaut talent trees added." },
+      { category: "Sith Inquisitor", description: "Sorcerer: Recklessness stacking clarified; Power Overcharge cap increased; Ionizing Potential, Power Overwhelming, Through Power I Gain Victory descriptions updated. Alchemist and Sorcerer talent trees added." },
+      { category: "Force Abilities", description: "Force Shove: damage increased and clarified. Force Lightning: save clarified (full damage on fail, half on success). Dominate Will: critical fail no longer grants infinite saves. Thought Bomb: complete rewrite with trigger mechanic. Dread Mark: damage now once per turn; one ability save at Disadvantage. Viral Madness: spread terminates on success. Static Cage: damage once per turn. Force Tether: loop prevention added. Wither: HP floor at 1, lasts until Long Rest. Raise Dead: stat block provided. Siphon Strength: steal 1d4 (was 2d4). Feed on Fear: heals once per round. Scar Soul: now requires Constitution save, Concentration. Force Sanctuary: Concentration added. Shared Burden: rewritten as damage reduction Reaction. Battle Meditation: now Concentration, affects 30ft. Induce Sleep: duration 10 minutes. Mind Probe: requires restrained/unconscious/willing target; full rewrite. Energy Absorption: rewritten with DC and half-damage on fail. Force Projection: tiered FP costs. Precognition: roll quality affects vision. Battle Precognition: intentions may change on material circumstances." },
+      { category: "Gadgets", description: "Flamethrower: fire patch lasts 2 turns. Jetpack: duration 1 round. Grappling Hook: rewritten as pull mechanic. Web Launcher: targets cannot move until free. Smoke Projector: lasts 6 turns. Auto-Hacking Device: removed 'does not require presence'. Phase-Shift Lockpick: removed 'does not require presence'. Carbonite Capsule: now costs an Action. Grenade Launcher: clarified it uses grenade's action cost. Rebreather/NVGs/Mag-Boots: actionType changed to Passive. Micro/Macro-Missile: Dexterity save for half damage. Remote Bomb: Dexterity save for half damage. Welding Kit: tags corrected. Electromagnetic Attractor added (2 slots, Unlimited uses)." },
+      { category: "Weapons", description: "Stun Rounds property added. Blaster Pistol and Blaster Rifle gain Stun Rounds property." },
+      { category: "Scoundrel", description: "Two new Presents: Greasy Fingers (lubricant bomb, prone + drop) and Bouncing Betty (repulsor bomb, airborne for one round)." },
+      { category: "Ships", description: "New Ships page: 5 ship classes (Fighter, Light Freighter, Corvette, Heavy Freighter, Frigate), 26 ship modules, 8 Systems Criticals, and Supplies rules." },
+      { category: "Combat Rules", description: "New Combat Rules page: Cover, Environmental Destruction, Movement, Turn Structure, Attack Resolution, Terrain, Area Attacks, Line of Sight, Exposure, Death, Exhaustion, Initiative, Specific vs. General, Saving Throws, Damage, Healing, Concentration, Stacking Effects, Sizes." },
+      { category: "Force Abilities", description: "Concentration Only toggle added to Force Abilities page filter bar." },
+      { category: "Gadgets", description: "Gadgets page header updated with attack modifier formula (DEX + Proficiency) and equip/unequip rules." },
+    ],
+  },
   {
     version: "0.3.4",
     date: "2026-06-08",

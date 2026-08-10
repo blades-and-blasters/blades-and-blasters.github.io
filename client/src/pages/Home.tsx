@@ -14,8 +14,11 @@ import {
   Shield as ShieldIcon,
   Star,
   GitBranch,
+  Rocket,
+  Crosshair,
+  FileDown,
 } from "lucide-react";
-import { classes, forceAbilities, gadgets, skills, talentTrees } from "@/lib/gameData";
+import { classes, forceAbilities, gadgets, skills, talentTrees, ships } from "@/lib/gameData";
 import { accentColorMap } from "@/lib/gameData";
 import { cn } from "@/lib/utils";
 
@@ -109,6 +112,26 @@ const sections = [
     accent: "text-purple-400",
     border: "border-purple-400/30",
     bg: "bg-purple-400/5",
+  },
+  {
+    label: "Ships",
+    href: "/ships",
+    icon: <Rocket size={22} />,
+    count: ships.length,
+    description: "Starship classes, modules, systems criticals, and supplies rules.",
+    accent: "text-sky-400",
+    border: "border-sky-400/30",
+    bg: "bg-sky-400/5",
+  },
+  {
+    label: "Templates",
+    href: "/templates",
+    icon: <FileDown size={22} />,
+    count: 2,
+    description: "Printable PDF sheets — character sheet and ship sheet.",
+    accent: "text-amber-400",
+    border: "border-amber-400/30",
+    bg: "bg-amber-400/5",
   },
   {
     label: "Rules",

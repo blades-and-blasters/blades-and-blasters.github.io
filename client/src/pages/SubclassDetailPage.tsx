@@ -8,6 +8,7 @@ import {
   classes, accentColorMap,
   LevelFeature, MutagenicAbility, SniperGadget, OperativeGadget,
   CommandoShot, VanguardAbility, ScoundrelPresent, MercenaryAbility, DroidChassis,
+  MarauderAbility, JuggernautAbility,
 } from "@/lib/gameData";
 import { cn } from "@/lib/utils";
 
@@ -201,6 +202,46 @@ export default function SubclassDetailPage() {
         </div>
       </div>
 
+      {/* ── Marauder Channel Hatred Abilities ── */}
+      {sub.marauderAbilities && sub.marauderAbilities.length > 0 && (
+        <>
+          <SectionHeader
+            title="Channel Hatred Abilities"
+            subtitle="Select two at level 3. Gain two more at levels 7, 10, and 15."
+          />
+          <div className="space-y-3">
+            {sub.marauderAbilities.map((a: MarauderAbility) => (
+              <div key={a.id} className="glass-card rounded-lg p-4 border border-border/50">
+                <div className="flex items-center gap-2 flex-wrap mb-1">
+                  <span className="font-bold text-foreground text-sm" style={{ fontFamily: "Rajdhani, sans-serif" }}>{a.name}</span>
+                  {a.rageCost > 0 && <span className="ability-tag text-red-400 border-red-400/40 bg-red-400/10">{a.rageCost} Rage</span>}
+                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed">{a.description}</p>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+      {/* ── Juggernaut Channel Hatred Abilities ── */}
+      {sub.juggernautAbilities && sub.juggernautAbilities.length > 0 && (
+        <>
+          <SectionHeader
+            title="Channel Hatred Abilities"
+            subtitle="Select two at level 3. Gain two more at levels 7, 10, and 15."
+          />
+          <div className="space-y-3">
+            {sub.juggernautAbilities.map((a: JuggernautAbility) => (
+              <div key={a.id} className="glass-card rounded-lg p-4 border border-border/50">
+                <div className="flex items-center gap-2 flex-wrap mb-1">
+                  <span className="font-bold text-foreground text-sm" style={{ fontFamily: "Rajdhani, sans-serif" }}>{a.name}</span>
+                  {a.rageCost > 0 && <span className="ability-tag text-red-400 border-red-400/40 bg-red-400/10">{a.rageCost} Rage</span>}
+                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed">{a.description}</p>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
       {/* ── Mutagenic Abilities (Alchemist) ── */}
       {sub.mutagenicAbilities && sub.mutagenicAbilities.length > 0 && (
         <>

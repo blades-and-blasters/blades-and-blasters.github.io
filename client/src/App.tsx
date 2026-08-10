@@ -24,6 +24,8 @@ import ItemsPage from "./pages/ItemsPage";
 import ArmorPage from "./pages/ArmorPage";
 import ChangelogPage from "./pages/ChangelogPage";
 import TalentTreesPage from "./pages/TalentTreesPage";
+import ShipsPage from "./pages/ShipsPage";
+import TemplatesPage from "./pages/TemplatesPage";
 
 function Router() {
   return (
@@ -43,6 +45,8 @@ function Router() {
         <Route path="/rules" component={RulesPage} />
         <Route path="/changelog" component={ChangelogPage} />
         <Route path="/talent-trees" component={TalentTreesPage} />
+        <Route path="/ships" component={ShipsPage} />
+        <Route path="/templates" component={TemplatesPage} />
         <Route path="/404" component={NotFound} />
         <Route component={NotFound} />
       </Switch>

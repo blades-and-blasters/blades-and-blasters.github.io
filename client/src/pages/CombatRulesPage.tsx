@@ -1,46 +1,16 @@
 // =============================================================================
-// RulesPage.tsx — Core mechanics, conditions, combat rules, and clarifications
+// CombatRulesPage.tsx — Core Combat Rules Reference
 // =============================================================================
 
-import { BookOpen, AlertCircle, Zap } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { conditions, coreRules } from "@/lib/gameData";
+import { Swords } from "lucide-react";
 
 interface RuleSection {
-  title: string;
-  content: string;
-}
-
-const coreMechanics: RuleSection[] = [
-  {
-    title: "Ability Score Improvement (ASI)",
-    content:
-      "When you gain an ASI, you may increase one ability score by 2, or two ability scores by 1 each. No ability score can exceed 20 through this method unless a feature explicitly states otherwise.",
-  },
-  {
-    title: "Advantage and Disadvantage",
-    content:
-      "When you have Advantage on a roll, roll 2d20 and take the higher result. When you have Disadvantage, roll 2d20 and take the lower result. If you have both Advantage and Disadvantage, they cancel out and you roll normally, regardless of how many sources of each you have.",
-  },
-  {
-    title: "Gadget Slots and Inventory",
-    content:
-      "Gadget Slots determine how many gadgets you can carry on your person. Gadget Inventory is the total number of gadgets you can store (on your ship or in a safehouse). Gadgets refresh on a long rest and may be freely swapped between inventory and active slots during a rest.",
-  },
-  {
-    title: "Short Rest vs. Long Rest",
-    content:
-      "A short rest is a period of at least one hour during which you do nothing more strenuous than eating, drinking, reading, and tending to wounds. A long rest is a period of at least 8 hours of sleep or light activity. Most class resources refresh on a long rest unless otherwise stated.",
-  },
-];
-
-interface CombatSection {
   id: string;
   title: string;
   content: string;
 }
 
-const combatRules: CombatSection[] = [
+const combatRules: RuleSection[] = [
   {
     id: "cover",
     title: "Cover",
@@ -206,141 +176,50 @@ Huge creatures are less than 15×15ft`,
   },
 ];
 
-export default function RulesPage() {
+export default function CombatRulesPage() {
   return (
     <div className="p-6 lg:p-8 max-w-5xl">
       {/* Header */}
       <div className="mb-8">
         <div className="flex items-center gap-2 mb-2">
-          <span className="ability-tag text-orange-400 border-orange-400/40 bg-orange-400/10">
-            Rules
+          <span className="ability-tag text-red-400 border-red-400/40 bg-red-400/10">
+            <Swords size={10} className="inline mr-1" />COMBAT
           </span>
         </div>
         <h1 className="text-4xl font-bold text-foreground mb-2" style={{ fontFamily: "Rajdhani, sans-serif" }}>
-          Rules Reference
+          Combat Rules
         </h1>
         <p className="text-muted-foreground max-w-2xl">
-          Core mechanics, conditions, and combat rules for the system.
+          Core rules for running combat in Blades &amp; Blasters. These rules govern cover, movement, attacks, and all other aspects of tactical play.
         </p>
         <div className="section-divider mt-5" />
       </div>
 
-      {/* Core Rules Clarifications */}
-      <div className="mb-8">
-        <h2 className="text-xl font-bold text-foreground mb-4" style={{ fontFamily: "Rajdhani, sans-serif" }}>
-          Core Rules Clarifications
-        </h2>
-        <div className="space-y-3">
-          {coreRules.map((rule) => (
-            <div key={rule.title} className="glass-card rounded-lg p-5 border border-border/50">
-              <div className="flex items-start gap-3">
-                <div className="shrink-0 mt-0.5">
-                  <Zap size={14} className="text-purple-400" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 flex-wrap mb-2">
-                    <h3 className="font-bold text-foreground text-sm" style={{ fontFamily: "Rajdhani, sans-serif" }}>
-                      {rule.title}
-                    </h3>
-                    <span className="ability-tag text-purple-400 border-purple-400/40 bg-purple-400/10">
-                      clarification
-                    </span>
-                  </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {rule.description}
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+      {/* Quick Nav */}
+      <div className="flex flex-wrap gap-2 mb-8">
+        {combatRules.map((section) => (
+          <a
+            key={section.id}
+            href={`#${section.id}`}
+            className="ability-tag text-muted-foreground border-border/50 hover:text-foreground hover:border-border transition-colors cursor-pointer"
+          >
+            {section.title}
+          </a>
+        ))}
       </div>
 
-      {/* Conditions */}
-      <div className="mb-8">
-        <h2 className="text-xl font-bold text-foreground mb-4" style={{ fontFamily: "Rajdhani, sans-serif" }}>
-          Conditions
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          {conditions.map((condition) => (
-            <div key={condition.name} className="glass-card rounded-lg p-5 border border-border/50">
-              <div className="flex items-center gap-2 mb-2">
-                <AlertCircle size={14} className="text-red-400 shrink-0" />
-                <h3 className="font-bold text-foreground text-sm" style={{ fontFamily: "Rajdhani, sans-serif" }}>
-                  {condition.name}
-                </h3>
-                <span className="ability-tag text-red-400 border-red-400/40 bg-red-400/10 ml-auto">
-                  condition
-                </span>
-              </div>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                {condition.description}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Core Mechanics */}
-      <div className="mb-8">
-        <h2 className="text-xl font-bold text-foreground mb-4" style={{ fontFamily: "Rajdhani, sans-serif" }}>
-          Core Mechanics
-        </h2>
-        <div className="space-y-3">
-          {coreMechanics.map((rule) => (
-            <div key={rule.title} className="glass-card rounded-lg p-5 border border-border/50">
-              <div className="flex items-start gap-3">
-                <div className="shrink-0 mt-0.5">
-                  <BookOpen size={14} className="text-green-400" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 flex-wrap mb-2">
-                    <h3 className="font-bold text-foreground text-sm" style={{ fontFamily: "Rajdhani, sans-serif" }}>
-                      {rule.title}
-                    </h3>
-                    <span className={cn("ability-tag text-green-400 border-green-400/40 bg-green-400/10")}>
-                      mechanic
-                    </span>
-                  </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {rule.content}
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Combat Rules */}
-      <div className="mb-8">
-        <h2 className="text-xl font-bold text-foreground mb-3" style={{ fontFamily: "Rajdhani, sans-serif" }}>
-          Combat Rules
-        </h2>
-        {/* Quick Nav */}
-        <div className="flex flex-wrap gap-2 mb-6">
-          {combatRules.map((section) => (
-            <a
-              key={section.id}
-              href={`#${section.id}`}
-              className="ability-tag text-muted-foreground border-border/50 hover:text-foreground hover:border-border transition-colors cursor-pointer"
-            >
+      {/* Sections */}
+      <div className="space-y-6">
+        {combatRules.map((section) => (
+          <div key={section.id} id={section.id} className="glass-card rounded-xl p-5 border border-border/50">
+            <h2 className="text-xl font-bold text-foreground mb-3" style={{ fontFamily: "Rajdhani, sans-serif" }}>
               {section.title}
-            </a>
-          ))}
-        </div>
-        <div className="space-y-4">
-          {combatRules.map((section) => (
-            <div key={section.id} id={section.id} className="glass-card rounded-xl p-5 border border-border/50">
-              <h3 className="text-base font-bold text-foreground mb-2" style={{ fontFamily: "Rajdhani, sans-serif" }}>
-                {section.title}
-              </h3>
-              <div className="text-sm text-muted-foreground leading-relaxed whitespace-pre-line">
-                {section.content}
-              </div>
+            </h2>
+            <div className="text-sm text-muted-foreground leading-relaxed whitespace-pre-line">
+              {section.content}
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </div>
   );

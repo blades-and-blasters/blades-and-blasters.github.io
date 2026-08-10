@@ -44,6 +44,7 @@ export default function ForceAbilitiesPage() {
   const [search, setSearch] = useState("");
   const [activeTag, setActiveTag] = useState<string | null>(null);
   const [activeAlignment, setActiveAlignment] = useState<ForceAlignment | null>(null);
+  const [concentrationOnly, setConcentrationOnly] = useState(false);
 
   const filtered = forceAbilities.filter((a) => {
     const matchSearch =
@@ -52,7 +53,8 @@ export default function ForceAbilitiesPage() {
       a.description.toLowerCase().includes(search.toLowerCase());
     const matchTag = !activeTag || a.tags.includes(activeTag);
     const matchAlignment = !activeAlignment || a.alignment === activeAlignment;
-    return matchSearch && matchTag && matchAlignment;
+    const matchConcentration = !concentrationOnly || a.tags.includes("Concentration");
+    return matchSearch && matchTag && matchAlignment && matchConcentration;
   });
 
   return (
@@ -73,8 +75,20 @@ export default function ForceAbilitiesPage() {
         <div className="section-divider mt-5" />
       </div>
 
-      {/* Alignment filter */}
+      {/* Alignment filter + Concentration toggle */}
       <div className="flex flex-wrap gap-2 mb-4">
+        <button
+          onClick={() => setConcentrationOnly(!concentrationOnly)}
+          className={cn(
+            "ability-tag cursor-pointer transition-colors",
+            concentrationOnly
+              ? "text-amber-400 border-amber-400/60 bg-amber-400/20"
+              : "text-muted-foreground border-border hover:text-foreground"
+          )}
+        >
+          Concentration Only
+        </button>
+        <span className="text-border/50 self-center">|</span>
         {alignmentFilters.map(({ value, label }) => {
           const isActive = activeAlignment === value;
           const style = value ? alignmentStyles[value] : null;
