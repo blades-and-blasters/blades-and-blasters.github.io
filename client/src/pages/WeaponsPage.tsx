@@ -113,11 +113,6 @@ export default function WeaponsPage() {
                   <th className="text-left px-4 py-3 text-xs font-bold text-muted-foreground uppercase tracking-wider">
                     Name
                   </th>
-                  {activeTab === "blaster" && (
-                    <th className="text-left px-4 py-3 text-xs font-bold text-muted-foreground uppercase tracking-wider hidden sm:table-cell">
-                      Class
-                    </th>
-                  )}
                   <th className="text-left px-4 py-3 text-xs font-bold text-muted-foreground uppercase tracking-wider">
                     Damage
                   </th>
@@ -158,24 +153,6 @@ export default function WeaponsPage() {
                         )}
                       </div>
                     </td>
-                    {activeTab === "blaster" && (
-                      <td className="px-4 py-3 hidden sm:table-cell">
-                        {weapon.classification ? (
-                          <span
-                            className={cn(
-                              "ability-tag",
-                              weapon.classification === "Simple"
-                                ? "text-green-400 border-green-400/40 bg-green-400/10"
-                                : "text-amber-400 border-amber-400/40 bg-amber-400/10"
-                            )}
-                          >
-                            {weapon.classification}
-                          </span>
-                        ) : (
-                          <span className="text-muted-foreground">—</span>
-                        )}
-                      </td>
-                    )}
                     <td className="px-4 py-3">
                       <span className="mono text-foreground/90">{weapon.damage}</span>
                     </td>

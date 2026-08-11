@@ -55,6 +55,7 @@ export interface OperativeGadget {
   id: string;
   name: string;
   slots: number;
+  uses?: string;
   actionType: "Action" | "Bonus Action" | "Reaction" | "Free Action";
   description: string;
 }
@@ -238,7 +239,7 @@ export interface Gadget {
   uses: string;
   description: string;
   tags: string[];
-  actionType?: "Action" | "Bonus Action" | "Reaction" | "Free Action";
+  actionType?: "Action" | "Bonus Action" | "Reaction" | "Free Action" | "Passive";
   saveType?: string;
   area?: string;
   duration?: string;
@@ -668,7 +669,7 @@ export const classes: CharacterClass[] = [
         level: 18,
         name: "There is no Death, There is the Force",
         description:
-          "You no longer age. Each turn, regenerate your Consular level in HP. If you're at zero health, this can activate once per long rest.",
+          "You no longer age. Each turn, regenerate your Consular level in HP. If you're at 0 HP, this can activate once per long rest.",
         type: "passive",
       },
     ],
@@ -698,7 +699,7 @@ export const classes: CharacterClass[] = [
             level: 3,
             name: "One with the Force",
             description:
-              "During a Short Rest, gain the ability to recover 1 Force Point per hit dice spent. You may use hit dice even when at full health for this.",
+              "During a Short Rest, gain the ability to recover 1 Force Point per hit dice spent. You may use hit dice even when at full HP for this.",
             type: "passive",
           },
 		  {
@@ -1686,7 +1687,7 @@ export const classes: CharacterClass[] = [
           {
             level: 3,
             name: "Companion Droid",
-            description: "Double your Gadget Inventory. Gain a Companion Droid that may be commanded once per Bonus Action. When you use your Bonus Action to command your Companion Droid, either you or the droid may activate one equipped gadget as part of that Bonus Action. Your Companion Droid gains one Gadget Slot per level.\n\nYour Companion Droid may carry any weapon without High Recoil for 3 Gadget Slots, and be uparmored at the cost of 1 Gadget Slot per AC (maximum 3 times).\n\nYour Companion Droid gains Proficiency in 2 of the following skills: Technology, Piloting, Stealth, History, Medicine, Perception.\n\nYour Companion Droid gains Ability Score Increases at the same time as you.\n\nChoose a Chassis below.",
+            description: "Double your Gadget Inventory. Gain a Companion Droid that may be commanded once per Bonus Action. When you use your Bonus Action to command your Companion Droid, either you or the droid may activate one equipped gadget as part of that Bonus Action. Your Companion Droid gains one Gadget Slot per level.\n\nYour Companion Droid may carry any weapon without High Recoil for 3 Gadget Slots, and be uparmored at the cost of 1 Gadget Slot per AC (maximum 3 times).\n\nYour Companion Droid gains Proficiency in 2 of the following skills: Technology, Piloting, Stealth, Lore, Medicine, Perception.\n\nYour Companion Droid gains Ability Score Increases at the same time as you.\n\nChoose a Chassis below.",
             type: "passive",
           },
           {
@@ -1790,17 +1791,17 @@ export const classes: CharacterClass[] = [
             type: "passive",
           },
           {
+            level: 10,
+            name: "Weaponized Venting",
+            description: "Emergency Vent only damages enemies. Increase the damage of Emergency Vent to 4d6.",
+            type: "passive",
+          },
+          {
             level: 13,
             name: "Enhanced Arsenal",
             description: "Gain access to two more Heat-based Abilities. For Heat-based Abilities, deal an additional damage die.",
             type: "passive",
           },
-	      {
-			level: 10,
-			name: "Weaponized Venting",
-			description: "Emergency Vent only damages enemies. Increase the damage of Emergency Vent to 4d6.",
-			type: "passive",
-		  },
           {
             level: 13,
             name: "Reinforced Core",
@@ -2093,8 +2094,7 @@ export const classes: CharacterClass[] = [
       {
         level: 2,
         name: "Recklessness",
-        description:
-          "Sacrifice 2 AC until the end of your next turn. Gain +2 to spell attacks and +1 to spell DCs. If Recklessness is used again on the following turn, increase all costs and gains by 2 (−4 AC, +4 to attacks and +2 to DCs), stacking with each consecutive use.",
+        description: "Sacrifice 2 AC until the end of your next turn. Gain +2 to Force Ability attacks and +1 to Force Ability DCs. If Recklessness is used again on the following turn, increase all costs and gains by 2 (−4 AC, +4 to attacks and +2 to DCs), stacking with each consecutive use.",
         type: "active",
       },
       {
@@ -2221,8 +2221,8 @@ export const classes: CharacterClass[] = [
           {
             id: "grasping-tendrils",
             name: "Grasping Tendrils",
-            description: "Grow tendrils capable of lancing out. Gain a 1d8 20ft ranged attack. On a hit, the target must pass an Athletics or Acrobatics check or become Grappled.",
-            overload: "Increase damage to 2d6 and range to 30ft. The saving throw must be made at disadvantage.",
+            description: "Grow tendrils capable of lancing out. Gain a 1d8 20ft ranged attack. On a hit, the target must make a Strength or Dexterity saving throw (its choice) or become Grappled.",
+            overload: "Increase damage to 2d6 and range to 30ft. The saving throw is made with Disadvantage.",
           },
           {
             id: "acid-spines",
@@ -2234,7 +2234,7 @@ export const classes: CharacterClass[] = [
             id: "weirdling",
             name: "Weirdling",
             description: "Gain the ability to channel your Force abilities through the Horror, enabling it to serve as the origin point for all abilities.",
-            overload: "Gain Advantage on all spell attack rolls cast through the Horror.",
+            overload: "Gain Advantage on all Force Ability attack rolls made through the Horror.",
           },
           {
             id: "flesh-bond",
@@ -2285,7 +2285,7 @@ export const classes: CharacterClass[] = [
         name: "Sorcerer",
         parentClass: "sith-inquisitor",
         description:
-          "The Sorcerer amplifies the destructive potential of Force Lightning into a cascading storm of electricity. Through Recklessness, they push their spells beyond their limits — overcharging abilities, chaining lightning between targets, and ultimately unleashing a tempest that fills the battlefield.",
+          "The Sorcerer amplifies the destructive potential of Force Lightning into a cascading storm of electricity. Through Recklessness, they push their Force Abilities beyond their limits — overcharging abilities, chaining lightning between targets, and ultimately unleashing a tempest that fills the battlefield.",
         features: [
           {
             level: 3,
@@ -2298,7 +2298,7 @@ export const classes: CharacterClass[] = [
             level: 3,
             name: "Unlimited Power",
             description:
-              "While Recklessness is active, increase the critical hit range of all spells by 1 (e.g. crits on 19–20 instead of 20).",
+              "While Recklessness is active, increase the critical hit range of all Force Abilities by 1 (e.g. crits on 19–20 instead of 20).",
             type: "passive",
           },
           {
@@ -2312,7 +2312,7 @@ export const classes: CharacterClass[] = [
             level: 7,
             name: "Power Overwhelming",
             description:
-              "Once per Short Rest, after dealing spell damage to a target, force them to make a Constitution saving throw or become Stunned until the end of their next turn.",
+              "Once per Short Rest, after dealing Force Ability damage to a target, force them to make a Constitution saving throw or become Stunned until the end of their next turn.",
             type: "active",
           },
           {
@@ -2326,7 +2326,7 @@ export const classes: CharacterClass[] = [
             level: 13,
             name: "Lightning Storm",
             description:
-              "Force Lightning now chains to two nearby targets on a Critical Hit instead of one. Increase the critical hit range of all spells by an additional 1.",
+              "Force Lightning now chains to two nearby targets on a Critical Hit instead of one. Increase the critical hit range of all Force Abilities by an additional 1.",
             type: "passive",
           },
         ],
@@ -2541,7 +2541,7 @@ export const forceAbilities: ForceAbility[] = [
     name: "Energy Absorption",
     alignment: "universal",
     cost: "1 Force Point",
-    actionType: "Bonus Action",
+    actionType: "Reaction",
     range: "Self",
     description:
       "1 FP, Reaction. When you would take energy, lightning, or blaster damage, make a Wisdom save against DC 10 or half the incoming damage, whichever is higher. On success, take no damage. On failure, take half damage.",
@@ -2733,7 +2733,7 @@ export const forceAbilities: ForceAbility[] = [
     actionType: "Action",
     range: "60ft",
     description:
-      "Select a target within 60ft of you. If its health is reduced to or below 0, it is instead set to 1, and it cannot be reduced to 0 until the beginning of its next turn. Lasts until triggered or six hours passes. Concentration. Concentration.",
+      "Select a target within 60ft. If its HP would be reduced to 0 or below, it is instead reduced to 1 HP, and it cannot be reduced below 1 HP until the beginning of its next turn. Lasts until triggered or six hours pass. Concentration.",
     tags: ["Protection", "Healing", "Concentration", "Light Side"],
   },
   {
@@ -2823,7 +2823,7 @@ export const forceAbilities: ForceAbility[] = [
     actionType: "Bonus Action",
     range: "30ft",
     description:
-      "Select a target within 30ft. For the next minute, whenever they fail any kind of save, you gain 1d6 health. If the target dies within the minute, you may select a new target. This may repeat indefinitely, but it does not reset its own timer. This may only heal you once per round.",
+      "Select a target within 30ft. For the next minute, whenever they fail any kind of save, you gain 1d6 HP. If the target dies within the minute, you may select a new target. This may repeat indefinitely, but it does not reset its own timer. This may only heal you once per round.",
     tags: ["Healing", "Debuff", "Dark Side"],
   },
   {
@@ -2834,7 +2834,7 @@ export const forceAbilities: ForceAbility[] = [
     actionType: "Action",
     range: "30ft",
     description:
-      "Select a target within 30ft and force them to make a Constitution save. If they fail, for the next minute, they may not regain health through any means. They may make this save every round.",
+      "Select a target within 30ft and force them to make a Constitution save. If they fail, for the next minute, they may not regain HP through any means. They may make this save every round.",
     tags: ["Debuff", "Concentration", "Dark Side"],
   },
   {
@@ -3161,7 +3161,7 @@ export const gadgets: Gadget[] = [
     description:
       "When you would throw or place a grenade or mine, you may launch it up to 120 feet. This uses the grenade's normal action cost.",
     tags: ["Weapon", "Area"],
-    actionType: "Bonus Action",
+    actionType: "Passive",
   },
   {
     id: "welding-kit",
@@ -3170,7 +3170,7 @@ export const gadgets: Gadget[] = [
     uses: "Three uses",
     description:
       "Gain the ability to weld man-sized doors and other similarly-sized things.",
-    tags: ["Weapon", "Area"],
+    tags: ["Utility", "Tool"],
     actionType: "Bonus Action",
   },
   {
@@ -3645,7 +3645,7 @@ export const weapons: Weapon[] = [
     damage: "1d12",
     range: "100/900 ft",
     properties: ["Clumsy", "Disintegrator"],
-    notes: "Big sniper — may be merged with Sniper Blaster in a future update.",
+    notes: "Heavy long-range precision weapon.",
     price: 11000,
 
   },
@@ -4257,18 +4257,7 @@ export const armors: Armor[] = [
 // ─────────────────────────────────────────────────────────────────────────────
 // CHANGELOG
 // ─────────────────────────────────────────────────────────────────────────────
-export type ChangelogCategory =
-  | "Class"
-  | "Subclass"
-  | "Force Ability"
-  | "Gadget"
-  | "Weapon"
-  | "Item"
-  | "Armor"
-  | "Rule"
-  | "Skill"
-  | "Stance"
-  | "General";
+export type ChangelogCategory = string;
 
 // ─────────────────────────────────────────────────────────────────────────────
 // SUPPLIES
@@ -4385,6 +4374,21 @@ export interface ChangelogEntry {
 }
 
 export const changelog: ChangelogEntry[] = [
+  {
+    version: "0.3.9",
+    date: "2026-08-11",
+    summary: "Data integrity and terminology correction pass for Force abilities, gadgets, Powertech, Mercenary, and weapon entries.",
+    changes: [
+      { category: "Schema", description: "Gadgets now support Passive action metadata; Operative gadgets now support optional uses metadata." },
+      { category: "Force Abilities", description: "Energy Absorption is correctly classified as a Reaction. Force Stabilize wording and HP terminology corrected. Feed on Fear and Scar Soul now use HP terminology." },
+      { category: "Sith Inquisitor", description: "Standardized player-facing spell terminology to Force Ability terminology across Sorcerer and Alchemist features." },
+      { category: "Powertech", description: "Companion Droid skill proficiency now correctly references Lore instead of nonexistent History." },
+      { category: "Gadgets", description: "Grenade Launcher is Passive; Welding Kit tags corrected to Utility and Tool." },
+      { category: "Mercenary", description: "Level 10 and level 13 features reordered for correct progression display." },
+      { category: "Weapons", description: "Disruptor Rifle stale development note replaced with player-facing precision weapon text." },
+      { category: "Alchemist", description: "Grasping Tendrils now consistently uses a Strength or Dexterity saving throw, with Disadvantage on the Overload save." },
+    ],
+  },
   {
     version: "0.3.6",
     date: "2026-08-10",
@@ -4523,6 +4527,7 @@ export const changelog: ChangelogEntry[] = [
   {
     version: "0.2.9",
     date: "2026-04-26",
+    summary: "Added credit prices to weapons, items, and armor.",
     changes: [
       { category: "Weapon", description: "Added credit prices to all 22 weapons (lightsabers, blasters, vibroweapons, electroweapons). Prices now display in the table and mobile cards." },
       { category: "Item", description: "Added credit prices to all items. Prices now display on each item card." },
