@@ -3235,7 +3235,7 @@ export const skills: Skill[] = [
     name: "Perception",
     ability: "Intelligence",
     description:
-      "Noticing things in your environment using your senses. Spot hidden enemies, hear distant sounds, or notice subtle details. Special Rule: Perception is Intelligence-based.",
+      "Noticing things in your environment using your senses. Spot hidden enemies, hear distant sounds, or notice subtle details.",
     specialRule: "Intelligence-based (not Wisdom)",
   },
   {
@@ -3341,11 +3341,6 @@ export const coreRules = [
 // SPECIAL RULES
 // ─────────────────────────────────────────────────────────────────────────────
 export const specialRules = [
-  {
-    title: "Perception is Intelligence-Based",
-    description:
-      "Unlike many systems, Perception checks in this game use Intelligence as the governing ability score, not Wisdom. This reflects the analytical nature of noticing and processing environmental details.",
-  },
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -4703,7 +4698,7 @@ export const changelog: ChangelogEntry[] = [
     changes: [
       { category: "General", description: "Published initial rulebook with all 6 classes and 12 subclasses." },
       { category: "General", description: "Added 20 Force Abilities, 29 Gadgets, 17 Weapon Properties, and full Weapons, Items, and Armor tables." },
-      { category: "Rule", description: "Established core rules including Perception as an Intelligence-based skill." },
+      { category: "Rule", description: "Established core rules clarifications." },
       { category: "Stance", description: "Published 7 Lightsaber Stances and 6 Fighting Styles." },
     ],
   },
@@ -5812,7 +5807,7 @@ export const talentTrees: TalentTree[] = [
           {
             id: "sorcerer-t4-a",
             name: "",
-            description: "",
+            description: "You may spend up to 2 additional Force Points when using Power Overcharge beyond your normal Proficiency Bonus limit. For each Force Point spent beyond your normal limit, take 1d8 damage after the ability resolves. This damage cannot be reduced or prevented.",
           },
           {
             id: "sorcerer-t4-b",
@@ -5822,5 +5817,748 @@ export const talentTrees: TalentTree[] = [
         ],
       },
     ],
+  },
+];
+
+// =============================================================================
+// ENEMIES
+// =============================================================================
+
+export interface EnemyAction {
+  name: string;
+  type: "action" | "bonus" | "reaction" | "passive";
+  description: string;
+}
+
+export interface Enemy {
+  id: string;
+  name: string;
+  faction: string;
+  size: string;
+  ac: number;
+  hp: number;
+  tempHp?: number;
+  speed: string;
+  str: number;
+  dex: number;
+  con: number;
+  int: number;
+  wis: number;
+  cha: number;
+  traits: string[];
+  actions: EnemyAction[];
+  tactics: string;
+  doctrineNote?: string;
+}
+
+export const enemies: Enemy[] = [
+  // ── DROID FORCES ────────────────────────────────────────────────────────────
+  {
+    id: "b1-battle-droid",
+    name: "B1 Battle Droid",
+    faction: "Droid Forces",
+    size: "Medium",
+    ac: 12,
+    hp: 8,
+    speed: "30ft",
+    str: 8, dex: 10, con: 10, int: 8, wis: 8, cha: 6,
+    traits: ["Droid"],
+    actions: [
+      {
+        name: "Blaster Rifle",
+        type: "action",
+        description: "Ranged Weapon Attack. +3 to hit, 150/600ft range, 1d8+1 damage.",
+      },
+    ],
+    tactics: "B1 Droids form firing lines and concentrate on one target. They rarely seek cover unless commanded.",
+  },
+  {
+    id: "b2-super-battle-droid",
+    name: "B2 Super Battle Droid",
+    faction: "Droid Forces",
+    size: "Medium",
+    ac: 15,
+    hp: 28,
+    speed: "25ft",
+    str: 16, dex: 10, con: 16, int: 8, wis: 8, cha: 6,
+    traits: ["Droid"],
+    actions: [
+      {
+        name: "Arm Cannon",
+        type: "action",
+        description: "Ranged Weapon Attack. +4 to hit, 100/400ft range, 1d10+3 damage.",
+      },
+      {
+        name: "Wrist Rocket",
+        type: "action",
+        description: "Choose a point within 60 feet. Creatures within 10 feet make a DC 12 Dexterity save, taking 2d6 damage on failure or half on success. Once per combat.",
+      },
+    ],
+    tactics: "B2s advance directly towards targets, firing all the while. Against clustered targets, they will fire their wrist rockets.",
+  },
+  {
+    id: "t1-tactical-droid",
+    name: "T-1 Tactical Droid",
+    faction: "Droid Forces",
+    size: "Medium",
+    ac: 13,
+    hp: 20,
+    speed: "30ft",
+    str: 10, dex: 14, con: 10, int: 16, wis: 10, cha: 8,
+    traits: ["Droid", "Commander"],
+    actions: [
+      {
+        name: "Networked Leader",
+        type: "passive",
+        description: "All friendly Droids within 60ft gain +4 Intelligence and act more intelligently — seeking cover, flanking, using grenades to flush enemies from cover, suppressing, and such. Destruction of the Networked Leader will stun all networked droids for 1 turn.",
+      },
+      {
+        name: "Blaster Pistol",
+        type: "action",
+        description: "Ranged Weapon Attack. +3 to hit, 30/60ft, 1d4+2 damage.",
+      },
+      {
+        name: "Fire!",
+        type: "action",
+        description: "Command up to three friendly droids within 60ft to immediately fire upon a target. This does not interfere with their turns, and they are free to fire again on their turns.",
+      },
+      {
+        name: "Analyze Weakness",
+        type: "action",
+        description: "Analyze a target for weakness. All friendly droids within 60ft gain +2 to weapon attacks against this target while the Tactical Droid is alive.",
+      },
+    ],
+    tactics: "The Tactical Droid stays in the back, behind cover, while networking with and supporting its troops. It will only properly engage in combat as a last resort — its best tools are the droids around it, rather than its pistol.",
+  },
+  {
+    id: "bx-commando-droid",
+    name: "BX Commando Droid",
+    faction: "Droid Forces",
+    size: "Medium",
+    ac: 17,
+    hp: 52,
+    speed: "40ft",
+    str: 14, dex: 18, con: 14, int: 14, wis: 14, cha: 10,
+    traits: ["Droid", "Commando"],
+    actions: [
+      {
+        name: "Infiltration Programming",
+        type: "passive",
+        description: "+7 to Stealth, +5 to Perception, and may perfectly imitate any heard voice. Gains Advantage against any creature that has not yet acted in combat.",
+      },
+      {
+        name: "Extra Attack",
+        type: "passive",
+        description: "This creature may attack twice per action.",
+      },
+      {
+        name: "Blaster Carbine",
+        type: "action",
+        description: "Ranged Weapon Attack. 60/240ft, +6 to hit, 1d6+4 damage.",
+      },
+      {
+        name: "Vibrosword",
+        type: "action",
+        description: "Melee Weapon Attack. 5ft range, +6 to hit, 1d8+4 damage. Vibrocutter.",
+      },
+      {
+        name: "Dodge",
+        type: "reaction",
+        description: "Gain +3 AC against an incoming attack that would hit. If this causes it to miss, the Commando Droid may move 5ft in any direction.",
+      },
+    ],
+    tactics: "Commando Droids are assassins, striking from surprise, and using stealth and deception to gain advantage. They use both melee and ranged combat freely, and may be equipped with different equipment depending on the mission.",
+  },
+  {
+    id: "droideka",
+    name: "Droideka",
+    faction: "Droid Forces",
+    size: "Large",
+    ac: 15,
+    hp: 42,
+    tempHp: 20,
+    speed: "20ft",
+    str: 18, dex: 16, con: 12, int: 8, wis: 8, cha: 6,
+    traits: ["Droid"],
+    actions: [
+      {
+        name: "Deflector Shield",
+        type: "passive",
+        description: "Begins combat with 20 Temporary HP. If not damaged for 2 turns, regenerates 1d8 Temporary HP per turn.",
+      },
+      {
+        name: "Stable Firing Position",
+        type: "passive",
+        description: "If the Droideka has not moved on its turn, it gains +1 to Ranged Weapon Attacks.",
+      },
+      {
+        name: "Extra Attack",
+        type: "passive",
+        description: "This creature may attack twice per action.",
+      },
+      {
+        name: "Twin Blasters",
+        type: "action",
+        description: "Ranged Weapon Attack. +6 to hit, range 100/400 feet. Hit: 1d10 + 4 damage.",
+      },
+      {
+        name: "Wheel Mode",
+        type: "bonus",
+        description: "Until the beginning of its next turn, speed becomes 60ft and AC becomes 17, but it cannot attack or use Reactions. All attacks while in Wheel Mode bypass its Temporary HP.",
+      },
+    ],
+    tactics: "Droidekas roll into advantageous positions, deploy their shields, and hold narrow approaches with concentrated fire.",
+  },
+  {
+    id: "dwarf-spider-droid",
+    name: "Dwarf Spider Droid",
+    faction: "Droid Forces",
+    size: "Large",
+    ac: 16,
+    hp: 60,
+    speed: "25ft",
+    str: 18, dex: 10, con: 18, int: 8, wis: 8, cha: 6,
+    traits: ["Droid"],
+    actions: [
+      {
+        name: "Four-legged Stability",
+        type: "passive",
+        description: "Advantage on checks and saves made to resist forced movement or being knocked down.",
+      },
+      {
+        name: "Blaster Cannon",
+        type: "action",
+        description: "Ranged Weapon Attack. +6 to hit, range 150/600 feet. Hit: 1d10 + 4 damage. Blast 5.",
+      },
+      {
+        name: "Stomp",
+        type: "action",
+        description: "Melee Weapon Attack. +6 to hit, reach 5 feet. Hit: 2d6 + 4 damage. The target must pass a DC 14 Strength save or become Slowed until the end of its next turn.",
+      },
+    ],
+    tactics: "Spider Droids occupy open ground and fire into clustered enemies. They stomp anyone who moves underneath their weapons.",
+  },
+  {
+    id: "magnaguard",
+    name: "MagnaGuard",
+    faction: "Droid Forces",
+    size: "Medium",
+    ac: 18,
+    hp: 60,
+    speed: "35ft",
+    str: 18, dex: 16, con: 16, int: 12, wis: 10, cha: 6,
+    traits: ["Droid"],
+    actions: [
+      {
+        name: "Unyielding",
+        type: "passive",
+        description: "Once per combat, upon being reduced to 0 HP, the MagnaGuard is instead reduced to 1 HP.",
+      },
+      {
+        name: "Extra Attack",
+        type: "passive",
+        description: "This creature may attack twice per action.",
+      },
+      {
+        name: "Electrostaff",
+        type: "action",
+        description: "Melee Weapon Attack. +7 to hit, reach 10 feet. Hit: 1d10 + 4 damage. Electrified.",
+      },
+      {
+        name: "Bodyguard",
+        type: "reaction",
+        description: "When an adjacent ally is targeted by an attack, the MagnaGuard may impose Disadvantage on that attack.",
+      },
+    ],
+    tactics: "MagnaGuards remain adjacent to their assigned leader and prevent melee attackers from reaching it.",
+  },
+  {
+    id: "st-x-super-tactical-droid",
+    name: "ST-X Super Tactical Droid",
+    faction: "Droid Forces",
+    size: "Medium",
+    ac: 16,
+    hp: 120,
+    speed: "30ft",
+    str: 12, dex: 16, con: 16, int: 20, wis: 16, cha: 16,
+    traits: ["Droid", "Commander", "Boss"],
+    actions: [
+      {
+        name: "Networked General",
+        type: "passive",
+        description: "All friendly Droids within 300ft gain +8 Intelligence, +1 AC, +1 on Attack rolls, and act more intelligently. Destruction of the Networked General stuns all networked droids for 2 turns.",
+      },
+      {
+        name: "Extra Attack",
+        type: "passive",
+        description: "This creature may attack twice per action.",
+      },
+      {
+        name: "Advanced Blaster Carbine",
+        type: "action",
+        description: "Ranged Weapon Attack. +7 to hit, range 150/600 feet. Hit: 1d8 + 4 damage.",
+      },
+      {
+        name: "Fire Everything!",
+        type: "action",
+        description: "Up to six Networked Droids within 300 feet may use their Reactions to make one weapon attack against a designated target. Cannot be used again until the end of the ST-X's next turn.",
+      },
+      {
+        name: "Analyze Vulnerabilities",
+        type: "action",
+        description: "Choose up to three enemies within 300 feet. Until the start of the ST-X's next turn, Networked Droids gain +2 on weapon attacks against them and ignore half cover.",
+      },
+      {
+        name: "Call Artillery",
+        type: "action",
+        description: "Fire an artillery barrage from off the map. Specify six 10ft radius circles within 300ft. After one turn, artillery lands on these spaces, dealing 10d6 damage to all targets in the area.",
+      },
+      {
+        name: "Emergency Reinforcements",
+        type: "action",
+        description: "Summon either four B1 Battle Droids or a single MagnaGuard onto any open space within 300ft. Four turn cooldown.",
+      },
+      {
+        name: "Tactical Override",
+        type: "reaction",
+        description: "When an allied Droid within 60 feet misses an attack, the Super Tactical Droid may add +4 to the roll, potentially turning it into a hit.",
+      },
+    ],
+    tactics: "The Super Tactical Droid is a theater-level tactician, commanding from secure headquarters and bunkers. Its primary battlefield utility is the extreme improvements it can make in otherwise-weak droids. Its most basic retinue is six B1s, two B2s, and a MagnaGuard.",
+    doctrineNote: "The droid forces of the galaxy fundamentally rely on mass, mass, and more mass. An individual B1 battle droid is comparable to a barely-trained militia, at best. Ten billion B1 battle droids, attacking every second of every day for months on end, guided at the platoon level by tactical droids and the strategic level by super tactical droids, combined with the immense power of B2 battle droids, droidekas, and spider droids, however, is a very, very different beast.\n\nThe first priority of any engagement against droids must be the elimination of the tactical droid, if present — it is a major force multiplier, and will act accordingly, doing its best to stay alive over attempting to shoot by itself.",
+  },
+
+  // ── CLONES ──────────────────────────────────────────────────────────────────
+  {
+    id: "clone-trooper",
+    name: "Clone Trooper",
+    faction: "Clones",
+    size: "Medium",
+    ac: 15,
+    hp: 22,
+    speed: "30ft",
+    str: 14, dex: 14, con: 14, int: 12, wis: 12, cha: 10,
+    traits: ["Clone"],
+    actions: [
+      {
+        name: "Blaster Rifle",
+        type: "action",
+        description: "Ranged Weapon Attack. +4 to hit, range 150/600 feet. Hit: 1d8 + 2 damage.",
+      },
+      {
+        name: "Thermal Detonator",
+        type: "action",
+        description: "Choose a point within 30 feet. After one turn, the Thermal Detonator explodes, dealing 4d6 damage in a 10ft radius.",
+      },
+    ],
+    tactics: "Clone Troopers are the most basic unit of clone armies, but are no less lethal for this. Capable of advanced tactics, cover, flanking, and the usage of thermal detonators to displace enemies, even the most basic trooper is a lethal threat.",
+  },
+  {
+    id: "clone-sergeant",
+    name: "Clone Sergeant",
+    faction: "Clones",
+    size: "Medium",
+    ac: 15,
+    hp: 30,
+    speed: "30ft",
+    str: 14, dex: 14, con: 14, int: 14, wis: 14, cha: 12,
+    traits: ["Clone", "Commander"],
+    actions: [
+      {
+        name: "Blaster Rifle",
+        type: "action",
+        description: "Ranged Weapon Attack. +4 to hit, range 150/600 feet. Hit: 1d8 + 2 damage.",
+      },
+      {
+        name: "Inspire",
+        type: "action",
+        description: "All friendly clones within 60ft gain Advantage on Wisdom saves and +2 to attack for 3 turns. If the Clone Sergeant dies, these advantages immediately cease and the affected clones instead gain Disadvantage on Wisdom saves for 3 turns.",
+      },
+      {
+        name: "Hold the Line!",
+        type: "reaction",
+        description: "Whenever an allied clone within 60ft takes damage, the Clone Sergeant may reduce this damage by 1d6.",
+      },
+    ],
+    tactics: "Sergeants are the heart of their squads, inspiring them to better action and providing overall direction, but are not as essential for basic function — each clone is more than independent enough to act without one.",
+  },
+  {
+    id: "clone-heavy-gunner",
+    name: "Clone Heavy Gunner",
+    faction: "Clones",
+    size: "Medium",
+    ac: 16,
+    hp: 35,
+    speed: "25ft",
+    str: 16, dex: 12, con: 14, int: 12, wis: 12, cha: 10,
+    traits: ["Clone"],
+    actions: [
+      {
+        name: "Heavy Weapon Platform",
+        type: "passive",
+        description: "Advantage on saves and checks made to resist forced movement while wielding its cannon.",
+      },
+      {
+        name: "Suppressing Fire",
+        type: "passive",
+        description: "All enemies targeted by this creature must make a DC 14 Wisdom save or lose half their movement for one turn.",
+      },
+      {
+        name: "Blaster Cannon",
+        type: "action",
+        description: "Ranged Weapon Attack. +5 to hit, range 150/600 feet. Hit: 1d10 + 3 damage.",
+      },
+    ],
+    tactics: "Heavy Gunners both deal heavy damage to enemies and suppress them, leaving them more vulnerable to grenades, flanking, and other troopers.",
+  },
+  {
+    id: "clone-sharpshooter",
+    name: "Clone Sharpshooter",
+    faction: "Clones",
+    size: "Medium",
+    ac: 14,
+    hp: 24,
+    speed: "30ft",
+    str: 10, dex: 18, con: 12, int: 12, wis: 12, cha: 10,
+    traits: ["Clone"],
+    actions: [
+      {
+        name: "Camouflaged Position",
+        type: "passive",
+        description: "If the Sharpshooter has not moved since the beginning of its previous turn, it does not automatically reveal its position upon firing. Instead, it makes a contested Stealth check against the opponent's Perception. On a success, only the general direction is revealed. On a failure, the precise location is revealed.",
+      },
+      {
+        name: "Disruptor Rifle",
+        type: "action",
+        description: "Ranged Weapon Attack. +6 to hit, range 300/900 feet. Hit: 1d10 + 4 damage.",
+      },
+      {
+        name: "Aim",
+        type: "bonus",
+        description: "If the Sharpshooter has not moved this turn, it gains +2 on its next Long Blaster Rifle attack. That attack scores a critical hit on a 19 or 20.",
+      },
+    ],
+    tactics: "Sharpshooters begin combat at extreme range, attack officers and support characters, and relocate when discovered.",
+  },
+  {
+    id: "clone-shieldbearer",
+    name: "Clone Shieldbearer",
+    faction: "Clones",
+    size: "Medium",
+    ac: 18,
+    hp: 42,
+    speed: "25ft",
+    str: 16, dex: 10, con: 18, int: 12, wis: 12, cha: 10,
+    traits: ["Clone"],
+    actions: [
+      {
+        name: "Riot Shield",
+        type: "passive",
+        description: "Serves as half cover for a single friendly hiding behind it. Upon losing 20 HP, the shield is destroyed — the Shieldbearer loses 4 AC, gains 10ft movement, and may no longer serve as cover. Even if healed, the shield is not repaired.",
+      },
+      {
+        name: "Blaster Pistol",
+        type: "action",
+        description: "Ranged Weapon Attack. +2 to hit, range 30/60 feet. Hit: 1d4 damage.",
+      },
+      {
+        name: "Shield Generator",
+        type: "action",
+        description: "Grant all allies within 30ft 15 Temporary HP. If the Shieldbearer dies, all of this Temporary HP is immediately lost. Cannot be used if the riot shield is destroyed.",
+      },
+    ],
+    tactics: "Shieldbearers are the defensive bulwark of the clone forces, able to tank the most punishing fire without flinching — at least unless their shields are destroyed. They provide valuable shields to all allies around them.",
+  },
+  {
+    id: "clone-combat-engineer",
+    name: "Clone Combat Engineer",
+    faction: "Clones",
+    size: "Medium",
+    ac: 14,
+    hp: 25,
+    speed: "25ft",
+    str: 14, dex: 12, con: 14, int: 12, wis: 12, cha: 10,
+    traits: ["Clone"],
+    actions: [
+      {
+        name: "Blast Padding",
+        type: "passive",
+        description: "Against any area-of-effect damage, the Combat Engineer takes half damage. If they would have taken half damage from a successful save, they instead take no damage.",
+      },
+      {
+        name: "RPS-6 (Concussive Rockets)",
+        type: "action",
+        description: "Ranged Weapon Attack. +2 to hit, range 100/300 feet. Hit: 1d10+2 damage. Blast 10.",
+      },
+      {
+        name: "RPS-6 (Homing Rockets)",
+        type: "action",
+        description: "Ranged Weapon Attack. +6 to hit, range 200/400 feet. Hit: 1d8 damage.",
+      },
+    ],
+    tactics: "Combat Engineers use their rocket launchers to devastate enemy armor, strongpoints, and clustered troops, or switch to homing rockets to target particularly agile foes.",
+  },
+  {
+    id: "arc-trooper",
+    name: "ARC Trooper",
+    faction: "Clones",
+    size: "Medium",
+    ac: 17,
+    hp: 60,
+    speed: "35ft",
+    str: 16, dex: 18, con: 16, int: 16, wis: 14, cha: 14,
+    traits: ["Clone", "Commando"],
+    actions: [
+      {
+        name: "Recon Specialist",
+        type: "passive",
+        description: "+6 to Piloting, Perception, and Stealth rolls. Gains Advantage against any creature that has not yet acted in combat.",
+      },
+      {
+        name: "Extra Attack",
+        type: "passive",
+        description: "This creature may attack twice per action.",
+      },
+      {
+        name: "Mission Loadout",
+        type: "passive",
+        description: "At the start of combat, pick one: Demolitions (two Thermal Detonators), Infiltration (one Smoke Projector + Enhanced Sensor Suite), or Forward Observer (Recon Sweep + Fire Coordination).",
+      },
+      {
+        name: "Thermal Detonator (Demolitions)",
+        type: "action",
+        description: "Choose a point within 30 feet. After one turn, explodes for 4d6 damage in a 10ft radius.",
+      },
+      {
+        name: "Smoke Projector (Infiltration)",
+        type: "action",
+        description: "Create a 10×10ft cloud of multispectral smoke within 60ft that cannot be seen through except by an Enhanced Sensor Suite. Lasts 2 turns.",
+      },
+      {
+        name: "Blaster Rifle",
+        type: "action",
+        description: "Ranged Weapon Attack. 150/600 feet, +6 to hit, 1d8+4 damage.",
+      },
+      {
+        name: "Ion Charge",
+        type: "action",
+        description: "Once per combat. Choose a Droid, vehicle, weapon, gadget, or electronic system within 30 feet. DC 14 Constitution save — on failure: 2d8 damage and one ability becomes Jammed until end of target's next turn. On success: half damage, no other effect.",
+      },
+      {
+        name: "Enhanced Sensor Suite (Infiltration)",
+        type: "bonus",
+        description: "Gain 60ft Darkvision, see through walls and multispectral smoke for 20ft, and Advantage on Perception checks. Lasts one minute.",
+      },
+      {
+        name: "Recon Sweep (Forward Observer)",
+        type: "bonus",
+        description: "Select a 30ft radius within 120ft. All creatures, gadgets, and traps are highlighted for the ARC Trooper.",
+      },
+      {
+        name: "Fire Coordination (Forward Observer)",
+        type: "bonus",
+        description: "Select one target scanned by Recon Sweep. All allied clones within 120ft gain +2 to attack against this target.",
+      },
+    ],
+    tactics: "ARC Troopers are a team, first and foremost. Infiltrators use smoke to blind and obscure enemies, while Demolitionists destroy them and Forward Observers provide covering fire and coordination.",
+    doctrineNote: "ARC troopers are rarely present on the frontlines — instead, they are most commonly deployed deep behind enemy lines, performing sabotage and reconnaissance to enable the rest of the clones.",
+  },
+  {
+    id: "clone-commando",
+    name: "Clone Commando",
+    faction: "Clones",
+    size: "Medium",
+    ac: 19,
+    hp: 70,
+    speed: "40ft",
+    str: 18, dex: 18, con: 18, int: 16, wis: 18, cha: 14,
+    traits: ["Clone", "Commando", "Boss"],
+    actions: [
+      {
+        name: "Modular Weapons Systems",
+        type: "passive",
+        description: "May switch between blaster rifle, sniper rifle, and grenade launcher as a free action.",
+      },
+      {
+        name: "Deep Pockets",
+        type: "passive",
+        description: "Carries three of the following (multiple copies allowed): Bacta Spray (4d8 heal, Bonus Action), Frag Grenade (3d6 in 10ft, DC16 Dex save for half), Ion Grenade (2d6 in 10ft, doubled vs droids, DC16 Int save or Jammed), Stun Grenade (DC16 Con save or Stunned), Micromine (4d8, DC18 Dex save for half), Dampener Aerosol (10ft cube halves blaster damage, 2 turns, Bonus Action), Kinetic Pulse (20ft cone, DC16 Str save or thrown 20ft + prone).",
+      },
+      {
+        name: "Extra Attack",
+        type: "passive",
+        description: "This creature may attack twice per action.",
+      },
+      {
+        name: "DC-17m ICWS (Blaster)",
+        type: "action",
+        description: "Ranged Weapon Attack. 80/200 feet. +7 to hit, 1d8+5 damage. May be used twice per Attack action.",
+      },
+      {
+        name: "DC-17m ICWS (Sniper)",
+        type: "action",
+        description: "Ranged Weapon Attack. 300/900 feet. +7 to hit, 2d12+6 damage.",
+      },
+      {
+        name: "DC-17m ICWS (Grenade Launcher)",
+        type: "action",
+        description: "Ranged Weapon Attack. 60/100 feet. +5 to hit, 2d6+3 damage. Blast 5.",
+      },
+      {
+        name: "Integrated Vibroblade",
+        type: "action",
+        description: "Melee Weapon Attack. 5 feet. +7 to hit, 1d10+5 damage. May be used twice per Attack action.",
+      },
+      {
+        name: "ACPA Shotgun",
+        type: "action",
+        description: "Ranged Weapon Attack. 20/40 feet. +7 to hit, 1d12+5 damage. May be used twice per Attack action.",
+      },
+    ],
+    tactics: "A squad of four clone commandos is, pound for pound, the single most lethal fighting force in the galaxy. They shape the battlefield before ever being seen, and are not afraid to deceive, trick, and outmaneuver their enemies with any and all tools available.",
+    doctrineNote: "Should a target be deemed of sufficient priority, the commandos will be sent in. The assassination of a key target behind enemy lines, the destruction of a vital factory, the sabotage of a starship yard — a single squad of four commandos is a force capable of shaping wars.",
+  },
+
+  // ── FORCE USERS ─────────────────────────────────────────────────────────────
+  {
+    id: "sith-assassin",
+    name: "Sith Assassin",
+    faction: "Force Users",
+    size: "Medium",
+    ac: 18,
+    hp: 110,
+    speed: "40ft",
+    str: 14, dex: 20, con: 16, int: 14, wis: 12, cha: 8,
+    traits: ["Sith", "Boss", "Fast"],
+    actions: [
+      {
+        name: "Predatory Opening",
+        type: "passive",
+        description: "Gains Advantage on initiative rolls and crits on 19–20.",
+      },
+      {
+        name: "Cull the Weak",
+        type: "passive",
+        description: "After reducing an enemy to 0 HP or landing a critical strike, choose one: Brutal Execution (enemies within 10ft DC 16 Wisdom save or Frightened until end of next turn), Frenzied Strike (move 30ft without opportunity attacks, next Lightsaber attack has Advantage), or Bloodthirst (regain HP equal to half the triggering attack's damage).",
+      },
+      {
+        name: "Extra Attack",
+        type: "passive",
+        description: "This creature may attack twice per action.",
+      },
+      {
+        name: "Lightsaber",
+        type: "action",
+        description: "Melee Weapon Attack. +9 to hit, reach 5 feet. Hit: 1d8 + 5 damage. Melting.",
+      },
+      {
+        name: "Crippling Slash",
+        type: "action",
+        description: "Make one Lightsaber attack. On a hit, deals an additional 1d8 damage and the target's speed becomes 0 until the end of its next turn. Once per round.",
+      },
+      {
+        name: "Force Shroud",
+        type: "action",
+        description: "Become Invisible for one minute. The effect ends immediately after attacking, dealing damage, or using another ability. Once per combat.",
+      },
+      {
+        name: "Mark for Death",
+        type: "bonus",
+        description: "Choose one creature within 60 feet. Until the beginning of the Assassin's next turn, it has Advantage on its first attack against that creature, but attacks against other creatures have Disadvantage.",
+      },
+      {
+        name: "Contemptuous Reflection",
+        type: "reaction",
+        description: "When targeted by a Blaster attack after landing a Lightsaber attack since the end of its previous turn, roll 1d20 + 9. If the result equals or exceeds the attack roll, the Assassin takes no damage.",
+      },
+    ],
+    tactics: "The Sith Assassin begins combat from stealth, aimed specifically at killing its target. If forced into a confrontation, it will attempt to kill the weakest opponent before moving on. If pinned down, it will use Force Shroud to reposition.",
+  },
+  {
+    id: "jedi-knight-enemy",
+    name: "Jedi Knight",
+    faction: "Force Users",
+    size: "Medium",
+    ac: 18,
+    hp: 110,
+    speed: "35ft",
+    str: 14, dex: 18, con: 14, int: 12, wis: 18, cha: 14,
+    traits: ["Jedi", "Boss", "Fast"],
+    actions: [
+      {
+        name: "Inspiring Presence",
+        type: "passive",
+        description: "All allied creatures within 60ft gain +1 to attack rolls and +2 to all saving throws.",
+      },
+      {
+        name: "Extra Attack",
+        type: "passive",
+        description: "This creature may attack twice per action.",
+      },
+      {
+        name: "Lightsaber",
+        type: "action",
+        description: "Melee Weapon Attack. +9 to hit, reach 5 feet. Hit: 1d8 + 5 damage. Melting.",
+      },
+      {
+        name: "Force Shove",
+        type: "action",
+        description: "Two uses per combat. One creature within 30 feet makes a DC 16 Strength save. On failure: 4d6 damage and pushed up to 15 feet. On success: half damage and not moved.",
+      },
+      {
+        name: "Force Leap",
+        type: "bonus",
+        description: "Leap up to 20ft in the air. Does not consume movement.",
+      },
+      {
+        name: "Saber Ward",
+        type: "reaction",
+        description: "When targeted by a Blaster attack, roll 1d20 + 8. If the result equals or exceeds the attack roll, the Jedi takes no damage and may make a reflected attack against a creature within the original weapon's range: +9 to hit, 1d8 + 5 damage.",
+      },
+    ],
+    tactics: "The Jedi Knight is a vanguard for its allies, aggressively pushing forwards and disrupting the enemy with Force Shove and reflected blaster bolts.",
+  },
+];
+
+// =============================================================================
+// ENEMY TRAITS
+// =============================================================================
+
+export interface EnemyTrait {
+  id: string;
+  name: string;
+  description: string;
+}
+
+export const enemyTraits: EnemyTrait[] = [
+  {
+    id: "droid",
+    name: "Droid",
+    description: "This creature is a droid, and thus is immune to poison and anything that affects flesh specifically.",
+  },
+  {
+    id: "clone",
+    name: "Clone",
+    description: "This creature is a clone, and thus greatly prefers to fight alongside its brethren. Gain +2 to Wisdom saves while another Clone is within 10ft.",
+  },
+  {
+    id: "commando",
+    name: "Commando",
+    description: "This creature is a special forces operative, and is typically found away from the front lines, doing high-value tasks like sabotage.",
+  },
+  {
+    id: "boss",
+    name: "Boss",
+    description: "This creature is an extremely dangerous target, requiring very experienced and well-prepared teams to even think of fighting. It gains +4 to all saving throws.",
+  },
+  {
+    id: "fast",
+    name: "Fast",
+    description: "This creature is extremely fast, and is able to act more frequently than others. It rolls initiative twice, and acts fully on both of its turns per round.",
+  },
+  {
+    id: "commander",
+    name: "Commander",
+    description: "This creature commands and buffs others of its kind, increasing their combat effectiveness.",
   },
 ];

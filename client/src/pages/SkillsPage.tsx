@@ -55,11 +55,7 @@ export default function SkillsPage() {
           <div>
             <span className="font-bold text-amber-400 text-sm" style={{ fontFamily: "Rajdhani, sans-serif" }}>
               Special Rule:{" "}
-            </span>
-            <span className="text-sm text-muted-foreground">
-              <strong className="text-foreground">Perception is Intelligence-based</strong>, not Wisdom. This applies to all Perception checks across all classes.
-            </span>
-          </div>
+            </span></div>
         </div>
 
         <div className="section-divider mt-5" />

@@ -13,12 +13,12 @@ import {
   Package,
   Shield as ShieldIcon,
   Star,
-  GitBranch,
+  GitBranch, Skull, UserPlus,
   Rocket,
   Crosshair,
   FileDown,
 } from "lucide-react";
-import { classes, forceAbilities, gadgets, skills, talentTrees, ships } from "@/lib/gameData";
+import { classes, forceAbilities, gadgets, skills, talentTrees, ships, enemies } from "@/lib/gameData";
 import { accentColorMap } from "@/lib/gameData";
 import { cn } from "@/lib/utils";
 
@@ -112,6 +112,26 @@ const sections = [
     accent: "text-purple-400",
     border: "border-purple-400/30",
     bg: "bg-purple-400/5",
+  },
+  {
+    label: "Enemies",
+    href: "/enemies",
+    icon: <Skull size={22} />,
+    count: enemies.length,
+    description: "Enemy stat blocks organized by faction — Droids, Clones, and Force Users.",
+    accent: "text-red-400",
+    border: "border-red-400/30",
+    bg: "bg-red-400/5",
+  },
+  {
+    label: "Character Creation",
+    href: "/character-creation",
+    icon: <UserPlus size={22} />,
+    count: null,
+    description: "Step-by-step guide to building a new character.",
+    accent: "text-blue-400",
+    border: "border-blue-400/30",
+    bg: "bg-blue-400/5",
   },
   {
     label: "Ships",
@@ -210,10 +230,10 @@ export default function Home() {
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {sections.map((section) => (
-            <Link key={section.href} href={section.href}>
+            <Link key={section.href} href={section.href} className="h-full">
               <div
                 className={cn(
-                  "glass-card rounded-lg p-5 cursor-pointer transition-all duration-150 hover:scale-[1.01] group",
+                  "glass-card rounded-lg p-5 cursor-pointer transition-all duration-150 hover:scale-[1.01] group h-full flex flex-col",
                   section.border,
                   section.bg
                 )}
@@ -222,10 +242,12 @@ export default function Home() {
                   <div className={cn("p-2 rounded-md bg-card", section.accent)}>
                     {section.icon}
                   </div>
-                  {section.count !== null && (
+                  {section.count !== null && section.count !== undefined ? (
                     <span className="text-xs text-muted-foreground mono">
                       {section.count} entries
                     </span>
+                  ) : (
+                    <span className="text-xs text-transparent select-none mono">0 entries</span>
                   )}
                 </div>
                 <div className={cn("font-bold text-base mb-1", section.accent)} style={{ fontFamily: "Rajdhani, sans-serif" }}>
@@ -244,20 +266,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Special rules callout */}
-      <div className="glass-card rounded-lg p-5 border border-amber-400/20 bg-amber-400/5">
-        <div className="flex items-start gap-3">
-          <BookOpen size={18} className="text-amber-400 mt-0.5 shrink-0" />
-          <div>
-            <div className="font-bold text-amber-400 text-sm mb-1" style={{ fontFamily: "Rajdhani, sans-serif" }}>
-              Special Rule: Perception
-            </div>
-            <p className="text-sm text-muted-foreground">
-              Perception is <strong className="text-foreground">Intelligence-based</strong> in this system, not Wisdom. This applies to all Perception checks across all classes.
-            </p>
-          </div>
-        </div>
-      </div>
+
     </div>
   );
 }

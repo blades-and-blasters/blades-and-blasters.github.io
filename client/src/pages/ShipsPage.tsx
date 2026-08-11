@@ -30,7 +30,7 @@ export default function ShipsPage() {
         </h1>
         <p className="text-muted-foreground max-w-2xl">
           The party may start with one ship or purchase one later. Each ship has module slots for customization,
-          a stat block, and a Critical Threshold that triggers Systems Criticals when exceeded in a single turn.
+          a stat block, and a Critical Damage Threshold that triggers Systems Criticals when exceeded in a single turn.
         </p>
         <div className="section-divider mt-5" />
       </div>
@@ -43,9 +43,9 @@ export default function ShipsPage() {
           <li>Each module must be purchased individually. Installation costs 20% of the module's purchase price.</li>
           <li>Each ship has an additional character sheet.</li>
           <li>All shipboard weapons may be fired at once, unless otherwise stated. Targets must be declared before rolls are made.</li>
-          <li>After taking at least your Critical Threshold in damage in one turn, cause a Systems Critical on your ship.</li>
+          <li>After taking at least your Critical Damage Threshold in damage in one turn, cause a Systems Critical on your ship.</li>
           <li>Each ship has a free DEX-based 1d4, 25nmi weapon.</li>
-          <li>While a ship has Temporary HP, it cannot receive any Systems Criticals, and damage to its Temporary HP does not count towards its Critical Threshold.</li>
+          <li>While a ship has Temporary HP, it cannot receive any Systems Criticals, and damage to its Temporary HP does not count towards its Critical Damage Threshold.</li>
           <li>Jumping to Hyperspace requires one turn of chargeup.</li>
         </ul>
       </div>
@@ -82,7 +82,7 @@ export default function ShipsPage() {
               <StatBadge label="AC" value={ship.ac} />
               <StatBadge label="Move" value={`${ship.movement}nmi`} />
               <StatBadge label="Max Wpn" value={ship.maxWeapons} />
-              <StatBadge label="Crit Thr" value={ship.criticalThreshold} />
+              <StatBadge label="Crit Dmg Threshold" value={ship.criticalThreshold} />
             </div>
 
             <div className="text-xs text-muted-foreground">
@@ -135,7 +135,7 @@ export default function ShipsPage() {
         Systems Criticals
       </h2>
       <p className="text-sm text-muted-foreground mb-4">
-        When a ship takes damage equal to or exceeding its Critical Threshold in a single turn, roll 1d8 on this table.
+        When a ship takes damage equal to or exceeding its Critical Damage Threshold in a single turn, roll 1d8 on this table.
       </p>
       <div className="space-y-2 mb-10">
         {systemsCriticals.map((sc) => (
