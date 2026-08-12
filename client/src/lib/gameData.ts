@@ -278,7 +278,7 @@ export const lightsaberStances: Stance[] = [
   },
   {
     name: "Niman",
-    description: "Extends the range of Force Powers by 5ft.",
+    description: "Extends the range of Force Abilities by 5ft.",
   },
   {
     name: "Vapaad",
@@ -335,10 +335,9 @@ export const classes: CharacterClass[] = [
       },
 	  {
 		name: "Force Abilities Known",
-        description:
-          "Used to power Force abilities. Gain 1 per level.",
+        description: "Learn 1 Force Ability per level.",
         maxValue: "1 per level",
-        recharge: "Long rest",
+        recharge: "Permanent",
 	  },
     ],
     features: [
@@ -378,7 +377,7 @@ export const classes: CharacterClass[] = [
       {
         level: 6,
         name: "Emotion, yet Peace",
-        description: "Gain Resistance to being Charmed and Feared.",
+        description: "You are immune to the Frightened condition.",
         type: "passive",
       },
       {
@@ -412,7 +411,7 @@ export const classes: CharacterClass[] = [
       {
         level: 14,
         name: "Chaos, yet Harmony",
-        description: "Become unable to lose Focus due to being damaged.",
+        description: "Once per round, when you take damage from an enemy, gain 10 Focus.",
         type: "passive",
       },
       {
@@ -655,7 +654,7 @@ export const classes: CharacterClass[] = [
         level: 14,
         name: "There is no Chaos, There is Harmony",
         description:
-          "Twice per Long Rest, as a reaction, gain the ability to quench a single new Gadget or Ability within 60 ft of you. Force the owner or caster to make a saving throw using their Spellcasting Modifier against your Wisdom check. If you succeed, the Gadget or Ability is completely removed with no effect.",
+          "Twice per Long Rest, as a Reaction, gain the ability to quench a single new Gadget or Force Ability within 60ft of you. For a Gadget, the user makes the save using Intelligence. For a Force Ability, the user makes the save using their Force Ability modifier. Compare the result against your Wisdom check. If you succeed, the Gadget or Force Ability is completely removed with no effect.",
         type: "active",
       },
       {
@@ -692,7 +691,7 @@ export const classes: CharacterClass[] = [
             level: 3,
             name: "Balance Thresholds",
             description:
-              "86–100: Downgrade Lightsaber damage by two die sizes. Double targets and range of all Force abilities, gain +3 to Spellcasting Modifier.\n\n71–85: Downgrade Lightsaber damage by one die size. Gain +2 to Spellcasting Modifier.\n\n56–70: Increase Force ability damage by 1d6.\n\n45–55: Become Centered, gaining 1 Force Point per round while in combat.\n\n30–44: Deal an additional 1d4 damage on Lightsaber hits.\n\n15–29: Double the Force Point cost of all abilities. Gain +2 to hit with Lightsabers.\n\n0–14: Lose the ability to use Force abilities. Gain +2 to Dexterity saves and Saber Ward for free. Gain +3 to hit and to damage for Lightsabers.",
+              "86–100: Downgrade Lightsaber damage by two die sizes. Double targets and range of all Force Abilities, gain +3 to Force Ability modifier.\n\n71–85: Downgrade Lightsaber damage by one die size. Gain +2 to Force Ability modifier.\n\n56–70: Increase Force Ability damage by 1d6.\n\n45–55: Become Centered, gaining 1 Force Point per round while in combat.\n\n30–44: Deal an additional 1d4 damage on Lightsaber hits.\n\n15–29: Double the Force Point cost of all abilities. Gain +2 to hit with Lightsabers.\n\n0–14: Lose the ability to use Force Abilities. Gain +2 to Dexterity saves and Saber Ward for free. Gain +3 to hit and to damage for Lightsabers.",
             type: "passive",
           },
 		  {
@@ -770,7 +769,7 @@ export const classes: CharacterClass[] = [
             level: 3,
             name: "Impulse Abilities",
             description:
-              "Driven Strike (1 Impulse): Add 1d8 to your next attack.\n\nExplosive Movement (1 Impulse): As a bonus action, gain an additional 30ft of movement.\n\nForceful Breach (1 Impulse): Add 1d6 to your next attack roll.\n\nBurst of Force (1 Impulse): Use your next Force Power as a Bonus Action.\n\nOverwhelming Assault (3 Impulse): As an attack, attack twice.",
+              "Driven Strike (1 Impulse): Add 1d8 to your next attack.\n\nExplosive Movement (1 Impulse): As a bonus action, gain an additional 30ft of movement.\n\nForceful Breach (1 Impulse): Add 1d6 to your next attack roll.\n\nBurst of Force (1 Impulse): Use your next Force Ability as a Bonus Action.\n\nOverwhelming Assault (3 Impulse): As an attack, attack twice.",
             type: "active",
           },
           {
@@ -784,7 +783,7 @@ export const classes: CharacterClass[] = [
             level: 10,
             name: "Island of Calm",
             description:
-              "When Centered, gain +2 to Saving Throws, Spellcasting Modifier, and Attacks. After each rest, gain the ability to set your Focus and Impulse. You may choose to set it at maximum Focus and zero Impulse, maximum Impulse and zero Focus, or even amounts of both. Additionally, increase your maximum Focus and Impulse to 16, and your even levels to 8 of each.",
+              "When Centered, gain +2 to Saving Throws, Force Ability modifier, and Attacks. After each rest, gain the ability to set your Focus and Impulse. You may choose to set it at maximum Focus and zero Impulse, maximum Impulse and zero Focus, or even amounts of both. Additionally, increase your maximum Focus and Impulse to 16, and your even levels to 8 of each.",
             type: "passive",
           },
           {
@@ -814,8 +813,8 @@ export const classes: CharacterClass[] = [
     name: "Trooper",
     accent: "cyan",
     tagline: "Soldier, survivor, weapon of war.",
-    description:
-      "The Trooper is a heavily-armored combatant proficient with all weapons and armor. They rely on Energy Cells to power special shots and gadgets, and their Action Surge ability lets them push beyond normal limits in critical moments.",
+description:
+          "The Trooper is a heavily-armored combatant proficient with all weapons and armor. They rely on Energy Cells to power special shots and subclass abilities, and their Action Surge ability lets them push beyond normal limits in critical moments.",
     hitDie: "1d10",
     armorProficiencies: ["All"],
     weaponProficiencies: ["Non-Lightsabers"],
@@ -1308,8 +1307,7 @@ export const classes: CharacterClass[] = [
       {
         level: 1,
         name: "Sneak Attack",
-        description:
-          "When attacking an enemy who you have Advantage against, deal an additional 1d8 damage. Scales with level: 2d8 at level 3, 3d8 at level 5, 4d8 at level 7, 5d8 at level 9, 6d8 at level 11, 7d8 at level 13, 8d8 at level 15, 9d8 at level 17, 10d8 at level 19. Applies to all instances of damage in an attack.",
+        description: "When attacking an enemy who you have Advantage against, deal an additional 1d8 damage. Scales with level: 2d8 at level 3, 3d8 at level 5, 4d8 at level 7, 5d8 at level 9, 6d8 at level 11, 7d8 at level 13, 8d8 at level 15, and 9d8 at level 17. Applies to all instances of damage in an attack.",
         type: "passive",
       },
       {
@@ -1818,7 +1816,7 @@ export const classes: CharacterClass[] = [
           { id: "railgun", name: "Railgun", heatCost: 20, description: "Fire a bolt in a 5ft wide, 30ft long line, making a separate attack roll against each target in the line. Deals 1d10 damage per hit. The bolt stops when it misses or the target has full cover.", tier50: "2d8.", tier70: "10ft wide." },
           { id: "fragmentation-flechette", name: "Fragmentation Flechette", heatCost: 15, description: "Make a ranged attack roll against a target within 60ft. On a hit: 1d8 damage to the primary target, then 1d6 to all creatures in a 15ft cone extending behind the primary target (Dexterity save for half).", tier50: "1d12 primary, 1d10 secondary.", tier70: "30ft cone." },
           { id: "magnetic-exploder", name: "Magnetic Exploder", heatCost: 25, description: "Launch within 30ft. Enemies within 10ft pass Strength save or be pushed 10ft away. 2d6 damage (halved on save).", tier50: "2d10.", tier70: "15ft radius." },
-          { id: "overdrive", name: "Overdrive", heatCost: 10, description: "Requires 50+ Heat. Generates 10 Heat. Increase all ability damage by 1d8. All abilities generate +5 Heat. Lasts 2 turns. Overrides the Heat lockout at 100, allowing ability usage and allowing Heat to exceed 100 while active. Emergency Vent ends this immediately.", noAction: true },
+          { id: "overdrive", name: "Overdrive", heatCost: 10, description: "Requires 50+ Heat. Increase all ability damage by 1d8. All abilities generate +5 Heat. Lasts 2 turns. Overrides your normal Overheat threshold, allowing ability usage and allowing Heat to exceed that threshold while active. Emergency Vent ends this immediately.", noAction: true },
         ],
       },
     ],
@@ -1853,7 +1851,7 @@ export const classes: CharacterClass[] = [
       },
       {
         name: "Channel Hatred",
-        description: "Gain 1 charge at level 3, 5, 7, 9, 11, 13, 15, 17.",
+        description: "Gain 1 charge at level 3, 5, 7, 9, 11, 13, 15, 17. As a Bonus Action, expend 1 Channel Hatred charge to begin Channeling Hatred. Channel Hatred lasts for up to 1 minute. It ends early if you complete a turn without making an attack or taking damage.",
         maxValue: "8 charges",
         recharge: "Long rest",
       },
@@ -2845,7 +2843,7 @@ export const forceAbilities: ForceAbility[] = [
     actionType: "Action",
     range: "30ft",
     description:
-      "Select a corpse within 30ft and raise it as a Reanimated Husk. Reanimated Husks have the following stats: HP: 5 × your Force-user level | AC: 10 | Speed: 20 ft | Attack: Force modifier + proficiency | Damage: 1d8 + Force ability modifier | Limit: One Husk at a time | Command: Bonus Action | Duration: Until destroyed or next Long Rest.",
+      "Select a corpse within 30ft and raise it as a Reanimated Husk. Reanimated Husks have the following stats: HP: 5 × your Force-user level | AC: 10 | Speed: 20 ft | Attack: Force Ability modifier + Proficiency Bonus | Damage: 1d8 + Force Ability modifier | Limit: One Husk at a time | Command: Bonus Action | Duration: Until destroyed or next Long Rest.",
     tags: ["Summon", "Dark Side"],
   },
   {
@@ -3323,7 +3321,7 @@ export const conditions: Condition[] = [
   },
   {
     name: "Jammed",
-    description: "The affected weapon cannot be used to attack. Blasters and Lightsabers cannot fire or strike. Vibroweapons and Electroweapons deal half damage.",
+    description: "The affected target's electronic systems are disabled. A Jammed weapon cannot be used to attack: Blasters and Lightsabers cannot fire or strike, while Vibroweapons and Electroweapons deal half damage. A Jammed Droid, vehicle, Gadget, or electronic system cannot use electronic actions or abilities until the condition ends.",
   },
 ];
 
@@ -4375,6 +4373,22 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
   {
+    version: "0.3.10",
+    date: "2026-08-11",
+    summary: "Corrected Jedi, Sith, Trooper, enemy, talent, condition, and Force Ability rules text for the current level-18 system.",
+    changes: [
+      { category: "Jedi Knight", description: "Chaos, yet Harmony now grants 10 Focus once per round when damaged; Emotion, yet Peace now grants immunity to the Frightened condition; Force Abilities Known corrected to a permanent 1-per-level resource." },
+      { category: "Jedi Consular", description: "There is no Chaos, There is Harmony now uses Intelligence for Gadgets and Force Ability modifiers for Force Abilities. Standardized Force Ability terminology in Niman, Sage, Shadow, and Guardian content." },
+      { category: "Sith Warrior", description: "Channel Hatred now includes its Bonus Action activation, one-minute duration, and early-end condition." },
+      { category: "Mercenary", description: "Overdrive now references the dynamic Overheat threshold; Mercenary T3B now checks the Overheated state rather than a hardcoded Heat value." },
+      { category: "Agent", description: "Sneak Attack progression now ends at 9d8 at level 17, matching the level-18 progression." },
+      { category: "Scoundrel", description: "T4A now grants attack-roll Advantage and a damage reroll instead of invalid Advantage on damage rolls." },
+      { category: "Force Abilities", description: "Raise Dead Husk attack and damage now use Force Ability modifier terminology consistently." },
+      { category: "Enemies", description: "Expanded Jammed for electronic targets; capped Droideka shield regeneration; added Clone Trooper Thermal Detonator limit and ARC Trooper Ion Charge, Recon Sweep, and Fire Coordination clarifications." },
+      { category: "Trooper", description: "Class overview now correctly identifies Energy Cells as powering special shots and subclass abilities." },
+    ],
+  },
+  {
     version: "0.3.9",
     date: "2026-08-11",
     summary: "Data integrity and terminology correction pass for Force abilities, gadgets, Powertech, Mercenary, and weapon entries.",
@@ -4850,7 +4864,7 @@ export const talentTrees: TalentTree[] = [
           {
             id: "guardian-t3-b",
             name: "",
-            description: "After casting a Force Power, all allies within 15ft gain +2 to saving throw DCs for abilities they use until the start of your next turn.",
+            description: "After using a Force Ability, all allies within 15ft gain +2 to saving throw DCs for abilities they use until the start of your next turn.",
           },
         ],
       },
@@ -4928,7 +4942,7 @@ export const talentTrees: TalentTree[] = [
           {
             id: "sage-t4-a",
             name: "",
-            description: "While Centered, gain the ability to cast Force Powers as Bonus Actions.",
+            description: "While Centered, gain the ability to use Force Abilities as Bonus Actions.",
           },
           {
             id: "sage-t4-b",
@@ -5268,7 +5282,7 @@ export const talentTrees: TalentTree[] = [
           {
             id: "scoundrel-t4-a",
             name: "",
-            description: "If you have detonated a present that affected only a single target this turn, gain Advantage on all attack and damage rolls against that target for one turn.",
+            description: "If you have detonated a Present that affected only a single target this turn, gain Advantage on attack rolls against that target for one turn. When rolling damage against that target, you may reroll the damage roll and use either result.",
           },
           {
             id: "scoundrel-t4-b",
@@ -5530,7 +5544,7 @@ export const talentTrees: TalentTree[] = [
           {
             id: "mercenary-t3-b",
             name: "",
-            description: "While Overheated (at or above 100 Heat), gain one additional attack on each of your turns.",
+            description: "While Overheated, gain one additional attack on each of your turns.",
           },
         ],
       },
@@ -5989,7 +6003,7 @@ export const enemies: Enemy[] = [
       {
         name: "Deflector Shield",
         type: "passive",
-        description: "Begins combat with 20 Temporary HP. If not damaged for 2 turns, regenerates 1d8 Temporary HP per turn.",
+        description: "Begins combat with 20 Temporary HP. If not damaged for 2 turns, regenerates 1d8 Temporary HP per turn, up to a maximum of 20 Temporary HP.",
       },
       {
         name: "Stable Firing Position",
@@ -6153,7 +6167,7 @@ export const enemies: Enemy[] = [
       {
         name: "Thermal Detonator",
         type: "action",
-        description: "Choose a point within 30 feet. After one turn, the Thermal Detonator explodes, dealing 4d6 damage in a 10ft radius.",
+        description: "Once per combat. Choose a point within 30 feet. After one turn, the Thermal Detonator explodes, dealing 4d6 damage in a 10ft radius.",
       },
     ],
     tactics: "Clone Troopers are the most basic unit of clone armies, but are no less lethal for this. Capable of advanced tactics, cover, flanking, and the usage of thermal detonators to displace enemies, even the most basic trooper is a lethal threat.",
@@ -6240,7 +6254,7 @@ export const enemies: Enemy[] = [
       {
         name: "Aim",
         type: "bonus",
-        description: "If the Sharpshooter has not moved this turn, it gains +2 on its next Long Blaster Rifle attack. That attack scores a critical hit on a 19 or 20.",
+        description: "If the Sharpshooter has not moved this turn, it gains +2 on its next Disruptor Rifle attack. That attack scores a critical hit on a 19 or 20.",
       },
     ],
     tactics: "Sharpshooters begin combat at extreme range, attack officers and support characters, and relocate when discovered.",
@@ -6347,7 +6361,7 @@ export const enemies: Enemy[] = [
       {
         name: "Ion Charge",
         type: "action",
-        description: "Once per combat. Choose a Droid, vehicle, weapon, gadget, or electronic system within 30 feet. DC 14 Constitution save — on failure: 2d8 damage and one ability becomes Jammed until end of target's next turn. On success: half damage, no other effect.",
+        description: "Once per combat. Choose a Droid, vehicle, weapon, Gadget, or electronic system within 30 feet. DC 14 Constitution save — on failure: 2d8 damage and the target becomes Jammed until the end of its next turn. On success: half damage, no other effect.",
       },
       {
         name: "Enhanced Sensor Suite (Infiltration)",
@@ -6357,12 +6371,12 @@ export const enemies: Enemy[] = [
       {
         name: "Recon Sweep (Forward Observer)",
         type: "bonus",
-        description: "Select a 30ft radius within 120ft. All creatures, gadgets, and traps are highlighted for the ARC Trooper.",
+        description: "Select a 30ft radius within 120ft. All creatures, Gadgets, and traps in that area are highlighted for the ARC Trooper for 3 turns.",
       },
       {
         name: "Fire Coordination (Forward Observer)",
         type: "bonus",
-        description: "Select one target scanned by Recon Sweep. All allied clones within 120ft gain +2 to attack against this target.",
+        description: "Select one target scanned by Recon Sweep. All allied Clones within 120ft gain +2 to attack rolls against that target for 2 turns.",
       },
     ],
     tactics: "ARC Troopers are a team, first and foremost. Infiltrators use smoke to blind and obscure enemies, while Demolitionists destroy them and Forward Observers provide covering fire and coordination.",
