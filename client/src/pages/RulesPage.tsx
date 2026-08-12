@@ -97,7 +97,7 @@ Weapons have specified ranges. A blaster rifle with 150/600ft range fires normal
   {
     id: "terrain",
     title: "Terrain",
-    content: `Standing above your enemies is generally a good idea. For any creature with a 5ft or greater elevation advantage above their opponent, they gain +1 to hit and +10ft range for all ranged attacks, abilities, gadgets, and so on. This does not stack.
+    content: `Standing above your enemies is generally a good idea. Creatures with an elevation advantage of 5ft or more over their opponent gain +1 to hit and +10ft range for all ranged attacks, abilities, gadgets, and so on.
 
 Falling from elevated terrain deals 1d6 damage for each 10 feet fallen, and requires a DC12 Dexterity save (increasing by 2 every 10 feet) to avoid falling prone.
 
