@@ -4369,9 +4369,19 @@ export interface ChangelogEntry {
   date: string;
   summary: string;
   changes: ChangelogChange[];
-}
+	2
 
 export const changelog: ChangelogEntry[] = [
+  {
+    version: "0.3.11",
+    date: "2026-08-12",
+    summary: "Made minor balance tweaks.",
+    changes: [
+      { category: "Force Abilities", description: "Force Lightning is now an attack." },
+      { category: "Guardian", description: "Nerfed Perfect Riposte to only give 2 free attacks and not consume a reaction." },
+      { category: "Force Abilities", description: "Halved Force Barrier health." },
+    ],
+  },
   {
     version: "0.3.10",
     date: "2026-08-11",
