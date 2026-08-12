@@ -71,7 +71,7 @@ You may move through the space of allied creatures, but can't end your turn ther
   {
     id: "turn-structure",
     title: "Turn Structure",
-    content: `Each creature has four types of actions: movement, actions, bonus actions, and reactions. By default every creature has one action, one bonus action, and one reaction.
+    content: `Each creature has four types of actions: movement, actions, bonus actions, and reactions. By default every creature has one action, one bonus action, one reaction, and movement as specified by their character sheet.
 
 Movement may be split up between your actions however you'd like. Bonus actions are quick things — using a bacta hypospray, pressing a button, drawing a weapon. Actions are the meat of your turn — firing your weapon, swinging your lightsaber, throwing a grenade.
 
