@@ -1440,7 +1440,7 @@ description:
           { id: "pseudolarynx", name: "Pseudolarynx", slots: 1, actionType: "Free Action", description: "Perfectly mimic someone's voice after collecting a five-minute sample. Can only record one voice at a time.", uses: "Unlimited" },
           { id: "whisper-range-laser-mic", name: "Whisper-Range Laser Mic", slots: 1, actionType: "Action", description: "Detect surface vibrations on distant glass or walls and convert them into clear audio within 30ft.", uses: "Unlimited" },
           { id: "smart-dust-trackers", name: "Smart Dust Trackers", slots: 1, actionType: "Action", description: "Release microscopic adhesive particles that cling to a chosen target within 15ft and transmit a weak tracking signal for 1d4 hours.", uses: "3" },
-          { id: "arc-projector", name: "Arc Projector", slots: 3, actionType: "Bonus Action", description: "Force a target within 15ft to make a Constitution save. If they fail, they become Stunned for two turns. Additional batteries may be taken at 1 slot each.", uses: "2" },
+          { id: "arc-projector", name: "Arc Projector", slots: 3, actionType: "Bonus Action", description: "Force a target within 15ft to make a Constitution save. If they fail, they become Stunned for two turns. It may repeat its Constitution save after the end of its first turn to attempt to break free. Additional batteries may be taken at 1 slot each.", uses: "2" },
           { id: "stun-drone", name: "Stun Drone", slots: 3, actionType: "Action", description: "Send out a stun drone to a location within 300ft. Any target who passes within 10ft of it must make a Constitution save or be stunned for one turn. It has 10 AC and 5 HP.", uses: "1" },
         ],
       },
@@ -2509,7 +2509,7 @@ export const forceAbilities: ForceAbility[] = [
     actionType: "Action",
     range: "Self",
     description:
-      "Project a shield in a 15ft arc around you that blocks all incoming enemy damage and movement, while permitting allies to fire back. Lasts one minute or until concentration break. This shield has HP equal to your Jedi level × 10.",
+      "Project a shield in a 15ft arc around you that blocks all incoming enemy damage and movement, while permitting allies to fire back. Lasts one minute or until concentration break. This shield has HP equal to your Jedi level × 5.",
     tags: ["Defense", "Concentration"],
   },
   {
@@ -2565,7 +2565,7 @@ export const forceAbilities: ForceAbility[] = [
     actionType: "Action",
     range: "60ft",
     description:
-      "Strike a target within 60ft with lightning, dealing 3d10 lightning damage. The target may make a Dexterity save; on a failed save they take full damage and cannot take reactions until the start of their next turn. On a successful save, they take half damage.",
+      "Make an attack against a target within 60ft with lightning, dealing 3d10 lightning damage. The target may make a Dexterity save; on a failed save they cannot take reactions until the start of their next turn.",
     tags: ["Damage", "Lightning", "Dark Side"],
   },
   {
@@ -4859,7 +4859,7 @@ export const talentTrees: TalentTree[] = [
           {
             id: "guardian-t3-a",
             name: "",
-            description: "Perfect Riposte no longer requires a reaction. It can be used freely whenever its trigger condition is met.",
+            description: "Perfect Riposte no longer requires a reaction, but may only trigger twice per turn.",
           },
           {
             id: "guardian-t3-b",
@@ -6283,7 +6283,7 @@ export const enemies: Enemy[] = [
       {
         name: "Shield Generator",
         type: "action",
-        description: "Grant all allies within 30ft 15 Temporary HP. If the Shieldbearer dies, all of this Temporary HP is immediately lost. Cannot be used if the riot shield is destroyed.",
+        description: "Grant all allies within 30ft 15 Temporary HP. If the Shieldbearer dies, all of this Temporary HP is immediately lost. Cannot be used if the riot shield is destroyed. May only be used once per battle",
       },
     ],
     tactics: "Shieldbearers are the defensive bulwark of the clone forces, able to tank the most punishing fire without flinching — at least unless their shields are destroyed. They provide valuable shields to all allies around them.",
