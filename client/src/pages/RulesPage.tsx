@@ -46,9 +46,9 @@ const combatRules: CombatSection[] = [
     title: "Cover",
     content: `In general, combat should revolve heavily around cover and displacement. Only two forms of cover exist — half cover and three-quarters cover.
 
-Half cover covers you partially, or provides concealment. A car you're hiding behind, or a bush, provides half cover in different ways — but in either case you are less likely to be hit. Half cover provides +2 AC and saving throws against area effects.
+Half cover covers you partially, or provides concealment. A car you're hiding behind, or a bush, provides half cover in different ways — but in either case you are less likely to be hit. Half cover provides +2 to AC and saving throws against area effects.
 
-Three-Quarters cover is solid objects that you can hide the vast majority of your body behind — the corner of a building, a structural pillar, etc. Three-Quarters cover provides +4 AC and saving throws against area effects.`,
+Three-Quarters cover is solid objects that you can hide the vast majority of your body behind — the corner of a building, a structural pillar, etc. Three-Quarters cover provides +4 to AC and saving throws against area effects.`,
   },
   {
     id: "environmental-destruction",
