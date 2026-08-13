@@ -4373,6 +4373,15 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
   {
+    version: "0.3.12",
+    date: "2026-08-13",
+    summary: "Made minor balance tweaks.",
+    changes: [
+      { category: "Bounty Hunter", description: "Updated Dead or Alive to adjust for the addition of Stun Rounds." },
+     
+    ],
+  },
+  {
     version: "0.3.11",
     date: "2026-08-12",
     summary: "Made minor balance tweaks.",
