@@ -1622,7 +1622,7 @@ description:
       {
         level: 6,
         name: "Dead or Alive",
-        description: "Gain the ability to make non-lethal Blaster attacks as normal ranged attacks. Reducing an enemy to 0 HP grants you half of your movement.",
+        description: "Gain the ability to make non-lethal Blaster attacks as normal ranged attacks at full range with all Blasters. Reducing an enemy to 0 HP grants you half of your movement.",
         type: "passive",
       },
       {
