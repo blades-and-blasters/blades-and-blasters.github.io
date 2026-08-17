@@ -32,6 +32,11 @@ const coreMechanics: RuleSection[] = [
     content:
       "A short rest is a period of at least one hour during which you do nothing more strenuous than eating, drinking, reading, and tending to wounds. A long rest is a period of at least 8 hours of sleep or light activity. Most class resources refresh on a long rest unless otherwise stated.",
   },
+  {
+    title: "Collective Rolls",
+    content:
+      "When multiple characters collectively face a skill check, each player facing it must roll the requisite check. All checks must then be averaged, and that average roll, rounded up, compared to the DC. Saves are always rolled individually.",
+  },
 ];
 
 interface CombatSection {

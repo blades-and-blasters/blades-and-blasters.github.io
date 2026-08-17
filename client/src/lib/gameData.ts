@@ -4372,6 +4372,15 @@ export interface ChangelogEntry {
 	2
 
 export const changelog: ChangelogEntry[] = [
+	{
+    version: "0.3.13",
+    date: "2026-08-13",
+    summary: "Added collective roll rules.",
+    changes: [
+      { category: "Rules", description: "Added collective roll rules." },
+     
+    ],
+  },
   {
     version: "0.3.12",
     date: "2026-08-13",
