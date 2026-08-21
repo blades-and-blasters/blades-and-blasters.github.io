@@ -7,9 +7,34 @@ import { Zap, Search } from "lucide-react";
 import { forceAbilities, ForceAlignment } from "@/lib/gameData";
 import { cn } from "@/lib/utils";
 
+const hiddenTagFilters = new Set([
+  "Attack",
+  "Aura",
+  "Dark Side",
+  "Detection",
+  "Divination",
+  "Fear",
+  "Illusion",
+  "Information",
+  "Light Side",
+  "Lightning",
+  "Lightsaber",
+  "Movement",
+  "Necrotic",
+  "Neutral",
+  "Reaction",
+  "Sense",
+  "Social",
+  "Summon",
+  "Tactical",
+  "Universal",
+]);
+
 const allTags = Array.from(
   new Set(forceAbilities.flatMap((a) => a.tags))
-).sort();
+)
+  .filter((tag) => !hiddenTagFilters.has(tag))
+  .sort();
 
 const actionTypeColors: Record<string, string> = {
   Action: "text-blue-400 border-blue-400/40 bg-blue-400/10",

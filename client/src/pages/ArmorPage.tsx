@@ -1,6 +1,6 @@
 // =============================================================================
 // ArmorPage.tsx — All armor tiers
-// Holonet Terminal design: dark sci-fi dashboard
+// Blades & Blasters armor reference
 // =============================================================================
 
 import { Shield, AlertTriangle } from "lucide-react";

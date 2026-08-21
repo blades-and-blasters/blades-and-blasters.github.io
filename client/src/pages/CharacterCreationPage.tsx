@@ -104,7 +104,6 @@ const STARTING_EQUIPMENT: { cls: string; items: string[]; note: string }[] = [
     items: [
       "1 set of Plastoid Armor",
       "1 Field Kit",
-	  "1 Medical Kit",
       "Choose one: Lightsaber or Crossguard Saber",
     ],
     note: "The standard Lightsaber provides greater flexibility, while the Crossguard Saber sacrifices that flexibility in exchange for heavier two-handed damage.",

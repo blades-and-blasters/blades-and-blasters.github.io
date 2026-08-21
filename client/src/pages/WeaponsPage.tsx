@@ -1,6 +1,5 @@
 // =============================================================================
 // WeaponsPage.tsx — Lightsabers, Blasters, Vibroweapons, and Weapon Properties
-// Holonet Terminal design: dark sci-fi dashboard
 // =============================================================================
 
 import { useState } from "react";
@@ -146,11 +145,6 @@ export default function WeaponsPage() {
                         >
                           {weapon.name}
                         </span>
-                        {weapon.notes && (
-                          <div className="text-[11px] text-muted-foreground mt-0.5 italic">
-                            {weapon.notes}
-                          </div>
-                        )}
                       </div>
                     </td>
                     <td className="px-4 py-3">
@@ -227,11 +221,6 @@ export default function WeaponsPage() {
                       </span>
                     ))}
                   </div>
-                )}
-                {weapon.notes && (
-                  <p className="text-[11px] text-muted-foreground mt-2 italic">
-                    {weapon.notes}
-                  </p>
                 )}
                 {weapon.price !== undefined && (
                   <div className="text-xs text-muted-foreground mt-2 mono">

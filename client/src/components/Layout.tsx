@@ -1,5 +1,5 @@
 // =============================================================================
-// Layout.tsx — Holonet Terminal sidebar layout
+// Layout.tsx — Blades & Blasters sidebar layout
 // Fixed left sidebar + scrollable main content area
 // =============================================================================
 
@@ -35,7 +35,7 @@ interface NavItem {
 const navItems: NavItem[] = [
   { label: "Home", href: "/", icon: <Home size={18} /> },
   { label: "Classes", href: "/classes", icon: <Swords size={18} /> },
-  { label: "Stances", href: "/stances", icon: <Shield size={18} /> },
+  { label: "Styles", href: "/stances", icon: <Shield size={18} /> },
   { label: "Force Abilities", href: "/force-abilities", icon: <Zap size={18} /> },
   { label: "Weapons", href: "/weapons", icon: <Sword size={18} /> },
   { label: "Armor", href: "/armor", icon: <Shield size={18} /> },
@@ -95,7 +95,6 @@ export default function Layout({ children }: LayoutProps) {
               <div className="text-sm font-bold text-foreground leading-tight font-[Rajdhani] tracking-wide uppercase">
                 Blades &amp; Blasters
               </div>
-              <div className="text-xs text-muted-foreground">Holonet Terminal</div>
             </div>
           )}
         </div>

@@ -1,6 +1,6 @@
 // =============================================================================
 // GAME DATA — Blades & Blasters
-// Holonet Terminal design system
+// Blades & Blasters design system
 // All game content is stored here. Edit this file to update the rulebook.
 // =============================================================================
 
@@ -2411,7 +2411,7 @@ export const forceAbilities: ForceAbility[] = [
     range: "Close",
     description:
       "Concentrate for one turn. At the beginning of your next turn, grab and crush an enemy, dealing 8d6 damage. On a successful Strength save, deal half damage.",
-    tags: ["Telekinesis", "Damage"],
+    tags: ["Telekinesis", "Damage", "Concentration"],
   },
   {
     id: "precognition",
@@ -2454,7 +2454,7 @@ export const forceAbilities: ForceAbility[] = [
     actionType: "Action",
     range: "Variable",
     description:
-      "1 FP: visible/audible illusion within 30 ft. 2 FP: projection within 1 mile. 3 FP: projection to a known location on the same planet.",
+      "1 FP: visible/audible illusion within 30 ft.\n2 FP: projection within 1 mile.\n3 FP: projection to a known location on the same planet.",
     tags: ["Illusion", "Utility"],
   },
   {
@@ -2476,7 +2476,7 @@ export const forceAbilities: ForceAbility[] = [
     actionType: "Action",
     range: "Allies",
     description:
-      "Increase the AC and Attack rolls of all allies within 30ft by 2 for one minute (concentration).",
+      "Increase the AC and Attack rolls of all allies within 30ft by 2 for one minute.",
     tags: ["Support", "Buff", "Concentration"],
   },
   {
@@ -2542,7 +2542,7 @@ export const forceAbilities: ForceAbility[] = [
     actionType: "Reaction",
     range: "Self",
     description:
-      "1 FP, Reaction. When you would take energy, lightning, or blaster damage, make a Wisdom save against DC 10 or half the incoming damage, whichever is higher. On success, take no damage. On failure, take half damage.",
+      "When you would take energy, lightning, or blaster damage, make a Wisdom save against DC 10 or half the incoming damage, whichever is higher. On success, take no damage. On failure, take half damage.",
     tags: ["Defense", "Reaction", "Universal"],
   },
   {
@@ -2576,7 +2576,7 @@ export const forceAbilities: ForceAbility[] = [
     actionType: "Action",
     range: "30ft",
     description:
-      "Attempt to control a creature within 30ft. The target must make a Wisdom save or become controlled for up to one minute (concentration). The target may repeat the save at the end of each of its turns. If they critically fail their save, the target does not receive another save until it takes damage.",
+      "Attempt to control a creature within 30ft. The target must make a Wisdom save or become controlled for up to one minute. The target may repeat the save at the end of each of its turns. If they critically fail their save, the target does not receive another save until it takes damage, and they become Mindbroken.",
     tags: ["Mental", "Control", "Concentration", "Dark Side"],
   },
   {
@@ -2631,7 +2631,7 @@ export const forceAbilities: ForceAbility[] = [
     actionType: "Action",
     range: "30ft",
     description:
-      "Mutate a creature within 30ft. The target must make a Constitution save or suffer one of the following effects of your choice for up to one minute (concentration): its speed becomes 0, it takes 2d6 damage at the start of each turn, or it has disadvantage on attack rolls. The target may repeat the save at the end of each turn.",
+      "Mutate a creature within 30ft. The target must make a Constitution save or suffer one of the following effects of your choice for up to one minute: its speed becomes 0, it takes 2d6 damage at the start of each turn, or it has disadvantage on attack rolls. The target may repeat the save at the end of each turn.",
     tags: ["Control", "Debuff", "Concentration", "Dark Side"],
   },
   {
@@ -2642,7 +2642,7 @@ export const forceAbilities: ForceAbility[] = [
     actionType: "Bonus Action",
     range: "30ft",
     description:
-      "Empower a creature within 30ft for one minute. The target gains +2 to attack rolls and damage rolls, but takes 1d6 damage at the end of each of its turns.",
+      "Empower a friendly creature within 30ft for one minute. The target gains +2 to attack rolls and damage rolls, but takes 1d6 damage at the end of each of its turns. This effect may be cancelled at any time.",
     tags: ["Buff", "Support", "Dark Side"],
   },
   {
@@ -2653,7 +2653,7 @@ export const forceAbilities: ForceAbility[] = [
     actionType: "Action",
     range: "30ft",
     description:
-      "Infect a creature within 30 ft with madness for up to one minute (concentration). The target must make a Wisdom Saving Throw or become Confused. At the end of each of its turns, the affected target makes a Wisdom Saving Throw — on a failure, the madness spreads to all creatures within 10 ft who must also make a Wisdom Saving Throw or become affected. On a success, the spread terminates with them. Affected creatures may not spread this until the end of their own turn.",
+      "Infect a creature within 30 ft with madness for up to one minute. The target must make a Wisdom Saving Throw or become Confused. At the end of each of its turns, the affected target makes a Wisdom Saving Throw — on a failure, the madness spreads to all creatures within 10 ft who must also make a Wisdom Saving Throw or become affected. On a success, the spread terminates with them. Affected creatures may not spread this until the end of their own turn.",
     tags: ["Mental", "Control", "Concentration", "AOE", "Dark Side"],
   },
   {
@@ -2664,7 +2664,7 @@ export const forceAbilities: ForceAbility[] = [
     actionType: "Action",
     range: "60ft",
     description:
-      "Create a 10ft cube of crackling lightning within 60ft for up to one minute (concentration). Creatures in the area take 2d8 damage when the cage appears, and again if they attempt to leave the area or are displaced out of it. This damage may only occur once per turn. The area is difficult terrain.",
+      "Create a 10ft cube of crackling lightning within 60ft for up to one minute. Creatures in the area take 2d8 damage when the cage appears, and again if they attempt to leave the area or are displaced out of it. This damage may only occur once per turn. The area is difficult terrain.",
     tags: ["Lightning", "Control", "Concentration", "AOE", "Dark Side"],
   },
   {
@@ -2675,7 +2675,7 @@ export const forceAbilities: ForceAbility[] = [
     actionType: "Action",
     range: "60ft",
     description:
-      "Target a creature within 60ft. The target must make a Constitution save or become restrained for up to one minute (concentration), taking 3d8 force damage at the start of each of its turns and being unable to speak. As a bonus action against a Choked target, you may deal an additional 1d8 force damage. The target may repeat the save at the end of each turn.",
+      "Target a creature within 60ft. The target must make a Constitution save or become restrained for up to one minute, taking 3d8 force damage at the start of each of its turns and being unable to speak. As a bonus action against a Choked target, you may deal an additional 1d8 force damage. The target may repeat the save at the end of each turn.",
     tags: ["Telekinesis", "Control", "Damage", "Concentration", "Dark Side"],
   },
   {
@@ -2686,7 +2686,7 @@ export const forceAbilities: ForceAbility[] = [
     actionType: "Action",
     range: "30ft",
     description:
-      "Distort the perception of a creature within 30ft for up to one minute (concentration). The target must make a Wisdom save or suffer one of the following effects of your choice: disadvantage on attack rolls and no reactions, is frightened of a creature of your choice, or is blinded. The target may repeat the save at the end of each turn.",
+      "Distort the perception of a creature within 30ft for up to one minute. The target must make a Wisdom save or suffer one of the following effects of your choice: disadvantage on attack rolls and no reactions, is frightened of a creature of your choice, or is blinded. The target may repeat the save at the end of each turn.",
     tags: ["Mental", "Debuff", "Concentration", "Dark Side"],
   },
   {
@@ -2697,7 +2697,7 @@ export const forceAbilities: ForceAbility[] = [
     actionType: "Action",
     range: "30ft",
     description:
-      "Drain vitality from a creature within 30ft. The target takes 4d8 necrotic damage and you regain hit points equal to a quarter of the damage dealt. The target may make a Constitution save for half damage; on a failed save it has disadvantage on its next attack roll.",
+      "Drain vitality from a creature within 30ft. The target takes 4d8 damage and you regain hit points equal to a quarter of the damage dealt. The target may make a Constitution save for half damage; on a failed save it has disadvantage on its next attack roll.",
     tags: ["Damage", "Healing", "Necrotic", "Dark Side"],
   },
   // ── New Light abilities ──────────────────────────────────────────────────
@@ -2709,8 +2709,8 @@ export const forceAbilities: ForceAbility[] = [
     actionType: "Bonus Action",
     range: "60ft",
     description:
-      "Pull a target within 60ft up to 30ft toward you. If the target moves away from you on its next turn, it is pulled back. Movement caused by Force Tether does not itself trigger Force Tether.",
-    tags: ["Control", "Light Side"],
+      "Link two targets within 60ft of you together for one minute. All movement, voluntary or involuntary, that affects one target affects the other target equally. If this movement would cause damage to one of the affected creature, it takes that damage. Movement caused by Force Tether does not itself trigger Force Tether.",
+    tags: ["Control", "Concentration", "Light Side"],
   },
   {
     id: "force-burden",
@@ -2731,7 +2731,7 @@ export const forceAbilities: ForceAbility[] = [
     actionType: "Action",
     range: "60ft",
     description:
-      "Select a target within 60ft. If its HP would be reduced to 0 or below, it is instead reduced to 1 HP, and it cannot be reduced below 1 HP until the beginning of its next turn. Lasts until triggered or six hours pass. Concentration.",
+      "Select a target within 60ft. If its HP would be reduced to 0 or below, it is instead reduced to 1 HP, and it cannot be reduced below 1 HP until the beginning of its next turn. Lasts until triggered or six hours pass.",
     tags: ["Protection", "Healing", "Concentration", "Light Side"],
   },
   {
@@ -2753,7 +2753,7 @@ export const forceAbilities: ForceAbility[] = [
     actionType: "Action",
     range: "Self (15ft radius)",
     description:
-      "For one minute (concentration), all allies within a 15ft radius gain Advantage on saving throws.",
+      "For one minute, all allies within a 15ft radius gain Advantage on saving throws.",
     tags: ["Protection", "Aura", "Concentration", "Light Side"],
   },
   {
@@ -2764,7 +2764,7 @@ export const forceAbilities: ForceAbility[] = [
     actionType: "Reaction",
     range: "30ft",
     description:
-      "When an ally within 30 ft would take damage, use your Reaction to reduce that damage by half. You take damage of the same type equal to the amount prevented.",
+      "When an ally within 30 ft would take damage, reduce that damage by half. You take damage equal to the amount prevented.",
     tags: ["Protection", "Reaction", "Light Side"],
   },
   // ── New Neutral abilities ────────────────────────────────────────────────
@@ -2810,7 +2810,7 @@ export const forceAbilities: ForceAbility[] = [
     actionType: "Reaction",
     range: "30ft",
     description:
-      "Force a target within 30ft that is using an ability or gadget to pass a Wisdom saving throw. On a failure, deal 2d6 damage.",
+      "Force a target within 30ft that is using an ability or gadget to make a Wisdom saving throw. On a failure, deal 2d6 damage. On a success, nothing happens.",
     tags: ["Damage", "Reaction", "Dark Side"],
   },
   {
@@ -3234,7 +3234,6 @@ export const skills: Skill[] = [
     ability: "Intelligence",
     description:
       "Noticing things in your environment using your senses. Spot hidden enemies, hear distant sounds, or notice subtle details.",
-    specialRule: "Intelligence-based (not Wisdom)",
   },
   {
     name: "Performance",
@@ -3641,7 +3640,7 @@ export const weapons: Weapon[] = [
     name: "Disruptor Rifle",
     category: "blaster",
     damage: "1d12",
-    range: "100/900 ft",
+    range: "25/900 ft",
     properties: ["Clumsy", "Disintegrator"],
     notes: "Heavy long-range precision weapon.",
     price: 11000,
@@ -4159,22 +4158,22 @@ export const armors: Armor[] = [
   },
 
   {
-    id: "advanced-combat-suit",
-    name: "Advanced Combat Suit",
-    weight: "Light",
-    ac: "11 + Dex",
-    stealthDisadvantage: false,
-    price: 1800,
-
-  },
-
-  {
     id: "fiber-armor",
     name: "Fiber Armor",
     weight: "Light",
     ac: "12 + Dex",
     stealthDisadvantage: false,
     price: 3000,
+
+  },
+
+  {
+    id: "advanced-combat-suit",
+    name: "Advanced Combat Suit",
+    weight: "Light",
+    ac: "13 + Dex",
+    stealthDisadvantage: false,
+    price: 8000,
 
   },
 
@@ -4369,16 +4368,30 @@ export interface ChangelogEntry {
   date: string;
   summary: string;
   changes: ChangelogChange[];
-	2
+}
 
 export const changelog: ChangelogEntry[] = [
-	{
+  {
+    version: "0.3.14",
+    date: "2026-08-21",
+    summary: "Refined Force Ability wording and Concentration tags, streamlined styles and skills pages, and updated equipment presentation and values.",
+    changes: [
+      { category: "Force Abilities", description: "Updated Force Crush, Battle Meditation, Energy Absorption, Dominate Will, Warp Flesh, Dark Infusion, Viral Madness, Static Cage, Force Choke, Deceive Senses, Drain Life, Force Tether, Force Stabilize, Force Sanctuary, Shared Burden, and Force Torment. Added Concentration tags where required." },
+      { category: "Force Abilities", description: "Removed selected lower tag-filter options while retaining alignment controls and Concentration filtering." },
+      { category: "Styles", description: "Renamed the Stances reference to Styles and removed class-selection blurbs from the Styles page." },
+      { category: "Skills", description: "Removed the obsolete Perception special-rule data and UI." },
+      { category: "Weapons", description: "Removed weapon subtext from presentation and changed Disruptor Rifle range to 25/900 ft." },
+      { category: "Armor", description: "Moved Advanced Combat Suit below Fiber Armor; set it to 13 + Dex and 8,000 credits." },
+      { category: "Rules", description: "Moved Resource Regeneration Timing into Core Mechanics." },
+      { category: "General", description: "Removed all obsolete terminal labels and source references." },
+    ],
+  },
+  {
     version: "0.3.13",
     date: "2026-08-13",
     summary: "Added collective roll rules.",
     changes: [
       { category: "Rules", description: "Added collective roll rules." },
-     
     ],
   },
   {
@@ -4387,7 +4400,8 @@ export const changelog: ChangelogEntry[] = [
     summary: "Made minor balance tweaks.",
     changes: [
       { category: "Bounty Hunter", description: "Updated Dead or Alive to adjust for the addition of Stun Rounds." },
-     
+      { category: "Enemies", description: "Clone Shieldbearer Shield Generator is now limited to once per battle." },
+      { category: "Operative", description: "Arc Projector allows a Constitution save at the end of the first turn to escape Stunned." },
     ],
   },
   {
@@ -4395,9 +4409,8 @@ export const changelog: ChangelogEntry[] = [
     date: "2026-08-12",
     summary: "Made minor balance tweaks.",
     changes: [
-      { category: "Force Abilities", description: "Force Lightning is now an attack." },
-      { category: "Guardian", description: "Nerfed Perfect Riposte to only give 2 free attacks and not consume a reaction." },
-      { category: "Force Abilities", description: "Halved Force Barrier health." },
+      { category: "Force Abilities", description: "Force Lightning is now an attack; Force Barrier health is reduced to 5 × Jedi level." },
+      { category: "Guardian", description: "Perfect Riposte no longer consumes a reaction but may trigger only twice per turn." },
     ],
   },
   {
@@ -6311,7 +6324,7 @@ export const enemies: Enemy[] = [
       {
         name: "Shield Generator",
         type: "action",
-        description: "Grant all allies within 30ft 15 Temporary HP. If the Shieldbearer dies, all of this Temporary HP is immediately lost. Cannot be used if the riot shield is destroyed. May only be used once per battle",
+        description: "Grant all allies within 30ft 15 Temporary HP. If the Shieldbearer dies, all of this Temporary HP is immediately lost. Cannot be used if the riot shield is destroyed. May only be used once per battle.",
       },
     ],
     tactics: "Shieldbearers are the defensive bulwark of the clone forces, able to tank the most punishing fire without flinching — at least unless their shields are destroyed. They provide valuable shields to all allies around them.",

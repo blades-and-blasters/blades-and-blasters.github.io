@@ -2,7 +2,7 @@
 // RulesPage.tsx — Core mechanics, conditions, combat rules, and clarifications
 // =============================================================================
 
-import { BookOpen, AlertCircle, Zap } from "lucide-react";
+import { BookOpen, AlertCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { conditions, coreRules } from "@/lib/gameData";
 
@@ -12,6 +12,7 @@ interface RuleSection {
 }
 
 const coreMechanics: RuleSection[] = [
+  ...coreRules.map((rule) => ({ title: rule.title, content: rule.description })),
   {
     title: "Ability Score Improvement (ASI)",
     content:
@@ -228,37 +229,6 @@ export default function RulesPage() {
           Core mechanics, conditions, and combat rules for the system.
         </p>
         <div className="section-divider mt-5" />
-      </div>
-
-      {/* Core Rules Clarifications */}
-      <div className="mb-8">
-        <h2 className="text-xl font-bold text-foreground mb-4" style={{ fontFamily: "Rajdhani, sans-serif" }}>
-          Core Rules Clarifications
-        </h2>
-        <div className="space-y-3">
-          {coreRules.map((rule) => (
-            <div key={rule.title} className="glass-card rounded-lg p-5 border border-border/50">
-              <div className="flex items-start gap-3">
-                <div className="shrink-0 mt-0.5">
-                  <Zap size={14} className="text-purple-400" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 flex-wrap mb-2">
-                    <h3 className="font-bold text-foreground text-sm" style={{ fontFamily: "Rajdhani, sans-serif" }}>
-                      {rule.title}
-                    </h3>
-                    <span className="ability-tag text-purple-400 border-purple-400/40 bg-purple-400/10">
-                      clarification
-                    </span>
-                  </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {rule.description}
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
       </div>
 
       {/* Conditions */}

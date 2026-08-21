@@ -1,5 +1,5 @@
 // =============================================================================
-// Home.tsx — Holonet Terminal landing / dashboard
+// Home.tsx — Blades & Blasters landing / dashboard
 // =============================================================================
 
 import { Link } from "wouter";
@@ -34,11 +34,11 @@ const sections = [
     bg: "bg-blue-400/5",
   },
   {
-    label: "Stances",
+    label: "Styles",
     href: "/stances",
     icon: <ShieldIcon size={22} />,
     count: 7,
-    description: "Lightsaber combat stances available to all Force-sensitive classes.",
+    description: "Lightsaber stances and fighting styles for martial and Force-sensitive characters.",
     accent: "text-teal-400",
     border: "border-teal-400/30",
     bg: "bg-teal-400/5",
@@ -98,7 +98,7 @@ const sections = [
     href: "/skills",
     icon: <Star size={22} />,
     count: skills.length,
-    description: "All skills, their governing ability scores, and special rules.",
+    description: "All skills and their governing ability scores.",
     accent: "text-green-400",
     border: "border-green-400/30",
     bg: "bg-green-400/5",
@@ -170,11 +170,6 @@ export default function Home() {
     <div className="p-6 lg:p-8 max-w-5xl">
       {/* Header */}
       <div className="mb-10">
-        <div className="flex items-center gap-2 mb-2">
-          <span className="ability-tag text-primary border-primary/40 bg-primary/10">
-            Holonet Terminal
-          </span>
-        </div>
         <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-3" style={{ fontFamily: "Rajdhani, sans-serif" }}>
           Blades &amp; Blasters
         </h1>

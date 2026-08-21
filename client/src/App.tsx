@@ -1,6 +1,6 @@
 // =============================================================================
 // App.tsx — TTRPG Rulebook
-// Holonet Terminal design: dark sci-fi dashboard with sidebar navigation
+// Blades & Blasters application shell with sidebar navigation
 // =============================================================================
 
 import { Toaster } from "@/components/ui/sonner";

@@ -2,7 +2,6 @@
 // SkillsPage.tsx — All skills grouped by ability score
 // =============================================================================
 
-import { Star } from "lucide-react";
 import { skills } from "@/lib/gameData";
 import { cn } from "@/lib/utils";
 
@@ -49,15 +48,6 @@ export default function SkillsPage() {
           All skills and their governing ability scores. Skills are grouped by ability.
         </p>
 
-        {/* Special rule callout */}
-        <div className="mt-4 glass-card rounded-lg p-4 border border-amber-400/30 bg-amber-400/5 flex items-start gap-3">
-          <Star size={16} className="text-amber-400 mt-0.5 shrink-0" />
-          <div>
-            <span className="font-bold text-amber-400 text-sm" style={{ fontFamily: "Rajdhani, sans-serif" }}>
-              Special Rule:{" "}
-            </span></div>
-        </div>
-
         <div className="section-divider mt-5" />
       </div>
 
@@ -94,11 +84,6 @@ export default function SkillsPage() {
                         <span className="font-bold text-foreground" style={{ fontFamily: "Rajdhani, sans-serif" }}>
                           {skill.name}
                         </span>
-                        {skill.specialRule && (
-                          <span className="ability-tag text-[10px] text-amber-400 border-amber-400/40 bg-amber-400/10">
-                            Special
-                          </span>
-                        )}
                       </div>
                     </td>
                     <td className="px-4 py-3">
@@ -142,11 +127,6 @@ export default function SkillsPage() {
                         <span className="text-sm text-foreground font-medium">
                           {skill.name}
                         </span>
-                        {skill.specialRule && (
-                          <span className="ml-2 text-[10px] text-amber-400">
-                            ({skill.specialRule})
-                          </span>
-                        )}
                       </div>
                     </li>
                   ))}

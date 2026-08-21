@@ -1,6 +1,6 @@
 // =============================================================================
 // ItemsPage.tsx — All items with category filtering
-// Holonet Terminal design: dark sci-fi dashboard
+// Blades & Blasters items reference
 // =============================================================================
 
 import { useState } from "react";

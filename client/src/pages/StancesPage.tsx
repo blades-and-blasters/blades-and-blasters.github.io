@@ -1,6 +1,5 @@
 // =============================================================================
 // StancesPage.tsx — Lightsaber Stances + Fighting Styles
-// Holonet Terminal design: dark sci-fi dashboard
 // =============================================================================
 
 import { useState } from "react";
@@ -50,7 +49,7 @@ export default function StancesPage() {
           className="text-4xl font-bold text-foreground mb-2"
           style={{ fontFamily: "Rajdhani, sans-serif" }}
         >
-          Stances &amp; Fighting Styles
+          Styles
         </h1>
         <p className="text-muted-foreground max-w-2xl">
           Combat specializations chosen at 1st level. Lightsaber Stances are available to Force-sensitive classes; Fighting Styles are available to martial classes.
@@ -91,13 +90,6 @@ export default function StancesPage() {
       {/* ── LIGHTSABER STANCES ── */}
       {activeTab === "stances" && (
         <>
-          <div className="mb-5 glass-card rounded-lg p-4 border border-teal-400/20 bg-teal-400/5">
-            <p className="text-sm text-muted-foreground">
-              <strong className="text-foreground">Available to:</strong> Jedi Knight (1st level), Jedi Consular (1st level).{" "}
-              Each character selects <strong className="text-foreground">one stance</strong> at 1st level and retains it for the duration of their career.
-            </p>
-          </div>
-
           {/* Stance grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
             {lightsaberStances.map((stance, i) => {
@@ -182,13 +174,6 @@ export default function StancesPage() {
       {/* ── FIGHTING STYLES ── */}
       {activeTab === "fighting-styles" && (
         <>
-          <div className="mb-5 glass-card rounded-lg p-4 border border-amber-400/20 bg-amber-400/5">
-            <p className="text-sm text-muted-foreground">
-              <strong className="text-foreground">Available to:</strong> Trooper (1st level), Bounty Hunter (1st level).{" "}
-              Each character selects <strong className="text-foreground">one Fighting Style</strong> at 1st level. Styles marked with a class badge are exclusive to that class.
-            </p>
-          </div>
-
           {/* Style grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
             {fightingStyles.map((style, i) => {

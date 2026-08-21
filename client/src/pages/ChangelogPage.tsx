@@ -1,4 +1,4 @@
-// Holonet Terminal design system
+// Blades & Blasters changelog design
 // ChangelogPage — displays versioned release notes from gameData.ts
 // Dark sci-fi aesthetic: glowing accents, monospace version numbers, category badges
 
@@ -41,10 +41,6 @@ export default function ChangelogPage() {
     <div className="p-6 md:p-8 max-w-4xl mx-auto">
       {/* Header */}
       <div className="mb-8">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded border border-slate-600/50 bg-slate-800/50 text-slate-400 text-xs font-mono tracking-widest uppercase mb-4">
-          <ScrollText className="w-3 h-3" />
-          Holonet Terminal
-        </div>
         <h1 className="font-display text-4xl font-bold text-foreground mb-2">
           Changelog
         </h1>
