@@ -174,7 +174,7 @@ export default function Home() {
           Blades &amp; Blasters
         </h1>
         <p className="text-muted-foreground text-lg max-w-2xl leading-relaxed">
-          A comprehensive reference for classes, abilities, gadgets, and game mechanics.
+          A comprehensive reference for classes, abilities, gadgets, and game mechanics for this fanmade Star Wars game.
           Navigate using the sidebar to explore each section of the ruleset.
         </p>
         <div className="section-divider mt-6" />
