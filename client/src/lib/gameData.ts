@@ -1569,6 +1569,7 @@ description:
         "Technology",
       ],
     },
+    spellcastingAbility: "Dexterity",
     resources: [
       {
         name: "Gadget Slots",
