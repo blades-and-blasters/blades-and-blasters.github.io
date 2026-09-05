@@ -265,9 +265,7 @@ export default function TalentTreesPage() {
         </h1>
         <p className="text-muted-foreground max-w-2xl">
           Talent Trees provide optional specialisation paths available to any character. Each tree
-          has four tiers — at each tier you choose one of two talents. Talents are taken in place
-          of an Ability Score Improvement, or as granted by a class feature. Click a talent card
-          to mark it as selected.
+          has four tiers — at each tier you choose one of two talents. Talent Points are given at the same time as Ability Score Increases.
         </p>
       </div>
 
