@@ -10,7 +10,10 @@ interface RuleSection {
   title: string;
   content: string;
 }
-      {/* Supplies */}
+      
+const coreMechanics: RuleSection[] = [
+  ...coreRules.map((rule) => ({ title: rule.title, content: rule.description })),
+  {/* Supplies */}
       <h2 className="text-2xl font-bold text-foreground mb-4" style={{ fontFamily: "Rajdhani, sans-serif" }}>
         <Package size={20} className="inline mr-2 text-green-400" />
         Supplies
@@ -29,8 +32,6 @@ interface RuleSection {
         </div>
         <p className="text-sm text-muted-foreground mt-3">{suppliesSystem.resupplyNote}</p>
       </div>
-const coreMechanics: RuleSection[] = [
-  ...coreRules.map((rule) => ({ title: rule.title, content: rule.description })),
   {
     title: "Ability Score Improvement (ASI)",
     content:
