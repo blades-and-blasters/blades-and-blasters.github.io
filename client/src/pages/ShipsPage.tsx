@@ -2,7 +2,7 @@
 // ShipsPage.tsx — Starships, Modules, Systems Criticals, and Supplies
 // =============================================================================
 
-import { Rocket, Shield, Zap, Package } from "lucide-react";
+import { Rocket, Shield, Zap } from "lucide-react";
 import { ships, shipModules, systemsCriticals} from "@/lib/gameData";
 import { cn } from "@/lib/utils";
 
