@@ -4369,6 +4369,14 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
  {
+    version: "0.3.16",
+    date: "2026-09-06",
+    summary: "Adding crew actions to ships.",
+    changes: [
+      { category: "Ships", description: "Added 7 crew actions to ships that give other players something to do." },
+    ],
+  },
+ {
     version: "0.3.15",
     date: "2026-09-05",
     summary: "First playtest balance passthrough.",

@@ -2,9 +2,65 @@
 // ShipsPage.tsx — Starships, Modules, Systems Criticals, and Supplies
 // =============================================================================
 
-import { Rocket, Shield, Zap } from "lucide-react";
-import { ships, shipModules, systemsCriticals} from "@/lib/gameData";
-import { cn } from "@/lib/utils";
+import { Rocket, Shield, Users } from "lucide-react";
+import { ships, shipModules, systemsCriticals } from "@/lib/gameData";
+
+const crewActions = [
+  {
+    name: "Target Lock",
+    check: "Perception vs. target AC",
+    description: "Acquire and maintain a firing solution on one visible ship.",
+    effect: "On a success, choose one attack roll made by your ship against that target this turn and add +2 to the roll. The targeting data may instead be transmitted to an allied ship able to communicate with you, granting the bonus to one of its attacks against that target.",
+  },
+  {
+    name: "Tactical Scan",
+    check: "Perception vs. target AC",
+    description: "Perform a detailed sensor sweep of one visible ship.",
+    effect: "On a success, learn one of the following: its current HP and Temporary HP; Critical Damage Threshold; installed weapons; combat-relevant installed modules; current Systems Criticals; whether its hyperdrive is charging; or one other comparable piece of information approved by the GM. A Sensor Suite applies normally to this check.",
+  },
+  {
+    name: "Weak Point Analysis",
+    check: "Perception vs. target AC + 2",
+    description: "Identify vulnerable systems, damaged hull sections, exposed conduits, or predictable defensive patterns.",
+    effect: "On a success, if your ship causes the target to suffer a Systems Critical before the start of your next ship turn, roll twice on the Systems Critical table and choose which result applies. This affects only the first Systems Critical caused during that time.",
+  },
+  {
+    name: "Plot Intercept",
+    check: "Piloting · DC 15",
+    description: "Calculate an intercept vector and feed corrections to the pilot.",
+    effect: "On a success, the ship gains +10nmi Movement this turn. This additional movement may take the ship beyond its normal Movement for the turn.",
+  },
+  {
+    name: "Evasive Guidance",
+    check: "Piloting · DC 15",
+    description: "Track incoming fire and continuously feed the pilot evasive vectors.",
+    effect: "On a success, if the ship moves at least half of its normal Movement this turn, it gains +2 AC until the start of its next turn.",
+  },
+  {
+    name: "Jam Targeting",
+    check: "Technology vs. target AC",
+    description: "Interfere with an enemy's fire-control systems using false returns, electronic noise, and targeting interference.",
+    effect: "On a success, the target suffers −2 to its next shipboard weapon attack roll before the start of your next ship turn.",
+  },
+  {
+    name: "Spoof Missile Lock",
+    check: "Technology · DC 15",
+    description: "Feed false targeting information into incoming missile guidance systems.",
+    effect: "On a success, the next time your ship is attacked by a Concussion Missile Battery or Light Missile Pod before the start of its next turn, all attack rolls from that single weapon activation are made with Disadvantage. This does not negate the attack or replace the effects of a Decoy Launcher or Point-Defense Battery.",
+  },
+  {
+    name: "Emergency Bypass",
+    check: "Technology · DC 15",
+    description: "Temporarily bypass a damaged or destroyed system.",
+    effect: "Choose one existing Systems Critical other than Fire. On a success, ignore the mechanical effects of that Systems Critical until the start of your next ship turn. A Disabled Weapon or Damaged Module temporarily becomes functional during this period. The Systems Critical is not repaired, and each individual Systems Critical may only benefit from Emergency Bypass once per combat.",
+  },
+  {
+    name: "Fight Fire",
+    check: "Technology · DC 12",
+    description: "Attempt to extinguish a Fire Systems Critical using suppression systems, emergency bulkheads, or direct intervention.",
+    effect: "On a success, remove one Fire Systems Critical. On a failure, nothing happens and the Fire continues normally.",
+  },
+] as const;
 
 function StatBadge({ label, value }: { label: string; value: string | number }) {
   return (
@@ -48,6 +104,45 @@ export default function ShipsPage() {
           <li>While a ship has Temporary HP, it cannot receive any Systems Criticals, and damage to its Temporary HP does not count towards its Critical Damage Threshold.</li>
           <li>Jumping to Hyperspace requires one turn of chargeup.</li>
         </ul>
+      </div>
+
+      {/* Crew Actions */}
+      <div className="mb-10">
+        <div className="flex items-center gap-2 mb-2">
+          <Users size={20} className="text-emerald-400" />
+          <h2 className="text-2xl font-bold text-foreground" style={{ fontFamily: "Rajdhani, sans-serif" }}>
+            Crew Actions
+          </h2>
+        </div>
+        <p className="text-sm text-muted-foreground mb-4 max-w-3xl">
+          Once per ship turn, at any point during that turn, one conscious crewmember other than the pilot may perform one Crew Action. Crew Actions use the acting character's normal Skill modifiers, and any ship feature that modifies the relevant check also applies. If personal-scale combat is taking place aboard the ship, performing a Crew Action consumes that character's normal Action for the round.
+        </p>
+        <div className="glass-card rounded-xl p-4 border border-emerald-400/25 bg-emerald-400/[0.03] mb-4">
+          <p className="text-sm text-muted-foreground">
+            Unless otherwise stated, the effects of the same Crew Action do not stack. For example, a Sensor Suite grants its +2 bonus when a crewmember makes a Perception check using the ship's sensors, while Disabled or Damaged Generators impose their normal Disadvantage on those Perception checks.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          {crewActions.map((action) => (
+            <div
+              key={action.name}
+              className="glass-card rounded-lg p-4 border border-border/50 border-l-2 border-l-emerald-400"
+            >
+              <div className="flex items-start justify-between gap-3 flex-wrap mb-2">
+                <h3 className="text-base font-bold text-foreground" style={{ fontFamily: "Rajdhani, sans-serif" }}>
+                  {action.name}
+                </h3>
+                <span className="ability-tag text-emerald-400 border-emerald-400/40 bg-emerald-400/10 mono">
+                  {action.check}
+                </span>
+              </div>
+              <p className="text-sm text-muted-foreground mb-2">{action.description}</p>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                <span className="text-emerald-400 font-semibold">Effect:</span> {action.effect}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Ship Classes */}
