@@ -4,16 +4,19 @@
 
 import { BookOpen, AlertCircle, Package } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { conditions, coreRules, suppliesSystem  } from "@/lib/gameData";
+import { conditions, coreRules, suppliesSystem } from "@/lib/gameData";
 
 interface RuleSection {
   title: string;
   content: string;
 }
-      
+
 const coreMechanics: RuleSection[] = [
-  ...coreRules.map((rule) => ({ title: rule.title, content: rule.description })),
-  
+  ...coreRules.map((rule) => ({
+    title: rule.title,
+    content: rule.description,
+  })),
+
   {
     title: "Ability Score Improvement (ASI)",
     content:
@@ -215,6 +218,7 @@ Huge creatures are less than 15×15ft`,
 
 export default function RulesPage() {
   return (
+    <div>
       {/* Header */}
       <div className="mb-8">
         <div className="flex items-center gap-2 mb-2">
@@ -222,32 +226,54 @@ export default function RulesPage() {
             Rules
           </span>
         </div>
-        <h1 className="text-4xl font-bold text-foreground mb-2" style={{ fontFamily: "Rajdhani, sans-serif" }}>
+
+        <h1
+          className="text-4xl font-bold text-foreground mb-2"
+          style={{ fontFamily: "Rajdhani, sans-serif" }}
+        >
           Rules Reference
         </h1>
+
         <p className="text-muted-foreground max-w-2xl">
           Core mechanics, conditions, and combat rules for the system.
         </p>
+
         <div className="section-divider mt-5" />
       </div>
 
       {/* Conditions */}
       <div className="mb-8">
-        <h2 className="text-xl font-bold text-foreground mb-4" style={{ fontFamily: "Rajdhani, sans-serif" }}>
+        <h2
+          className="text-xl font-bold text-foreground mb-4"
+          style={{ fontFamily: "Rajdhani, sans-serif" }}
+        >
           Conditions
         </h2>
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {conditions.map((condition) => (
-            <div key={condition.name} className="glass-card rounded-lg p-5 border border-border/50">
+            <div
+              key={condition.name}
+              className="glass-card rounded-lg p-5 border border-border/50"
+            >
               <div className="flex items-center gap-2 mb-2">
-                <AlertCircle size={14} className="text-red-400 shrink-0" />
-                <h3 className="font-bold text-foreground text-sm" style={{ fontFamily: "Rajdhani, sans-serif" }}>
+                <AlertCircle
+                  size={14}
+                  className="text-red-400 shrink-0"
+                />
+
+                <h3
+                  className="font-bold text-foreground text-sm"
+                  style={{ fontFamily: "Rajdhani, sans-serif" }}
+                >
                   {condition.name}
                 </h3>
+
                 <span className="ability-tag text-red-400 border-red-400/40 bg-red-400/10 ml-auto">
                   condition
                 </span>
               </div>
+
               <p className="text-sm text-muted-foreground leading-relaxed">
                 {condition.description}
               </p>
@@ -258,25 +284,42 @@ export default function RulesPage() {
 
       {/* Core Mechanics */}
       <div className="mb-8">
-        <h2 className="text-xl font-bold text-foreground mb-4" style={{ fontFamily: "Rajdhani, sans-serif" }}>
+        <h2
+          className="text-xl font-bold text-foreground mb-4"
+          style={{ fontFamily: "Rajdhani, sans-serif" }}
+        >
           Core Mechanics
         </h2>
+
         <div className="space-y-3">
           {coreMechanics.map((rule) => (
-            <div key={rule.title} className="glass-card rounded-lg p-5 border border-border/50">
+            <div
+              key={rule.title}
+              className="glass-card rounded-lg p-5 border border-border/50"
+            >
               <div className="flex items-start gap-3">
                 <div className="shrink-0 mt-0.5">
                   <BookOpen size={14} className="text-green-400" />
                 </div>
+
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap mb-2">
-                    <h3 className="font-bold text-foreground text-sm" style={{ fontFamily: "Rajdhani, sans-serif" }}>
+                    <h3
+                      className="font-bold text-foreground text-sm"
+                      style={{ fontFamily: "Rajdhani, sans-serif" }}
+                    >
                       {rule.title}
                     </h3>
-                    <span className={cn("ability-tag text-green-400 border-green-400/40 bg-green-400/10")}>
+
+                    <span
+                      className={cn(
+                        "ability-tag text-green-400 border-green-400/40 bg-green-400/10"
+                      )}
+                    >
                       mechanic
                     </span>
                   </div>
+
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     {rule.content}
                   </p>
@@ -286,32 +329,60 @@ export default function RulesPage() {
           ))}
         </div>
       </div>
-	  
-  {/* Supplies */}
-      <h2 className="text-2xl font-bold text-foreground mb-4" style={{ fontFamily: "Rajdhani, sans-serif" }}>
-        <Package size={20} className="inline mr-2 text-green-400" />
-        Supplies
-      </h2>
-      <div className="glass-card rounded-xl p-5 border border-border/50">
-        <p className="text-sm text-muted-foreground mb-3">{suppliesSystem.description}</p>
-        <div className="flex flex-wrap gap-4 text-sm">
-          <div>
-            <span className="text-foreground/60">Max carried:</span>{" "}
-            <span className="font-semibold text-foreground">{suppliesSystem.maxCarried} days</span>
+
+      {/* Supplies */}
+      <div className="mb-8">
+        <h2
+          className="text-2xl font-bold text-foreground mb-4"
+          style={{ fontFamily: "Rajdhani, sans-serif" }}
+        >
+          <Package
+            size={20}
+            className="inline mr-2 text-green-400"
+          />
+          Supplies
+        </h2>
+
+        <div className="glass-card rounded-xl p-5 border border-border/50">
+          <p className="text-sm text-muted-foreground mb-3">
+            {suppliesSystem.description}
+          </p>
+
+          <div className="flex flex-wrap gap-4 text-sm">
+            <div>
+              <span className="text-foreground/60">
+                Max carried:
+              </span>{" "}
+              <span className="font-semibold text-foreground">
+                {suppliesSystem.maxCarried} days
+              </span>
+            </div>
+
+            <div>
+              <span className="text-foreground/60">
+                Ship storage:
+              </span>{" "}
+              <span className="font-semibold text-foreground">
+                {suppliesSystem.shipStorage} days
+              </span>
+            </div>
           </div>
-          <div>
-            <span className="text-foreground/60">Ship storage:</span>{" "}
-            <span className="font-semibold text-foreground">{suppliesSystem.shipStorage} days</span>
-          </div>
+
+          <p className="text-sm text-muted-foreground mt-3">
+            {suppliesSystem.resupplyNote}
+          </p>
         </div>
-        <p className="text-sm text-muted-foreground mt-3">{suppliesSystem.resupplyNote}</p>
       </div>
-		</div>
+
       {/* Combat Rules */}
       <div className="mb-8">
-        <h2 className="text-xl font-bold text-foreground mb-3" style={{ fontFamily: "Rajdhani, sans-serif" }}>
+        <h2
+          className="text-xl font-bold text-foreground mb-3"
+          style={{ fontFamily: "Rajdhani, sans-serif" }}
+        >
           Combat Rules
         </h2>
+
         {/* Quick Nav */}
         <div className="flex flex-wrap gap-2 mb-6">
           {combatRules.map((section) => (
@@ -324,12 +395,21 @@ export default function RulesPage() {
             </a>
           ))}
         </div>
+
         <div className="space-y-4">
           {combatRules.map((section) => (
-            <div key={section.id} id={section.id} className="glass-card rounded-xl p-5 border border-border/50">
-              <h3 className="text-base font-bold text-foreground mb-2" style={{ fontFamily: "Rajdhani, sans-serif" }}>
+            <div
+              key={section.id}
+              id={section.id}
+              className="glass-card rounded-xl p-5 border border-border/50"
+            >
+              <h3
+                className="text-base font-bold text-foreground mb-2"
+                style={{ fontFamily: "Rajdhani, sans-serif" }}
+              >
                 {section.title}
               </h3>
+
               <div className="text-sm text-muted-foreground leading-relaxed whitespace-pre-line">
                 {section.content}
               </div>
