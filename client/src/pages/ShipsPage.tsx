@@ -152,8 +152,5 @@ export default function ShipsPage() {
           </div>
         ))}
       </div>
-
-
-    </div>
   );
 }

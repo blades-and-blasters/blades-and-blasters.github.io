@@ -215,26 +215,6 @@ Huge creatures are less than 15×15ft`,
 
 export default function RulesPage() {
   return (
-  {/* Supplies */}
-      <h2 className="text-2xl font-bold text-foreground mb-4" style={{ fontFamily: "Rajdhani, sans-serif" }}>
-        <Package size={20} className="inline mr-2 text-green-400" />
-        Supplies
-      </h2>
-      <div className="glass-card rounded-xl p-5 border border-border/50">
-        <p className="text-sm text-muted-foreground mb-3">{suppliesSystem.description}</p>
-        <div className="flex flex-wrap gap-4 text-sm">
-          <div>
-            <span className="text-foreground/60">Max carried:</span>{" "}
-            <span className="font-semibold text-foreground">{suppliesSystem.maxCarried} days</span>
-          </div>
-          <div>
-            <span className="text-foreground/60">Ship storage:</span>{" "}
-            <span className="font-semibold text-foreground">{suppliesSystem.shipStorage} days</span>
-          </div>
-        </div>
-        <p className="text-sm text-muted-foreground mt-3">{suppliesSystem.resupplyNote}</p>
-      </div>
-    <div className="p-6 lg:p-8 max-w-5xl">
       {/* Header */}
       <div className="mb-8">
         <div className="flex items-center gap-2 mb-2">
@@ -306,7 +286,27 @@ export default function RulesPage() {
           ))}
         </div>
       </div>
-
+	  
+  {/* Supplies */}
+      <h2 className="text-2xl font-bold text-foreground mb-4" style={{ fontFamily: "Rajdhani, sans-serif" }}>
+        <Package size={20} className="inline mr-2 text-green-400" />
+        Supplies
+      </h2>
+      <div className="glass-card rounded-xl p-5 border border-border/50">
+        <p className="text-sm text-muted-foreground mb-3">{suppliesSystem.description}</p>
+        <div className="flex flex-wrap gap-4 text-sm">
+          <div>
+            <span className="text-foreground/60">Max carried:</span>{" "}
+            <span className="font-semibold text-foreground">{suppliesSystem.maxCarried} days</span>
+          </div>
+          <div>
+            <span className="text-foreground/60">Ship storage:</span>{" "}
+            <span className="font-semibold text-foreground">{suppliesSystem.shipStorage} days</span>
+          </div>
+        </div>
+        <p className="text-sm text-muted-foreground mt-3">{suppliesSystem.resupplyNote}</p>
+      </div>
+		</div>
       {/* Combat Rules */}
       <div className="mb-8">
         <h2 className="text-xl font-bold text-foreground mb-3" style={{ fontFamily: "Rajdhani, sans-serif" }}>
