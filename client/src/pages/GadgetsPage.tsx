@@ -42,7 +42,7 @@ export default function GadgetsPage() {
             Gadget save DC: 8 + Intelligence modifier + proficiency bonus.
           </p>
           <p className="text-muted-foreground">
-            Choose your equipped gadgets at the end of a Long Rest. Equipped gadgets occupy Gadget Slots until your next Long Rest or until changed during one hour of downtime with access to your stored inventory. A gadget that has expended its uses remains equipped. You may equip only one copy of a gadget unless its description states otherwise.
+            Choose your equipped gadgets at the end of a Long Rest. Equipped gadgets occupy Gadget Slots until your next Long Rest or until changed during one hour of downtime with access to your stored inventory. A gadget that has expended its uses remains equipped. You may equip only one copy of a gadget unless its description states otherwise. All Gadgets automatically refill upon completion of a Long Rest.
           </p>
         </div>
         <div className="section-divider mt-5" />

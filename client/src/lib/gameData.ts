@@ -504,7 +504,7 @@ export const classes: CharacterClass[] = [
             level: 3,
             name: "Defensive Ward",
             description:
-              "Use 10 Focus to gain the ability to reflect blaster bolts that travel within 5ft of you for one turn. Each reflected bolt, whether by this or another source of reflection, grants 5 Focus. Costs an action.",
+              "As an action, gain the ability to attempt to deflect all incoming attacks that pass within 5ft of you. Make a Dexterity save. If it is higher than the attack roll, reflect the attack. For 15 Focus, you may attempt to reflect ranged attacks. Make a proficient Dexterity-based Ranged Attack that deals the damage the incoming attack would have done. Each reflected bolt, whether by this or another source of reflection, grants 5 Focus. Costs an action.",
             type: "active",
           },
           {
@@ -1753,7 +1753,7 @@ description:
         classResource: {
           name: "Heat",
           description:
-            "Vents at a rate of 5/turn. Maximum of 100. Deals 1d8 self-damage when above 80 Heat and 2d8 above 90 Heat. Disables all abilities when at 100, until cooled down to at least 50.",
+            "Vents at a rate of 5/turn. Maximum of 100. Deals 1d8 self-damage per turn when above 80 Heat and 2d8 per turn above 90 Heat. Disables all abilities when at 100, until cooled down to at least 50.",
           maxValue: 100,
           recharge: "Passive venting (5/turn)",
         },
@@ -1809,15 +1809,15 @@ description:
           },
         ],
         mercenaryAbilities: [
-          { id: "explosive-dart", name: "Explosive Dart", heatCost: 15, description: "Launch an Explosive Dart at a target within 30ft. Wisdom save or Frightened for one turn. After one turn, detonates for 1d12 damage in 5ft radius.", tier50: "2d8.", tier70: "2d12." },
-          { id: "rocket-punch", name: "Rocket Punch", heatCost: 15, description: "Launch yourself at an enemy within 30ft. Contested Dexterity check — success: 1d8 damage; fail: no damage.", tier50: "+1d4 in 5ft area along path.", tier70: "+1d8 in 5ft area." },
-          { id: "spare-tibanna-canister", name: "Spare Tibanna Canister", heatCost: 10, description: "Throw a canister up to 45ft, creating a 10ft cloud. Next blaster bolt through the cloud detonates it for 1d6 damage to all in area.", tier50: "2d6.", tier70: "15ft diameter." },
-          { id: "ionic-tether", name: "Ionic Tether", heatCost: 15, description: "Make a ranged attack roll against a target within 30ft. On a hit: 1d8 damage, −15ft movement until the start of your next turn.", tier50: "Movement reduced to 0.", tier70: "2d8 damage, remove reactions." },
-          { id: "magnetic-imploder", name: "Magnetic Imploder", heatCost: 25, description: "Launch within 30ft, 10ft radius. Enemies in range pass Strength save or be sucked to center. 2d6 damage (halved on save).", tier50: "2d10.", tier70: "15ft radius." },
-          { id: "railgun", name: "Railgun", heatCost: 20, description: "Fire a bolt in a 5ft wide, 30ft long line, making a separate attack roll against each target in the line. Deals 1d10 damage per hit. The bolt stops when it misses or the target has full cover.", tier50: "2d8.", tier70: "10ft wide." },
-          { id: "fragmentation-flechette", name: "Fragmentation Flechette", heatCost: 15, description: "Make a ranged attack roll against a target within 60ft. On a hit: 1d8 damage to the primary target, then 1d6 to all creatures in a 15ft cone extending behind the primary target (Dexterity save for half).", tier50: "1d12 primary, 1d10 secondary.", tier70: "30ft cone." },
-          { id: "magnetic-exploder", name: "Magnetic Exploder", heatCost: 25, description: "Launch within 30ft. Enemies within 10ft pass Strength save or be pushed 10ft away. 2d6 damage (halved on save).", tier50: "2d10.", tier70: "15ft radius." },
-          { id: "overdrive", name: "Overdrive", heatCost: 10, description: "Requires 50+ Heat. Increase all ability damage by 1d8. All abilities generate +5 Heat. Lasts 2 turns. Overrides your normal Overheat threshold, allowing ability usage and allowing Heat to exceed that threshold while active. Emergency Vent ends this immediately.", noAction: true },
+          { id: "explosive-dart", name: "Explosive Dart", heatCost: 15, description: "Launch an Explosive Dart at a target within 30ft. This target must pass a Wisdom save or be Frightened until the beginning of your next turn. After that turn, detonates for 1d12 damage in 5ft radius.", tier50: "2d8.", tier70: "2d12." },
+          { id: "rocket-punch", name: "Rocket Punch", heatCost: 15, description: "Launch yourself at an enemy within 30ft. Make a contested Dexterity check. On a success, deal 1d8 damage; on a fail, do 0 damage.", tier50: "+1d4 in 5ft area along path.", tier70: "+1d8 in 10ft area around the target." },
+          { id: "spare-tibanna-canister", name: "Spare Tibanna Canister", heatCost: 10, description: "Throw a canister up to 45ft, creating a 10ft cloud. The next ranged attack that passes through this cloud detonates it for 1d6 damage to all in area.", tier50: "2d6.", tier70: "15ft diameter." },
+          { id: "ionic-tether", name: "Ionic Tether", heatCost: 15, description: "Make a proficient Dexterity-based ranged attack roll against a target within 30ft. On a hit, deal 1d8 damage and reduce their movement by 15ft until the start of your next turn.", tier50: "Movement reduced to 0.", tier70: "2d8 damage, and remove reactions." },
+          { id: "magnetic-imploder", name: "Magnetic Imploder", heatCost: 25, description: "Throw the imploder at a space within 30ft. Enemies within 10ft of the imploder must pass a Strength save or be sucked to the center, dealing 2d6 damage, or half on a successful save.", tier50: "2d10.", tier70: "15ft radius." },
+          { id: "railgun", name: "Railgun", heatCost: 20, description: "Fire a bolt in a 5ft wide, 30ft long line, making a separate attack roll against each target in the line. Deals 1d10 damage per hit. The bolt stops when it misses or if it impacts into full cover.", tier50: "2d8.", tier70: "10ft wide." },
+          { id: "fragmentation-flechette", name: "Fragmentation Flechette", heatCost: 15, description: "Make a ranged attack roll against a target within 60ft. On a hit, deal 1d8 damage to the primary target, then 1d6 to all creatures in a 15ft cone extending behind the primary target. Both primary and secondary targets may make a Dexterity save to take half damage.", tier50: "1d12 primary, 1d10 secondary.", tier70: "30ft cone." },
+          { id: "magnetic-exploder", name: "Magnetic Exploder", heatCost: 25, description: "Throw the exploder at a space within 30ft. Enemies within 10ft of the exploder must pass a Strength save. On a failure, they are pushed 10ft away, dealing 2d6 damage, or half on a successful save.", tier50: "2d10.", tier70: "15ft radius." },
+          { id: "overdrive", name: "Overdrive", heatCost: 10, description: "Requires 50+ Heat. Increase all ability damage by 1d8. For two turns, all abilities generate +5 Heat. Overrides your normal Overheat threshold, allowing ability usage and allowing Heat to exceed that threshold while active. Emergency Vent ends this immediately.", noAction: true },
         ],
       },
     ],
@@ -2232,7 +2232,7 @@ description:
           {
             id: "weirdling",
             name: "Weirdling",
-            description: "Gain the ability to channel your Force abilities through the Horror, enabling it to serve as the origin point for all abilities.",
+            description: "Gain the ability to channel your Force abilities through the Horror, enabling it to serve as the origin point for all abilities. All benefits from these abilities still apply to you, not the Horror.",
             overload: "Gain Advantage on all Force Ability attack rolls made through the Horror.",
           },
           {
@@ -2355,7 +2355,7 @@ export const forceAbilities: ForceAbility[] = [
     alignment: "universal",
     cost: "1 Force Point",
     actionType: "Action",
-    range: "30ft",
+    range: "60ft",
     description:
       "Push or pull an object 20lbs or less up to 30ft. If this impacts an enemy, they must make a Strength save or take 1d6 damage.",
     tags: ["Telekinesis", "Utility", "Damage", "Universal"],
@@ -2376,7 +2376,7 @@ export const forceAbilities: ForceAbility[] = [
     alignment: "light",
     cost: "2 Force Points",
     actionType: "Action",
-    range: "15ft",
+    range: "30ft",
     description:
       "Push or pull an object 200lbs or a Medium creature up to 15ft. If this impacts an enemy, they must make a Strength save. On a failure, they take 6d6 damage and are moved 15ft. On a success, they take half and are unmoved.",
     tags: ["Telekinesis", "Damage"],
@@ -2431,7 +2431,7 @@ export const forceAbilities: ForceAbility[] = [
     alignment: "light",
     cost: "1 Force Point",
     actionType: "Bonus Action",
-    range: "Battlefield",
+    range: "300ft",
     description:
       "Choose up to three visible creatures. The GM tells you their current intended movement, target, and Action for their next turn. Their intentions may change if circumstances materially change before they act.",
     tags: ["Divination", "Tactical"],
@@ -2444,7 +2444,7 @@ export const forceAbilities: ForceAbility[] = [
     actionType: "Bonus Action",
     range: "30ft",
     description:
-      "Determine the emotional state of any creature within 30ft.",
+      "Determine the emotional state of any creature.",
     tags: ["Sense", "Social"],
   },
   {
@@ -2475,7 +2475,7 @@ export const forceAbilities: ForceAbility[] = [
     alignment: "light",
     cost: "4 Force Points",
     actionType: "Action",
-    range: "Allies",
+    range: "30ft",
     description:
       "Increase the AC and Attack rolls of all allies within 30ft by 2 for one minute.",
     tags: ["Support", "Buff", "Concentration"],
@@ -2486,7 +2486,7 @@ export const forceAbilities: ForceAbility[] = [
     alignment: "light",
     cost: "3 Force Points",
     actionType: "Action",
-    range: "Close",
+    range: "30ft",
     description:
       "Place an object or person in Stasis for two turns. People may make a Strength save to break free and are Slowed, while objects are completely stopped.",
     tags: ["Control", "Concentration"],
@@ -2497,7 +2497,7 @@ export const forceAbilities: ForceAbility[] = [
     alignment: "light",
     cost: "5 Force Points",
     actionType: "Action",
-    range: "Close",
+    range: "15ft",
     description:
       "Suspend up to three targets for one minute or until your concentration breaks. Suspended targets cannot move, attack, or use items. Every turn (including initially), they may make a Strength save to attempt to break free.",
     tags: ["Control", "Concentration"],
@@ -2519,7 +2519,7 @@ export const forceAbilities: ForceAbility[] = [
     alignment: "light",
     cost: "2 Force Points",
     actionType: "Action",
-    range: "Close",
+    range: "10ft",
     description:
       "Attempt to induce sleep in an enemy for 10 minutes. They may make a Wisdom save to attempt to remain awake. Any damage, a loud noise, or an ally using the Help action will wake them up.",
     tags: ["Mental", "Control"],
@@ -2608,7 +2608,7 @@ export const forceAbilities: ForceAbility[] = [
     alignment: "dark",
     cost: "6 Force Points",
     actionType: "Action",
-    range: "30ft",
+    range: "15ft",
     description:
       "Target makes a Wisdom save. On failure, implant a trigger phrase, concept, or sensory stimulus. For one hour, the first time that trigger occurs, the bomb detonates. Creatures within 20 ft make an Intelligence save, taking 6d6 psychic damage on failure or half on success. The implanted target is aware something has entered its mind but does not know the trigger.",
     tags: ["Mental", "Damage", "AOE", "Dark Side"],
@@ -2674,7 +2674,7 @@ export const forceAbilities: ForceAbility[] = [
     alignment: "dark",
     cost: "4 Force Points",
     actionType: "Action",
-    range: "60ft",
+    range: "30ft",
     description:
       "Target a creature within 60ft. The target must make a Constitution save or become restrained for up to one minute, taking 3d8 force damage at the start of each of its turns and being unable to speak. As a bonus action against a Choked target, you may deal an additional 1d8 force damage. The target may repeat the save at the end of each turn.",
     tags: ["Telekinesis", "Control", "Damage", "Concentration", "Dark Side"],
@@ -2701,7 +2701,6 @@ export const forceAbilities: ForceAbility[] = [
       "Drain vitality from a creature within 30ft. The target takes 4d8 damage and you regain hit points equal to a quarter of the damage dealt. The target may make a Constitution save for half damage; on a failed save it has disadvantage on its next attack roll.",
     tags: ["Damage", "Healing", "Necrotic", "Dark Side"],
   },
-  // ── New Light abilities ──────────────────────────────────────────────────
   {
     id: "force-tether",
     name: "Force Tether",
@@ -2752,7 +2751,7 @@ export const forceAbilities: ForceAbility[] = [
     alignment: "light",
     cost: "3 Force Points",
     actionType: "Action",
-    range: "Self (15ft radius)",
+    range: "15ft",
     description:
       "For one minute, all allies within a 15ft radius gain Advantage on saving throws.",
     tags: ["Protection", "Aura", "Concentration", "Light Side"],
@@ -2768,7 +2767,7 @@ export const forceAbilities: ForceAbility[] = [
       "When an ally within 30 ft would take damage, reduce that damage by half. You take damage equal to the amount prevented.",
     tags: ["Protection", "Reaction", "Light Side"],
   },
-  // ── New Neutral abilities ────────────────────────────────────────────────
+
   {
     id: "life-sense",
     name: "Life Sense",
@@ -2975,16 +2974,6 @@ export const gadgets: Gadget[] = [
     actionType: "Bonus Action",
   },
   {
-    id: "rebreather",
-    name: "Rebreather",
-    slots: 1,
-    uses: "Unlimited",
-    description:
-      "Gain the ability to breathe in low or no-oxygen environments, including underwater and in space.",
-    tags: ["Survival", "Utility"],
-    actionType: "Passive",
-  },
-  {
     id: "tracking-beacon",
     name: "Tracking Beacon",
     slots: 2,
@@ -2993,15 +2982,6 @@ export const gadgets: Gadget[] = [
       "Attach a tracking beacon to a target or vehicle. Can track them anywhere within a hundred parsecs.",
     tags: ["Utility", "Surveillance"],
     actionType: "Bonus Action",
-  },
-  {
-    id: "nvgs",
-    name: "NVGs",
-    slots: 1,
-    uses: "Unlimited",
-    description: "Gain 60ft of Darkvision.",
-    tags: ["Utility", "Vision"],
-    actionType: "Passive",
   },
   {
     id: "enhanced-sensor-suite",
@@ -3039,7 +3019,7 @@ export const gadgets: Gadget[] = [
     slots: 2,
     uses: "1 use",
     description:
-      "Explosively destroy up to 5ft of wall or door, dealing 2d6 damage to all enemies in a 10ft cone behind the charge.",
+      "Explosively destroy up to 5ft of wall or door, dealing 2d6 damage to all enemies in a 20ft cone behind the charge.",
     tags: ["Damage", "Utility"],
     actionType: "Bonus Action",
   },
@@ -3178,9 +3158,9 @@ export const gadgets: Gadget[] = [
     slots: 2,
     uses: "Unlimited",
     description:
-      "Gain two electromagnetic attractors, each of which may be placed on a Bonus Action. As a free action, you may enable or disable them. As long as they are within 45ft of each other, the two objects they are attached to will pull towards each other with 500lbs of force each.",
+      "Gain two electromagnetic attractors, each of which may be placed as an Action. As another action, they may be enabled or disabled. As long as they are within 45ft of each other, the two objects they are attached to will pull towards each other with 500lbs of force each. If you target an enemy with this, you must make a proficient Dexterity-based melee attack roll to successfully plant it.",
     tags: ["Utility", "Control"],
-    actionType: "Bonus Action",
+    actionType: "Action",
   },
 ];
 
@@ -3720,7 +3700,7 @@ export const weapons: Weapon[] = [
     id: "vibroknife",
     name: "Vibroknife",
     category: "vibroweapon",
-    damage: "1d4",
+    damage: "1d6",
     properties: ["Finesse", "Light", "Vibrocutter"],
     price: 800,
 
@@ -3931,6 +3911,22 @@ export const items: Item[] = [
 
   },
 
+  {
+    id: "nvgs",
+    name: "NVGs",
+	category: "Tool",
+    description: "Gain 60ft of Darkvision.",
+    price: 2000,
+  },
+  
+  {
+    id: "rebreather",
+    name: "Rebreather",
+	category: "Tool",
+    description:
+      "Gain the ability to breathe in low or no-oxygen environments, including underwater and in space.",
+	  price: 1500,
+  },
   {
     id: "motion-sensor",
     name: "Motion Sensor",
@@ -4372,6 +4368,17 @@ export interface ChangelogEntry {
 }
 
 export const changelog: ChangelogEntry[] = [
+ {
+    version: "0.3.15",
+    date: "2026-09-05",
+    summary: "First playtest balance passthrough.",
+    changes: [
+      { category: "Guardian", description: "Adjusted Defensive Ward to not cost focus to activate, but require Focus to deflect." },
+      { category: "Force Abilities", description: "Normalized many ranges." },
+	  { category: "Gadgets and Items", description: "Moved Rebreather and NVGs to Items" },
+	  { category: "Gadgets", description: "Buffed Breaching Charge to 20ft" },
+    ],
+  },
   {
     version: "0.3.14",
     date: "2026-08-21",
