@@ -3,7 +3,7 @@
 // =============================================================================
 
 import { Rocket, Shield, Zap, Package } from "lucide-react";
-import { ships, shipModules, systemsCriticals,} from "@/lib/gameData";
+import { ships, shipModules, systemsCriticals} from "@/lib/gameData";
 import { cn } from "@/lib/utils";
 
 function StatBadge({ label, value }: { label: string; value: string | number }) {
