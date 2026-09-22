@@ -3,7 +3,7 @@
 // =============================================================================
 
 import { Rocket, Shield, Users } from "lucide-react";
-import { ships, shipModules, systemsCriticals } from "@/lib/gameData";
+import { ships, shipModules, systemsCriticals, shipRules } from "@/lib/gameData";
 
 const crewActions = [
   {
@@ -16,7 +16,7 @@ const crewActions = [
     name: "Tactical Scan",
     check: "Perception vs. target AC",
     description: "Perform a detailed sensor sweep of one visible ship.",
-    effect: "On a success, learn one of the following: its current HP and Temporary HP; Critical Damage Threshold; installed weapons; combat-relevant installed modules; current Systems Criticals; whether its hyperdrive is charging; or one other comparable piece of information approved by the GM. A Sensor Suite applies normally to this check.",
+    effect: "On a success, learn one of the following: its current HP and Shields; Critical Damage Threshold; installed weapons; combat-relevant installed modules; current Systems Criticals; whether its hyperdrive is charging; or one other comparable piece of information approved by the GM. A Sensor Suite applies normally to this check.",
   },
   {
     name: "Weak Point Analysis",
@@ -95,13 +95,13 @@ export default function ShipsPage() {
       <div className="glass-card rounded-xl p-5 border border-border/50 mb-8">
         <h2 className="text-lg font-bold text-foreground mb-3" style={{ fontFamily: "Rajdhani, sans-serif" }}>General Rules</h2>
         <ul className="text-sm text-muted-foreground space-y-1.5 list-disc list-inside">
-          <li>Each ship class has a number of module slots. Installing or swapping modules requires one week of dockyard time.</li>
-          <li>Each module must be purchased individually. Installation costs 20% of the module's purchase price.</li>
+          <li>{shipRules.moduleInstallation}</li>
           <li>Each ship has an additional character sheet.</li>
           <li>All shipboard weapons may be fired at once, unless otherwise stated. Targets must be declared before rolls are made.</li>
           <li>After taking at least your Critical Damage Threshold in damage in one turn, cause a Systems Critical on your ship.</li>
-          <li>Each ship has a free DEX-based 1d4, 25nmi weapon.</li>
-          <li>While a ship has Temporary HP, it cannot receive any Systems Criticals, and damage to its Temporary HP does not count towards its Critical Damage Threshold.</li>
+          <li>Every ship comes standard with a Light Turbolaser Battery: 0 credits, 1d4 damage, 25nmi range, DEX-based.</li>
+          <li>While a ship has Shields, it cannot receive any Systems Criticals, and damage to its Shields does not count toward its Critical Damage Threshold.</li>
+          <li>{shipRules.repairs}</li>
           <li>Jumping to Hyperspace requires one turn of chargeup.</li>
         </ul>
       </div>
@@ -230,7 +230,7 @@ export default function ShipsPage() {
         Systems Criticals
       </h2>
       <p className="text-sm text-muted-foreground mb-4">
-        When a ship takes damage equal to or exceeding its Critical Damage Threshold in a single turn, roll 1d8 on this table.
+        When a ship takes damage equal to or exceeding its Critical Damage Threshold in a single turn, roll 1d8 on this table. {shipRules.criticalRerolls}
       </p>
       <div className="space-y-2 mb-10">
         {systemsCriticals.map((sc) => (

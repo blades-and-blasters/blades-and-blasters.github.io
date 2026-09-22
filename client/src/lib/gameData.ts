@@ -133,6 +133,7 @@ export interface MarauderAbility {
   id: string;
   name: string;
   rageCost: number;
+  actionType: "Action" | "Bonus Action" | "Reaction" | "Free Action";
   description: string;
   overcharge?: string;
 }
@@ -140,6 +141,7 @@ export interface JuggernautAbility {
   id: string;
   name: string;
   rageCost: number;
+  actionType: "Action" | "Bonus Action" | "Reaction" | "Free Action";
   description: string;
   overcharge?: string;
 }
@@ -179,7 +181,7 @@ export const fightingStyles: FightingStyle[] = [
   {
     id: "blaster",
     name: "Blaster",
-    description: "Gain +2 to Blaster attacks.",
+    description: "Gain +2 to attack rolls made with Blasters.",
     availableTo: ["Trooper", "Bounty Hunter"],
   },
   {
@@ -191,7 +193,8 @@ export const fightingStyles: FightingStyle[] = [
   {
     id: "heavy-weapon-fighting",
     name: "Heavy Weapon Fighting",
-    description: "Two-handed weapons (melee and ranged) can reroll 1s and 2s for damage.",
+    description:
+      "When rolling damage with a two-handed weapon, melee or ranged, you may reroll damage dice that roll a 1 or 2.",
     availableTo: ["Trooper", "Bounty Hunter"],
   },
   {
@@ -204,13 +207,13 @@ export const fightingStyles: FightingStyle[] = [
     id: "close-quarters-shooter",
     name: "Close Quarters Shooter",
     description:
-      "No disadvantage on ranged attacks within 5ft of a hostile creature. Ignore half and three-quarters cover within 30ft. +1 to ranged attack rolls.",
+      "You do not suffer Disadvantage on ranged attacks while within 5ft of a hostile creature. Ignore Half Cover and Three-Quarters Cover within 15ft. Gain +1 to ranged attack rolls.",
     availableTo: ["Trooper", "Bounty Hunter"],
   },
   {
     id: "gadgeteer",
     name: "Gadgeteer",
-    description: "Gain +2 to hit and to damage from Gadgets only.",
+    description: "Gain +2 to attack and damage rolls made with Gadgets.",
     availableTo: ["Bounty Hunter"],
   },
 ];
@@ -258,31 +261,32 @@ export interface Skill {
 export const lightsaberStances: Stance[] = [
   {
     name: "Shii-Cho",
-    description: "Add +1 to Lightsaber attacks and damage.",
+    description: "Gain +1 to Lightsaber attack and damage rolls.",
   },
   {
     name: "Makashi",
-    description: "Add +2 to Lightsaber attacks.",
+    description: "Gain +2 to Lightsaber attack rolls.",
   },
   {
     name: "Soresu",
-    description: "Add +1 to Dexterity Saves.",
+    description: "Gain +1 to Dexterity saving throws.",
   },
   {
     name: "Ataru",
-    description: "Hits allow a free additional 5ft of movement.",
+    description: "After landing a Lightsaber attack, gain 5ft of movement.",
   },
   {
     name: "Djem So",
-    description: "Add +2 to Lightsaber damage.",
+    description: "Gain +2 to Lightsaber damage rolls.",
   },
   {
     name: "Niman",
-    description: "Extends the range of Force Abilities by 5ft.",
+    description: "Increase the range of your Force Abilities by 10ft.",
   },
   {
     name: "Vapaad",
-    description: "-2 to Dexterity Saves, but +2 to Lightsaber attacks and damage.",
+    description:
+      "Take −2 to Dexterity saving throws, but gain +2 to Lightsaber attack and damage rolls.",
   },
 ];
 
@@ -299,7 +303,7 @@ export const classes: CharacterClass[] = [
     accent: "blue",
     tagline: "Warrior of the Force, defender of peace.",
     description:
-      "The Jedi Knight is a martial Force-user who balances lightsaber mastery with Force ability. Through the accumulation of Focus, they achieve heightened states of combat awareness, reflecting the Jedi Code's philosophy of peace through inner stillness.",
+      "The Jedi Knight is a martial Force-user who balances Lightsaber mastery with mastery of the Force. Through the accumulation of Focus, they achieve heightened states of combat awareness, reflecting the Jedi Code's philosophy of peace through inner stillness.",
     hitDie: "1d10",
     armorProficiencies: ["Light", "Medium"],
     weaponProficiencies: ["Lightsabers"],
@@ -322,23 +326,23 @@ export const classes: CharacterClass[] = [
       {
         name: "Focus",
         description:
-          "Starts at 0, increases up to 100. Gain 20 Focus upon landing a hit while below 50 Focus, and 10 Focus upon landing a hit while at or above 50 focus. May exchange 20 Focus for one Force Point.",
+          "Focus starts at 0 and can increase to a maximum of 100. Gain 20 Focus when you land a hit while below 50 Focus, or 10 Focus when you land a hit while at or above 50 Focus. You may exchange 20 Focus for one Force Point.",
         maxValue: 100,
         recharge: "Gained in combat",
       },
       {
         name: "Force Points",
         description:
-          "Used to power Force abilities. Gain 1 per level.",
+          "Used to power Force Abilities. Gain 1 Force Point per level.",
         maxValue: "1 per level",
-        recharge: "Long rest",
+        recharge: "Long Rest",
       },
-	  {
-		name: "Force Abilities Known",
+      {
+        name: "Force Abilities Known",
         description: "Learn 1 Force Ability per level.",
         maxValue: "1 per level",
         recharge: "Permanent",
-	  },
+      },
     ],
     features: [
       {
@@ -352,13 +356,13 @@ export const classes: CharacterClass[] = [
         level: 2,
         name: "Focus",
         description:
-          "Starts at 0, increases up to 100. Gain 20 Focus upon landing a hit while below 50 Focus, and 10 Focus upon landing a hit while at or above 50 Focus. May exchange 20 Focus for one Force Point.",
+          "Focus starts at 0 and can increase to a maximum of 100. Gain 20 Focus when you land a hit while below 50 Focus, or 10 Focus when you land a hit while at or above 50 Focus. You may exchange 20 Focus for one Force Point.",
         type: "resource",
       },
       {
         level: 3,
         name: "Subclass",
-        description: "Pick a subclass: Sentinel or Guardian.",
+        description: "Choose a subclass: Sentinel or Guardian.",
         type: "subclass",
       },
       {
@@ -371,7 +375,8 @@ export const classes: CharacterClass[] = [
       {
         level: 5,
         name: "Extra Attack",
-        description: "You can attack twice whenever you take the Attack action.",
+        description:
+          "You can attack twice whenever you take the Attack action.",
         type: "passive",
       },
       {
@@ -391,14 +396,14 @@ export const classes: CharacterClass[] = [
         level: 10,
         name: "Ignorance, yet Knowledge",
         description:
-          "Once per Long Rest, gain the ability to cast a Force Ability costing up to 5 Force Points for free.",
+          "Once per Long Rest, you may use a Force Ability costing up to 5 Force Points without spending any Force Points.",
         type: "active",
       },
       {
         level: 11,
         name: "Passion, yet Serenity",
         description:
-          "Gain Advantage on all Wisdom Saving Throws.",
+          "Gain Advantage on all Wisdom saving throws.",
         type: "passive",
       },
       {
@@ -411,7 +416,8 @@ export const classes: CharacterClass[] = [
       {
         level: 14,
         name: "Chaos, yet Harmony",
-        description: "Once per round, when you take damage from an enemy, gain 10 Focus.",
+        description:
+          "Once per round, when you take damage from an enemy, gain 10 Focus.",
         type: "passive",
       },
       {
@@ -425,7 +431,7 @@ export const classes: CharacterClass[] = [
         level: 18,
         name: "Death, yet the Force",
         description:
-          "Once per Long Rest, upon reaching 0 HP (fatal damage), restore half your HP and maximize Focus.",
+          "Once per Long Rest, when you are reduced to 0 HP, immediately regain HP equal to half your maximum HP and increase your Focus to 100.",
         type: "active",
       },
     ],
@@ -441,47 +447,45 @@ export const classes: CharacterClass[] = [
             level: 3,
             name: "Flow State",
             description:
-              "When above 50 Focus, gain +1 to hit and +1 to Dexterity saves. When above 70 Focus, gain +2 to hit and +2 to Dexterity saves. When above 90 Focus, gain +3 to hit and +3 to Dexterity saves.",
+              "When above 50 Focus, gain +1 to attack rolls and +1 to Dexterity saving throws. When above 70 Focus, gain +2 to attack rolls and +2 to Dexterity saving throws. When above 90 Focus, gain +3 to attack rolls and +3 to Dexterity saving throws.",
             type: "passive",
           },
           {
             level: 3,
             name: "Mobility Training",
-            description:
-              "Gain an additional 10ft of movement, and gain Disengage and Dash as bonus actions.",
+            description: "Gain 10ft of movement. You may Disengage or Dash as a Bonus Action.",
             type: "passive",
           },
           {
             level: 3,
             name: "Agile Ward",
-            description:
-              "After moving at least 20ft, use 10 Focus to gain the ability to reflect blaster bolts at you for one turn. Against each incoming blaster bolt, make a Dexterity save — if it is higher than the attack roll, reflect the bolt. Make an attack roll against the target that shot you to attempt to reflect it back into them. Does not require an action.",
+            description: "After moving at least 20ft, you may spend 10 Focus to activate Agile Ward until the start of your next turn. Whenever a blaster attack targets you during this time, make a Dexterity saving throw against the attack roll. On a success, deflect the attack. You may then make a Dexterity-based ranged attack against a target within the original weapon's range; on a hit, it takes the attack's original damage. Activating Agile Ward requires no Action.",
             type: "active",
           },
           {
             level: 3,
             name: "Dance of Blades",
-            description: "As a bonus action, make another lightsaber attack.",
+            description: "As a Bonus Action, make one additional Lightsaber attack.",
             type: "active",
           },
           {
             level: 7,
             name: "Immobilizing Strikes",
             description:
-              "Hits reduce enemy movement by 10ft for one turn. Cannot stack with itself.",
+              "When you hit an enemy with a Lightsaber attack, reduce its movement speed by 10ft until the start of your next turn. This effect cannot stack with itself.",
             type: "passive",
           },
           {
             level: 10,
             name: "Fluid Assault",
-            description: "Upon striking two separate enemies with your lightsaber, gain +1 to Dexterity Saving Throws. Lasts for one turn.",
+            description: "After hitting two different enemies with Lightsaber attacks, gain +1 to Dexterity saving throws until the start of your next turn.",
             type: "passive",
           },
           {
             level: 13,
             name: "Mobility Expertise",
             description:
-              "If you move more than 20ft before attacking, gain an additional 1d8 damage on the first attack after moving.",
+              "If you move more than 20ft before attacking, deal an additional 1d8 damage with the first attack you make after moving.",
             type: "passive",
           },
         ],
@@ -496,34 +500,31 @@ export const classes: CharacterClass[] = [
           {
             level: 3,
             name: "Inner Stillness",
-            description:
-              "When above 50 Focus, against any incoming attack, make a Dexterity save. If it is higher than the attack roll, reflect the attack. When above 70 Focus, gain +2 to this Dexterity save. When above 90 Focus, gain +4 to this Dexterity save. Applies to both ranged and melee attacks. By using a reaction, aim the reflection, making an attack against a target in range.",
+            description: "While above 50 Focus, when an attack targets you, make a Dexterity saving throw against the attack roll. On a success, deflect the attack. While above 70 Focus, gain +2 to this saving throw; while above 90 Focus, gain +4 instead. This applies to both ranged and melee attacks. After successfully deflecting an attack, you may use your Reaction to make one attack against a target in range.",
             type: "passive",
           },
           {
             level: 3,
             name: "Defensive Ward",
-            description:
-              "As an action, gain the ability to attempt to deflect all incoming attacks that pass within 5ft of you. Make a Dexterity save. If it is higher than the attack roll, reflect the attack. For 15 Focus, you may attempt to reflect ranged attacks. Make a proficient Dexterity-based Ranged Attack that deals the damage the incoming attack would have done. Each reflected bolt, whether by this or another source of reflection, grants 5 Focus. Costs an action.",
+            description: "As an Action, create a 5ft-radius Defensive Ward until the start of your next turn. You may attempt to deflect any incoming projectile whose path passes within the Ward by making a Dexterity saving throw against its attack roll. On a success, the projectile is deflected. You may spend 15 Focus to reflect a deflected projectile, making a proficient Dexterity-based ranged attack against a target within the projectile's original range; on a hit, it deals the projectile's original damage. Each projectile you reflect grants 5 Focus.",
             type: "active",
           },
           {
             level: 7,
             name: "Perfect Riposte",
-            description:
-              "As a reaction, when deflecting an attack, if the enemy is in range, make an attack against them.",
+            description: "When you successfully deflect an attack from an enemy within range, you may use your Reaction to make one Lightsaber attack against that enemy.",
             type: "active",
           },
           {
             level: 10,
             name: "Improved Focus",
-            description: "Gain an additional 3 Focus per reflection.",
+            description: "Whenever you gain Focus from reflecting an attack, gain an additional 3 Focus.",
             type: "passive",
           },
           {
             level: 13,
             name: "Heightened Guard",
-            description: "Increases the area of Defensive Ward to a 10ft radius.",
+            description: "Increase the radius of Defensive Ward to 10ft.",
             type: "passive",
           },
         ],
@@ -566,12 +567,11 @@ export const classes: CharacterClass[] = [
         name: "Force Points",
         description: "Gain 2 Force Points per level.",
         maxValue: "2 per level",
-        recharge: "Long rest",
+        recharge: "Long Rest",
       },
       {
         name: "Force Abilities Known",
-        description:
-          "Know 2 + your Consular level Force Abilities.",
+        description: "Learn a number of Force Abilities equal to 2 + your Consular level.",
         maxValue: "2 + Consular level",
         recharge: "Permanent",
       },
@@ -587,15 +587,13 @@ export const classes: CharacterClass[] = [
       {
         level: 1,
         name: "Wise Negotiator",
-        description:
-          "Gain the ability to use Wisdom for Charisma skill checks.",
+        description: "You may use Wisdom instead of Charisma for Charisma skill checks.",
         type: "passive",
       },
       {
         level: 2,
         name: "Saber Ward",
-        description:
-          "Spend an action to reflect blaster bolts incoming at you, making a Dexterity save against the attack roll. If you succeed, take no damage.",
+        description: "As an Action, until the start of your next turn, you may attempt to deflect incoming blaster attacks by making a Dexterity saving throw against each attack roll. On a success, you take no damage from that attack.",
         type: "active",
       },
       {
@@ -614,13 +612,13 @@ export const classes: CharacterClass[] = [
       {
         level: 5,
         name: "Synergy",
-        description: "When you attack, you may use a Force Ability for no action cost.",
+        description: "Each time you make an attack, you may use one Force Ability without using an Action or Bonus Action. This can occur once per attack.",
         type: "passive",
       },
       {
         level: 6,
         name: "There is no Emotion, There is Peace",
-        description: "After concentrating for one round, choose one: double the ability's range, double one numerical damage or healing roll, or add one additional target.",
+        description: "Choose a Force Ability and begin Concentrating. If you maintain Concentration until the start of your next turn, the ability activates without requiring an additional Action. When it activates, spend its Force Point cost and choose one: double its range; double one damage or healing roll; or add one additional target.",
         type: "passive",
       },
       {
@@ -633,8 +631,7 @@ export const classes: CharacterClass[] = [
       {
         level: 10,
         name: "There is no Ignorance, There is Knowledge",
-        description:
-          "Spend 2 Force Points to gain Advantage on any skill check.",
+        description: "Spend 2 Force Points to gain Advantage on one skill check.",
         type: "active",
       },
       {
@@ -653,8 +650,7 @@ export const classes: CharacterClass[] = [
       {
         level: 14,
         name: "There is no Chaos, There is Harmony",
-        description:
-          "Twice per Long Rest, as a Reaction, gain the ability to quench a single new Gadget or Force Ability within 60ft of you. For a Gadget, the user makes the save using Intelligence. For a Force Ability, the user makes the save using their Force Ability modifier. Compare the result against your Wisdom check. If you succeed, the Gadget or Force Ability is completely removed with no effect.",
+        description: "Twice per Long Rest, when a creature within 60ft uses a Gadget or Force Ability, you may use your Reaction to attempt to negate it. For a Gadget, the creature makes an Intelligence check. For a Force Ability, it makes a check using its Force Ability modifier. Compare the result against your Wisdom check; if your result is higher, the Gadget or Force Ability has no effect.",
         type: "active",
       },
       {
@@ -667,8 +663,7 @@ export const classes: CharacterClass[] = [
       {
         level: 18,
         name: "There is no Death, There is the Force",
-        description:
-          "You no longer age. Each turn, regenerate your Consular level in HP. If you're at 0 HP, this can activate once per long rest.",
+        description: "You no longer age. At the start of each of your turns, regain HP equal to your Consular level. If you are at 0 HP, this healing can restore you only once per Long Rest.",
         type: "passive",
       },
     ],
@@ -678,11 +673,10 @@ export const classes: CharacterClass[] = [
         name: "Sage",
         parentClass: "jedi-consular",
         description:
-          "The Sage seeks perfect Balance between lightsaber combat and Force use. Their power scales dramatically based on the Balance resource — extremes in either direction grant unique benefits, while the center offers regeneration and stability.",
+          "The Sage seeks perfect Balance between Lightsaber combat and Force use. Their power scales dramatically based on the Balance resource — extremes in either direction grant unique benefits, while the center offers regeneration and stability.",
         classResource: {
           name: "Balance",
-          description:
-            "Gain +10 Balance from lightsaber strikes. Gain -5 Balance per Force Point spent. Balance ranges from 0 to 100 and begins at 50.",
+          description: "Gain +10 Balance from Lightsaber strikes. Lose 5 Balance per Force Point spent. Balance ranges from 0 to 100 and begins at 50.",
           maxValue: 100,
           recharge: "Gained in combat",
         },
@@ -691,42 +685,37 @@ export const classes: CharacterClass[] = [
             level: 3,
             name: "Balance Thresholds",
             description:
-              "86–100: Downgrade Lightsaber damage by two die sizes. Double targets and range of all Force Abilities, gain +3 to Force Ability modifier.\n\n71–85: Downgrade Lightsaber damage by one die size. Gain +2 to Force Ability modifier.\n\n56–70: Increase Force Ability damage by 1d6.\n\n45–55: Become Centered, gaining 1 Force Point per round while in combat.\n\n30–44: Deal an additional 1d4 damage on Lightsaber hits.\n\n15–29: Double the Force Point cost of all abilities. Gain +2 to hit with Lightsabers.\n\n0–14: Lose the ability to use Force Abilities. Gain +2 to Dexterity saves and Saber Ward for free. Gain +3 to hit and to damage for Lightsabers.",
+              "86–100: Downgrade Lightsaber damage by two die sizes. Double targets and range of all Force Abilities, gain +3 to Force Ability modifier.\n\n71–85: Downgrade Lightsaber damage by one die size. Gain +2 to Force Ability modifier.\n\n56–70: Increase Force Ability damage by 1d6.\n\n45–55: Become Centered, gaining 1 Force Point per round while in combat.\n\n30–44: Deal an additional 1d4 damage on Lightsaber hits.\n\n15–29: Double the Force Point cost of all abilities. Gain +2 to hit with Lightsabers.\n\n0–14: Lose the ability to use Force Abilities. Gain +2 to Dexterity saving throws and Saber Ward for free. Gain +3 to hit and to damage for Lightsabers.",
             type: "passive",
           },
 		  {
             level: 3,
             name: "One with the Force",
-            description:
-              "During a Short Rest, gain the ability to recover 1 Force Point per hit dice spent. You may use hit dice even when at full HP for this.",
+            description: "During a Short Rest, regain 1 Force Point for each Hit Die you spend. You may spend Hit Dice this way even while at full HP.",
             type: "passive",
           },
 		  {
             level: 5,
             name: "Restorative Balance",
-            description:
-              "When starting your turn below 40 Balance, gain Extra Attack, but lose the effects of Synergy.",
+            description: "While below 40 Balance, gain Extra Attack but lose the effects of Synergy.",
             type: "passive",
           },
           {
             level: 7,
             name: "Meditative Healing",
-            description:
-              "When starting your turn between 45 and 55 Balance, regain 1d8 HP per turn.",
+            description: "While Centered, regain 1d8 HP at the start of each of your turns.",
             type: "passive",
           },
           {
             level: 10,
             name: "Balanced Spirit",
-            description:
-              "Gain the ability to gain -10 Balance per Force Point spent, or +15 Balance per lightsaber strike. This may be toggled on and off.",
+            description: "As a Free Action, toggle Balanced Spirit on or off. While active, lose 10 Balance per Force Point spent and gain 15 Balance when you hit with a Lightsaber attack, instead of the normal Balance changes.",
             type: "active",
           },
           {
             level: 13,
             name: "Harmonic Flow",
-            description:
-              "When increasing Balance above 55, reduce the Force Point cost of your next ability by 2 (minimum 1). When decreasing Balance below 45, add 1d8 to your next damage roll.",
+            description: "When you cross from 55 or lower Balance to above 55, reduce the Force Point cost of your next Force Ability by 2 (minimum 1). When you cross from 45 or higher Balance to below 45, your next Lightsaber damage roll deals an additional 1d8 damage.",
             type: "passive",
           },
         ],
@@ -739,10 +728,9 @@ export const classes: CharacterClass[] = [
           "Shadows are covert operatives who blend Force sensitivity with espionage techniques. They manage two opposing resources — Focus and Impulse — and must keep them balanced to remain at peak effectiveness.",
         classResource: {
           name: "Focus & Impulse",
-          description:
-            "After each Long Rest, start with 5 of each. Each used point of Focus grants one point of Impulse, and vice versa. Reaching 0 Focus blocks Force Point usage. Reaching 0 Impulse grants Disadvantage on all attacks.",
+          description: "After each Long Rest, start with 5 Focus and 5 Impulse. Whenever you spend Focus, gain an equal amount of Impulse, and whenever you spend Impulse, gain an equal amount of Focus. Reaching 0 Focus prevents you from using Force Points. Reaching 0 Impulse gives you Disadvantage on Lightsaber attacks.",
           maxValue: "Variable",
-          recharge: "Long rest (or short rest at level 7)",
+          recharge: "Long rest (or Short Rest at level 7)",
         },
         features: [
           {
@@ -754,50 +742,43 @@ export const classes: CharacterClass[] = [
           {
             level: 3,
             name: "Walking the Edge",
-            description:
-              "Starting your turn with equal Focus and Impulse makes you Centered, giving +10ft of movement. Reaching 0 Focus blocks your ability to use Force Points. Reaching 0 Impulse grants you Disadvantage on all Lightsaber attacks.",
+            description: "While Focus and Impulse are equal, you are Centered and gain 10ft of movement. Reaching 0 Focus prevents you from using Force Points. Reaching 0 Impulse gives you Disadvantage on Lightsaber attacks.",
             type: "passive",
           },
           {
             level: 3,
             name: "Focus Abilities",
-            description:
-              "Blanken Mind (2 Focus): As an action, lance into someone's mind, selectively editing the past 15 minutes of memories and eliminating their ability to form new memories for up to fifteen minutes. Wisdom save resists; critical failure causes Mindbroken.\n\nCloak of Shadows (3 Focus): Become Invisible for one minute. Attacking or using an ability ends this effect.\n\nGhost (1 Focus): As a Bonus Action, gain the ability to pass through enemy space for one minute without drawing attacks of opportunity.\n\nDampened Field (1 Focus): As an action, remove all noise in a 5ft area around yourself for one minute.\n\nShroud Minds (2 Focus): As an action, force all enemies in a 10ft radius to make a Wisdom save. On a failure, they become Confused for three turns (up to 3 targets). At the start of each of their rounds, they may repeat their Wisdom save.",
+            description: "Blanken Mind (2 Focus): As an Action, alter a creature's memories from the past 15 minutes and prevent it from forming new memories for up to 15 minutes. The target may make a Wisdom saving throw to resist; on a Critical Failure, it becomes Mindbroken.\n\nCloak of Shadows (3 Focus): Become Invisible for one minute. Attacking or using an ability ends this effect.\n\nGhost (1 Focus): As a Bonus Action, for one minute you may move through enemy spaces without provoking Opportunity Attacks.\n\nDampened Field (1 Focus): As an Action, silence all sound within 5ft of you for one minute.\n\nShroud Minds (2 Focus): As an Action, up to three enemies within 10ft must make a Wisdom saving throw. On a failure, they become Confused for three turns. At the start of each of their turns, they may repeat the saving throw.",
             type: "active",
           },
           {
             level: 3,
             name: "Impulse Abilities",
-            description:
-              "Driven Strike (1 Impulse): Add 1d8 to your next attack.\n\nExplosive Movement (1 Impulse): As a bonus action, gain an additional 30ft of movement.\n\nForceful Breach (1 Impulse): Add 1d6 to your next attack roll.\n\nBurst of Force (1 Impulse): Use your next Force Ability as a Bonus Action.\n\nOverwhelming Assault (3 Impulse): As an attack, attack twice.",
+            description: "Driven Strike (1 Impulse): Add 1d8 to the damage roll of your next attack.\n\nExplosive Movement (1 Impulse): As a Bonus Action, gain 30ft of movement.\n\nForceful Breach (1 Impulse): Add 1d6 to your next attack roll.\n\nBurst of Force (1 Impulse): Use your next Force Ability as a Bonus Action.\n\nOverwhelming Assault (3 Impulse): In place of one attack, make two attacks.\n\nYou may use multiple Impulse Abilities during the same turn, but only one Impulse Ability may modify a single attack.",
             type: "active",
           },
           {
             level: 7,
             name: "Stillness of Mind",
-            description:
-              "Reset Focus and Impulse on short rest, instead of long rest.",
+            description: "Reset your Focus and Impulse on a Short Rest instead of a Long Rest.",
             type: "passive",
           },
           {
             level: 10,
             name: "Island of Calm",
-            description:
-              "When Centered, gain +2 to Saving Throws, Force Ability modifier, and Attacks. After each rest, gain the ability to set your Focus and Impulse. You may choose to set it at maximum Focus and zero Impulse, maximum Impulse and zero Focus, or even amounts of both. Additionally, increase your maximum Focus and Impulse to 16, and your even levels to 8 of each.",
+            description: "While Centered, gain +2 to saving throws, Force Ability modifier, and attack rolls. Increase your maximum Focus and Impulse to 16. After each rest, set them to 16 Focus and 0 Impulse, 0 Focus and 16 Impulse, or 8 Focus and 8 Impulse.",
             type: "passive",
           },
           {
             level: 13,
             name: "Split Focus",
-            description:
-              "If Impulse is greater than Focus, gain the ability to concentrate on two abilities at a time.",
+            description: "While Impulse is greater than Focus, you may Concentrate on two abilities at the same time.",
             type: "passive",
           },
           {
             level: 13,
             name: "Unified Impulse",
-            description:
-              "If Focus is greater than Impulse, gain the ability to use Actions for Bonus Actions and vice versa.",
+            description: "While Focus is greater than Impulse, you may use Actions as Bonus Actions and Bonus Actions as Actions.",
             type: "passive",
           },
         ],
@@ -834,24 +815,22 @@ description:
     resources: [
       {
         name: "Energy Cells",
-        description: "Gain 2 per level. Restore on short rest.",
+        description: "Gain 2 Energy Cells per Trooper level. Regain all spent Energy Cells on a Short Rest.",
         maxValue: "2 per level",
-        recharge: "Short rest",
+        recharge: "Short Rest",
       },
     ],
     features: [
       {
         level: 1,
         name: "Fighting Style",
-        description:
-          "Choose a Fighting Style:\n\nBlaster: +2 to Blaster attacks.\n\nDefense: +1 AC.\n\nHeavy Weapon Fighting: Two-handed weapons (melee and ranged) can reroll 1s and 2s for damage.\n\nTwo-weapon Fighting: Add your ability modifier to the damage of the second attack.\n\nClose Quarters Shooter: No disadvantage on ranged attacks within 5ft of a hostile creature. Ignore half and three-quarters cover within 30ft. +1 to ranged attack rolls.",
+        description: "Choose one Fighting Style available to Troopers.",
         type: "passive",
       },
       {
         level: 2,
         name: "Action Surge",
-        description:
-          "Once per short rest, take one additional action on your turn.",
+        description: "Once per Short Rest, take one additional Action on your turn.",
         type: "active",
       },
       {
@@ -868,17 +847,9 @@ description:
         type: "asi",
       },
       {
-        level: 6,
-        name: "Ability Score Improvement",
-        description:
-          "Increase one ability score by 2, or two ability scores by 1 each. Also gain one Talent Point.",
-        type: "asi",
-      },
-      {
         level: 7,
         name: "Tricks of the Trade",
-        description:
-          "Gain 3 Gadget Slots and 3 Gadget Inventory.",
+        description: "Gain 3 Gadget Slots and a Gadget Inventory of 3.",
         type: "passive",
       },
       {
@@ -891,8 +862,7 @@ description:
       {
         level: 9,
         name: "Indomitable",
-        description:
-          "You can reroll a saving throw that you fail. If you do so, you must use the new roll. Once per long rest. Usable twice from level 12, three times from level 17.",
+        description: "When you fail a saving throw, you may reroll it and must use the new result. You may use this once per Long Rest, twice per Long Rest starting at level 12, and three times per Long Rest starting at level 17.",
         type: "active",
       },
       {
@@ -905,8 +875,7 @@ description:
       {
         level: 14,
         name: "Holo-Targeting",
-        description:
-          "Each attack you land grants all allies +2 to hit against that target for one turn. Applies to yourself as well, but does not stack.",
+        description: "When you hit a target with an attack, you and your allies gain +2 to attack rolls against that target until the start of your next turn. This effect does not stack with itself.",
         type: "passive",
       },
       {
@@ -934,7 +903,7 @@ description:
           {
             level: 3,
             name: "Specialized Shots",
-            description: "Select two of the following shots. Gain additional shots at levels 7, 10, and 15. These shots may be activated as a bonus to an Attack.",
+            description: "Select two Specialized Shots. Specialized Shots modify existing ranged weapon attacks and require no additional Action. Select two additional shots at levels 7, 10, and 15.",
             type: "active",
           },
           {
@@ -975,14 +944,14 @@ description:
           },
         ],
         commandoShots: [
-          { id: "explosive-shot", name: "Explosive Shot", cost: "2 EC", description: "Deal an additional 1d6 damage in a 10ft radius.", overcharge: "3 EC: Increase radius to 15ft; force primary target to pass Strength save or be knocked prone." },
-          { id: "full-auto", name: "Full Auto", cost: "2 EC", description: "Make an attack on an additional enemy within range, dealing half damage.", overcharge: "4 EC: Deal full damage." },
-          { id: "emp-shot", name: "EMP Shot", cost: "2 EC", description: "Force enemy to pass an Intelligence Save or have their weapon jammed for one turn. Vibroweapons deal half damage; droids take +1d6.", overcharge: "5 EC: Double jam duration; droids take 2d6." },
-          { id: "sensor-shot", name: "Sensor Shot", cost: "1 EC", description: "Fire a shot attaching a sensor to any spot within range. Gain line of sight from this point; if targeted at an enemy, track their location." },
-          { id: "piercing-shot", name: "Piercing Shot", cost: "2 EC", description: "Pierce through 5ft of cover or a single enemy, destroying cover.", overcharge: "3 EC: Pierce through 10ft." },
-          { id: "shredding-shot", name: "Shredding Shot", cost: "3 EC", description: "Strip 2 AC from the target for 2 turns. Does not stack.", overcharge: "5 EC: Strip 3 AC." },
-          { id: "barrage", name: "Barrage", cost: "6 EC", description: "Attack every enemy in a 30ft cone.", overcharge: "12 EC: Add an additional attack to each enemy." },
-          { id: "sonic-shot", name: "Sonic Shot", cost: "4 EC", description: "Force every target in a 15ft cone to make a Strength save or be thrown back 10ft." },
+          { id: "explosive-shot", name: "Explosive Shot", cost: "2 EC", description: "Your ranged weapon attack deals an additional 1d6 damage in a 10ft radius around the target.", overcharge: "3 EC: Increase radius to 15ft; force primary target to pass Strength saving throw or be knocked prone." },
+          { id: "full-auto", name: "Full Auto", cost: "2 EC", description: "Make one additional ranged weapon attack against a different enemy within range. On a hit, it deals half damage.", overcharge: "4 EC: Deal full damage." },
+          { id: "emp-shot", name: "EMP Shot", cost: "2 EC", description: "Your ranged weapon attack also forces the target to make an Intelligence saving throw. On a failure, its weapon becomes Jammed until the start of your next turn. Vibroweapons deal half damage while Jammed; droids take an additional 1d6 damage.", overcharge: "5 EC: The Jammed condition lasts until the start of your second turn after this attack; droids take an additional 2d6 damage." },
+          { id: "sensor-shot", name: "Sensor Shot", cost: "1 EC", description: "Fire a sensor at any point within range. You gain line of sight from that point; if attached to a creature, you can track its location." },
+          { id: "piercing-shot", name: "Piercing Shot", cost: "2 EC", description: "Your ranged weapon attack may pierce through up to 5ft of cover or through one creature, destroying any cover it pierces. If you pierce a creature, the attack may hit both that creature and one target directly behind it.", overcharge: "3 EC: Pierce through 10ft." },
+          { id: "shredding-shot", name: "Shredding Shot", cost: "3 EC", description: "Your ranged weapon attack reduces the target's AC by 2 until the start of your second turn after this attack. This effect does not stack with itself.", overcharge: "5 EC: Strip 3 AC." },
+          { id: "barrage", name: "Barrage", cost: "6 EC", description: "Make one ranged weapon attack against each enemy in a 30ft cone.", overcharge: "12 EC: Add an additional attack to each enemy." },
+          { id: "sonic-shot", name: "Sonic Shot", cost: "4 EC", description: "Each target in a 15ft cone must make a Strength saving throw. On a failure, it is pushed 10ft away from you." },
         ],
       },
       {
@@ -990,20 +959,18 @@ description:
         name: "Vanguard",
         parentClass: "trooper",
         description:
-          "Vanguards are defensive powerhouses who convert Temporary HP into offensive weapons. They absorb punishment and turn it into devastating counterattacks.",
+          "Vanguards are defensive powerhouses who convert Shields into offensive weapons. They absorb punishment and turn it into devastating counterattacks.",
         features: [
           {
             level: 3,
             name: "Shield Charge",
-            description:
-              "As an action, use 2 Energy Cells to grant yourself 10 temporary HP. Overcharge (4 EC): Grant yourself 20 temporary HP.",
+            description: "Spend 2 Energy Cells to gain 10 Shields. Overcharge (4 EC): Gain 20 Shields.",
             type: "active",
           },
           {
             level: 3,
             name: "Reactive Armor",
-            description:
-              "Upon losing all Temporary HP to enemy action, deal 2d6 damage to all creatures within 5ft.",
+            description: "When enemy damage removes all of your Shields, deal 2d6 damage to all creatures within 5ft. Voluntarily removing or spending your Shields does not trigger this effect.",
             type: "passive",
           },
           {
@@ -1015,22 +982,19 @@ description:
           {
             level: 5,
             name: "Power Redistribution",
-            description:
-              "Gain the ability to use one Energy Cell ability for free after making an attack. This does not apply Overcharges. Can only occur once per turn.",
+            description: "Once per turn after making an attack, you may use one Vanguard Ability without using its normal Action or Bonus Action. You still pay its Energy Cell cost. This does not apply to Overcharges.",
             type: "passive",
           },
           {
             level: 7,
-            name: "Improved Temporary HP",
-            description:
-              "Gain two additional Energy Cell abilities. Increase all temporary HP gains by 5.",
+            name: "Improved Shields",
+            description: "Gain two additional Energy Cell abilities. Increase all Shields you gain by 5.",
             type: "passive",
           },
           {
             level: 9,
-            name: "Enhanced Temporary HP",
-            description:
-              "Gain two additional Energy Cell abilities. Increase all temporary HP gains by another 10.",
+            name: "Enhanced Shields",
+            description: "Gain two additional Energy Cell abilities. Increase all Shields you gain by an additional 10.",
             type: "passive",
           },
           {
@@ -1041,21 +1005,20 @@ description:
           },
           {
             level: 13,
-            name: "Superior Temporary HP",
-            description:
-              "Gain two additional Energy Cell abilities. Increase all temporary HP gains by another 10.",
+            name: "Superior Shields",
+            description: "Gain two additional Energy Cell abilities. Increase all Shields you gain by an additional 10.",
             type: "passive",
           },
         ],
         vanguardAbilities: [
-          { id: "riot-strike", name: "Riot Strike", cost: "2 EC", actionType: "Reaction", description: "If an enemy uses an ability or gadget within 5ft of you, make an attack. If it hits, deal no damage but negate the ability and gain 10 Temporary HP.", overcharge: "5 EC: Also stop the enemy from using any other abilities for the remainder of their turn." },
-          { id: "harpoon", name: "Harpoon", cost: "2 EC", actionType: "Action", description: "Attempt to harpoon an enemy within 30ft, forcing a Strength save or being dragged to your position.", overcharge: "3 EC: Pull yourself to them, gaining 10 temporary HP." },
-          { id: "explosive-pulse", name: "Explosive Pulse", cost: "2 EC", actionType: "Action", description: "Detonate all temporary HP, forcing all creatures within 5ft to take that much damage. Dexterity save for half.", overcharge: "3 EC: Increase radius to 10ft." },
-          { id: "leeching-blast", name: "Leeching Blast", cost: "5 EC", actionType: "Action", description: "Force all enemies in a 30ft cone to pass a Strength save or have up to 20 of their temporary HP stripped; you gain half.", overcharge: "8 EC: Gain the full amount stripped." },
-          { id: "divert-energy", name: "Divert Energy", cost: "2 EC", actionType: "Bonus Action", description: "Leech 5 temporary HP from yourself and deal twice that on your next attack.", overcharge: "4 EC: Leech 10 temporary HP." },
-          { id: "neural-jolt", name: "Neural Jolt", cost: "3 EC", actionType: "Action", description: "Your next attack forces a Wisdom save or the enemy must attack you next turn. If they miss, gain 10 Temporary HP.", overcharge: "6 EC: Grant a 5ft radius to the effect." },
-          { id: "ion-pulse", name: "Ion Pulse", cost: "2 EC", actionType: "Action", description: "Overcharge your shields, stripping 10 Temporary HP from you and causing all targets in 5ft to make an Intelligence save or have all weapons jammed for 1 turn. Vibroweapons deal half damage; droids take 1d6.", overcharge: "6 EC: Increase radius to 10ft." },
-          { id: "shield-pulse", name: "Shield Pulse", cost: "3 EC", actionType: "Action", description: "Strip yourself of all Temporary HP and give all allies within 30ft the benefits of half cover for two turns.", overcharge: "5 EC: Grant 3/4ths cover." },
+          { id: "riot-strike", name: "Riot Strike", cost: "2 EC", actionType: "Reaction", description: "If an enemy uses an ability or Gadget within 5ft of you, use your Reaction to make an attack. On a hit, the attack deals no damage, the ability or Gadget is negated, and you gain 10 Shields.", overcharge: "5 EC: Also stop the enemy from using any other abilities for the remainder of their turn." },
+          { id: "harpoon", name: "Harpoon", cost: "2 EC", actionType: "Action", description: "A creature within 30ft must make a Strength saving throw. On a failure, pull it adjacent to you.", overcharge: "3 EC: Pull yourself to them, gaining 10 Shields." },
+          { id: "explosive-pulse", name: "Explosive Pulse", cost: "2 EC", actionType: "Action", description: "Lose all of your Shields. Creatures within 5ft take damage equal to the Shields lost, with a Dexterity saving throw for half damage.", overcharge: "3 EC: Increase radius to 10ft." },
+          { id: "leeching-blast", name: "Leeching Blast", cost: "5 EC", actionType: "Action", description: "Creatures in a 30ft cone make a Strength saving throw. On a failure, remove up to 20 Shields from each target; gain Shields equal to half the total removed.", overcharge: "8 EC: Gain the full amount stripped." },
+          { id: "divert-energy", name: "Divert Energy", cost: "2 EC", actionType: "Bonus Action", description: "Lose 5 Shields and cause your next attack to deal an additional 10 damage.", overcharge: "4 EC: Leech 10 Shields." },
+          { id: "neural-jolt", name: "Neural Jolt", cost: "3 EC", actionType: "Action", description: "Your next attack forces the target to make a Wisdom saving throw. On a failure, it must attack you on its next turn if able. If that attack misses, gain 10 Shields.", overcharge: "6 EC: Grant a 5ft radius to the effect." },
+          { id: "ion-pulse", name: "Ion Pulse", cost: "2 EC", actionType: "Action", description: "Lose 10 Shields. All targets within 5ft must make an Intelligence saving throw. On a failure, their weapons become Jammed until the start of your next turn. Vibroweapons deal half damage while Jammed; droids take 1d6 damage.", overcharge: "6 EC: Increase radius to 10ft." },
+          { id: "shield-pulse", name: "Shield Pulse", cost: "3 EC", actionType: "Action", description: "Lose all of your Shields. Allies within 30ft gain Half Cover for two turns.", overcharge: "5 EC: Grant 3/4ths cover." },
         ],
       },
     ],
@@ -1089,8 +1052,7 @@ description:
     resources: [
       {
         name: "Energy",
-        description:
-          "Begin with 100. Regenerate 10 per turn. Landing non-ability attacks grants 10 Energy per hit.",
+        description: "Begin with 100 Energy. Regain 10 Energy at the start of each of your turns and 10 Energy whenever you hit with a non-ability attack.",
         maxValue: 100,
         recharge: "Passive regeneration",
       },
@@ -1160,8 +1122,15 @@ description:
       {
         level: 14,
         name: "Smuggler's Luck",
-        description: "Twice per long rest, reroll any roll you've made.",
+        description: "Twice per Long Rest, reroll any roll you make.",
         type: "active",
+      },
+      {
+        level: 16,
+        name: "Ability Score Improvement",
+        description:
+          "Increase one ability score by 2, or two ability scores by 1 each. Also gain one Talent Point.",
+        type: "asi",
       },
       {
         level: 18,
@@ -1182,42 +1151,37 @@ description:
           {
             level: 3,
             name: "Offhand Proficiency",
-            description:
-              "Weapon attacks with your offhand weapon apply your Proficiency bonus.",
+            description: "Add your Proficiency Bonus to attacks made with your offhand weapon.",
             type: "passive",
           },
           {
             level: 3,
             name: "Fastest Hand Alive",
-            description:
-              "As a reaction, whenever an enemy within 30ft attacks against any target, make an attack with your main and offhand weapons against them. Costs 20 Energy.",
+            description: "When an enemy within 30ft makes an attack, you may use your Reaction and spend 20 Energy to make one attack with your main-hand weapon and one attack with your offhand weapon against that enemy.",
             type: "active",
           },
           {
             level: 3,
             name: "Quick Turnaround",
-            description:
-              "Whenever an enemy misses you with an attack, make an attack with your main-hand weapon against them. Gain +1 AC if this attack hits. Costs 15 Energy. Does not cost a reaction. May be used in conjunction with Fastest Hand Alive.",
+            description: "When an enemy misses you with an attack, you may spend 15 Energy to make one attack with your main-hand weapon against it. On a hit, gain +1 AC until the start of your next turn. This requires no Reaction and may be used alongside Fastest Hand Alive.",
             type: "active",
           },
           {
             level: 7,
             name: "Double Down",
-            description:
-              "When landing an attack, gain the ability to choose to either deal an additional 1d6 damage or reduce their movement by 10ft until the end of their next turn. Costs 10 Energy.",
+            description: "When you hit with an attack, you may spend 10 Energy to choose one: deal an additional 1d6 damage, or reduce the target's movement speed by 10ft until the start of your next turn.",
             type: "active",
           },
           {
             level: 7,
             name: "Hair Trigger",
-            description:
-              "When an enemy attacks, as a reaction, impose disadvantage on them. If they miss, make a main hand attack against them. Can be used in conjunction with Quick Turnaround, but not Fastest Hand Alive. Costs 20 Energy.",
+            description: "When an enemy makes an attack, you may use your Reaction and spend 20 Energy to impose Disadvantage on that attack. If it misses, make one attack with your main-hand weapon against that enemy. This may be used alongside Quick Turnaround, but not Fastest Hand Alive.",
             type: "active",
           },
           {
             level: 13,
             name: "Quick Reflexes",
-            description: "Gain an additional reaction.",
+            description: "Gain one additional Reaction each round.",
             type: "passive",
           },
         ],
@@ -1233,37 +1197,35 @@ description:
           {
             level: 3,
             name: "Present in Your Pocket",
-            description: "As a melee attack, plant a 'present' on your target. Presents may be detonated by dealing any weapon damage. Choose from the available presents below.",
+            description: "In place of one melee attack, plant a Present on the target. When the target next takes weapon damage, you may detonate the Present, causing its listed effect.",
             type: "active",
           },
           {
             level: 7,
             name: "Spirit of Generosity",
-            description:
-              "Every 'present' without a radius now has a 10ft radius and cannot affect you. Presents with ranges instead have their ranges doubled.",
+            description: "A Present without a radius gains a 10ft radius and cannot affect you. If a Present already has a radius, double that radius instead.",
             type: "passive",
           },
           {
             level: 10,
             name: "A Little Extra for Everyone",
-            description:
-              "Presents can have their damage doubled by doubling the energy cost. Alternatively, combine the effects of two different Presents(but not the damage) by adding both Presents' Energy costs together. Increase Energy total to 150.",
+            description: "You may double a Present's damage by doubling its Energy cost. Alternatively, combine two different Presents, excluding their damage, by paying the sum of their Energy costs. Increase your maximum Energy to 150.",
             type: "passive",
           },
           {
             level: 13,
             name: "Quick Hands",
-            description: "Gain the ability to attach Presents as a bonus action.",
+            description: "You may plant Presents as a Bonus Action.",
             type: "passive",
           },
         ],
         scoundrelPresents: [
           { id: "hot-potato", name: "Hot Potato", cost: "20 Energy", description: "Plant an incendiary bomb. Deals 2d6 damage and lights them on fire when detonated, dealing 1d4 damage per turn for two turns." },
-          { id: "ticklestick", name: "Ticklestick", cost: "20 Energy", description: "Plant an ion charge. Deals 2d6 damage and forces an Intelligence save or weapons are jammed for one turn. Vibroweapons deal half damage; droids take double damage." },
-          { id: "icecube", name: "Icecube", cost: "30 Energy", description: "Plant a cryobomb. Deals 2d6 damage and forces a Constitution save or the target is frozen in place (movement 0, all enemies gain Advantage on attacks against them)." },
+          { id: "ticklestick", name: "Ticklestick", cost: "20 Energy", description: "Plant an ion charge. Deals 2d6 damage and forces an Intelligence saving throw or weapons are Jammed for one turn. Vibroweapons deal half damage; droids take double damage." },
+          { id: "icecube", name: "Icecube", cost: "30 Energy", description: "Plant a cryobomb. Deals 2d6 damage and forces a Constitution saving throw or the target is Frozen in place (movement 0, all enemies gain Advantage on attacks against them)." },
           { id: "kick-up-the-ass", name: "Kick up the Ass", cost: "20 Energy", description: "Plant a concussion bomb. Deals 2d6 damage and propels them 5ft in a direction of your choosing." },
-          { id: "light-of-my-life", name: "Light of my Life", cost: "20 Energy", description: "Plant a flashbang. Deals 1d8 damage and forces every creature except you within 10ft to pass a Constitution save or be blinded for one turn." },
-          { id: "greasy-fingers", name: "Greasy Fingers", cost: "20 Energy", description: "Plant a lubricant bomb. Deals zero damage, but spreads lubricant over a 10ft area. Every enemy in this area must pass a DC12 Dexterity save or fall prone, and a DC14 Dexterity save or drop whatever they are holding." },
+          { id: "light-of-my-life", name: "Light of my Life", cost: "20 Energy", description: "Plant a flashbang. Deals 1d8 damage and forces every creature except you within 10ft to pass a Constitution saving throw or be blinded for one turn." },
+          { id: "greasy-fingers", name: "Greasy Fingers", cost: "20 Energy", description: "Plant a lubricant bomb. Deals zero damage, but spreads lubricant over a 10ft area. Every enemy in this area must pass a DC12 Dexterity saving throw or fall prone, and a DC14 Dexterity saving throw or drop whatever they are holding." },
           { id: "bouncing-betty", name: "Bouncing Betty", cost: "20 Energy", description: "Plant a repulsor bomb. Deals 1d6 damage and propels the target 10ft in the air. For the duration of the round, the target cannot benefit from cover, and takes fall damage upon landing." },
         ],
       },
@@ -1290,17 +1252,15 @@ description:
     resources: [
       {
         name: "Gadget Slots",
-        description:
-          "Gain one per level. Gadgets refresh upon long rest and may be freely chosen between so long as slots permit.",
+        description: "Gain 1 Gadget Slot per Agent level. Regain all Gadget uses on a Long Rest. You may change your equipped Gadgets between Long Rests as long as you do not exceed your available Gadget Slots.",
         maxValue: "1 per level",
-        recharge: "Long rest",
+        recharge: "Long Rest",
       },
       {
         name: "Gadget Inventory",
-        description:
-          "You may store equal to your number of Gadgets on your ship or in a safehouse.",
+        description: "Your Gadget Inventory is equal to your Gadget Slots.",
         maxValue: "Equal to Gadget Slots",
-        recharge: "Long rest",
+        recharge: "Long Rest",
       },
     ],
     features: [
@@ -1333,15 +1293,13 @@ description:
       {
         level: 5,
         name: "Tactical Infiltrator",
-        description:
-          "You cannot be surprised, and you gain the ability to force a single enemy to roll with Disadvantage on initiative rolls for the duration of combat.",
+        description: "You cannot be Surprised. At the start of combat, choose one enemy; that enemy has Disadvantage on its Initiative roll.",
         type: "passive",
       },
       {
         level: 6,
         name: "Silent Killer",
-        description:
-          "When you kill a target more than 10ft away from one of their allies, roll a Stealth check. If you pass, their death will not alert someone unless discovered.",
+        description: "When you kill a target more than 10ft from any of its allies, make a Stealth check. On a success, the death does not alert others unless the body or other evidence is discovered.",
         type: "passive",
       },
       {
@@ -1354,15 +1312,13 @@ description:
       {
         level: 10,
         name: "Alpha Strike",
-        description:
-          "Once per Long Rest, when attacking an enemy who is unaware of your presence, automatically hit and critically hit.",
+        description: "Once per Long Rest, when you attack an enemy that is unaware of your presence, the attack automatically hits and is a Critical Hit.",
         type: "active",
       },
       {
         level: 11,
         name: "Surgical Precision",
-        description:
-          "Ignore all Resistances on attacks where you apply Sneak Attack.",
+        description: "Your Sneak Attack damage ignores Resistances.",
         type: "passive",
       },
       {
@@ -1375,8 +1331,7 @@ description:
       {
         level: 14,
         name: "Quick Reflexes",
-        description:
-          "When acting against any target who has not taken their turn yet, gain Advantage.",
+        description: "Gain Advantage on attacks against targets that have not yet acted this round.",
         type: "passive",
       },
       {
@@ -1389,8 +1344,7 @@ description:
       {
         level: 18,
         name: "Preternatural Targeting",
-        description:
-          "Always deal maximum damage with all attacks and gadgets.",
+        description: "Whenever you deal damage with an attack or Gadget, use the maximum possible result of its damage dice.",
         type: "passive",
       },
     ],
@@ -1405,13 +1359,13 @@ description:
           {
             level: 3,
             name: "Experienced Killer",
-            description: "When attacking with Advantage, make no noise.",
+            description: "Attacks you make with Advantage produce no noise.",
             type: "passive",
           },
           {
             level: 3,
             name: "Deep Pockets, Deeper Stores",
-            description: "Double your number of Gadget Slots and inventoried gadgets. Gain access to the Operative-exclusive gadgets listed below.",
+            description: "Double your Gadget Slots and Gadget Inventory. Gain access to the Operative-exclusive Gadgets listed below.",
             type: "passive",
           },
           {
@@ -1430,8 +1384,7 @@ description:
           {
             level: 13,
             name: "Faceless, Traceless",
-            description:
-              "When activating a gadget, remove all telltale concealable traces of its presence.",
+            description: "When you take time to conceal your presence, you may hide all reasonably concealable signs of your passage, including visual, audible, physical, and electronic evidence.",
             type: "passive",
           },
         ],
@@ -1440,8 +1393,8 @@ description:
           { id: "pseudolarynx", name: "Pseudolarynx", slots: 1, actionType: "Free Action", description: "Perfectly mimic someone's voice after collecting a five-minute sample. Can only record one voice at a time.", uses: "Unlimited" },
           { id: "whisper-range-laser-mic", name: "Whisper-Range Laser Mic", slots: 1, actionType: "Action", description: "Detect surface vibrations on distant glass or walls and convert them into clear audio within 30ft.", uses: "Unlimited" },
           { id: "smart-dust-trackers", name: "Smart Dust Trackers", slots: 1, actionType: "Action", description: "Release microscopic adhesive particles that cling to a chosen target within 15ft and transmit a weak tracking signal for 1d4 hours.", uses: "3" },
-          { id: "arc-projector", name: "Arc Projector", slots: 3, actionType: "Bonus Action", description: "Force a target within 15ft to make a Constitution save. If they fail, they become Stunned for two turns. It may repeat its Constitution save after the end of its first turn to attempt to break free. Additional batteries may be taken at 1 slot each.", uses: "2" },
-          { id: "stun-drone", name: "Stun Drone", slots: 3, actionType: "Action", description: "Send out a stun drone to a location within 300ft. Any target who passes within 10ft of it must make a Constitution save or be stunned for one turn. It has 10 AC and 5 HP.", uses: "1" },
+          { id: "arc-projector", name: "Arc Projector", slots: 3, actionType: "Bonus Action", description: "Force a target within 15ft to make a Constitution saving throw. If they fail, they become Stunned for two turns. It may repeat its Constitution saving throw after the end of its first turn to attempt to break free. Additional batteries may be taken at 1 slot each.", uses: "2" },
+          { id: "stun-drone", name: "Stun Drone", slots: 3, actionType: "Action", description: "Send out a stun drone to a location within 300ft. Any target who passes within 10ft of it must make a Constitution saving throw or be Stunned for one turn. It has 10 AC and 5 HP.", uses: "1" },
         ],
       },
       {
@@ -1461,8 +1414,7 @@ description:
           {
             level: 3,
             name: "Steady Aim",
-            description:
-              "Gain the ability to sacrifice all movement for +2 to hit on your next attack.",
+            description: "If you do not move during your turn, gain +2 to your next ranged weapon attack roll.",
             type: "active",
           },
           {
@@ -1475,15 +1427,13 @@ description:
           {
             level: 7,
             name: "Eagle Eyes",
-            description:
-              "Gain Advantage on all visual Perception checks within physical vision range.",
+            description: "Gain Advantage on visual Perception checks.",
             type: "passive",
           },
           {
             level: 7,
             name: "Sniper's Hide",
-            description:
-              "When firing at greater than 60ft while Hidden, after every shot, make a Stealth check. If it succeeds, remain hidden and add 2 to the DC of subsequent Stealth checks until you get detected.",
+            description: "While Hidden and more than 60ft from a target, attacking it does not automatically reveal your position.",
             type: "passive",
           },
           {
@@ -1507,7 +1457,7 @@ description:
             name: "Targeting Visor",
             slots: 1,
             actionType: "Bonus Action",
-            description: "Analyze one target for weaknesses. Identify all resistances, major skills, and gain +2 to hit against them. Additional memory chips are 2 targets/slot.",
+            description: "Analyze one target for weaknesses. Identify all Resistances and major skills, and gain +2 to attack rolls against that target for 1 day. Additional memory chips store 2 additional targets per Gadget Slot.",
           },
           {
             id: "adaptive-camouflage-cloak",
@@ -1573,32 +1523,28 @@ description:
     resources: [
       {
         name: "Gadget Slots",
-        description:
-          "Gain one per level. Gadgets refresh upon long rest and may be freely chosen between so long as slots permit.",
+        description: "Gain 1 Gadget Slot per Bounty Hunter level. Regain all Gadget uses on a Long Rest.",
         maxValue: "1 per level",
-        recharge: "Long rest",
+        recharge: "Long Rest",
       },
       {
         name: "Gadget Inventory",
-        description:
-          "You may store equal to your level of Gadgets on your ship or in a safehouse.",
+        description: "Your Gadget Inventory is equal to your Gadget Slots.",
         maxValue: "Equal to level",
-        recharge: "Long rest",
+        recharge: "Long Rest",
       },
     ],
     features: [
       {
         level: 1,
         name: "Fighting Style",
-        description:
-          "Choose a Fighting Style. See the Stances page for all available Fighting Styles.",
+        description: "Choose one Fighting Style available to Bounty Hunters.",
         type: "passive",
       },
       {
         level: 2,
         name: "Expert Hunter",
-        description:
-          "Gain Advantage on Survival, Investigation, and Perception checks related to targets that you are knowledgeable of.",
+        description: "Gain Advantage on Survival and Investigation checks involving targets you are knowledgeable about.",
         type: "passive",
       },
       {
@@ -1623,7 +1569,7 @@ description:
       {
         level: 6,
         name: "Dead or Alive",
-        description: "Gain the ability to make non-lethal Blaster attacks as normal ranged attacks at full range with all Blasters. Reducing an enemy to 0 HP grants you half of your movement.",
+        description: "You may make nonlethal attacks with Blasters at their full range. When you reduce an enemy to 0 HP, you may immediately move up to half your movement speed.",
         type: "passive",
       },
       {
@@ -1636,8 +1582,7 @@ description:
 	  {
         level: 10,
         name: "Targeting Synchronization",
-        description:
-        "Once per turn, against any target affected by one of your abilities or gadgets, gain Advantage on your next attack.",
+        description: "Once per turn, when attacking a target affected by one of your abilities or Gadgets, gain Advantage on your next attack against it.",
         type: "passive",
       },
       {
@@ -1657,7 +1602,7 @@ description:
         level: 14,
         name: "Cantina Legend",
         description:
-          "Once per short rest, choose one target who knows your reputation. As a bonus action, force them to make a Wisdom save against your level plus your proficiency bonus. Upon failure, they become Frightened for one minute. After either passing the save or one minute, they become immune to this effect for 24 hours.",
+          "Once per Short Rest, choose one target who knows your reputation. As a Bonus Action, force them to make a Wisdom saving throw against your level plus your proficiency bonus. Upon failure, they become Frightened for one minute. After either succeeding on the saving throw or one minute, they become immune to this effect for 24 hours.",
         type: "active",
       },
       {
@@ -1686,28 +1631,25 @@ description:
           {
             level: 3,
             name: "Companion Droid",
-            description: "Double your Gadget Inventory. Gain a Companion Droid that may be commanded once per Bonus Action. When you use your Bonus Action to command your Companion Droid, either you or the droid may activate one equipped gadget as part of that Bonus Action. Your Companion Droid gains one Gadget Slot per level.\n\nYour Companion Droid may carry any weapon without High Recoil for 3 Gadget Slots, and be uparmored at the cost of 1 Gadget Slot per AC (maximum 3 times).\n\nYour Companion Droid gains Proficiency in 2 of the following skills: Technology, Piloting, Stealth, Lore, Medicine, Perception.\n\nYour Companion Droid gains Ability Score Increases at the same time as you.\n\nChoose a Chassis below.",
+            description: "Double your Gadget Inventory. Gain a Companion Droid that you may command as a Bonus Action. When you command it, either you or the droid may activate one equipped Gadget as part of that Bonus Action. Your Companion Droid gains 1 Gadget Slot per Bounty Hunter level. It may carry a weapon for 3 Gadget Slots; only a Heavy Chassis may carry weapons with High Recoil. It may spend up to 3 Gadget Slots on armor plating, gaining +1 AC per slot. Choose two skill proficiencies for it. Whenever you gain an Ability Score Improvement, your Companion Droid gains one as well. Choose its chassis below.",
             type: "passive",
           },
           {
             level: 7,
             name: "Shielded Chassis",
-            description:
-              "Droids gain Temporary HP equal to 2 × the droid's hit die at the start of each combat.",
+            description: "At the start of each combat, a Light Chassis gains 12 Shields, a Medium Chassis gains 16 Shields, and a Heavy Chassis gains 20 Shields.",
             type: "passive",
           },
           {
             level: 9,
             name: "Droid Upgrades",
-            description:
-              "Light Droids gain the ability to go Invisible for one minute per Long Rest.\n\nMedium Droids gain Expertise on Technology checks.\n\nHeavy Droids gain +2 AC and may carry a weapon for free.",
+            description: "Light Droids may become Invisible for one minute once per Long Rest. Medium Droids gain Expertise in Technology. Heavy Droids gain +2 AC.",
             type: "passive",
           },
           {
             level: 13,
             name: "Enhanced Uplink",
-            description:
-              "Gain the ability to control two droids. Both may be commanded as a single Bonus Action. Gadget Slots are split between the droids according to your preference.",
+            description: "You may control two Companion Droids. Both may be commanded with the same Bonus Action. Divide your available Gadget Slots between them as you choose.",
             type: "passive",
           },
         ],
@@ -1753,7 +1695,7 @@ description:
         classResource: {
           name: "Heat",
           description:
-            "Vents at a rate of 5/turn. Maximum of 100. Deals 1d8 self-damage per turn when above 80 Heat and 2d8 per turn above 90 Heat. Disables all abilities when at 100, until cooled down to at least 50.",
+            "At the start of each of your turns, vent 5 Heat. Maximum Heat is 100. Take 1d8 self-damage at the start of each of your turns while above 80 Heat, or 2d8 while above 90 Heat. At 100 Heat, your abilities are disabled until your Heat is reduced to 50 or lower.",
           maxValue: 100,
           recharge: "Passive venting (5/turn)",
         },
@@ -1761,8 +1703,7 @@ description:
           {
             level: 3,
             name: "Emergency Vent",
-            description:
-              "As an Action, once per Long Rest, vent 50 Heat, dealing 2d6 damage to every creature within 10ft.",
+            description: "As an Action, once per Long Rest, vent 50 Heat and deal 2d6 damage to every creature within 10ft.",
             type: "active",
           },
           {
@@ -1774,13 +1715,13 @@ description:
           {
             level: 7,
             name: "Bacta Autoinjectors",
-            description: "Gain Advantage on Death Saves.",
+            description: "Gain Advantage on death saving throws.",
             type: "passive",
           },
           {
             level: 7,
             name: "Improved Arsenal",
-            description: "Gain access to two more Heat-based Abilities. Heat-based ability damage die sizes are all increased by 1.",
+            description: "Gain access to two more Heat-based Abilities. Increase each damage die used by your Arsenal Abilities by one step: d4 → d6 → d8 → d10 → d12 → 2d6.",
             type: "passive",
           },
           {
@@ -1809,15 +1750,15 @@ description:
           },
         ],
         mercenaryAbilities: [
-          { id: "explosive-dart", name: "Explosive Dart", heatCost: 15, description: "Launch an Explosive Dart at a target within 30ft. This target must pass a Wisdom save or be Frightened until the beginning of your next turn. After that turn, detonates for 1d12 damage in 5ft radius.", tier50: "2d8.", tier70: "2d12." },
+          { id: "explosive-dart", name: "Explosive Dart", heatCost: 15, description: "Launch an Explosive Dart at a target within 30ft. This target must pass a Wisdom saving throw or be Frightened until the beginning of your next turn. After that turn, detonates for 1d12 damage in 5ft radius.", tier50: "2d8.", tier70: "2d12." },
           { id: "rocket-punch", name: "Rocket Punch", heatCost: 15, description: "Launch yourself at an enemy within 30ft. Make a contested Dexterity check. On a success, deal 1d8 damage; on a fail, do 0 damage.", tier50: "+1d4 in 5ft area along path.", tier70: "+1d8 in 10ft area around the target." },
           { id: "spare-tibanna-canister", name: "Spare Tibanna Canister", heatCost: 10, description: "Throw a canister up to 45ft, creating a 10ft cloud. The next ranged attack that passes through this cloud detonates it for 1d6 damage to all in area.", tier50: "2d6.", tier70: "15ft diameter." },
-          { id: "ionic-tether", name: "Ionic Tether", heatCost: 15, description: "Make a proficient Dexterity-based ranged attack roll against a target within 30ft. On a hit, deal 1d8 damage and reduce their movement by 15ft until the start of your next turn.", tier50: "Movement reduced to 0.", tier70: "2d8 damage, and remove reactions." },
-          { id: "magnetic-imploder", name: "Magnetic Imploder", heatCost: 25, description: "Throw the imploder at a space within 30ft. Enemies within 10ft of the imploder must pass a Strength save or be sucked to the center, dealing 2d6 damage, or half on a successful save.", tier50: "2d10.", tier70: "15ft radius." },
+          { id: "ionic-tether", name: "Ionic Tether", heatCost: 15, description: "Make a proficient Dexterity-based ranged attack roll against a target within 30ft. On a hit, deal 1d8 damage and reduce their movement by 15ft until the start of your next turn.", tier50: "Movement reduced to 0.", tier70: "2d8 damage, and remove Reactions." },
+          { id: "magnetic-imploder", name: "Magnetic Imploder", heatCost: 25, description: "Throw the imploder at a space within 30ft. Enemies within 10ft of the imploder must pass a Strength saving throw or be sucked to the center, dealing 2d6 damage, or half on a successful saving throw.", tier50: "2d10.", tier70: "15ft radius." },
           { id: "railgun", name: "Railgun", heatCost: 20, description: "Fire a bolt in a 5ft wide, 30ft long line, making a separate attack roll against each target in the line. Deals 1d10 damage per hit. The bolt stops when it misses or if it impacts into full cover.", tier50: "2d8.", tier70: "10ft wide." },
-          { id: "fragmentation-flechette", name: "Fragmentation Flechette", heatCost: 15, description: "Make a ranged attack roll against a target within 60ft. On a hit, deal 1d8 damage to the primary target, then 1d6 to all creatures in a 15ft cone extending behind the primary target. Both primary and secondary targets may make a Dexterity save to take half damage.", tier50: "1d12 primary, 1d10 secondary.", tier70: "30ft cone." },
-          { id: "magnetic-exploder", name: "Magnetic Exploder", heatCost: 25, description: "Throw the exploder at a space within 30ft. Enemies within 10ft of the exploder must pass a Strength save. On a failure, they are pushed 10ft away, dealing 2d6 damage, or half on a successful save.", tier50: "2d10.", tier70: "15ft radius." },
-          { id: "overdrive", name: "Overdrive", heatCost: 10, description: "Requires 50+ Heat. Increase all ability damage by 1d8. For two turns, all abilities generate +5 Heat. Overrides your normal Overheat threshold, allowing ability usage and allowing Heat to exceed that threshold while active. Emergency Vent ends this immediately.", noAction: true },
+          { id: "fragmentation-flechette", name: "Fragmentation Flechette", heatCost: 15, description: "Make a ranged attack roll against a target within 60ft. On a hit, deal 1d8 damage to the primary target, then 1d6 to all creatures in a 15ft cone extending behind the primary target. Both primary and secondary targets may make a Dexterity saving throw to take half damage.", tier50: "1d12 primary, 1d10 secondary.", tier70: "30ft cone." },
+          { id: "magnetic-exploder", name: "Magnetic Exploder", heatCost: 25, description: "Throw the exploder at a space within 30ft. Enemies within 10ft of the exploder must pass a Strength saving throw. On a failure, they are pushed 10ft away, dealing 2d6 damage, or half on a successful saving throw.", tier50: "2d10.", tier70: "15ft radius." },
+          { id: "overdrive", name: "Overdrive", heatCost: 10, description: "Requires 50+ Heat. For two turns, add 1d8 to every damage instance caused by your Arsenal Abilities, and all abilities generate an additional 5 Heat. During this time, you may continue using abilities while Overheated and your Heat may exceed its normal maximum. Emergency Vent ends this effect immediately.", noAction: true },
         ],
       },
     ],
@@ -1840,25 +1781,25 @@ description:
     resources: [
       {
         name: "Force Points",
-        description: "Used to power Force abilities. Gain 1 per level.",
+        description: "Used to power Force Abilities. Gain 1 Force Point per Sith Warrior Level.",
         maxValue: "1 per level",
-        recharge: "Long rest",
+        recharge: "Long Rest",
       },
       {
         name: "Rage",
-        description: "Begins at zero. Lose 10 per turn at the end of your turn, gain 20 per Lightsaber hit, or 10 per hit taken. Maximum capacity is 8 × your Constitution score.",
+        description: "Begin at 0 Rage. At the end of each of your turns, lose 10 Rage. Gain 20 Rage when you hit with a Lightsaber attack and 10 Rage when you are hit by an attack. Maximum Rage is 8 × your Constitution score.",
         maxValue: "8 × Constitution score",
         recharge: "Combat",
       },
       {
         name: "Channel Hatred",
-        description: "Gain 1 charge at level 3, 5, 7, 9, 11, 13, 15, 17. As a Bonus Action, expend 1 Channel Hatred charge to begin Channeling Hatred. Channel Hatred lasts for up to 1 minute. It ends early if you complete a turn without making an attack or taking damage.",
+        description: "Gain 1 Channel Hatred charge at levels 3, 5, 7, 9, 11, 13, 15, and 17. As a Bonus Action, expend 1 charge to begin Channeling Hatred for up to 1 minute. It ends early if you complete a turn without making an attack or taking damage.",
         maxValue: "8 charges",
-        recharge: "Long rest",
+        recharge: "Long Rest",
       },
       {
         name: "Force Abilities Known",
-        description: "Learn 1 force ability per level.",
+        description: "Learn 1 Force Ability per Sith Warrior Level.",
         maxValue: "1 per level",
         recharge: "Permanent",
       },
@@ -1867,25 +1808,25 @@ description:
       {
         level: 1,
         name: "Lightsaber Stance",
-        description: "Select a Lightsaber Stance to specialize in.",
+        description: "Choose a Lightsaber Stance.",
         type: "passive",
       },
       {
         level: 2,
         name: "Furious Assault",
-        description: "After Dashing, gain the ability to make one attack at Advantage. Costs 30 Rage.",
+        description: "After you Dash, you may spend 30 Rage to make one attack with Advantage.",
         type: "active",
       },
       {
         level: 2,
         name: "Contemptuous Reflection",
-        description: "After landing a lightsaber strike, gain the ability to deflect a blaster bolt by making a Dexterity save. Costs a reaction.",
+        description: "After hitting with a Lightsaber attack, until the start of your next turn you may use your Reaction when targeted by a blaster attack. Make a Dexterity saving throw against the attack roll. On a success, deflect the attack and take no damage.",
         type: "active",
       },
       {
         level: 3,
         name: "Subclass",
-        description: "Pick a subclass: Marauder or Juggernaut.",
+        description: "Choose a subclass: Marauder or Juggernaut.",
         type: "subclass",
       },
       {
@@ -1897,7 +1838,7 @@ description:
       {
         level: 6,
         name: "Unnatural Might",
-        description: "Gain Advantage on Strength checks and saves.",
+        description: "Gain Advantage on Strength checks and Strength saving throws.",
         type: "passive",
       },
       {
@@ -1909,7 +1850,7 @@ description:
       {
         level: 10,
         name: "Unrelenting Hatred",
-        description: "Increase Rage gain by 5 per hit given and received. Allow Channel Hatred to last a single turn without dealing or receiving damage.",
+        description: "Gain an additional 5 Rage whenever you gain Rage from hitting or being hit. Channel Hatred may now persist through one turn in which you neither make an attack nor take damage.",
         type: "passive",
       },
       {
@@ -1927,7 +1868,7 @@ description:
       {
         level: 14,
         name: "Eternal Rage",
-        description: "Landing a killing blow on any creature grants 40 Rage.",
+        description: "When you reduce a creature to 0 HP, gain 40 Rage.",
         type: "passive",
       },
       {
@@ -1939,7 +1880,7 @@ description:
       {
         level: 18,
         name: "Avatar of the Dark",
-        description: "Once per long rest, for one minute, become an avatar of the Dark Side. All Rage abilities are free, it no longer decays, and all lightsaber attacks gain Advantage and deal +1d8 damage.",
+        description: "Once per Long Rest, for 1 minute, become an avatar of the Dark Side. Rage abilities cost no Rage, Rage no longer decays, and all Lightsaber attacks have Advantage and deal an additional 1d8 damage.",
         type: "active",
       },
     ],
@@ -1953,13 +1894,13 @@ description:
           {
             level: 3,
             name: "Channel Hatred",
-            description: "Channel your hatred into your body, strengthening and speeding up your blows. Once per turn when you attack, attack again for free. Additionally, increase your critical range by one.",
+            description: "While Channeling Hatred, once per turn when you make an attack, make one additional attack. Increase your Critical Hit range by 1.",
             type: "passive",
           },
           {
             level: 3,
             name: "Hatred Abilities",
-            description: "Select two Channel Hatred abilities. Gain additional abilities at levels 7, 10, and 15.",
+            description: "Select two Channel Hatred abilities.",
             type: "active",
           },
           {
@@ -1982,14 +1923,14 @@ description:
           },
         ],
         marauderAbilities: [
-          { id: "brutal-execution", name: "Brutal Execution", rageCost: 40, description: "When landing a critical strike or a killing blow, all enemies in a 10ft radius of you must pass a Wisdom save or be Frightened for one turn." },
-          { id: "frenzied-strike", name: "Frenzied Strike", rageCost: 40, description: "When landing a critical strike or killing blow, move up to 30ft without triggering opportunity attacks. Your next attack will be at Advantage." },
-          { id: "bloodthirst", name: "Bloodthirst", rageCost: 40, description: "When landing a critical strike or killing blow, heal for half the damage you dealt." },
-          { id: "crippling-slash", name: "Crippling Slash", rageCost: 40, description: "Upon your next hit, reduce enemy movement speed to zero for one turn and deal an additional 1d8 damage." },
-          { id: "predation", name: "Predation", rageCost: 40, description: "After landing a critical strike or killing blow, gain an additional 1d8 damage on all attacks for two turns." },
-          { id: "whirling-frenzy", name: "Whirling Frenzy", rageCost: 60, description: "Strike all enemies within 5ft in a whirlwind of lightsaber strikes." },
-          { id: "cloak-of-pain", name: "Cloak of Pain", rageCost: 60, description: "For the next two turns, each time you take damage, deal 1d6 damage to all enemies within 5ft." },
-          { id: "undying-rage", name: "Undying Rage", rageCost: 110, description: "For the next two turns, you cannot be reduced below 1hp." },
+          { id: "brutal-execution", name: "Brutal Execution", rageCost: 40, actionType: "Bonus Action", description: "When you land a Critical Hit or reduce a creature to 0 HP, all enemies within 10ft of you must succeed on a Wisdom saving throw or become Frightened for one turn." },
+          { id: "frenzied-strike", name: "Frenzied Strike", rageCost: 40, actionType: "Bonus Action", description: "When you land a Critical Hit or reduce a creature to 0 HP, move up to 30ft without provoking Opportunity Attacks. Your next attack has Advantage." },
+          { id: "bloodthirst", name: "Bloodthirst", rageCost: 40, actionType: "Bonus Action", description: "When you land a Critical Hit or reduce a creature to 0 HP, regain HP equal to half the damage rolled." },
+          { id: "crippling-slash", name: "Crippling Slash", rageCost: 40, actionType: "Bonus Action", description: "On your next hit, reduce the target's movement speed to 0 for one turn and deal an additional 1d8 damage." },
+          { id: "predation", name: "Predation", rageCost: 40, actionType: "Bonus Action", description: "When you land a Critical Hit or reduce a creature to 0 HP, your attacks deal an additional 1d8 damage for two turns." },
+          { id: "whirling-frenzy", name: "Whirling Frenzy", rageCost: 60, actionType: "Action", description: "Make one Lightsaber attack against each enemy within 5ft of you." },
+          { id: "cloak-of-pain", name: "Cloak of Pain", rageCost: 60, actionType: "Bonus Action", description: "For two turns, whenever you take damage, deal 1d6 damage to all enemies within 5ft of you." },
+          { id: "undying-rage", name: "Undying Rage", rageCost: 110, actionType: "Reaction", description: "For two turns, you cannot be reduced below 1 HP." },
         ],
       },
       {
@@ -2001,13 +1942,13 @@ description:
           {
             level: 3,
             name: "Channel Hatred",
-            description: "Channel your hatred into your body, strengthening your sinews and bone. Gain Resistance to all damage.",
+            description: "While Channeling Hatred, gain Resistance to all damage.",
             type: "passive",
           },
           {
             level: 3,
             name: "Hatred Abilities",
-            description: "Select two Channel Hatred abilities. Gain additional abilities at levels 7, 10, and 15.",
+            description: "Select two Channel Hatred abilities.",
             type: "active",
           },
           {
@@ -2030,19 +1971,19 @@ description:
           },
         ],
         juggernautAbilities: [
-          { id: "pain-upon-pain", name: "Pain upon Pain", rageCost: 40, description: "After taking more than 1/10th of your maximum HP in a single turn, deal 1d8 damage in a 10ft radius." },
-          { id: "master-of-terror", name: "Master of Terror", rageCost: 40, description: "As a reaction, when you take damage, force three enemies within 10ft to pass a Wisdom save or have disadvantage when attacking you." },
-          { id: "contemptuous-taunt", name: "Contemptuous Taunt", rageCost: 40, description: "Force an enemy within 30ft to make a Wisdom save. If they fail, they must spend their full movement moving towards you, and must attack you when they reach you." },
-          { id: "implacable-advance", name: "Implacable Advance", rageCost: 60, description: "For one turn, your advance cannot be stopped. Your movement speed cannot be reduced, you ignore difficult terrain, and you cannot be knocked prone. Make a lightsaber attack against every single enemy you pass within 5ft of." },
-          { id: "spiteful-rebuke", name: "Spiteful Rebuke", rageCost: 60, description: "When you take damage, immediately lash out in return. As a reaction, make an attack at advantage." },
-          { id: "crushing-blow", name: "Crushing Blow", rageCost: 80, description: "After landing a lightsaber attack, overpower your enemy. Deal an additional 2d8 damage and force them to make a Constitution save. If they fail, they become stunned for two turns." },
-          { id: "executioners-grip", name: "Executioner's Grip", rageCost: 100, description: "After hitting an enemy, brutally grip them. They must make a Strength save. If they fail, they become Grappled, Restrained, and lose 2d6 HP per turn. They may attempt to break out with an Athletics check each turn. Until they do, or a minute passes, you may drag them freely without impeding your movement. If an enemy makes an attack against you, you may use a reaction to drag your gripped target in the way of the attack. The enemy gains advantage, and all damage taken is directed towards your gripped target." },
-          { id: "overwhelming-hatred", name: "Overwhelming Hatred", rageCost: 100, description: "For the next two turns, your attacks deal an additional 1d8 damage. Upon hitting, the target will be pushed back 15ft. If they collide with a solid object, they will take an additional 2d6 damage." },
+          { id: "pain-upon-pain", name: "Pain upon Pain", rageCost: 40, actionType: "Action", description: "Once per round, after taking damage equal to more than 1/10th of your maximum HP during that round, deal 1d8 damage to all enemies within 10ft of you." },
+          { id: "master-of-terror", name: "Master of Terror", rageCost: 40, actionType: "Reaction", description: "When you take damage, force up to three enemies within 10ft to make a Wisdom saving throw. On a failure, they have Disadvantage on attacks against you until the start of your next turn." },
+          { id: "contemptuous-taunt", name: "Contemptuous Taunt", rageCost: 40, actionType: "Action", description: "Force an enemy within 30ft to make a Wisdom saving throw. On a failure, until the end of its turn it must spend its full movement moving toward you and attack you when it reaches you." },
+          { id: "implacable-advance", name: "Implacable Advance", rageCost: 60, actionType: "Bonus Action", description: "For one turn, your movement speed cannot be reduced, you ignore Difficult Terrain, and you cannot be knocked Prone. Make one Lightsaber attack against each enemy you pass within 5ft of." },
+          { id: "spiteful-rebuke", name: "Spiteful Rebuke", rageCost: 60, actionType: "Reaction", description: "When you take damage, make one attack with Advantage." },
+          { id: "crushing-blow", name: "Crushing Blow", rageCost: 80, actionType: "Bonus Action", description: "After hitting with a Lightsaber attack, deal an additional 2d8 damage and force the target to make a Constitution saving throw. On a failure, it becomes Stunned for two turns." },
+          { id: "executioners-grip", name: "Executioner's Grip", rageCost: 100, actionType: "Action", description: "Brutally grip an enemy. It must make a Strength saving throw. On a failure, it becomes Grappled and Restrained and takes 2d6 damage at the end of each of its turns. As an Action, it may attempt to break free with an Athletics check. Until it breaks free or 1 minute passes, you may drag it freely without impeding your movement. When an enemy attacks you, you may use your Reaction to drag the gripped target into the attack. The attacker gains Advantage, and all damage is dealt to the gripped target instead." },
+          { id: "overwhelming-hatred", name: "Overwhelming Hatred", rageCost: 100, actionType: "Bonus Action", description: "For two turns, your attacks deal an additional 1d8 damage. When you hit, push the target 15ft. If it collides with a solid object, it takes an additional 2d6 damage." },
         ],
       },
     ],
   },
-    {
+  {
     id: "sith-inquisitor",
     name: "Sith Inquisitor",
     accent: "orange",
@@ -2071,13 +2012,13 @@ description:
       {
         name: "Force Points",
         description:
-          "Gain 2 Force Points per level. Used to power Force abilities.",
+          "Gain 2 Force Points per level. Used to power Force Abilities.",
         maxValue: "2 per level",
-        recharge: "Long rest",
+        recharge: "Long Rest",
       },
       {
         name: "Force Abilities Known",
-        description: "Learn 1 force ability per level.",
+        description: "Learn 1 Force Ability per level.",
         maxValue: "1 per level",
         recharge: "Permanent",
       },
@@ -2093,7 +2034,7 @@ description:
       {
         level: 2,
         name: "Recklessness",
-        description: "Sacrifice 2 AC until the end of your next turn. Gain +2 to Force Ability attacks and +1 to Force Ability DCs. If Recklessness is used again on the following turn, increase all costs and gains by 2 (−4 AC, +4 to attacks and +2 to DCs), stacking with each consecutive use.",
+        description: "Sacrifice 2 AC until the end of your next turn. Gain +2 to Force Ability attack rolls and +1 to Force Ability save DCs. If you use Recklessness again on the following turn, increase both the penalty and bonuses by the same amounts, stacking with each consecutive use.",
         type: "active",
       },
       {
@@ -2112,15 +2053,13 @@ description:
       {
         level: 5,
         name: "Peace is a Lie, There is only Passion",
-        description:
-          "Upon entering combat, gain Force Points equal to half your level (rounded down).",
+        description: "The first time each turn you deal Force Ability damage, gain +1 to Force Ability attack rolls and save DCs until the end of your next turn. This bonus stacks up to +2.",
         type: "passive",
       },
       {
         level: 6,
         name: "Through Passion, I Gain Strength",
-        description:
-          "Upon dealing ability damage, deal half that damage (rounded down) to a target you damaged with an ability on your next turn. If you dealt ability damage to multiple targets, use the highest damage instance.",
+        description: "Whenever you deal ability damage, choose one target you damaged with an ability on your previous turn. Deal additional damage to that target equal to half the highest single damage instance you dealt this turn, rounded down.",
         type: "passive",
       },
       {
@@ -2134,14 +2073,13 @@ description:
         level: 9,
         name: "Through Strength, I Gain Power",
         description:
-          "Upon killing a target, gain AC equal to 1/6th of their AC (rounded down) for two turns. May be triggered twice per short rest.",
+          "Upon killing a target, gain AC equal to 1/6th of their AC (rounded down) for two turns. May be triggered twice per Short Rest.",
         type: "active",
       },
       {
         level: 11,
         name: "Through Power, I Gain Victory",
-        description:
-          "Once per turn, when you use a Force Ability that costs 3 Force Points or less, you may use it without spending any Force Points. These abilities may not benefit from Power Overcharge. This may only trigger twice per Short Rest.",
+        description: "Once per turn, when you use a Force Ability that costs 3 Force Points or fewer, you may use it without spending Force Points. It cannot benefit from Power Overcharge. This feature may trigger twice per Short Rest.",
         type: "passive",
       },
       {
@@ -2168,8 +2106,7 @@ description:
       {
         level: 18,
         name: "The Force shall Free Me",
-        description:
-          "Upon dying, transfer your soul into the nearest compatible body within one mile, forcing them to make a Wisdom saving throw. On a failure, possess them — overwriting their soul and body with your own and gaining all of their current hit points. On a success, become a bodiless Force Ghost that may attempt to possess any compatible body within one mile of your corpse or place of death. Your current Recklessness bonuses apply to your initial possession attempt.",
+        description: "When you die, transfer your soul into the nearest compatible body within one mile. The target makes a Wisdom saving throw against your normal Force Ability save DC. On a failure, you possess it, overwriting its soul and body with your own and gaining its current HP. On a success, you become a bodiless Force Ghost that may attempt to possess compatible bodies within one mile of your corpse or place of death. Your current Recklessness bonuses apply to the initial possession attempt.",
         type: "active",
       },
     ],
@@ -2185,7 +2122,7 @@ description:
             level: 3,
             name: "Alchemical Horror",
             description:
-              "Using the dark side of the Force, create an Alchemical Horror completely under your control that may be commanded as a bonus action. It has the following base stats: HP 1d12 per level, AC 12, STR 16, DEX 14, CON 16, WIS 6, INT 8, CHA 10. Upon creation, choose two Mutagenic Abilities from the pool below.",
+              "Using the dark side of the Force, create an Alchemical Horror completely under your control that may be commanded as a Bonus Action. It has the following base stats: HP 1d12 per level, AC 12, STR 16, DEX 14, CON 16, WIS 6, INT 8, CHA 10. Upon creation, choose two Mutagenic Abilities from the pool below.",
             type: "active",
           },
           {
@@ -2262,8 +2199,8 @@ description:
           {
             id: "petrifying-gaze",
             name: "Petrifying Gaze",
-            description: "Enemies who begin their turn directly facing the Horror must make a Wisdom save or have their movement speed halved, their AC reduced by 2, and have Disadvantage on Dexterity saves.",
-            overload: "The Wisdom save must be made at disadvantage.",
+            description: "Enemies who begin their turn directly facing the Horror must make a Wisdom saving throw or have their movement speed halved, their AC reduced by 2, and have Disadvantage on Dexterity saving throws.",
+            overload: "The Wisdom saving throw must be made with Disadvantage.",
           },
           {
             id: "tainted-slime",
@@ -2297,7 +2234,7 @@ description:
             level: 3,
             name: "Unlimited Power",
             description:
-              "While Recklessness is active, increase the critical hit range of all Force Abilities by 1 (e.g. crits on 19–20 instead of 20).",
+              "While Recklessness is active, increase the Critical Hit range of all Force Abilities by 1 (e.g. crits on 19–20 instead of 20).",
             type: "passive",
           },
           {
@@ -2325,7 +2262,7 @@ description:
             level: 13,
             name: "Lightning Storm",
             description:
-              "Force Lightning now chains to two nearby targets on a Critical Hit instead of one. Increase the critical hit range of all Force Abilities by an additional 1.",
+              "Force Lightning now chains to two nearby targets on a Critical Hit instead of one. Increase the Critical Hit range of all Force Abilities by an additional 1.",
             type: "passive",
           },
         ],
@@ -2345,8 +2282,7 @@ export const forceAbilities: ForceAbility[] = [
     cost: "1 Force Point",
     actionType: "Action",
     range: "Touch/Close",
-    description:
-      "Force the target to make a Wisdom saving throw. If they pass, they become aware of your attempt. If they fail, you gain advantage on Charisma checks against them.",
+    description: "The target makes a Wisdom saving throw. On a success, it becomes aware of your attempt. On a failure, you gain Advantage on Charisma checks against it.",
     tags: ["Mental", "Social"],
   },
   {
@@ -2356,8 +2292,7 @@ export const forceAbilities: ForceAbility[] = [
     cost: "1 Force Point",
     actionType: "Action",
     range: "60ft",
-    description:
-      "Push or pull an object 20lbs or less up to 30ft. If this impacts an enemy, they must make a Strength save or take 1d6 damage.",
+    description: "Push or pull an object weighing up to 20 lbs up to 30ft. If the object impacts a creature, that creature must make a Strength saving throw or take 1d6 damage.",
     tags: ["Telekinesis", "Utility", "Damage", "Universal"],
   },
   {
@@ -2377,8 +2312,7 @@ export const forceAbilities: ForceAbility[] = [
     cost: "2 Force Points",
     actionType: "Action",
     range: "30ft",
-    description:
-      "Push or pull an object 200lbs or a Medium creature up to 15ft. If this impacts an enemy, they must make a Strength save. On a failure, they take 6d6 damage and are moved 15ft. On a success, they take half and are unmoved.",
+    description: "Push or pull an object weighing up to 200 lbs or a Medium creature up to 15ft. If you target a creature, it must make a Strength saving throw. On a failure, it takes 6d6 damage and is moved 15ft. On a success, it takes half damage and is not moved.",
     tags: ["Telekinesis", "Damage"],
   },
   {
@@ -2388,8 +2322,7 @@ export const forceAbilities: ForceAbility[] = [
     cost: "1 Force Point",
     actionType: "Attack",
     range: "30ft",
-    description:
-      "Throw your lightsaber, making a normal attack within 30ft range. If this misses your first target, you may redirect it onto a second target, making another attack. If this misses, your saber returns to your hand. For the purposes of class resources, counts as a lightsaber attack. If wielding a Versatile weapon, use the one-handed damage numbers.",
+    description: "Make a normal Lightsaber attack against a target within 30ft. If the attack misses, you may redirect the Lightsaber to a second target within range and make another attack. Afterward, the Lightsaber returns to your hand. These count as Lightsaber attacks for all rules and resource effects. A Versatile Lightsaber uses its one-handed damage die for these attacks.",
     tags: ["Attack", "Lightsaber", "Universal"],
   },
   {
@@ -2399,8 +2332,7 @@ export const forceAbilities: ForceAbility[] = [
     cost: "Variable Force Points",
     actionType: "Action",
     range: "Touch",
-    description:
-      "Spend any number of Force Points to heal a target you're touching. Heals 1d4 per Force Point.",
+    description: "Touch a creature and spend any number of Force Points. The target regains 1d4 HP per Force Point spent.",
     tags: ["Healing", "Support"],
   },
   {
@@ -2410,8 +2342,7 @@ export const forceAbilities: ForceAbility[] = [
     cost: "4 Force Points",
     actionType: "Action",
     range: "Close",
-    description:
-      "Concentrate for one turn. At the beginning of your next turn, grab and crush an enemy, dealing 8d6 damage. On a successful Strength save, deal half damage.",
+    description: "Choose a creature and Concentrate until the start of your next turn. If you maintain Concentration, the target makes a Strength saving throw. On a failure, it takes 8d6 damage; on a success, it takes half damage.",
     tags: ["Telekinesis", "Damage", "Concentration"],
   },
   {
@@ -2443,8 +2374,7 @@ export const forceAbilities: ForceAbility[] = [
     cost: "1 Force Point",
     actionType: "Bonus Action",
     range: "30ft",
-    description:
-      "Determine the emotional state of any creature.",
+    description: "Determine the emotional state of one creature within range.",
     tags: ["Sense", "Social"],
   },
   {
@@ -2465,8 +2395,7 @@ export const forceAbilities: ForceAbility[] = [
     cost: "3 Force Points",
     actionType: "Action",
     range: "10ft radius",
-    description:
-      "Create a zone within 10ft of you for two turns where all projectiles are stopped. After the duration ends or concentration breaks, all projectiles resume their paths.",
+    description: "For up to two turns while Concentrating, create a 10ft-radius zone centered on you. Projectiles entering the zone are suspended. When the effect ends, all suspended projectiles resume their paths.",
     tags: ["Defense", "Concentration", "Universal"],
   },
   {
@@ -2476,8 +2405,7 @@ export const forceAbilities: ForceAbility[] = [
     cost: "4 Force Points",
     actionType: "Action",
     range: "30ft",
-    description:
-      "Increase the AC and Attack rolls of all allies within 30ft by 2 for one minute.",
+    description: "For one minute, allies within 30ft gain +2 AC and +2 to attack rolls.",
     tags: ["Support", "Buff", "Concentration"],
   },
   {
@@ -2487,8 +2415,7 @@ export const forceAbilities: ForceAbility[] = [
     cost: "3 Force Points",
     actionType: "Action",
     range: "30ft",
-    description:
-      "Place an object or person in Stasis for two turns. People may make a Strength save to break free and are Slowed, while objects are completely stopped.",
+    description: "Choose one creature or object within range for up to two turns. A creature makes a Strength saving throw when the ability is used and at the start of each of its turns. On a failure, it is Stunned until the start of its next turn. An affected object is suspended in place for the duration.",
     tags: ["Control", "Concentration"],
   },
   {
@@ -2498,8 +2425,7 @@ export const forceAbilities: ForceAbility[] = [
     cost: "5 Force Points",
     actionType: "Action",
     range: "15ft",
-    description:
-      "Suspend up to three targets for one minute or until your concentration breaks. Suspended targets cannot move, attack, or use items. Every turn (including initially), they may make a Strength save to attempt to break free.",
+    description: "Choose up to three creatures within range for up to one minute while Concentrating. Each target makes a Strength saving throw when the ability is used and at the start of each of its turns. On a failure, it is Stunned until the start of its next turn.",
     tags: ["Control", "Concentration"],
   },
   {
@@ -2509,8 +2435,7 @@ export const forceAbilities: ForceAbility[] = [
     cost: "4 Force Points",
     actionType: "Action",
     range: "Self",
-    description:
-      "Project a shield in a 15ft arc around you that blocks all incoming enemy damage and movement, while permitting allies to fire back. Lasts one minute or until concentration break. This shield has HP equal to your Jedi level × 5.",
+    description: "Project a curved Force barrier along the outer edge of a 15ft cone originating from you. The barrier blocks enemy movement and incoming enemy damage, while allowing allies and allied attacks to pass through. It lasts for 1 minute or until destroyed. The barrier has HP equal to your level × 5.",
     tags: ["Defense", "Concentration"],
   },
   {
@@ -2521,7 +2446,7 @@ export const forceAbilities: ForceAbility[] = [
     actionType: "Action",
     range: "10ft",
     description:
-      "Attempt to induce sleep in an enemy for 10 minutes. They may make a Wisdom save to attempt to remain awake. Any damage, a loud noise, or an ally using the Help action will wake them up.",
+      "Attempt to induce sleep in an enemy for 10 minutes. They may make a Wisdom saving throw to attempt to remain awake. Any damage, a loud noise, or an ally using the Help action will wake them up.",
     tags: ["Mental", "Control"],
   },
   {
@@ -2543,7 +2468,7 @@ export const forceAbilities: ForceAbility[] = [
     actionType: "Reaction",
     range: "Self",
     description:
-      "When you would take energy, lightning, or blaster damage, make a Wisdom save against DC 10 or half the incoming damage, whichever is higher. On success, take no damage. On failure, take half damage.",
+      "When you would take energy, lightning, or blaster damage, make a Wisdom saving throw against DC 10 or half the incoming damage, whichever is higher. On success, take no damage. On failure, take half damage.",
     tags: ["Defense", "Reaction", "Universal"],
   },
   {
@@ -2553,8 +2478,7 @@ export const forceAbilities: ForceAbility[] = [
     cost: "3 Force Points",
     actionType: "Action",
     range: "Self",
-    description:
-      "Attempt to divine the path forwards. Make a Wisdom check, and on a success, gain knowledge of the path towards your objective. When used for astrogation, gain the ability to identify and plot new hyperspace paths.",
+    description: "Divine a path forward. Make a Wisdom check; on a success, learn the path toward your objective. When used for astrogation, you may identify and plot new hyperspace routes.",
     tags: ["Divination", "Utility", "Universal"],
   },
   // ── Dark Side ──────────────────────────────────────────────────────────────
@@ -2566,7 +2490,7 @@ export const forceAbilities: ForceAbility[] = [
     actionType: "Action",
     range: "60ft",
     description:
-      "Make an attack against a target within 60ft with lightning, dealing 3d10 lightning damage. The target may make a Dexterity save; on a failed save they cannot take reactions until the start of their next turn.",
+      "Make an attack against a target within 60ft with lightning, dealing 3d10 lightning damage. The target may make a Dexterity saving throw; on a failed saving throw they cannot take Reactions until the start of their next turn.",
     tags: ["Damage", "Lightning", "Dark Side"],
   },
   {
@@ -2577,7 +2501,7 @@ export const forceAbilities: ForceAbility[] = [
     actionType: "Action",
     range: "30ft",
     description:
-      "Attempt to control a creature within 30ft. The target must make a Wisdom save or become controlled for up to one minute. The target may repeat the save at the end of each of its turns. If they critically fail their save, the target does not receive another save until it takes damage, and they become Mindbroken.",
+      "Attempt to control a creature within 30ft. The target must make a Wisdom saving throw or become controlled for up to one minute. The target may repeat the saving throw at the end of each of its turns. If they critically fail their saving throw, the target does not receive another saving throw until it takes damage, and they become Mindbroken.",
     tags: ["Mental", "Control", "Concentration", "Dark Side"],
   },
   {
@@ -2588,7 +2512,7 @@ export const forceAbilities: ForceAbility[] = [
     actionType: "Action",
     range: "15ft cone",
     description:
-      "Emit a terrifying scream in a 15ft cone. Creatures in the area take 3d8 psychic damage and must make a Constitution save or become frightened until the end of their next turn.",
+      "Emit a terrifying scream in a 15ft cone. Creatures in the area take 3d8 psychic damage and must make a Constitution saving throw or become frightened until the end of their next turn.",
     tags: ["Damage", "Fear", "AOE", "Dark Side"],
   },
   {
@@ -2599,7 +2523,7 @@ export const forceAbilities: ForceAbility[] = [
     actionType: "Action",
     range: "30ft",
     description:
-      "Assault a creature's mind within 30ft. The target takes 2d6 psychic damage and must make an Intelligence save or have a single memory removed from their mind.",
+      "Assault a creature's mind within 30ft. The target takes 2d6 psychic damage and must make an Intelligence saving throw or have a single memory removed from their mind.",
     tags: ["Mental", "Damage", "Dark Side"],
   },
   {
@@ -2610,7 +2534,7 @@ export const forceAbilities: ForceAbility[] = [
     actionType: "Action",
     range: "15ft",
     description:
-      "Target makes a Wisdom save. On failure, implant a trigger phrase, concept, or sensory stimulus. For one hour, the first time that trigger occurs, the bomb detonates. Creatures within 20 ft make an Intelligence save, taking 6d6 psychic damage on failure or half on success. The implanted target is aware something has entered its mind but does not know the trigger.",
+      "Target makes a Wisdom saving throw. On failure, implant a trigger phrase, concept, or sensory stimulus. For one hour, the first time that trigger occurs, the bomb detonates. Creatures within 20 ft make an Intelligence saving throw, taking 6d6 psychic damage on failure or half on success. The implanted target is aware something has entered its mind but does not know the trigger.",
     tags: ["Mental", "Damage", "AOE", "Dark Side"],
   },
   {
@@ -2620,8 +2544,7 @@ export const forceAbilities: ForceAbility[] = [
     cost: "2 Force Points",
     actionType: "Bonus Action",
     range: "60ft",
-    description:
-      "Mark a creature within 60ft for one minute. The first time you deal damage to them per turn, deal an additional 1d6 damage to the target. Additionally, it will have Disadvantage on its saving throw against a single ability across its duration of your choosing. If the target dies while marked, all enemies within 10ft must pass a Wisdom save or become Frightened for 1 turn.",
+    description: "Mark a creature within 60ft for one minute. The first time each turn you damage it, deal an additional 1d6 damage. Once during the duration, you may impose Disadvantage on any one saving throw the target makes. If the target dies while marked, all enemies within 10ft must make a Wisdom saving throw; on a failure, they become Frightened until the start of your next turn.",
     tags: ["Debuff", "Fear", "Dark Side"],
   },
   {
@@ -2632,7 +2555,7 @@ export const forceAbilities: ForceAbility[] = [
     actionType: "Action",
     range: "30ft",
     description:
-      "Mutate a creature within 30ft. The target must make a Constitution save or suffer one of the following effects of your choice for up to one minute: its speed becomes 0, it takes 2d6 damage at the start of each turn, or it has disadvantage on attack rolls. The target may repeat the save at the end of each turn.",
+      "Mutate a creature within 30ft. The target must make a Constitution saving throw or suffer one of the following effects of your choice for up to one minute: its speed becomes 0, it takes 2d6 damage at the start of each turn, or it has Disadvantage on attack rolls. The target may repeat the saving throw at the end of each turn.",
     tags: ["Control", "Debuff", "Concentration", "Dark Side"],
   },
   {
@@ -2653,8 +2576,7 @@ export const forceAbilities: ForceAbility[] = [
     cost: "5 Force Points",
     actionType: "Action",
     range: "30ft",
-    description:
-      "Infect a creature within 30 ft with madness for up to one minute. The target must make a Wisdom Saving Throw or become Confused. At the end of each of its turns, the affected target makes a Wisdom Saving Throw — on a failure, the madness spreads to all creatures within 10 ft who must also make a Wisdom Saving Throw or become affected. On a success, the spread terminates with them. Affected creatures may not spread this until the end of their own turn.",
+    description: "A creature within 30ft makes a Wisdom saving throw. On a failure, it becomes Confused for up to one minute. At the end of each of its turns, it repeats the saving throw. On a failure, each creature within 10ft must make a Wisdom saving throw or become affected by Viral Madness. On a success, the creature is no longer Confused and becomes immune to Viral Madness for 1 hour.",
     tags: ["Mental", "Control", "Concentration", "AOE", "Dark Side"],
   },
   {
@@ -2675,8 +2597,7 @@ export const forceAbilities: ForceAbility[] = [
     cost: "4 Force Points",
     actionType: "Action",
     range: "30ft",
-    description:
-      "Target a creature within 60ft. The target must make a Constitution save or become restrained for up to one minute, taking 3d8 force damage at the start of each of its turns and being unable to speak. As a bonus action against a Choked target, you may deal an additional 1d8 force damage. The target may repeat the save at the end of each turn.",
+    description: "Choose a creature within 30ft. It makes a Constitution saving throw. On a failure, it becomes Restrained for up to one minute, takes 3d8 force damage at the start of each of its turns, and cannot speak. As a Bonus Action, you may deal an additional 1d8 force damage to it. At the start of each of its turns, it repeats the saving throw, ending the effect on a success.",
     tags: ["Telekinesis", "Control", "Damage", "Concentration", "Dark Side"],
   },
   {
@@ -2687,7 +2608,7 @@ export const forceAbilities: ForceAbility[] = [
     actionType: "Action",
     range: "30ft",
     description:
-      "Distort the perception of a creature within 30ft for up to one minute. The target must make a Wisdom save or suffer one of the following effects of your choice: disadvantage on attack rolls and no reactions, is frightened of a creature of your choice, or is blinded. The target may repeat the save at the end of each turn.",
+      "Distort the perception of a creature within 30ft for up to one minute. The target must make a Wisdom saving throw or suffer one of the following effects of your choice: Disadvantage on attack rolls and no Reactions, is Frightened of a creature of your choice, or is Blinded. The target may repeat the saving throw at the end of each turn.",
     tags: ["Mental", "Debuff", "Concentration", "Dark Side"],
   },
   {
@@ -2698,7 +2619,7 @@ export const forceAbilities: ForceAbility[] = [
     actionType: "Action",
     range: "30ft",
     description:
-      "Drain vitality from a creature within 30ft. The target takes 4d8 damage and you regain hit points equal to a quarter of the damage dealt. The target may make a Constitution save for half damage; on a failed save it has disadvantage on its next attack roll.",
+      "Drain vitality from a creature within 30ft. The target takes 4d8 damage and you regain hit points equal to a quarter of the damage dealt. The target may make a Constitution saving throw for half damage; on a failed saving throw it has Disadvantage on its next attack roll.",
     tags: ["Damage", "Healing", "Necrotic", "Dark Side"],
   },
   {
@@ -2708,8 +2629,7 @@ export const forceAbilities: ForceAbility[] = [
     cost: "2 Force Points",
     actionType: "Bonus Action",
     range: "60ft",
-    description:
-      "Link two targets within 60ft of you together for one minute. All movement, voluntary or involuntary, that affects one target affects the other target equally. If this movement would cause damage to one of the affected creature, it takes that damage. Movement caused by Force Tether does not itself trigger Force Tether.",
+    description: "Link two targets within 60ft for one minute. Voluntary or involuntary movement affecting one target affects the other equally. Movement caused by Force Tether cannot trigger Force Tether again.",
     tags: ["Control", "Concentration", "Light Side"],
   },
   {
@@ -2730,8 +2650,7 @@ export const forceAbilities: ForceAbility[] = [
     cost: "3 Force Points",
     actionType: "Action",
     range: "60ft",
-    description:
-      "Select a target within 60ft. If its HP would be reduced to 0 or below, it is instead reduced to 1 HP, and it cannot be reduced below 1 HP until the beginning of its next turn. Lasts until triggered or six hours pass.",
+    description: "Choose a target within 60ft and Concentrate for up to six hours or until triggered. If its HP would be reduced to 0 or lower, it is instead reduced to 1 HP and cannot be reduced below 1 HP until the start of its next turn.",
     tags: ["Protection", "Healing", "Concentration", "Light Side"],
   },
   {
@@ -2752,8 +2671,7 @@ export const forceAbilities: ForceAbility[] = [
     cost: "3 Force Points",
     actionType: "Action",
     range: "15ft",
-    description:
-      "For one minute, all allies within a 15ft radius gain Advantage on saving throws.",
+    description: "For one minute, allies within 15ft gain Advantage on saving throws.",
     tags: ["Protection", "Aura", "Concentration", "Light Side"],
   },
   {
@@ -2763,8 +2681,7 @@ export const forceAbilities: ForceAbility[] = [
     cost: "1 Force Point",
     actionType: "Reaction",
     range: "30ft",
-    description:
-      "When an ally within 30 ft would take damage, reduce that damage by half. You take damage equal to the amount prevented.",
+    description: "When an ally within 30ft would take damage, use your Reaction to reduce that damage by half. You take damage of the same type equal to the amount prevented.",
     tags: ["Protection", "Reaction", "Light Side"],
   },
 
@@ -2775,9 +2692,8 @@ export const forceAbilities: ForceAbility[] = [
     cost: "1 Force Point",
     actionType: "Action",
     range: "30ft",
-    description:
-      "For one minute, detect living creatures within 30ft of you. Invisible creatures still act as Invisible for the purposes of Advantage and Disadvantage.",
-    tags: ["Detection", "Utility", "Neutral"],
+    description: "For 1 minute, detect all living creatures within 30ft and know their location. This does not remove the effects of Invisibility.",
+    tags: ["Detection", "Utility", "Universal"],
   },
   {
     id: "force-gust",
@@ -2786,9 +2702,8 @@ export const forceAbilities: ForceAbility[] = [
     cost: "1 Force Point",
     actionType: "Action",
     range: "15ft cone",
-    description:
-      "Create a 15ft cone that extinguishes flames, disperses smoke, and pushes unsecured objects.",
-    tags: ["Utility", "Control", "Neutral"],
+    description: "Create a 15ft cone that extinguishes flames, disperses smoke, and pushes unsecured objects up to 30ft away from you.",
+    tags: ["Utility", "Control", "Universal"],
   },
   {
     id: "heightened-awareness",
@@ -2797,9 +2712,8 @@ export const forceAbilities: ForceAbility[] = [
     cost: "1 Force Point",
     actionType: "Action",
     range: "Self",
-    description:
-      "For one minute, gain 15ft of Blindsense.",
-    tags: ["Detection", "Utility", "Neutral"],
+    description: "For one minute, gain 15ft of Blindsense.",
+    tags: ["Detection", "Utility", "Universal"],
   },
   // ── New Dark abilities ───────────────────────────────────────────────────
   {
@@ -2809,8 +2723,7 @@ export const forceAbilities: ForceAbility[] = [
     cost: "2 Force Points",
     actionType: "Reaction",
     range: "30ft",
-    description:
-      "Force a target within 30ft that is using an ability or gadget to make a Wisdom saving throw. On a failure, deal 2d6 damage. On a success, nothing happens.",
+    description: "Choose a target within 30ft that is using an ability or Gadget. It makes a Wisdom saving throw. On a failure, it takes 2d6 damage.",
     tags: ["Damage", "Reaction", "Dark Side"],
   },
   {
@@ -2820,8 +2733,7 @@ export const forceAbilities: ForceAbility[] = [
     cost: "3 Force Points",
     actionType: "Bonus Action",
     range: "30ft",
-    description:
-      "Select a target within 30ft. For the next minute, whenever they fail any kind of save, you gain 1d6 HP. If the target dies within the minute, you may select a new target. This may repeat indefinitely, but it does not reset its own timer. This may only heal you once per round.",
+    description: "Choose a target within 30ft for one minute. Once per round when it fails a saving throw, regain 1d6 HP. If it dies during the duration, you may choose a new target within 30ft.",
     tags: ["Healing", "Debuff", "Dark Side"],
   },
   {
@@ -2831,8 +2743,7 @@ export const forceAbilities: ForceAbility[] = [
     cost: "3 Force Points",
     actionType: "Action",
     range: "30ft",
-    description:
-      "Select a target within 30ft and force them to make a Constitution save. If they fail, for the next minute, they may not regain HP through any means. They may make this save every round.",
+    description: "Choose a creature within 30ft. It makes a Constitution saving throw. On a failure, it cannot regain HP for one minute. At the start of each round, it repeats the saving throw, ending the effect on a success.",
     tags: ["Debuff", "Concentration", "Dark Side"],
   },
   {
@@ -2842,8 +2753,7 @@ export const forceAbilities: ForceAbility[] = [
     cost: "5 Force Points",
     actionType: "Action",
     range: "30ft",
-    description:
-      "Select a corpse within 30ft and raise it as a Reanimated Husk. Reanimated Husks have the following stats: HP: 5 × your Force-user level | AC: 10 | Speed: 20 ft | Attack: Force Ability modifier + Proficiency Bonus | Damage: 1d8 + Force Ability modifier | Limit: One Husk at a time | Command: Bonus Action | Duration: Until destroyed or next Long Rest.",
+    description: "Choose a corpse within 30ft and raise it as a Reanimated Husk until it is destroyed or you complete your next Long Rest. You may control only one Husk at a time. It has HP equal to 5 × your level, AC 10, 20ft movement, and 10 in every ability score. Its attacks use your Force Ability modifier + Proficiency Bonus to hit and deal 1d8 + your Force Ability modifier damage. Commanding it requires a Bonus Action.",
     tags: ["Summon", "Dark Side"],
   },
   {
@@ -2853,8 +2763,7 @@ export const forceAbilities: ForceAbility[] = [
     cost: "5 Force Points",
     actionType: "Action",
     range: "60ft",
-    description:
-      "Select a target within 60ft and force them to make a Wisdom save. On a failure, steal 1d4 Strength and add it to yourself for one minute. On a success, this has no effect.",
+    description: "Choose a target within 60ft. It makes a Wisdom saving throw. On a failure, reduce its Strength by 1d4 and increase your Strength by the same amount for one minute. This cannot reduce the target's Strength below 1.",
     tags: ["Debuff", "Dark Side"],
   },
   {
@@ -2864,8 +2773,7 @@ export const forceAbilities: ForceAbility[] = [
     cost: "3 Force Points",
     actionType: "Action",
     range: "60ft",
-    description:
-      "Select a target within 60ft and force them to make a Constitution save. On a failure, reduce their maximum HP by 5d6. On a success, reduce it by half. This cannot reduce their HP below 1, and lasts until they next Long Rest. If their current HP is greater than their new maximum HP, reduce their current HP to their new maximum.",
+    description: "Choose a target within 60ft. It makes a Constitution saving throw. On a failure, reduce its maximum HP by 5d6; on a success, reduce it by half that amount. This cannot reduce its maximum HP below 1. The reduction lasts until its next Long Rest.",
     tags: ["Debuff", "Dark Side"],
   },
 ];
@@ -2880,7 +2788,7 @@ export const gadgets: Gadget[] = [
     slots: 1,
     uses: "2 uses",
     description:
-      "As an action, create a 10ft diameter patch of fire on the ground (lasts 2 turns), or a 20x5ft wall within 60ft of you. Any enemy who starts their turn in this fire or passes through it takes 3d6 damage",
+      "create a 10ft diameter patch of fire on the ground (lasts 2 turns), or a 20x5ft wall within 60ft of you. Any enemy who starts their turn in this fire or passes through it takes 3d6 damage",
     tags: ["Damage", "Area"],
     actionType: "Action",
   },
@@ -2889,8 +2797,7 @@ export const gadgets: Gadget[] = [
     name: "Remote Bomb",
     slots: 3,
     uses: "1 use",
-    description:
-      "As an action, plant a bomb that becomes armed after twenty seconds. After it becomes armed, you may detonate it at any time, so long as you are within comms range of it, or you may set a timer to detonate it. Any target within 30ft takes 8d6 damage. Targets may make a Dexterity save for half damage.",
+    description: "Plant a bomb that becomes armed after 20 seconds. Once armed, you may detonate it at any time while within comms range or set a timer. Creatures in the blast make a Dexterity saving throw for half damage.",
     tags: ["Damage", "Area"],
     actionType: "Action",
   },
@@ -2918,8 +2825,7 @@ export const gadgets: Gadget[] = [
     name: "Micro-Missile Launcher",
     slots: 1,
     uses: "1 base (2/slot extra)",
-    description:
-      "Launch a micro-missile up to 60ft, dealing 2d6 damage in a 10ft radius. Targets may make a Dexterity save for half damage.",
+    description: "Launch a micro-missile up to 60ft, dealing 2d6 damage in a 10ft radius. Targets may make a Dexterity saving throw for half damage.",
     tags: ["Damage", "Area"],
     actionType: "Bonus Action",
   },
@@ -2928,8 +2834,7 @@ export const gadgets: Gadget[] = [
     name: "Macro-Missile Launcher",
     slots: 2,
     uses: "1 base (1/slot extra)",
-    description:
-      "Launch a macro-missile up to 60ft, dealing 4d6 damage in a 15ft radius. Targets may make a Dexterity save for half damage.",
+    description: "Launch a macro-missile up to 60ft, dealing 4d6 damage in a 15ft radius. Targets may make a Dexterity saving throw for half damage.",
     tags: ["Damage", "Area"],
     actionType: "Bonus Action",
   },
@@ -2949,7 +2854,7 @@ export const gadgets: Gadget[] = [
     slots: 1,
     uses: "5 uses/day",
     description:
-      "Pull a Large or smaller creature up to 15 feet toward you, or launch a grappling hook up to 30ft to create a rope for climbing. A creature larger than you has Advantage on the Strength save.",
+      "Pull a Large or smaller creature up to 15 feet toward you, or launch a grappling hook up to 30ft to create a rope for climbing. A creature larger than you has Advantage on the Strength saving throw.",
     tags: ["Movement", "Utility"],
     actionType: "Bonus Action",
   },
@@ -2969,7 +2874,7 @@ export const gadgets: Gadget[] = [
     slots: 1,
     uses: "1 use",
     description:
-      "Launch a web, entangling all targets in a 10ft radius. All targets may make a Strength save to break free, or free an entangled ally with the Help action, but cannot move until free.",
+      "Launch a web, entangling all targets in a 10ft radius. All targets may make a Strength saving throw to break free, or free an entangled ally with the Help action, but cannot move until free.",
     tags: ["Control", "Area"],
     actionType: "Bonus Action",
   },
@@ -2988,8 +2893,7 @@ export const gadgets: Gadget[] = [
     name: "Enhanced Sensor Suite",
     slots: 2,
     uses: "30 min (2/slot extra)",
-    description:
-      "Gain 60ft of Darkvision, the ability to see through walls for 20ft, and Advantage on Perception checks. Lasts 30 minutes.",
+    description: "Gain 60ft of Darkvision, the ability to see through up to 20ft of walls and through smoke, and Advantage on Perception checks for 30 minutes.",
     tags: ["Utility", "Vision", "Surveillance"],
     actionType: "Bonus Action",
   },
@@ -2999,7 +2903,7 @@ export const gadgets: Gadget[] = [
     slots: 3,
     uses: "1 use",
     description:
-      "Throw a beacon up to 30ft. In a 15ft radius, deal 3d6 damage to all Droids unless they pass a Constitution save. Destroy all non-hardened electronics in the area.",
+      "Throw a beacon up to 30ft. In a 15ft radius, deal 3d6 damage to all Droids unless they pass a Constitution saving throw. Destroy all non-hardened electronics in the area.",
     tags: ["Damage", "Anti-Droid", "Area"],
     actionType: "Bonus Action",
   },
@@ -3098,7 +3002,7 @@ export const gadgets: Gadget[] = [
     name: "Aural Dampener",
     slots: 2,
     uses: "2 uses",
-    description: "Silence all sound in a 30ft area for five minutes.",
+    description: "Silence all sound within a 30ft radius for five minutes.",
     tags: ["Utility", "Stealth"],
     actionType: "Bonus Action",
   },
@@ -3107,8 +3011,7 @@ export const gadgets: Gadget[] = [
     name: "Micro-Tractor Beam",
     slots: 1,
     uses: "3 uses",
-    description:
-      "Pull all objects in a 15ft line towards you with 20lbs of force.",
+    description: "Pull all objects weighing up to 20 lbs in a 15ft line toward you.",
     tags: ["Utility", "Telekinesis"],
     actionType: "Bonus Action",
   },
@@ -3118,7 +3021,7 @@ export const gadgets: Gadget[] = [
     slots: 2,
     uses: "1 use",
     description:
-      "Throw a capsule 45ft, where it explodes into a 10ft radius cloud of freezing carbonite gas. Enemies take 1d8 damage and must pass a Strength save or be frozen solid for two turns. Breaking the ice with kinetic damage deals an additional 1d8 damage.",
+      "Throw a capsule 45ft, where it explodes into a 10ft radius cloud of freezing carbonite gas. Enemies take 1d8 damage and must pass a Strength saving throw or be frozen solid for two turns. Breaking the ice with kinetic damage deals an additional 1d8 damage.",
     tags: ["Damage", "Control", "Area"],
     actionType: "Action",
   },
@@ -3171,98 +3074,82 @@ export const skills: Skill[] = [
   {
     name: "Athletics",
     ability: "Strength",
-    description:
-      "Covers physical feats of strength: climbing, jumping, swimming, grappling, and other feats of raw power.",
+    description: "Covers physical feats of strength, including climbing, jumping, swimming, grappling, and other displays of raw power.",
   },
   {
     name: "Deception",
     ability: "Charisma",
-    description:
-      "The ability to convincingly hide the truth, whether through misdirection, disguise, or outright lies.",
+    description: "Covers convincingly hiding the truth through lies, misdirection, disguise, or similar methods.",
   },
   {
     name: "Insight",
     ability: "Wisdom",
-    description:
-      "The ability to determine the true intentions of a creature, such as when searching out a lie or predicting someone's next move.",
+    description: "Covers reading a creature's intentions, detecting deception, and anticipating behavior.",
   },
   {
     name: "Intimidation",
     ability: "Charisma",
-    description:
-      "Influencing someone through overt threats, hostile actions, and physical violence.",
+    description: "Covers influencing others through threats, hostile actions, or displays of force.",
   },
   {
     name: "Investigation",
     ability: "Intelligence",
-    description:
-      "Searching for clues and making deductions based on those clues. Looking for hidden objects, deducing from available evidence.",
+    description: "Covers searching for clues and drawing conclusions from available evidence.",
   },
   {
     name: "Lore",
     ability: "Intelligence",
-    description:
-      "Knowledge of history, legends, and the lore of the galaxy — from ancient Jedi texts to Imperial regulations.",
+    description: "Covers knowledge of history, legends, cultures, organizations, and the wider lore of the galaxy.",
   },
   {
     name: "Medicine",
     ability: "Wisdom",
-    description:
-      "Stabilizing a dying companion or diagnosing an illness. Applying first aid and medical knowledge.",
+    description: "Covers stabilizing the dying, diagnosing illness or injury, and applying medical treatment.",
   },
   {
     name: "Perception",
     ability: "Intelligence",
-    description:
-      "Noticing things in your environment using your senses. Spot hidden enemies, hear distant sounds, or notice subtle details.",
+    description: "Covers noticing details in your environment through your senses, including hidden creatures, distant sounds, and subtle changes.",
   },
   {
     name: "Performance",
     ability: "Charisma",
-    description:
-      "Entertaining an audience through music, dance, acting, storytelling, or other forms of performance.",
+    description: "Covers entertaining an audience through music, dance, acting, storytelling, or other performances.",
   },
   {
     name: "Persuasion",
     ability: "Charisma",
-    description:
-      "Influencing someone or a group of people with tact, social graces, or good nature.",
+    description: "Covers influencing others through tact, reason, social grace, or good faith.",
   },
   {
     name: "Piloting",
     ability: "Dexterity",
-    description:
-      "Operating vehicles and starships, from speeder bikes to capital ships. Includes evasive maneuvers and combat flying.",
+    description: "Covers operating vehicles and starships, including navigation, evasive maneuvers, combat flying, and maneuvering through hazardous environments such as asteroid fields.",
   },
   {
     name: "Sleight of Hand",
     ability: "Dexterity",
-    description:
-      "Performing tasks requiring manual dexterity: picking pockets, planting items, concealing objects on your person.",
+    description: "Covers tasks requiring manual dexterity, including picking pockets, planting items, and concealing objects.",
   },
   {
     name: "Stealth",
     ability: "Dexterity",
-    description:
-      "Concealing yourself from enemies, slipping past guards, and moving without making a sound.",
+    description: "Covers concealing yourself, slipping past observers, and moving quietly.",
   },
   {
     name: "Survival",
     ability: "Wisdom",
-    description:
-      "Following tracks, hunting game, guiding your group through frozen wastelands, identifying signs of nearby creatures, predicting weather, and avoiding natural hazards.",
+    description: "Covers tracking, hunting, navigation through wilderness, predicting weather, and avoiding natural hazards.",
   },
   {
     name: "Technology",
     ability: "Intelligence",
-    description:
-      "Operating, repairing, and hacking technological devices. From slicing into computer systems to jury-rigging a hyperdrive.",
+    description: "Covers operating, repairing, and hacking technological devices, from slicing computer systems to jury-rigging machinery.",
   },
   {
     name: "Animal Handling",
     ability: "Wisdom",
-    description:
-      "Calming down a domesticated animal, keeping a mount from getting spooked, or intuiting an animal's intentions.",
+    description: "Covers calming, controlling, and understanding animals and mounts.",
   },
 ];
 
@@ -3281,23 +3168,23 @@ export const conditions: Condition[] = [
   },
   {
     name: "Mindbroken",
-    description: "The target's mind is damaged for 1d4 days. They have Disadvantage on Wisdom saving throws, but cannot have their mind read.",
+    description: "The target's mind is damaged for 1d4 days. It has Disadvantage on Wisdom saving throws and cannot have its mind read.",
   },
   {
     name: "Frozen",
-    description: "The target cannot move for 1 turn.",
+    description: "The target's movement speed becomes 0 and it cannot take Reactions until the start of its next turn.",
   },
   {
     name: "Slowed",
-    description: "The target has -2 AC and cannot take Bonus Actions.",
+    description: "The target has −2 AC and cannot take Bonus Actions.",
   },
   {
     name: "Stunned",
-    description: "The target skips their turn. All attacks against a Stunned target automatically hit.",
+    description: "The target cannot take Actions, Bonus Actions, Reactions, or movement. Attacks against it automatically hit.",
   },
   {
     name: "Frightened",
-    description: "A frightened creature has Disadvantage on ability checks and attack rolls while the source of its fear is within line of sight. The creature cannot willingly move closer to the source of its fear.",
+    description: "A Frightened creature has Disadvantage on ability checks and attack rolls while the source of its fear is within line of sight, and it cannot willingly move closer to the source of its fear.",
   },
   {
     name: "Jammed",
@@ -3311,7 +3198,7 @@ export const conditions: Condition[] = [
 export const coreRules = [
   {
     title: "Resource Regeneration Timing",
-    description: "All resource regeneration, venting, and passive gains occur at the end of a creature's turn.",
+    description: "Unless otherwise specified, all resource regeneration, venting, and passive gains occur at the end of a creature's turn.",
   },
 ];
 
@@ -3425,38 +3312,31 @@ export interface WeaponProperty {
 export const weaponProperties: WeaponProperty[] = [
   {
     name: "Versatile",
-    description:
-      "Is most commonly used in one hand, but may be used with both hands for increased damage, as indicated by the die size next to it. 1d8(1d10 Versatile) means 1d8 damage with one hand and 1d10 with two.",
+    description: "This weapon may be used with one or two hands. Its two-handed damage die is listed in parentheses.",
   },
   {
     name: "Melting",
-    description:
-      "Is superheated, causing extreme damage via thermal conduction. Deals double damage to terrain and objects and grants +1 to hit.",
+    description: "Deals double damage to terrain and objects and grants +1 to attack rolls.",
   },
   {
     name: "Finesse",
-    description:
-      "This weapon uses Dexterity as its primary attribute, rather than Strength.",
+    description: "This weapon uses Dexterity instead of Strength as its primary attribute.",
   },
   {
     name: "Double Strike",
-    description:
-      "This weapon may attack two targets at once, but not the same target twice in a single attack action.",
+    description: "This weapon may attack two different targets as part of the same attack, but cannot target the same creature twice.",
   },
   {
     name: "Luminous",
-    description:
-      "This weapon is a light source, lighting a 15ft radius with a dim glow.",
+    description: "This weapon sheds dim light in a 15ft radius.",
   },
   {
     name: "Heavy",
-    description:
-      "This weapon is unusually heavy, requiring at least 13 Strength to use proficiently.",
+    description: "This weapon requires at least 13 Strength to use proficiently.",
   },
   {
     name: "Reach",
-    description:
-      "This weapon has additional reach, extending attack range by 5ft.",
+    description: "Increase this weapon's melee range by 5ft.",
   },
   {
     name: "Two-Handed",
@@ -3464,58 +3344,47 @@ export const weaponProperties: WeaponProperty[] = [
   },
   {
     name: "Light",
-    description:
-      "This weapon is very light, allowing for it to be used in an off-hand role.",
+    description: "This weapon may be used as an offhand weapon.",
   },
   {
     name: "Clumsy",
-    description:
-      "This weapon is awkward to use up close. It attacks normally up to its full range, but at disadvantage within its minimum range.",
+    description: "Attacks made with this weapon have Disadvantage against targets within its minimum range.",
   },
   {
     name: "Disintegrator",
-    description:
-      "This weapon disintegrates targets it destroys, rather than simply leaving their bodies.",
+    description: "A creature killed by this weapon is disintegrated.",
   },
   {
     name: "High Recoil",
-    description:
-      "This weapon uses Strength as its primary attribute, not Dexterity.",
+    description: "This weapon uses Strength instead of Dexterity as its primary attribute.",
   },
   {
     name: "Blast",
-    description:
-      "This weapon has a blast radius. If it hits its target, it deals an additional 1/2 damage to all enemies in the specified radius.",
+    description: "When this weapon hits, creatures within the listed radius take damage equal to half the damage dealt to the primary target.",
   },
   {
     name: "Spread Shot",
-    description:
-      "This weapon does not use normal weapon attacks — rather, it forces all enemies in the specified cone to make a saving throw against the attack's primary attribute.",
+    description: "This weapon does not make normal weapon attacks. Instead, all creatures in the listed cone must make a Dexterity saving throw against the weapon's normal attack DC.",
   },
   {
     name: "Vibrocutter",
-    description:
-      "This weapon chews through its targets, consistently dealing heavy damage. Crit on 19 and 20.",
+    description: "This weapon scores a Critical Hit on a roll of 19 or 20.",
   },
   {
     name: "Electrified",
-    description:
-      "This weapon is electrified, gaining a chance to stun enemies. On crits, stun your target for one turn.",
+    description: "When this weapon scores a Critical Hit, the target is Stunned until the start of your next turn.",
   },
   {
     name: "Electrowave",
-    description:
-      "This weapon releases an electric wave the specified distance to behind the target. Make an attack against all targets within the range when you attack. Is also Electrified.",
+    description: "When you attack, also make an attack against each target in the listed distance directly behind the primary target. This weapon is also Electrified.",
   },
   {
     name: "Loading",
-    description:
-      "This weapon may only fire one shot before reloading, which costs a Bonus Action.",
+    description: "After firing this weapon, reloading it requires a Bonus Action.",
   },
   {
     name: "Stun Rounds",
-    description:
-      "This weapon can fire nonlethal stun rounds. Stun attacks deal the same damage but reduce the target to 0 HP rather than killing them, and may only be made at half the weapon's normal range.",
+    description: "This weapon may make nonlethal attacks at half its normal range. These attacks deal normal damage, but a creature reduced to 0 HP is rendered Unconscious rather than killed.",
   },
 ];
 
@@ -3680,7 +3549,7 @@ export const weapons: Weapon[] = [
     category: "blaster",
     damage: "1d12",
     range: "20 ft",
-    properties: ["High Recoil", "Spread Shot (10 ft)"],
+    properties: ["High Recoil", "Spread Shot (20 ft)"],
     notes: "Giga-shotgun. Forces a saving throw rather than an attack roll.",
     price: 15000,
 
@@ -3814,7 +3683,7 @@ export const items: Item[] = [
     name: "Stim Injector",
     category: "Medical",
     description:
-      "Heal 1d6 HP and gain an additional 10ft of movement and an additional bonus action for five turns. Each turn after the first, take 1d6 damage.",
+      "Heal 1d6 HP and gain an additional 10ft of movement and an additional Bonus Action for five turns. Each turn after the first, take 1d6 damage.",
     price: 2000,
 
   },
@@ -3835,7 +3704,7 @@ export const items: Item[] = [
     name: "Thermal Detonator",
     category: "Grenade",
     description:
-      "Deals 2d6+2 damage in a 10ft area. Can be thrown 30ft.",
+      "Deals 2d6+2 damage in a 10ft area.",
     price: 2500,
 
   },
@@ -3845,7 +3714,7 @@ export const items: Item[] = [
     name: "Concussion Grenade",
     category: "Grenade",
     description:
-      "Deals 2d4 damage in a 10ft area. Propels all hit targets 5ft away from the grenade. Can be thrown 30ft.",
+      "Deals 2d4 damage in a 10ft area. Propels all hit targets 5ft away from the grenade.",
     price: 800,
 
   },
@@ -3855,7 +3724,7 @@ export const items: Item[] = [
     name: "Ion Grenade",
     category: "Grenade",
     description:
-      "Deals 1d6 damage in a 10ft area. Deals double damage to temporary HP and droids. Can be thrown 30ft.",
+      "Deals 1d6 damage in a 10ft area. Deals double damage to Shields and droids.",
     price: 1000,
 
   },
@@ -3865,7 +3734,7 @@ export const items: Item[] = [
     name: "Incendiary Grenade",
     category: "Grenade",
     description:
-      "Creates a 10ft patch of fire that lasts for 3 turns. Deals 1d6 damage to every target in the fire. Can be thrown 30ft.",
+      "Creates a 10ft-radius patch of fire that lasts for 3 turns. Creatures in the fire take 1d6 damage.",
     price: 1000,
 
   },
@@ -3875,7 +3744,7 @@ export const items: Item[] = [
     name: "Smoke Grenade",
     category: "Grenade",
     description:
-      "Creates a 10ft smoke cloud that lasts for 1 turn, completely obscuring vision, but not more advanced sensors. Can be thrown 30ft.",
+      "Creates a 10ft-radius smoke cloud that lasts for one turn. Normal vision is obscured, but advanced sensors are unaffected.",
     price: 500,
 
   },
@@ -4179,7 +4048,7 @@ export const armors: Armor[] = [
     id: "mesh-armor",
     name: "Mesh Armor",
     weight: "Medium",
-    ac: "13 + Dex (max 2)",
+    ac: "13 + Dex (max +2)",
     stealthDisadvantage: false,
     price: 4000,
 
@@ -4189,7 +4058,7 @@ export const armors: Armor[] = [
     id: "weave-armor",
     name: "Weave Armor",
     weight: "Medium",
-    ac: "14 + Dex (max 2)",
+    ac: "14 + Dex (max +2)",
     stealthDisadvantage: false,
     price: 6000,
 
@@ -4199,7 +4068,7 @@ export const armors: Armor[] = [
     id: "light-beskar-armor",
     name: "Light Beskar Armor",
     weight: "Medium",
-    ac: "15 + Dex (max 2)",
+    ac: "15 + Dex (max +2)",
     stealthDisadvantage: false,
     price: 9000,
 
@@ -4263,10 +4132,10 @@ export interface SuppliesSystem {
   resupplyNote: string;
 }
 export const suppliesSystem: SuppliesSystem = {
-  description: "Supplies are consumed during Long Rests to gain the benefits of the full rest.",
+  description: "Supplies are consumed during Long Rests to gain the full benefits of the rest.",
   maxCarried: 5,
   shipStorage: 50,
-  resupplyNote: "Supplies are automatically refilled upon entering a port, city, or other major market.",
+  resupplyNote: "Supplies are automatically replenished when entering a port, city, or other major market.",
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -4295,11 +4164,11 @@ export interface Ship {
   includedModules?: string[];
 }
 export const ships: Ship[] = [
-  { id: "fighter", name: "Fighter", crew: "1–2", moduleSlots: 2, cost: 125000, stats: { str: 8, dex: 16, con: 6, int: 10 }, hp: 40, ac: 16, movement: 100, maxWeapons: 2, criticalThreshold: 15, description: "A small, 1-2 person starship equipped with a basic hyperspace drive. Agile, fast, and very very squishy.", freeWeapon: "DEX-based 1d4, 25nmi" },
-  { id: "light-freighter", name: "Light Freighter", crew: "3–4", moduleSlots: 8, cost: 350000, stats: { str: 14, dex: 10, con: 12, int: 10 }, hp: 60, ac: 14, movement: 60, maxWeapons: 3, criticalThreshold: 20, description: "A 3-4 person starship equipped with a hyperspace drive and quite a bit more room to customize, but requires substantially more work to retrofit into a true combat ship.", freeWeapon: "DEX-based 1d4, 25nmi" },
-  { id: "corvette", name: "Corvette", crew: "3–4", moduleSlots: 5, cost: 600000, stats: { str: 12, dex: 14, con: 10, int: 10 }, hp: 70, ac: 15, movement: 60, maxWeapons: 4, criticalThreshold: 25, description: "A 3-4 person light military ship, meant for low-intensity fighting.", freeWeapon: "DEX-based 1d4, 25nmi", includedModules: ["Turbolaser Battery or Ion Cannon", "Deflector Shields"] },
-  { id: "heavy-freighter", name: "Heavy Freighter", crew: "5–6", moduleSlots: 16, cost: 900000, stats: { str: 16, dex: 8, con: 14, int: 8 }, hp: 100, ac: 12, movement: 40, maxWeapons: 5, criticalThreshold: 30, description: "A 5-6 person starship capable of hauling heavy cargo and capable of a high degree of customization.", freeWeapon: "DEX-based 1d4, 25nmi" },
-  { id: "frigate", name: "Frigate", crew: "5–6", moduleSlots: 12, cost: 1500000, stats: { str: 14, dex: 12, con: 12, int: 10 }, hp: 120, ac: 13, movement: 40, maxWeapons: 6, criticalThreshold: 35, description: "A 5-6 person starship capable of long-range patrols and escort duty in contested space.", freeWeapon: "DEX-based 1d4, 25nmi", includedModules: ["Two of: Turbolaser Battery, Ion Cannon, Concussion Missile Battery, Fighter Bay, or Sensor Suite", "Deflector Shields or ECM Suite"] },
+  { id: "fighter", name: "Fighter", crew: "1–2", moduleSlots: 2, cost: 125000, stats: { str: 8, dex: 16, con: 6, int: 10 }, hp: 40, ac: 16, movement: 100, maxWeapons: 2, criticalThreshold: 15, description: "A small 1–2 person starship equipped with a basic hyperdrive. Agile and fast, but fragile.", freeWeapon: "Light Turbolaser Battery — 0 credits, 1d4 damage, 25nmi range, DEX-based" },
+  { id: "light-freighter", name: "Light Freighter", crew: "3–4", moduleSlots: 8, cost: 350000, stats: { str: 14, dex: 10, con: 12, int: 10 }, hp: 60, ac: 14, movement: 60, maxWeapons: 3, criticalThreshold: 20, description: "A 3–4 person starship equipped with a hyperdrive and substantial room for customization. Converting it into a dedicated combat ship requires significant modification.", freeWeapon: "Light Turbolaser Battery — 0 credits, 1d4 damage, 25nmi range, DEX-based" },
+  { id: "corvette", name: "Corvette", crew: "3–4", moduleSlots: 5, cost: 600000, stats: { str: 12, dex: 14, con: 10, int: 10 }, hp: 70, ac: 15, movement: 60, maxWeapons: 4, criticalThreshold: 25, description: "A 3–4 person light military ship designed for patrol and low-intensity combat.", freeWeapon: "Light Turbolaser Battery — 0 credits, 1d4 damage, 25nmi range, DEX-based", includedModules: ["Turbolaser Battery or Ion Cannon", "Deflector Shields"] },
+  { id: "heavy-freighter", name: "Heavy Freighter", crew: "5–6", moduleSlots: 16, cost: 900000, stats: { str: 16, dex: 8, con: 14, int: 8 }, hp: 100, ac: 12, movement: 40, maxWeapons: 5, criticalThreshold: 30, description: "A 5–6 person starship built for heavy cargo hauling and extensive customization.", freeWeapon: "Light Turbolaser Battery — 0 credits, 1d4 damage, 25nmi range, DEX-based" },
+  { id: "frigate", name: "Frigate", crew: "5–6", moduleSlots: 12, cost: 1500000, stats: { str: 14, dex: 12, con: 12, int: 10 }, hp: 120, ac: 13, movement: 40, maxWeapons: 6, criticalThreshold: 35, description: "A 5–6 person military starship designed for long-range patrol and escort duty.", freeWeapon: "Light Turbolaser Battery — 0 credits, 1d4 damage, 25nmi range, DEX-based", includedModules: ["Two of: Turbolaser Battery, Ion Cannon, Concussion Missile Battery, Fighter Bay, or Sensor Suite", "Deflector Shields or ECM Suite"] },
 ];
 
 export interface ShipModule {
@@ -4310,34 +4179,40 @@ export interface ShipModule {
   description: string;
 }
 export const shipModules: ShipModule[] = [
+  { id: "light-missile-pod", name: "Light Missile Pod", slots: 1, cost: 60000, description: "Fires three missiles, each dealing 1d4+1 damage at 25nmi range. Each may be individually targeted. Takes one turn to reload." },
   { id: "turbolaser-battery", name: "Turbolaser Battery", slots: 1, cost: 45000, description: "1d8 damage, 100nmi range, STR-based." },
-  { id: "ion-cannon", name: "Ion Cannon", slots: 1, cost: 50000, description: "1d4 damage, 50nmi range, STR-based. Deals 3x damage to temporary HP, and on a critical, cause a Systems Critical. After one day, this System Critical is automatically repaired." },
+  { id: "ion-cannon", name: "Ion Cannon", slots: 1, cost: 50000, description: "1d4 damage, 50nmi range, STR-based. Deals 3x damage to Shields, and on a critical, cause a Systems Critical. After one day, this System Critical is automatically repaired." },
   { id: "concussion-missile-battery", name: "Concussion Missile Battery", slots: 1, cost: 60000, description: "1d12+4 damage, 30nmi range, DEX-based. Takes one turn to reload after firing." },
-  { id: "fighter-bay", name: "Fighter Bay", slots: 1, cost: 60000, description: "Allows the ship to carry one fighter with it and deploy it as needed. May not be used on Fighters." },
+  { id: "fighter-bay", name: "Fighter Bay", slots: 1, cost: 20000, description: "Allows the ship to carry one fighter with it and deploy it as needed. May not be used on Fighters." },
   { id: "defensive-ecm", name: "Defensive ECM", slots: 1, cost: 100000, description: "Add +2 AC. May only install 2." },
-  { id: "offensive-ecm", name: "Offensive ECM", slots: 2, cost: 100000, description: "Designate one enemy target. Its weapon range is reduced by 20nmi." },
+  { id: "offensive-ecm", name: "Offensive ECM", slots: 2, cost: 100000, description: "Designate one enemy target at no action cost. Its weapon range is reduced by 20nmi. You may change the designated target at no action cost." },
   { id: "reinforced-hull", name: "Reinforced Hull", slots: 1, cost: 45000, description: "Adds 15 HP." },
-  { id: "deflector-shields", name: "Deflector Shields", slots: 1, cost: 90000, description: "Adds 20 Temporary HP. This regenerates after 6hrs." },
+  { id: "deflector-shields", name: "Deflector Shields", slots: 1, cost: 90000, description: "Adds 20 Shields. This regenerates after 6hrs." },
   { id: "extra-engines", name: "Extra Engines", slots: 2, cost: 80000, description: "Adds +10nmi movement." },
   { id: "smuggler-compartment", name: "Smuggler Compartment", slots: 1, cost: 30000, description: "Allows carrying of 5 tons of cargo or 5 people in a hidden compartment, shielded from scanners." },
   { id: "cargo-bay", name: "Cargo Bay", slots: 1, cost: 20000, description: "Allows carrying of 10 tons of cargo or 10 people." },
   { id: "tractor-beam", name: "Tractor Beam", slots: 4, cost: 220000, description: "Target a ship of your size or smaller within 10nmi and make a contested Strength check. On a success, the target's movement becomes 0, and you may pull it adjacent to your ship." },
   { id: "sensor-suite", name: "Sensor Suite", slots: 2, cost: 55000, description: "Add +2 to Perception checks." },
   { id: "interdictor-field", name: "Interdictor Field", slots: 12, cost: 3000000, description: "Blocks all hyperspace jump attempts in a 1000nmi radius." },
-  { id: "repair-systems", name: "Repair Systems", slots: 3, cost: 160000, description: "Repairs your ship at a rate of 5hp/day, up to 3/4ths of your ship HP. May be used to repair one Systems Critical between port stops." },
+  { id: "repair-systems", name: "Repair Systems", slots: 3, cost: 160000, description: "Repairs 5 HP per day, up to three-quarters of the ship's maximum HP. It may also permanently repair one Systems Critical between port stops." },
   { id: "escape-pods", name: "Escape Pods", slots: 1, cost: 15000, description: "Upon ship destruction, allows all crew members to escape safely." },
   { id: "fire-control-system", name: "Fire Control System", slots: 1, cost: 100000, description: "Add +2 to weapon attacks." },
   { id: "brig", name: "Brig", slots: 1, cost: 18000, description: "Allows for the secure holding of 2 prisoners." },
   { id: "eva-locker", name: "EVA Locker", slots: 1, cost: 12000, description: "Allows for EVA excursions of all crewmembers." },
-  { id: "meditation-chambers", name: "Meditation Chambers", slots: 2, cost: 120000, description: "Gives Advantage on Force Ability rolls while inside the Meditation Chambers." },
-  { id: "security-systems", name: "Security Systems", slots: 2, cost: 60000, description: "Gain perfect knowledge of all enemy locations within the ship, and gain advantage on all rolls on the first round of combat within your ship." },
-  { id: "cloaking-module", name: "Cloaking Module", slots: 5, cost: 900000, description: "Gain the ability to become Invisible in space for 6 hours. All actions except for movement break this cloak. Cannot be used on anything larger than a Light Freighter or Corvette." },
+  { id: "meditation-chambers", name: "Meditation Chambers", slots: 2, cost: 120000, description: "Gain Advantage on all rolls made as part of Force Abilities while inside the Meditation Chambers." },
+  { id: "security-systems", name: "Security Systems", slots: 2, cost: 60000, description: "Gain perfect knowledge of all enemy locations within the ship, and gain Advantage on all rolls during the first round of combat within your ship." },
+  { id: "cloaking-module", name: "Cloaking Module", slots: 2, cost: 150000, description: "Gain the ability to become Invisible in space for 6 hours. All actions except for movement break this cloak. Cannot be used on anything larger than a Light Freighter or Corvette." },
   { id: "comms-jammer", name: "Comms Jammer", slots: 2, cost: 180000, description: "Block enemy communications within a 1000nmi radius. Active jamming reveals your own position." },
   { id: "hydroponics-bay", name: "Hydroponics Bay", slots: 2, cost: 35000, description: "Increase onboard Supplies by 30." },
-  { id: "decoy-launcher", name: "Decoy Launcher", slots: 1, cost: 45000, description: "Launch a decoy to mimic your ship. Roll Dexterity vs. target's Perception. On success, may divert fire and all Concussion Missiles unless launched within 10nmi." },
-  { id: "light-missile-pod", name: "Light Missile Pod", slots: 1, cost: 60000, description: "Fires three missiles, each dealing 1d4+1 damage at 25nmi range. Each may be individually targeted. Takes one turn to reload." },
-  { id: "point-defense-battery", name: "Point-Defense Battery", slots: 1, cost: 65000, description: "Once per turn, target a single enemy missile attack and roll a Dexterity save. If higher than the attack roll, negate the attack." },
+  { id: "decoy-launcher", name: "Decoy Launcher", slots: 1, cost: 45000, description: "Launch a decoy to mimic your ship. Roll Dexterity against the target's Perception. On a success, all attacks and Concussion Missiles targeting your ship are diverted to the decoy unless the missiles were launched within 10nmi." },
+  { id: "point-defense-battery", name: "Point-Defense Battery", slots: 1, cost: 65000, description: "Once per turn, target a single enemy missile attack and roll a Dexterity saving throw. If higher than the attack roll, negate the attack." },
 ];
+
+export const shipRules = {
+  moduleInstallation: "Installing or replacing a ship module requires 1 week of downtime and costs 20% of the incoming module's purchase price. A removed module must either be stored somewhere capable of holding it or abandoned.",
+  repairs: "Ships do not regain HP from normal downtime unless they are in port or have Repair Systems. Systems Criticals can normally be permanently repaired only in port; Repair Systems may permanently repair one Systems Critical between port stops.",
+  criticalRerolls: "If a Systems Critical cannot further affect the ship, reroll until a valid Systems Critical is generated. If no valid Systems Criticals remain, start a new Fire instead. Each Fire is tracked separately and begins at 1d6 damage.",
+};
 
 export interface SystemsCritical {
   roll: number;
@@ -4347,12 +4222,12 @@ export interface SystemsCritical {
 export const systemsCriticals: SystemsCritical[] = [
   { roll: 1, name: "Disabled Engines", description: "You may no longer move at all. After one day, this automatically upgrades to Damaged Engines." },
   { roll: 2, name: "Disabled Weapons", description: "Roll among all your weapons, and disable the one selected." },
-  { roll: 3, name: "Disabled Generators", description: "You can no longer gain Temporary HP, and gain Disadvantage on Perception checks." },
+  { roll: 3, name: "Disabled Generators", description: "You can no longer gain Shields, and gain Disadvantage on Perception checks." },
   { roll: 4, name: "Disabled Comms", description: "You may no longer communicate externally." },
   { roll: 5, name: "Damaged Engines", description: "You now move at half speed." },
-  { roll: 6, name: "Damaged Generators", description: "You now recharge Temporary HP at half speed, and may only regenerate up to half of your normal maximum. Gain Disadvantage on Perception Checks." },
+  { roll: 6, name: "Damaged Generators", description: "You now recharge Shields at half speed, and may only regenerate up to half of your normal maximum. Gain Disadvantage on Perception Checks." },
   { roll: 7, name: "Damaged Module", description: "Roll among all your modules, and disable the one selected. Anything stored in said module is destroyed." },
-  { roll: 8, name: "Fire", description: "Take 1d6 damage per turn. Each turn, roll a Constitution Save. On a success, the fire is extinguished." },
+  { roll: 8, name: "Fire", description: "At the start of each of the ship's turns, each Fire deals its current damage. A new Fire begins at 1d6 damage. After taking the damage, make a Constitution saving throw with a DC equal to half the ship's Critical Damage Threshold. On a success, that Fire is extinguished. On a failure, increase that Fire's damage by 1d6 for its next turn. Track each Fire separately." },
 ];
 
 export interface ChangelogChange {
@@ -4368,12 +4243,21 @@ export interface ChangelogEntry {
 }
 
 export const changelog: ChangelogEntry[] = [
- {
+  {
     version: "0.3.16",
-    date: "2026-09-06",
-    summary: "Adding crew actions to ships.",
+    date: "2026-09-21",
+    summary: "Completed the full rules consistency pass and incorporated the associated balance and ship-system updates.",
     changes: [
-      { category: "Ships", description: "Added 7 crew actions to ships that give other players something to do." },
+      { category: "Grammar & Consistency", description: "Grammar, capitalization, terminology, timing, and rules-consistency fixes across classes, subclasses, Force Abilities, Gadgets, skills, conditions, equipment, ship rules, and Talent Trees." },
+      { category: "Class Progression", description: "Standardized Ability Score Improvement/Talent Point levels to 4, 8, 12, and 16; removed the unintended Trooper level 6 ASI and restored the missing Smuggler level 16 ASI." },
+      { category: "Core Rules", description: "Resource regeneration, venting, and passive gains now default to the end of a creature's turn unless a rule specifies a different timing." },
+      { category: "Force Abilities", description: "Force Stasis and Force Suspend now Stun creatures on failed saving throws; Dread Mark may impose Disadvantage on any one saving throw; Force Barrier was redefined as a curved 15ft barrier; Raise Dead received a complete Husk stat block; Siphon Strength can no longer reduce Strength below 1." },
+      { category: "Equipment", description: "Sonic Cannon Spread Shot increased to 20ft. Grenades now use the shared 30ft throw/no-saving-throw baseline unless a grenade explicitly states otherwise. Enhanced Sensor Suite now sees through smoke and Aural Dampener uses a 30ft radius." },
+      { category: "Powertech", description: "Only Heavy Companion Droid chassis may carry High Recoil weapons. Shielded Chassis now grants fixed Shields by chassis size. The Tier 4 Gadget-payoff talent now turns the first hit each turn against a Gadget-affected enemy into a Critical Hit." },
+      { category: "Mercenary", description: "Heat venting and Heat self-damage now explicitly occur at the start of the Mercenary's turn; the Arsenal die-step progression is defined as d4 → d6 → d8 → d10 → d12 → 2d6; Overdrive adds 1d8 to every Arsenal Ability damage instance." },
+      { category: "Talent Trees", description: "Applied the accepted mechanical updates to Guardian reflection talents, Shadow Impulse stacking, Commando Energy Cell economy, Vanguard defensive triggers, Gunslinger Reaction movement, Scoundrel Present specialization, Operative stealth scaling, Sniper targeting, Mercenary Heat control, Juggernaut movement resistance, Alchemist damage scaling, and Sorcerer area conversion." },
+      { category: "Sniper", description: "Targeting Visor marks now last 1 day." },
+      { category: "Ships", description: "Fighter Bay reduced to 20,000 credits; Cloaking Module changed to 2 slots and 150,000 credits; every ship now includes a free Light Turbolaser Battery; module swapping now requires one week and costs 20% of the incoming module; normal downtime repairs require port access unless Repair Systems applies; Fire Criticals now scale using half the ship's Critical Damage Threshold and escalate on failed saving throws; invalid Systems Criticals reroll or create a new Fire." },
     ],
   },
  {
@@ -4544,7 +4428,7 @@ export const changelog: ChangelogEntry[] = [
       { category: "Talent Trees", description: "Added Sage tree (4 tiers): Balance-spectrum mastery, Centered bonuses, and extreme-state amplification." },
       { category: "Talent Trees", description: "Added Shadow tree (4 tiers): Focus vs Impulse duality — stealth/social/initiative vs lightsaber/intimidation/ability bonuses." },
       { category: "Talent Trees", description: "Added Commando tree (4 tiers): Energy Cell economy, Overcharge cover penetration, resistance shredding, and damage stacking." },
-      { category: "Talent Trees", description: "Added Vanguard tree (4 tiers): Temporary HP-gated AC/resistance, movement suppression, cover aura, and ranged opportunity attacks." },
+      { category: "Talent Trees", description: "Added Vanguard tree (4 tiers): Shields-gated AC/resistance, movement suppression, cover aura, and ranged opportunity attacks." },
       { category: "Talent Trees", description: "Added Gunslinger tree (4 tiers): Reaction lock, first-blood damage, additional reaction, and multi-hit bonuses." },
       { category: "Talent Trees", description: "Added Scoundrel tree (4 tiers): Single-target present focus, smoke screens, knockback, and Disadvantage exploitation." },
       { category: "Talent Trees", description: "Added Operative tree (4 tiers): Gadget uses, dice upgrades, Stealth expertise, bonus action Hide, and Ghost Protocol." },
@@ -4711,7 +4595,7 @@ export const changelog: ChangelogEntry[] = [
     changes: [
       { category: "Class", description: "Adjusted Knight early focus gain and removed Focus loss on damage to make opening fights feel better." },
       { category: "Subclass", description: "Sage: Adjusted low balance to give extra attack and lose Force free action usage to prioritize rubber-banding." },
-      { category: "Subclass", description: "Sage: Gave limited ability to regenerate Force Points off of short rests based off of hit dice usage to allow for more freedom while forcing costs." },
+      { category: "Subclass", description: "Sage: Gave limited ability to regenerate Force Points off of Short Rests based off of hit dice usage to allow for more freedom while forcing costs." },
 	  { category: "Force Ability", description: "Nerfed Force Crush to require one turn of channeling to compensate for the ridiculous damage."},
 	  { category: "Force Ability", description: "Nerfed Battle Precognition from all enemies to three enemies to save DM sanity."},
 	  { category: "Force Ability", description: "Clarified Saber Throw."},
@@ -4818,12 +4702,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "sentinel-t1-a",
             name: "",
-            description: "Gain an additional 10ft of movement speed.",
+            description: "Gain 10ft of movement.",
           },
           {
             id: "sentinel-t1-b",
             name: "",
-            description: "After landing a lightsaber attack, your target may not take reactions until the start of your next turn.",
+            description: "After you hit with a Lightsaber attack, the target cannot take Reactions until the start of your next turn.",
           },
         ],
       },
@@ -4833,12 +4717,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "sentinel-t2-a",
             name: "",
-            description: "Gain the ability to both Disengage and Dash at once as a bonus action.",
+            description: "You may Disengage and Dash simultaneously as a Bonus Action.",
           },
           {
             id: "sentinel-t2-b",
             name: "",
-            description: "After moving 30ft or more in a single turn, gain +2 to Dexterity Saving Throws until the start of your next turn.",
+            description: "If you move at least 30ft during your turn, gain +2 to Dexterity saving throws until the start of your next turn.",
           },
         ],
       },
@@ -4848,12 +4732,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "sentinel-t3-a",
             name: "",
-            description: "Landing a lightsaber attack grants you an additional 5ft of movement, which may be used immediately.",
+            description: "After landing a Lightsaber attack, gain 5ft of movement.",
           },
           {
             id: "sentinel-t3-b",
             name: "",
-            description: "After landing two lightsaber attacks in the same turn, gain +2 to Dexterity Saving Throws until the start of your next turn.",
+            description: "After making two Lightsaber attacks during the same turn, gain +2 to Dexterity saving throws until the start of your next turn.",
           },
         ],
       },
@@ -4863,12 +4747,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "sentinel-t4-a",
             name: "",
-            description: "If you do not already know Force Leap, you learn it. Force Leap no longer costs any Force Points, becomes a Free Action, and can be used once per turn.",
+            description: "Learn Force Leap if you do not already know it. It costs 0 Force Points, uses a Free Action, and may be used once per turn.",
           },
           {
             id: "sentinel-t4-b",
             name: "",
-            description: "Gain +1 AC for every 20ft moved this turn, applied until the end of your next turn.",
+            description: "Gain +1 AC for every 20ft you move during your turn, lasting until the start of your next turn.",
           },
         ],
       },
@@ -4886,12 +4770,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "guardian-t1-a",
             name: "",
-            description: "After not moving for an entire turn, gain Defensive Ward for free at the start of your next turn.",
+            description: "If you do not move during your turn, gain Defensive Ward for free until the start of your next turn.",
           },
           {
             id: "guardian-t1-b",
             name: "",
-            description: "After deflecting a blaster bolt, roll a DC 18 Wisdom check. On a success, all allies within 15ft gain +2 to attack rolls until the start of your next turn.",
+            description: "After you deflect a blaster attack, make a DC 18 Wisdom check. On a success, allies within 15ft gain +2 to attack rolls until the start of your next turn. This effect does not stack with itself.",
           },
         ],
       },
@@ -4901,12 +4785,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "guardian-t2-a",
             name: "",
-            description: "Gain the ability to use Saber Throw as a reaction when triggering Perfect Riposte.",
+            description: "When Perfect Riposte triggers, you may use Saber Throw in place of its normal Lightsaber attack. This uses the same Reaction.",
           },
           {
             id: "guardian-t2-b",
             name: "",
-            description: "After landing a lightsaber attack, your target gains Disadvantage on all attack rolls against targets other than you until the start of your next turn.",
+            description: "After you hit a target with a Lightsaber attack, it has Disadvantage on attacks against creatures other than you until the start of your next turn.",
           },
         ],
       },
@@ -4916,12 +4800,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "guardian-t3-a",
             name: "",
-            description: "Perfect Riposte no longer requires a reaction, but may only trigger twice per turn.",
+            description: "Perfect Riposte no longer requires a Reaction and may trigger up to twice per turn.",
           },
           {
             id: "guardian-t3-b",
             name: "",
-            description: "After using a Force Ability, all allies within 15ft gain +2 to saving throw DCs for abilities they use until the start of your next turn.",
+            description: "After you use a Force Ability, allies within 15ft gain +2 to the saving throw DCs of their abilities until the start of your next turn.",
           },
         ],
       },
@@ -4931,12 +4815,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "guardian-t4-a",
             name: "",
-            description: "Gain the ability to deflect gadgets and targeted abilities in addition to blaster bolts. All normal deflection rules apply, including the ability to reflect the attack back at the attacker.",
+            description: "You may use your normal deflection and reflection rules against Gadget attacks and other targeted ability attacks that make attack rolls, in addition to blaster attacks.",
           },
           {
             id: "guardian-t4-b",
             name: "",
-            description: "If you do not already know Battle Meditation, you learn it. Battle Meditation may now be cast as a Bonus Action.",
+            description: "Learn Battle Meditation if you do not already know it. You may use it as a Bonus Action.",
           },
         ],
       },
@@ -4954,12 +4838,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "sage-t1-a",
             name: "",
-            description: "Gain an additional Force Point per turn while Centered.",
+            description: "While Centered and in combat, gain 1 additional Force Point at the start of each of your turns.",
           },
           {
             id: "sage-t1-b",
             name: "",
-            description: "During the first turn in which you move to a less Centered state, treat all penalties as if you were still at the prior Balance tier.",
+            description: "The first time each turn you move out of Centered, retain the bonuses and penalties of your previous Balance tier until the start of your next turn.",
           },
         ],
       },
@@ -4969,12 +4853,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "sage-t2-a",
             name: "",
-            description: "While Centered, gain the ability to reroll your damage dice and keep the highest result.",
+            description: "While Centered, when you roll damage, you may reroll the damage dice and use either result.",
           },
           {
             id: "sage-t2-b",
             name: "",
-            description: "While between 56 and 70 Balance, increase Force ability damage by 1d8 instead of 1d6. While between 30 and 44 Balance, increase lightsaber damage by 1d6 instead of 1d4.",
+            description: "At 56–70 Balance, the additional Force Ability damage becomes 1d8 instead of 1d6. At 30–44 Balance, the additional Lightsaber damage becomes 1d6 instead of 1d4.",
           },
         ],
       },
@@ -4984,12 +4868,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "sage-t3-a",
             name: "",
-            description: "Gain +2 AC while Centered.",
+            description: "While Centered, gain +2 AC.",
           },
           {
             id: "sage-t3-b",
             name: "",
-            description: "While above 70 Balance, gain double range for all Force Abilities. While below 30 Balance, gain an additional 5ft to melee attack range.",
+            description: "While above 70 Balance, double the range of your Force Abilities. While below 30 Balance, increase your melee range by 5ft.",
           },
         ],
       },
@@ -4999,12 +4883,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "sage-t4-a",
             name: "",
-            description: "While Centered, gain the ability to use Force Abilities as Bonus Actions.",
+            description: "Force Abilities that normally require an Action may instead be used as a Bonus Action.",
           },
           {
             id: "sage-t4-b",
             name: "",
-            description: "Double all bonuses gained from being in an uncentered Balance state.",
+            description: "Double all bonuses granted by non-Centered Balance states.",
           },
         ],
       },
@@ -5027,7 +4911,7 @@ export const talentTrees: TalentTree[] = [
           {
             id: "shadow-t1-b",
             name: "",
-            description: "While Impulse is greater than Focus, gain +2 to lightsaber attack rolls.",
+            description: "While Impulse is greater than Focus, gain +2 to Lightsaber attack rolls.",
           },
         ],
       },
@@ -5057,7 +4941,7 @@ export const talentTrees: TalentTree[] = [
           {
             id: "shadow-t3-b",
             name: "",
-            description: "While Impulse is greater than Focus, Driven Strike and Forceful Breach increase their die size to 1d12 and 1d10, respectively.",
+            description: "While Impulse is greater than Focus, Driven Strike uses 1d12 and Forceful Breach uses 1d10.",
           },
         ],
       },
@@ -5067,12 +4951,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "shadow-t4-a",
             name: "",
-            description: "While Focus is greater than or equal to Impulse, Cloak of Shadows costs 1 Focus instead of 3 and may be used as a Bonus Action.",
+            description: "While Focus is greater than or equal to Impulse, Cloak of Shadows costs 1 Focus and may be used as a Bonus Action.",
           },
           {
             id: "shadow-t4-b",
             name: "",
-            description: "While Impulse is greater than Focus, gain the ability to use two Impulse abilities per turn.",
+            description: "While Impulse is greater than Focus, up to two Impulse Abilities may modify the same attack.",
           },
         ],
       },
@@ -5090,12 +4974,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "commando-t1-a",
             name: "",
-            description: "For the first Energy Cell ability you use per turn, decrease its cost by 1 (minimum 1). Does not apply to Overcharges.",
+            description: "The first Energy Cell ability you use each turn costs 1 fewer Energy Cell (minimum 1). This does not apply to Overcharges.",
           },
           {
             id: "commando-t1-b",
             name: "",
-            description: "Overcharged shots ignore half cover, and treat three-quarters cover as half cover.",
+            description: "Overcharged shots ignore Half Cover and treat Three-Quarters Cover as Half Cover.",
           },
         ],
       },
@@ -5105,12 +4989,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "commando-t2-a",
             name: "",
-            description: "On a Critical Hit with any attack, gain 1 Energy Cell.",
+            description: "When you score a Critical Hit with an attack, regain 1 Energy Cell.",
           },
           {
             id: "commando-t2-b",
             name: "",
-            description: "Overcharged shots ignore all damage resistances.",
+            description: "Overcharged shots ignore all Resistances.",
           },
         ],
       },
@@ -5120,12 +5004,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "commando-t3-a",
             name: "",
-            description: "For the first Overcharged shot used per turn, decrease its cost by 2 (minimum 2).",
+            description: "The first Overcharged shot you use each turn costs 2 fewer Energy Cells (minimum 2).",
           },
           {
             id: "commando-t3-b",
             name: "",
-            description: "For each Overcharged shot made, grant future Overcharges +2 damage against all targets. Lasts until the end of your next turn, stacking up to 5 times. Using further Overcharged shots on the next turn extends the duration.",
+            description: "Each Overcharged shot you use grants +2 damage to all targets of your future Overcharged shots until the end of your next turn. This stacks up to five times. Using another Overcharged shot before the duration ends refreshes the duration of all stacks.",
           },
         ],
       },
@@ -5135,12 +5019,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "commando-t4-a",
             name: "",
-            description: "For each hit with a non-Energy Cell attack, gain 1 Energy Cell.",
+            description: "Once per turn, when you hit with an attack that does not spend Energy Cells, regain 1 Energy Cell.",
           },
           {
             id: "commando-t4-b",
             name: "",
-            description: "Add an additional 1d8 damage to each target of each Overcharged shot.",
+            description: "Each target hit by an Overcharged shot takes an additional 1d8 damage.",
           },
         ],
       },
@@ -5149,7 +5033,7 @@ export const talentTrees: TalentTree[] = [
   {
     id: "vanguard",
     name: "Vanguard",
-    description: "A living fortress who weaponises their Temporary HP pool, turning punishment absorbed into offensive pressure and battlefield control.",
+    description: "A living fortress who weaponises their Shields pool, turning punishment absorbed into offensive pressure and battlefield control.",
     accent: "sky",
     tiers: [
       {
@@ -5158,12 +5042,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "vanguard-t1-a",
             name: "",
-            description: "While you have any Temporary HP, gain +2 AC.",
+            description: "While you have any Shields, gain +2 AC.",
           },
           {
             id: "vanguard-t1-b",
             name: "",
-            description: "Upon dealing damage or targeting an enemy with any Energy Cell ability, reduce their movement speed by 10ft until the start of your next turn.",
+            description: "When you damage or target an enemy with an Energy Cell ability, reduce its movement speed by 10ft until the start of your next turn.",
           },
         ],
       },
@@ -5173,12 +5057,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "vanguard-t2-a",
             name: "",
-            description: "When you lose all Temporary HP due to enemy damage, halve all overflow damage and halve all further incoming damage for the rest of that turn.",
+            description: "When enemy damage reduces your Shields to 0, halve any overflow damage and halve all further incoming damage until the start of your next turn.",
           },
           {
             id: "vanguard-t2-b",
             name: "",
-            description: "Upon landing a hit, gain the ability to push the target back 5ft, provided they are no more than 2 size categories larger than you.",
+            description: "Whenever you hit a target, you may push it 5ft if it is no more than two size categories larger than you.",
           },
         ],
       },
@@ -5188,12 +5072,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "vanguard-t3-a",
             name: "",
-            description: "While you have any Temporary HP, all allies within 10ft automatically gain the benefits of half cover. If Shield Pulse is active, they instead gain three-quarters cover.",
+            description: "While you have any Shields, allies within 10ft gain Half Cover. While Shield Pulse is active, they instead gain Three-Quarters Cover.",
           },
           {
             id: "vanguard-t3-b",
             name: "",
-            description: "All enemies that attack you must pass a Constitution saving throw or lose half of their movement speed until the start of their next turn.",
+            description: "When an enemy attacks you, it must make a Constitution saving throw. On a failure, its movement speed is halved until the start of its next turn.",
           },
         ],
       },
@@ -5203,12 +5087,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "vanguard-t4-a",
             name: "",
-            description: "While you have any Temporary HP, gain Resistance to all incoming damage.",
+            description: "While you have any Shields, gain Resistance to all damage.",
           },
           {
             id: "vanguard-t4-b",
             name: "",
-            description: "Gain the ability to make Opportunity Attacks with ranged weapons against enemies that move more than 10ft away from you.",
+            description: "You may make ranged Opportunity Attacks when an enemy crosses from within 10ft of you to beyond 10ft of you.",
           },
         ],
       },
@@ -5226,12 +5110,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "gunslinger-t1-a",
             name: "",
-            description: "When you hit with a Reaction attack, the target cannot use Reactions or Bonus Actions for the rest of their turn.",
+            description: "When you hit with a Reaction attack, the target cannot take Reactions or Bonus Actions for the rest of its turn.",
           },
           {
             id: "gunslinger-t1-b",
             name: "",
-            description: "Against any target who has not yet acted this round of combat, deal an additional 1d6 damage with all weapon attacks. Does not apply to Reaction attacks.",
+            description: "Against a target that has not yet acted this round, your weapon attacks deal an additional 1d6 damage. This does not apply to Reaction attacks.",
           },
         ],
       },
@@ -5241,12 +5125,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "gunslinger-t2-a",
             name: "",
-            description: "After attacking on your Reaction, gain the ability to move 5ft.",
+            description: "After making a Reaction attack, you may move 5ft without provoking Opportunity Attacks.",
           },
           {
             id: "gunslinger-t2-b",
             name: "",
-            description: "All additional attacks against the same target past the first in a turn gain +2 damage.",
+            description: "After your first attack against a target during a turn, each additional attack against that target deals +2 damage.",
           },
         ],
       },
@@ -5256,7 +5140,7 @@ export const talentTrees: TalentTree[] = [
           {
             id: "gunslinger-t3-a",
             name: "",
-            description: "Gain an additional Reaction each round.",
+            description: "Gain one additional Reaction each round.",
           },
           {
             id: "gunslinger-t3-b",
@@ -5271,12 +5155,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "gunslinger-t4-a",
             name: "",
-            description: "Gain +2 to all Reaction attack rolls and Reaction damage rolls.",
+            description: "Gain +2 to all attack and damage rolls made as part of a Reaction.",
           },
           {
             id: "gunslinger-t4-b",
             name: "",
-            description: "All additional attacks against the same target past the first in a turn gain +2 to hit.",
+            description: "After your first attack against a target during a turn, each additional attack against that target gains +2 to the attack roll.",
           },
         ],
       },
@@ -5294,12 +5178,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "scoundrel-t1-a",
             name: "",
-            description: "Gain the ability to completely remove all splash radius from your presents, making them single-target. In exchange, add one additional damage die to the detonation.",
+            description: "You may remove all splash radius from a Present, making it affect only one target. If you do, add one additional damage die of the same size as the Present's normal damage die.",
           },
           {
             id: "scoundrel-t1-b",
             name: "",
-            description: "Targets damaged by your gadgets lose 10ft of movement speed until the start of your next turn.",
+            description: "Targets damaged by your Presents lose 10ft of movement speed until the start of your next turn.",
           },
         ],
       },
@@ -5309,12 +5193,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "scoundrel-t2-a",
             name: "",
-            description: "If you damage only one target with a present detonation, force Disadvantage on all saving throws that target makes for one turn.",
+            description: "If a Present detonation damages only one target, that target has Disadvantage on all saving throws until the start of your next turn.",
           },
           {
             id: "scoundrel-t2-b",
             name: "",
-            description: "Targets hit by your presents suffer -2 to their next attack roll.",
+            description: "Targets hit by your Presents suffer −2 to their next attack roll.",
           },
         ],
       },
@@ -5324,12 +5208,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "scoundrel-t3-a",
             name: "",
-            description: "If you damage only one target with a present, gain the ability to push them back 10ft.",
+            description: "If a Present damages only one target, you may push that target 10ft.",
           },
           {
             id: "scoundrel-t3-b",
             name: "",
-            description: "After detonating a present, your threat range for forcing Disadvantage on ranged attackers extends to 15ft until the start of your next turn.",
+            description: "After detonating a Present, your threat range for imposing Disadvantage on ranged attackers increases to 15ft until the start of your next turn.",
           },
         ],
       },
@@ -5339,12 +5223,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "scoundrel-t4-a",
             name: "",
-            description: "If you have detonated a Present that affected only a single target this turn, gain Advantage on attack rolls against that target for one turn. When rolling damage against that target, you may reroll the damage roll and use either result.",
+            description: "If you detonate a Present that affects only one target during your turn, gain Advantage on attack rolls against that target until the start of your next turn. When rolling damage against that target, you may reroll the damage roll and use either result.",
           },
           {
             id: "scoundrel-t4-b",
             name: "",
-            description: "Gain the ability to make present detonations create a 10ft radius smoke cloud that lasts for 2 turns.",
+            description: "When you detonate a Present, you may also create a 10ft-radius smoke cloud that lasts for two turns.",
           },
         ],
       },
@@ -5362,12 +5246,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "operative-t1-a",
             name: "",
-            description: "All Operative-specific gadgets gain +1 use per rest.",
+            description: "Operative-specific Gadgets gain +1 use. All Gadget uses refresh on a Long Rest.",
           },
           {
             id: "operative-t1-b",
             name: "",
-            description: "Gain Expertise in Stealth (double your proficiency bonus on Stealth checks).",
+            description: "Gain Expertise in Stealth, doubling your Proficiency Bonus on Stealth checks.",
           },
         ],
       },
@@ -5377,12 +5261,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "operative-t2-a",
             name: "",
-            description: "Increase the size of all gadget-related damage dice by one step (d6 to d8, d8 to d10, etc.).",
+            description: "Increase all Gadget damage dice by one step.",
           },
           {
             id: "operative-t2-b",
             name: "",
-            description: "Gain the ability to Hide as a Bonus Action. If you are behind three-quarters or full cover, gain Advantage on this check.",
+            description: "You may Hide as a Bonus Action. If you are behind Three-Quarters Cover or Full Cover, gain Advantage on the check.",
           },
         ],
       },
@@ -5392,12 +5276,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "operative-t3-a",
             name: "",
-            description: "After damaging a target with a gadget, force that target to make a Constitution saving throw. On a failure, you gain Advantage on all attacks against them until the start of your next turn.",
+            description: "After damaging a target with a Gadget, it must make a Constitution saving throw. On a failure, gain Advantage on all attacks against it until the start of your next turn.",
           },
           {
             id: "operative-t3-b",
             name: "",
-            description: "Gain the ability to use Intelligence as the governing ability score for Deception checks.",
+            description: "You may use Intelligence instead of Charisma for Deception checks.",
           },
         ],
       },
@@ -5407,12 +5291,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "operative-t4-a",
             name: "",
-            description: "Gain an additional Bonus Action on each of your turns.",
+            description: "Gain one additional Bonus Action.",
           },
           {
             id: "operative-t4-b",
             name: "",
-            description: "After attacking while hidden, gain the ability to make a Stealth check. On a success, increase the DC of all checks to detect you by 2 and remain hidden. On a failure, reset the DC.",
+            description: "After attacking while Hidden, make a Stealth check. On a success, remain Hidden and increase the DC of checks to detect you by 2. Each further success increases the DC by an additional 2. On a failure, you are detected and the DC resets.",
           },
         ],
       },
@@ -5430,12 +5314,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "sniper-t1-a",
             name: "",
-            description: "Gain Targeting Visor for free without requiring a Gadget Slot, along with one spare memory chip. Additional memory chips still require Gadget Slots. Grant the benefits of Targeting Visor to up to two allies within 200ft.",
+            description: "Gain Targeting Visor without requiring a Gadget Slot, along with one additional memory chip. Additional memory chips still require Gadget Slots. You may grant the benefits of Targeting Visor to up to two allies within 200ft.",
           },
           {
             id: "sniper-t1-b",
             name: "",
-            description: "Steady Aim grants the ability to ignore half cover on all attacks made while active.",
+            description: "While Steady Aim is active, your attacks ignore Half Cover.",
           },
         ],
       },
@@ -5445,12 +5329,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "sniper-t2-a",
             name: "",
-            description: "Against targets studied by Targeting Visor, gain the ability to track them, granting perfect knowledge of their position so long as they remain within 900ft or until ten minutes have passed.",
+            description: "You always know the location of targets studied by Targeting Visor while they remain within 900ft. This lasts for 10 minutes.",
           },
           {
             id: "sniper-t2-b",
             name: "",
-            description: "Gain the ability to reduce a target's movement speed by 10ft upon landing a hit.",
+            description: "When you hit a target, reduce its movement speed by 10ft until the start of your next turn.",
           },
         ],
       },
@@ -5460,12 +5344,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "sniper-t3-a",
             name: "",
-            description: "Gain the ability to grant Advantage to all allies within 50ft against all targets marked by Targeting Visor. This takes an Action.",
+            description: "As an Action, grant Advantage to all allies within 50ft against targets marked by Targeting Visor for one turn.",
           },
           {
             id: "sniper-t3-b",
             name: "",
-            description: "Gain Advantage on all attack rolls against targets with impaired movement speed.",
+            description: "Gain Advantage on attack rolls against targets with reduced movement speed.",
           },
         ],
       },
@@ -5475,12 +5359,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "sniper-t4-a",
             name: "",
-            description: "Targeting Visor now grants perfect knowledge of the target's abilities, current HP, armor, weapons, and ability scores. Double all combat bonuses granted by Targeting Visor.",
+            description: "Targeting Visor also reveals the target's abilities, current HP, armor, weapons, and ability scores. Double all combat bonuses granted by Targeting Visor.",
           },
           {
             id: "sniper-t4-b",
             name: "",
-            description: "Double the benefit of Steady Aim and gain the ability to shoot through 5ft of cover while Steady Aim is active.",
+            description: "Double the attack-roll bonus granted by Steady Aim. While Steady Aim is active, your attacks may pass through up to 5ft of solid material.",
           },
         ],
       },
@@ -5503,7 +5387,7 @@ export const talentTrees: TalentTree[] = [
           {
             id: "powertech-t1-b",
             name: "",
-            description: "After personally using a gadget, gain the ability to reduce the next source of incoming damage by your proficiency bonus.",
+            description: "After you personally use a Gadget, reduce the next instance of damage you take before the start of your next turn by your Proficiency Bonus. Gadgets used by your Companion Droid do not trigger this effect.",
           },
         ],
       },
@@ -5513,12 +5397,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "powertech-t2-a",
             name: "",
-            description: "Your Companion Droid gains the Help action, which it can use on its turn to grant Advantage to an ally's next attack or ability check.",
+            description: "Your Companion Droid gains the Help Action, which it may use on its turn to grant Advantage on an ally's next attack roll or ability check.",
           },
           {
             id: "powertech-t2-b",
             name: "",
-            description: "Against enemies currently affected by a gadget, gain +2 to attack rolls and damage rolls.",
+            description: "Gain +2 to attack and damage rolls against enemies currently affected by a Gadget.",
           },
         ],
       },
@@ -5528,12 +5412,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "powertech-t3-a",
             name: "",
-            description: "Your Companion Droid gains a one-handed weapon of your choice. As a Reaction, your droid can attempt to shoot an incoming projectile within weapon range, negating it entirely (treat incoming projectiles as AC 12).",
+            description: "If your Companion Droid is carrying a weapon, it may use its Reaction to fire at an incoming projectile within the weapon's range. Treat the projectile as AC 12. On a hit, the projectile is destroyed and its attack is negated.",
           },
           {
             id: "powertech-t3-b",
             name: "",
-            description: "Force all enemies to have Disadvantage on saving throws against your gadgets.",
+            description: "Enemies have Disadvantage on saving throws against your Gadgets.",
           },
         ],
       },
@@ -5543,12 +5427,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "powertech-t4-a",
             name: "",
-            description: "Your Companion Droid gains its own initiative and no longer requires your Bonus Action to act each turn.",
+            description: "Your Companion Droid rolls its own Initiative and may act on its turn without requiring your Bonus Action to command it.",
           },
           {
             id: "powertech-t4-b",
             name: "",
-            description: "Your first hit each turn against a Frightened target is a critical hit.",
+            description: "The first time each turn you hit an enemy affected by a Gadget, the attack is a Critical Hit.",
           },
         ],
       },
@@ -5571,7 +5455,7 @@ export const talentTrees: TalentTree[] = [
           {
             id: "mercenary-t1-b",
             name: "",
-            description: "While above 80 Heat, gain +2 to all Arsenal Ability attack rolls.",
+            description: "While above 80 Heat, gain +2 to Arsenal Ability attack rolls.",
           },
         ],
       },
@@ -5581,12 +5465,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "mercenary-t2-a",
             name: "",
-            description: "Delay the self-damage thresholds by 10 Heat (self-damage now begins at 90 Heat instead of 80, and the increased tier begins at 100 instead of 90).",
+            description: "Increase all of your self-damage Heat thresholds by 10.",
           },
           {
             id: "mercenary-t2-b",
             name: "",
-            description: "While above 80 Heat, reroll one damage die from each Arsenal ability.",
+            description: "While above 80 Heat, whenever you use an Arsenal Ability, you may reroll one of its damage dice and use either result.",
           },
         ],
       },
@@ -5596,7 +5480,7 @@ export const talentTrees: TalentTree[] = [
           {
             id: "mercenary-t3-a",
             name: "",
-            description: "While above 80 Heat, gain the ability to double your passive Heat venting rate.",
+            description: "While above 80 Heat, you may double your passive Heat venting rate.",
           },
           {
             id: "mercenary-t3-b",
@@ -5611,12 +5495,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "mercenary-t4-a",
             name: "",
-            description: "Emergency Vent now refreshes on a Short Rest rather than a Long Rest.",
+            description: "Emergency Vent refreshes on a Short Rest instead of a Long Rest.",
           },
           {
             id: "mercenary-t4-b",
             name: "",
-            description: "Overheating no longer disables your abilities. Instead, while Overheated, take 4d8 damage per turn and add one additional damage die to all Arsenal Abilities. Heat may continue to increase indefinitely until vented or otherwise cooled.",
+            description: "Overheating no longer disables your abilities. While Overheated, take 4d8 damage at the start of each of your turns and add one additional damage die to all Arsenal Abilities. Your Heat may increase beyond its normal maximum until vented or otherwise reduced.",
           },
         ],
       },
@@ -5634,12 +5518,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "marauder-t1-a",
             name: "",
-            description: "Kills grant an additional 15 Rage.",
+            description: "When you reduce a creature to 0 HP, gain an additional 15 Rage.",
           },
           {
             id: "marauder-t1-b",
             name: "",
-            description: "While Channeling Hatred, all Rage abilities cost 10 Rage less.",
+            description: "While Channeling Hatred, Rage abilities cost 10 less Rage.",
           },
         ],
       },
@@ -5649,12 +5533,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "marauder-t2-a",
             name: "",
-            description: "Kills increase your Critical Range by 1 for 2 turns. Further kills refresh this duration.",
+            description: "When you reduce a creature to 0 HP, increase your Critical Hit range by 1 for two turns. Further kills refresh the duration.",
           },
           {
             id: "marauder-t2-b",
             name: "",
-            description: "While Channeling Hatred, ignore all Resistances.",
+            description: "While Channeling Hatred, your damage ignores all Resistances.",
           },
         ],
       },
@@ -5664,12 +5548,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "marauder-t3-a",
             name: "",
-            description: "Kills grant doubled damage against Temporary Health until the end of your next turn.",
+            description: "When you reduce a creature to 0 HP, deal double damage to Shields until the end of your next turn.",
           },
           {
             id: "marauder-t3-b",
             name: "",
-            description: "While Channeling Hatred, gain an additional 5ft of melee range.",
+            description: "While Channeling Hatred, increase your melee range by 5ft.",
           },
         ],
       },
@@ -5679,12 +5563,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "marauder-t4-a",
             name: "",
-            description: "Kills cause all enemies within 10ft to take damage equal to your level.",
+            description: "When you reduce a creature to 0 HP, all enemies within 10ft of you take damage equal to your level.",
           },
           {
             id: "marauder-t4-b",
             name: "",
-            description: "While Channeling Hatred, gain +1 damage to lightsaber attacks for each enemy within 10ft of you.",
+            description: "While Channeling Hatred, your Lightsaber attacks deal +1 damage for each enemy within 10ft of you.",
           },
         ],
       },
@@ -5702,12 +5586,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "juggernaut-t1-a",
             name: "",
-            description: "Gain the ability to reduce the first instance of incoming damage per turn by 1d6.",
+            description: "Reduce the first instance of damage you take each turn by 1d6.",
           },
           {
             id: "juggernaut-t1-b",
             name: "",
-            description: "For each instance of damage you receive in a turn, increase your damage by 1 until the end of your next turn.",
+            description: "Each time you take damage, increase all damage you deal by 1 until the end of your next turn.",
           },
         ],
       },
@@ -5717,12 +5601,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "juggernaut-t2-a",
             name: "",
-            description: "While Channeling Hatred, reduce the damage of all incoming area of effect abilities, items, and gadgets by 1d6.",
+            description: "While Channeling Hatred, reduce damage you take from area-of-effect abilities, items, and Gadgets by 1d6.",
           },
           {
             id: "juggernaut-t2-b",
             name: "",
-            description: "Gain an additional 5 Rage per hit taken.",
+            description: "Gain an additional 5 Rage each time you are hit.",
           },
         ],
       },
@@ -5732,12 +5616,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "juggernaut-t3-a",
             name: "",
-            description: "While Channeling Hatred, treat all incoming critical hits as normal hits.",
+            description: "While Channeling Hatred, treat Critical Hits against you as normal hits.",
           },
           {
             id: "juggernaut-t3-b",
             name: "",
-            description: "If you have received at least two incoming attacks this turn, gain Extra Attack for one round.",
+            description: "If at least two attacks target you during a turn, gain Extra Attack for one round.",
           },
         ],
       },
@@ -5747,12 +5631,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "juggernaut-t4-a",
             name: "",
-            description: "While Channeling Hatred, gain immunity to all movement-altering effects, such as Force Push or Difficult Terrain. Gain Advantage against every enemy who attempts to alter your movement.",
+            description: "While Channeling Hatred, you ignore Difficult Terrain and gain Advantage on saving throws against effects that would alter your movement. If a movement-altering effect does not allow a saving throw, you are immune to that effect.",
           },
           {
             id: "juggernaut-t4-b",
             name: "",
-            description: "After taking damage, all abilities and lightsaber attacks affect all targets within 5ft of your primary target until the end of your next turn.",
+            description: "After taking damage, all of your abilities and Lightsaber attacks also affect all valid targets within 5ft of the primary target until the end of your next turn.",
           },
         ],
       },
@@ -5770,12 +5654,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "alchemist-t1-a",
             name: "",
-            description: "Every time your Alchemical Horror gains Mutagenic Evolution, gain half that amount (rounded down) to apply to yourself. Mutagenic Overloads may also be selected, but Weirdling may not. Recklessness also applies to Mutagenic Ability attack rolls.",
+            description: "Whenever your Alchemical Horror gains Mutagenic Abilities from Mutagenic Evolution, you gain half as many, rounded down, to apply to yourself. You may choose Mutagenic Overloads for your own Mutagenic Abilities, but you cannot choose Weirdling. Recklessness also applies to attack rolls made with your Mutagenic Abilities.",
           },
           {
             id: "alchemist-t1-b",
             name: "",
-            description: "Your Alchemical Horror gains +10ft movement.",
+            description: "Your Alchemical Horror gains +10ft movement speed.",
           },
         ],
       },
@@ -5785,12 +5669,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "alchemist-t2-a",
             name: "",
-            description: "Add an additional 1d8 to all damage rolls for your own Mutagenic Abilities.",
+            description: "Your Mutagenic Abilities deal an additional 1d8 damage.",
           },
           {
             id: "alchemist-t2-b",
             name: "",
-            description: "Add an additional 1d6 to all damage rolls for your Alchemical Horror.",
+            description: "Your Alchemical Horror adds an additional 1d6 damage to every damage instance it causes.",
           },
         ],
       },
@@ -5800,7 +5684,7 @@ export const talentTrees: TalentTree[] = [
           {
             id: "alchemist-t3-a",
             name: "",
-            description: "For each new Mutagenic Ability taken for yourself, gain +2 to Intimidation rolls.",
+            description: "Gain +2 to Intimidation checks for each Mutagenic Ability you have selected for yourself.",
           },
           {
             id: "alchemist-t3-b",
@@ -5815,12 +5699,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "alchemist-t4-a",
             name: "",
-            description: "Heal 2d8 per turn while in combat.",
+            description: "While in combat, regain 2d8 HP at the start of each of your turns.",
           },
           {
             id: "alchemist-t4-b",
             name: "",
-            description: "Whenever your Alchemical Horror kills an enemy, it gains another action. This may not happen more than once per turn.",
+            description: "When your Alchemical Horror reduces an enemy to 0 HP, it gains one additional Action. This can occur only once per turn.",
           },
         ],
       },
@@ -5838,7 +5722,7 @@ export const talentTrees: TalentTree[] = [
           {
             id: "sorcerer-t1-a",
             name: "",
-            description: "Increase the Power Overcharge damage bonus by 1.",
+            description: "Increase the damage granted by each Force Point spent on Power Overcharge by 1.",
           },
           {
             id: "sorcerer-t1-b",
@@ -5853,12 +5737,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "sorcerer-t2-a",
             name: "",
-            description: "Power Overcharged ability attack rolls increase their critical range by 1.",
+            description: "Force Ability attack rolls benefiting from Power Overcharge increase their Critical Hit range by 1.",
           },
           {
             id: "sorcerer-t2-b",
             name: "",
-            description: "Force Abilities ignore half cover, and treat three-quarters cover as half cover.",
+            description: "Your Force Abilities ignore Half Cover and treat Three-Quarters Cover as Half Cover.",
           },
         ],
       },
@@ -5868,12 +5752,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "sorcerer-t3-a",
             name: "",
-            description: "If Power Overcharging by at least 4 Force Points, force the enemy to roll a Constitution saving throw. On a failure, they are Stunned for one turn.",
+            description: "When you spend at least 4 Force Points on Power Overcharge, affected enemies must make a Constitution saving throw. On a failure, they are Stunned until the start of your next turn.",
           },
           {
             id: "sorcerer-t3-b",
             name: "",
-            description: "Once per effect, when an opponent succeeds on a saving throw to break out from one of your effects, force them to re-roll.",
+            description: "Once per effect, when a creature succeeds on a saving throw to end one of your effects, force it to reroll the saving throw and use the new result.",
           },
         ],
       },
@@ -5883,12 +5767,12 @@ export const talentTrees: TalentTree[] = [
           {
             id: "sorcerer-t4-a",
             name: "",
-            description: "You may spend up to 2 additional Force Points when using Power Overcharge beyond your normal Proficiency Bonus limit. For each Force Point spent beyond your normal limit, take 1d8 damage after the ability resolves. This damage cannot be reduced or prevented.",
+            description: "You may spend up to 2 additional Force Points on Power Overcharge beyond your normal Proficiency Bonus limit. For each Force Point spent beyond that limit, take 1d8 damage after the ability resolves. This damage cannot be reduced or prevented.",
           },
           {
             id: "sorcerer-t4-b",
             name: "",
-            description: "Twice per Long Rest, gain the ability to change the shape of your Force Abilities: treat single-target abilities as a 5ft diameter line, cones as circles with radius 1/2 of the cone's range centered within 60ft, and circles as cones with range 2× the circle's radius.",
+            description: "Twice per Long Rest, when using a Force Ability, you may change its area: single-target abilities become a 5ft-wide line with a length equal to the ability's normal range; cones become circles with a radius equal to half the cone's range, centered at a point within 60ft; circles become cones with a range equal to twice the circle's radius.",
           },
         ],
       },
@@ -5913,7 +5797,7 @@ export interface Enemy {
   size: string;
   ac: number;
   hp: number;
-  tempHp?: number;
+  shields?: number;
   speed: string;
   str: number;
   dex: number;
@@ -6052,7 +5936,7 @@ export const enemies: Enemy[] = [
     size: "Large",
     ac: 15,
     hp: 42,
-    tempHp: 20,
+    shields: 20,
     speed: "20ft",
     str: 18, dex: 16, con: 12, int: 8, wis: 8, cha: 6,
     traits: ["Droid"],
@@ -6060,7 +5944,7 @@ export const enemies: Enemy[] = [
       {
         name: "Deflector Shield",
         type: "passive",
-        description: "Begins combat with 20 Temporary HP. If not damaged for 2 turns, regenerates 1d8 Temporary HP per turn, up to a maximum of 20 Temporary HP.",
+        description: "Begins combat with 20 Shields. If not damaged for 2 turns, regenerates 1d8 Shields per turn, up to a maximum of 20 Shields.",
       },
       {
         name: "Stable Firing Position",
@@ -6080,7 +5964,7 @@ export const enemies: Enemy[] = [
       {
         name: "Wheel Mode",
         type: "bonus",
-        description: "Until the beginning of its next turn, speed becomes 60ft and AC becomes 17, but it cannot attack or use Reactions. All attacks while in Wheel Mode bypass its Temporary HP.",
+        description: "Until the beginning of its next turn, speed becomes 60ft and AC becomes 17, but it cannot attack or use Reactions. All attacks while in Wheel Mode bypass its Shields.",
       },
     ],
     tactics: "Droidekas roll into advantageous positions, deploy their shields, and hold narrow approaches with concentrated fire.",
@@ -6340,7 +6224,7 @@ export const enemies: Enemy[] = [
       {
         name: "Shield Generator",
         type: "action",
-        description: "Grant all allies within 30ft 15 Temporary HP. If the Shieldbearer dies, all of this Temporary HP is immediately lost. Cannot be used if the riot shield is destroyed. May only be used once per battle.",
+        description: "Grant all allies within 30ft 15 Shields. If the Shieldbearer dies, all of this Shields is immediately lost. Cannot be used if the riot shield is destroyed. May only be used once per battle.",
       },
     ],
     tactics: "Shieldbearers are the defensive bulwark of the clone forces, able to tank the most punishing fire without flinching — at least unless their shields are destroyed. They provide valuable shields to all allies around them.",
