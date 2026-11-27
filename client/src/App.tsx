@@ -2,7 +2,6 @@
 // App.tsx — TTRPG Rulebook
 // Blades & Blasters application shell with sidebar navigation
 // =============================================================================
-
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
@@ -28,7 +27,7 @@ import EnemiesPage from "./pages/EnemiesPage";
 import CharacterCreationPage from "./pages/CharacterCreationPage";
 import ShipsPage from "./pages/ShipsPage";
 import TemplatesPage from "./pages/TemplatesPage";
-
+import GMGuidePage from "./pages/GMGuidePage";
 function Router() {
   return (
     <Layout>
@@ -51,13 +50,13 @@ function Router() {
         <Route path="/character-creation" component={CharacterCreationPage} />
         <Route path="/ships" component={ShipsPage} />
         <Route path="/templates" component={TemplatesPage} />
+        <Route path="/gm-guide" component={GMGuidePage} />
         <Route path="/404" component={NotFound} />
         <Route component={NotFound} />
       </Switch>
     </Layout>
   );
 }
-
 function App() {
   return (
     <ErrorBoundary>

@@ -2,7 +2,6 @@
 // Layout.tsx — Blades & Blasters sidebar layout
 // Fixed left sidebar + scrollable main content area
 // =============================================================================
-
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import {
@@ -31,7 +30,6 @@ interface NavItem {
   href: string;
   icon: React.ReactNode;
 }
-
 const navItems: NavItem[] = [
   { label: "Home", href: "/", icon: <Home size={18} /> },
   { label: "Classes", href: "/classes", icon: <Swords size={18} /> },
@@ -48,9 +46,9 @@ const navItems: NavItem[] = [
   { label: "Ships", href: "/ships", icon: <Rocket size={18} /> },
   { label: "Templates", href: "/templates", icon: <FileDown size={18} /> },
   { label: "Rules", href: "/rules", icon: <BookOpen size={18} /> },
+  { label: "GM Guide", href: "/gm-guide", icon: <BookOpen size={18} /> },
   { label: "Changelog", href: "/changelog", icon: <ScrollText size={18} /> },
 ];
-
 interface LayoutProps {
   children: React.ReactNode;
 }
@@ -64,7 +62,6 @@ export default function Layout({ children }: LayoutProps) {
     if (href === "/") return location === "/";
     return location.startsWith(href);
   };
-
   return (
     <div className="flex min-h-screen bg-background">
       {/* Mobile overlay */}
@@ -74,7 +71,6 @@ export default function Layout({ children }: LayoutProps) {
           onClick={() => setMobileOpen(false)}
         />
       )}
-
       {/* Sidebar */}
       <aside
         className={cn(
@@ -98,7 +94,6 @@ export default function Layout({ children }: LayoutProps) {
             </div>
           )}
         </div>
-
         {/* Navigation */}
         <nav className="flex-1 py-4 overflow-y-auto">
           <ul className="space-y-1 px-2">
@@ -124,7 +119,6 @@ export default function Layout({ children }: LayoutProps) {
             ))}
           </ul>
         </nav>
-
         {/* Collapse toggle (desktop only) */}
         <div className="hidden lg:flex border-t border-sidebar-border p-2">
           <button
@@ -136,7 +130,6 @@ export default function Layout({ children }: LayoutProps) {
           </button>
         </div>
       </aside>
-
       {/* Main content */}
       <div
         className={cn(
@@ -157,7 +150,6 @@ export default function Layout({ children }: LayoutProps) {
             Blades &amp; Blasters
           </span>
         </header>
-
         {/* Page content */}
         <main className="flex-1 overflow-auto">
           {children}
