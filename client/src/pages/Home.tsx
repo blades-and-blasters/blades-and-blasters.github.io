@@ -1,7 +1,6 @@
 // =============================================================================
 // Home.tsx — Blades & Blasters landing / dashboard
 // =============================================================================
-
 import { Link } from "wouter";
 import {
   Swords,
@@ -18,10 +17,9 @@ import {
   Crosshair,
   FileDown,
 } from "lucide-react";
-import { classes, forceAbilities, gadgets, skills, talentTrees, ships, enemies } from "@/lib/gameData";
+import { classes, forceAbilities, gadgets, skills, talentTrees, ships, enemies, gmGuide } from "@/lib/gameData";
 import { accentColorMap } from "@/lib/gameData";
 import { cn } from "@/lib/utils";
-
 const sections = [
   {
     label: "Classes",
@@ -163,8 +161,18 @@ const sections = [
     border: "border-rose-400/30",
     bg: "bg-rose-400/5",
   },
+  {
+    label: "GM Guide",
+    href: "/gm-guide",
+    icon: <BookOpen size={22} />,
+    count: gmGuide.length,
+    countLabel: "chapters",
+    description: "Guidance for Game Masters on operations, encounters, battlefields, rewards, attrition, and starship combat.",
+    accent: "text-amber-400",
+    border: "border-amber-400/30",
+    bg: "bg-amber-400/5",
+  },
 ];
-
 export default function Home() {
   return (
     <div className="p-6 lg:p-8 max-w-5xl">
@@ -179,7 +187,6 @@ export default function Home() {
         </p>
         <div className="section-divider mt-6" />
       </div>
-
       {/* Class quick-access */}
       <div className="mb-10">
         <h2 className="text-xl font-bold text-foreground mb-4" style={{ fontFamily: "Rajdhani, sans-serif" }}>
@@ -217,7 +224,6 @@ export default function Home() {
           })}
         </div>
       </div>
-
       {/* Section grid */}
       <div className="mb-10">
         <h2 className="text-xl font-bold text-foreground mb-4" style={{ fontFamily: "Rajdhani, sans-serif" }}>
@@ -239,7 +245,7 @@ export default function Home() {
                   </div>
                   {section.count !== null && section.count !== undefined ? (
                     <span className="text-xs text-muted-foreground mono">
-                      {section.count} entries
+                      {section.count} {section.countLabel ?? "entries"}
                     </span>
                   ) : (
                     <span className="text-xs text-transparent select-none mono">0 entries</span>
@@ -260,7 +266,6 @@ export default function Home() {
           ))}
         </div>
       </div>
-
 
     </div>
   );
